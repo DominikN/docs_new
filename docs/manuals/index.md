@@ -21,6 +21,6 @@ A manual describing an open source self-balancing telepresence robot kit based o
 
 Hardware documentation of ROSbot.
 
-## Husarion add-os ##
+## Husarion add-ons ##
 
 Description of extension sets for CORE2 or CORE2-ROS

@@ -15,12 +15,24 @@ Few lines that should including your code flashed on CORE2:
 ```cpp
 void hMain()
 {
+    //RPi.init(230400); // uncomment if UpBoard
     platform.begin(&RPi);
     nh.getHardware()->initWithDevice(&platform.LocalSerial);
     nh.initNode();
     nh.subscribe(sub);
 // ...
 }
+```
+or if you using UpBoard:
+```cpp
+void hMain()
+{
+    RPi.init(230400); // uncomment if using UpBoard
+    //platform.begin(&RPi); // comment this line
+    nh.getHardware()->initWithDevice(&RPi); // change here
+    nh.initNode();
+    nh.subscribe(sub);
+// ...
 ```
 
 After flashing your code you just have to connect with your SBC (ssh, remote desktop client) and run in first terminal window: 
@@ -71,5 +83,9 @@ On Raspberry Pi:
 ```
 /opt/husarion/tools/rpi-linux/ros-core2-client /dev/serial0
 ```
-
+On UpBoard:
+```
+/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyS4
+/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyS4 _baud:=230400
+```
 
