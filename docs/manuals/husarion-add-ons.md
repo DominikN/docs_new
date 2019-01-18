@@ -443,10 +443,10 @@ In the current firmware, the LED is turned on if both power supplies (+5V and +V
 ## hBatteryPack kit ##
 
 A common part for:
-- [CORE2brick](husarion-add-ons#core2brick-extension-kit "CORE2brick")
-- [CORE2block](husarion-add-ons#core2block-extension-kit "CORE2block")
-- [ROSbot](rosbot-manual#rosbot-manual-overview "ROSbot")
-- [CORE2 Telepresence robot](telepresence#telepresence-robot-kit-manual-overview "CORE2 Telepresence robot")
+- [CORE2brick](/manuals/husarion-add-ons#core2brick-extension-kit "CORE2brick")
+- [CORE2block](/manuals/husarion-add-ons#core2block-extension-kit "CORE2block")
+- [ROSbot](/manuals/rosbot-manual#rosbot-manual-overview "ROSbot")
+- [CORE2 Telepresence robot](/manuals/telepresence#telepresence-robot-kit-manual-overview "CORE2 Telepresence robot")
 
 Keeps your 18650 cells together and delivers the sum of their voltage to your CORE2 or other device :)
 

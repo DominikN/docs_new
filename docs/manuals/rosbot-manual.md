@@ -264,7 +264,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     <tr>
         <td>LEDs</td>
         <td>6</td>
-        <td>LR1(yellow), LR2(blue), L1(red), L2(green), L3(green), PWR(red), more details <a href="core2#leds-and-buttons">here</a>.</td>
+        <td>LR1(yellow), LR2(blue), L1(red), L2(green), L3(green), PWR(red), more details <a href="/manuals/core2#leds-and-buttons">here</a>.</td>
     </tr>
     <tr>
         <td>reset button</td>

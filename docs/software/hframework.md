@@ -19,11 +19,11 @@ hFramework API documentation is available at https://husarion.com/core2/api_refe
 
 ## Using hFramework ##
 
-The easiest way to experience hFramework is to use Husarion WebIDE or install Husarion plugin to Visual Studio Code. Each of these methods gives us different options. With WebIDE we can start programing our device right after unpacking and the controller does not have to be even close to us, if you just starting follow this <a href="../tutorials/howtostart/run-your-first-program">tutorial</a>. Programming via VSC allows us to rebuild the default implemented library but we have to connect board with computer via USB and and depending on the system we use, install several packages. full instruction of using offline development tools you can find <a href="../tutorials/other-tutorials/offline-development-tools">here</a>.
+The easiest way to experience hFramework is to use Husarion WebIDE or install Husarion plugin to Visual Studio Code. Each of these methods gives us different options. With WebIDE we can start programing our device right after unpacking and the controller does not have to be even close to us, if you just starting follow this <a href="/tutorials/howtostart/run-your-first-program">tutorial</a>. Programming via VSC allows us to rebuild the default implemented library but we have to connect board with computer via USB and and depending on the system we use, install several packages. full instruction of using offline development tools you can find <a href="/tutorials/other-tutorials/offline-development-tools">here</a>.
 
 ### Building hFramework ###
 
-If you need to change code of hFramework you have to follow the instructions from <a href="../tutorials/other-tutorials/hframework-library-development">manual</a>. 
+If you need to change code of hFramework you have to follow the instructions from <a href="/tutorials/other-tutorials/hframework-library-development">manual</a>. 
 
 ## Examples ##
 
