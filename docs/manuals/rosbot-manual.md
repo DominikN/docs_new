@@ -370,7 +370,7 @@ If you need more information about charging, please read the [Charging manual fo
 ## Software ##
 
 Software for ROSbot can be divided into 2 parts:
- * A firmware that works on the real-time controller (CORE2) and can be developed and uploaded from [Husarion Cloud](https://cloud.husarion.com/) with WebIDE. It can also be developed offline using [Visual Studio Code IDE](../tutorials/other-tutorials/offline-development-tools).
+ * A firmware that works on the real-time controller (CORE2) and can be developed and uploaded from [Husarion Cloud](https://cloud.husarion.com/) with WebIDE. It can also be developed offline using [Visual Studio Code IDE](/tutorials/other-tutorials/offline-development-tools).
  * OS based on Ubuntu 16.04, which runs on the SBC (ASUS Tinker Board) and contains all components needed to start working with ROS immediately. The microSD card with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
  
  In some cases you will need to flash the OS image to the microSD card once again:
@@ -393,7 +393,7 @@ Note: The app will ask you to hold hCfg button on CORE2 and to watch LR1, LR2 LE
 ## ROS tutorials ##
 
 ROS (Robot Operating System) provides libraries and tools to help software developers create robot applications. It provides hardware abstraction, device drivers, libraries, visualizers, message-passing, package management, and more. It's very powerful and 
-functional tool dedicated to design robots. We created the set of [ROS tutorials dedicated for this platform](../tutorials/ros-tutorials/1-ros-introduction/ "ROS tutorials dedicated for this platform") to make it easier to familiarize yourself with these frameworks. 
+functional tool dedicated to design robots. We created the set of [ROS tutorials dedicated for this platform](/tutorials/ros-tutorials/1-ros-introduction/ "ROS tutorials dedicated for this platform") to make it easier to familiarize yourself with these frameworks. 
 
 ## Configuring ROSbot to work with 5GHz WiFi. ##
 
@@ -448,7 +448,7 @@ All helpful documents and links in one place:
 
 * [ROSbot Safety Instructions](https://files.husarion.com/docs2/ROSbot_safety_instructions_1.0.pdf "ROSbot Safety Instructions") - important!
 * [Charging manual for ROSbot](https://files.husarion.com/docs2/Charging%20manual%20for%20ROSbot.pdf)
-* [ROS tutorials for ROSbot](../tutorials/ros-tutorials/1-ros-introduction)
+* [ROS tutorials for ROSbot](/tutorials/ros-tutorials/1-ros-introduction)
 * [ROSbot on ROS webpage](https://robots.ros.org/rosbot-2.0/)
 * [ROSbot on ROS Wiki](http://wiki.ros.org/Robots/ROSbot-2.0)
 * [URDF model of ROSbot - for Gazebo integrated with ROS](https://github.com/husarion/rosbot_description)

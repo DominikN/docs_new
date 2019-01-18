@@ -147,7 +147,7 @@ The schematic shows a single sensor interface. Each sensor connector is connecte
     </tr>
 </table>
 
-*- see [hSensor description](../manuals/core2#hsensor "hSensor description") for the specific functions availability
+*- see [hSensor description](/manuals/core2#hsensor "hSensor description") for the specific functions availability
 
 ### hBatteryPack ###
 

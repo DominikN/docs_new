@@ -675,7 +675,7 @@ In this section you will find instructions on how to update CORE2mini bootloader
 
 ## Updating CORE2mini bootloader ##
 
-You need to have Visual Studio Code installed with Husarion extension. Please follow this guide if you haven't done this before: [VSCode installation](../tutorials/other-tutorials/offline-development-tools/#offline-development-tools-installation-guide) 
+You need to have Visual Studio Code installed with Husarion extension. Please follow this guide if you haven't done this before: [VSCode installation](/tutorials/other-tutorials/offline-development-tools/#offline-development-tools-installation-guide) 
 1. Locate core2-flasher utility (YOUR_HOME_PATH/.vscode/extensions/husarion.husarion-VERSION/sdk/tools/YOUR_ARCH/core2-flasher).
 2. Download the bootloader [HEX file](https://files.husarion.com/bootloader/bootloader_1_0_0_core2.hex) to the folder with core2-flasher
 3. Connect CORE2mini to PC via USB.
@@ -702,7 +702,7 @@ You need to have Visual Studio Code installed with Husarion extension. Please fo
 
 ## Updating ESP32 firmware ##
 
-Make sure that your CORE2mini is connected with your cloud account. [This is a guide](../tutorials/howtostart/run-your-first-program#run-your-first-program-connecting-to-the-cloud) that explains how to do it.
+Make sure that your CORE2mini is connected with your cloud account. [This is a guide](/tutorials/howtostart/run-your-first-program#run-your-first-program-connecting-to-the-cloud) that explains how to do it.
 
 1. Turn CORE2mini on and login to the cloud account. The device should be visible as "online".
 2. Click "+" and "More".
