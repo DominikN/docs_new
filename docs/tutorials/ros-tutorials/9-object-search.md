@@ -8,13 +8,13 @@ id: 9-object-search
 
 Object search task defines a mission in which robot has to explore environment while observing if given object exists in explored area. For this purpose it is necessary to use two different approaches, one for exploration and second for object recognition. In prevoius tutorial we already discussed object environment exploration and object recognition as separate tasks. Beside launching them together, it is necessary to keep track of which obstacles were checked by the object recognition process. Task is considered as finished when object is succesfully recognized or all obstacles were checked with no object detection.
 
-![image](../../assets/img/ros/man_9_find_object_2d.png)
+![image](/docs/assets/img/ros/man_9_find_object_2d.png)
 
 We have prepared ready to go virtual environment with end effect of following this tutorial. It is available on ROSDS:
 
 <div><center>
 <a href="https://rds.theconstructsim.com/tc_projects/use_project_share_link/1a7c4b62-12d5-4f7c-8f2f-f2a2b8ecdb23">
-<img alt="run-on-ROSDS" src="../../assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
 </center></div>
 
 ## Object search in ROS ##
@@ -45,7 +45,7 @@ Before continuing with object detection task certain requirements must be met, r
 
 Our search system will consist of many cooperating ROS nodes, before we start configuring them, we need to specify overall data flow and principle of operation. For performing the search task we will use two main sensors, this will be laser scanner and RGB-D camera. Laser scanner will be used for robot localization and mapping, RDB-D camera will be used for object detection. The key role of the system will be played by our own node, we will name it `search_manager`, this node will be controlling state of other tasks like exploration or path planning. Furhtermore, `search_manager` will keep track of found obstacles and which of them were checked, for this, it will need to subscribe `/map` from `gmapping`, `/objects` from `find_object_2d` and `proj_scan` containing `sensor_msgs/LaserScan` projected from depth image.
 
-![image](../../assets/img/ros/man_9_rqt_graph.png)
+![image](/docs/assets/img/ros/man_9_rqt_graph.png)
 
 Due to the fact that all computations would be exccesive load for SBC in the robot, some of the tasks will be moved to other computer.
 
@@ -1441,7 +1441,7 @@ For Gazebo you can use below `launch` file:
 
 </launch>
 ```
-![image](../../assets/img/ros/man_9_gazebo.png)
+![image](/docs/assets/img/ros/man_9_gazebo.png)
 
 #### ROSbot version
 
@@ -1554,7 +1554,7 @@ To view them in Rviz add objects:
 
 -   From menu "Add" -> "By display type" choose "Robot model" - this will let you see where robot travelled
 
-![image](../../assets/img/ros/man_9_rviz.png)
+![image](/docs/assets/img/ros/man_9_rviz.png)
 
 ## Summary ##
 

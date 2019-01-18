@@ -40,9 +40,9 @@ Connect the peripherals:
 * Plug in DC power cable.
 
 ***<font color="red">very important: DC motors with encoders and servo should be connected to proper ports like this:</font>***
-<div><center><img src="../../assets/img/howToStart/cables_ralph.png" height="50%" width="50%" /></center></div>
+<div><center><img src="/docs/assets/img/howToStart/cables_ralph.png" height="50%" width="50%" /></center></div>
 
-<div><center><img src="../../assets/img/telepresence_robot_kit/ralph_alu_back_hd.jpg"></center></div>
+<div><center><img src="/docs/assets/img/telepresence_robot_kit/ralph_alu_back_hd.jpg"></center></div>
 <div style="text-align: left"><i>Properly assembled CORE2 telepresence robot</i></div>
 
 ## Connecting to the cloud ##
@@ -54,7 +54,7 @@ Connect the peripherals:
 * Install (<a href="https://play.google.com/store/apps/details?id=com.husarion.video2">hVideo app</a>) on your tablet/smartphone that you are going to integrate into robot.
 * Open hVideo app, and click "Add camera" next to your robot name at <a href="https://cloud.husarion.com">cloud.husarion.com</a>.
 
-<div><center><img src="../../assets/img/howToStart/add_camera_ralph.png"
+<div><center><img src="/docs/assets/img/howToStart/add_camera_ralph.png"
 /></center></div>
 
 * Scan QR Code - your device is now paired with your robot.
@@ -65,7 +65,7 @@ Connect the peripherals:
 * Place your robot with CORE2 facing up and turn it on.
 * Open WebIDE at <a href="https://cloud.husarion.com/">Husarion cloud</a> and create a new project using a template ***'08. self-balancing telepresence MPU9250 DMP (CORE2)'*** or '07. self-balancing telepresence - deprecated (CORE2)' and upload it to your CORE2.
 
-<div><center><img src="../../assets/img/howToStart/create_new_project_ralph.png"
+<div><center><img src="/docs/assets/img/howToStart/create_new_project_ralph.png"
 /></center></div>
 * When robot is programmed, open its user interface from <a href="https://cloud.husarion.com/">Husarion cloud main page</a> (left-click it's name).
 

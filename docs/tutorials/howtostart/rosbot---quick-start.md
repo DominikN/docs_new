@@ -21,7 +21,7 @@ What's in the box:
 * microSD card with the software for ROSbot
 * USB to Ethernet adapter
 
-<div><center><img src="../../assets/img/howToStart/ROSbot_unboxing.jpg"/></center></div>
+<div><center><img src="/docs/assets/img/howToStart/ROSbot_unboxing.jpg"/></center></div>
 
 ## Assembly ##
 
@@ -142,5 +142,5 @@ Programming procedure needs to be done only once, on further uses, you can start
 * Launch web browser and type the local IP of your ROSbot (the one you noted before)
 * You should see interface as below, use it to test and control your ROSbot.
 
-<div><center><img src="../../assets/img/howToStart/ROSbot_UI.png"
+<div><center><img src="/docs/assets/img/howToStart/ROSbot_UI.png"
 /></center></div>

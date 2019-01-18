@@ -26,26 +26,26 @@ In this tutorial we will show you how to setup environment at AWS RoboMaker to l
 To begin, you need to have an active AWS account.
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img1.png" width="900px" />
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img1.png" width="900px" />
 </center></div>
 
 <p>1. Go to “AWS management console” at <a href="https://aws.amazon.com/">https://aws.amazon.com/</a> .</p>
 <p>2. In search field start typing “IAM”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img2.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img2.png" width="900px"/>
 </center></div>
 
 <p>3. Open IAM module.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img3.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img3.png" width="900px"/>
 </center></div>
 
 <p>4. Go to “Roles”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img4.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img4.png" width="900px"/>
 </center></div>
 
 <p>5. Click “Create role”.</p>
@@ -53,7 +53,7 @@ To begin, you need to have an active AWS account.
 <p>7. Click “Next: Permissions”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img5.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img5.png" width="900px"/>
 </center></div>
 
 <p>8. In “Attach permissions policies” dialog, add (You can use filter to search for them):</p>
@@ -63,100 +63,100 @@ To begin, you need to have an active AWS account.
 * `AmazonS3FullAccess`
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img6.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img6.png" width="900px"/>
 </center></div>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img7.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img7.png" width="900px"/>
 </center></div>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img8.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img8.png" width="900px"/>
 </center></div>
 
 <p>9. Click “Next: Tags”, we do not need any tags, thus we proceed to Reviev.</p>
 <p>10. Click “Next: Review”. In field “Role name” type “robomaker_role” and make sure that in “Policies” section you have three entries.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img9.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img9.png" width="900px"/>
 </center></div>
 
 <p>11. Click “Create role” button, you will be redirected to “Roles” view.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img10.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img10.png" width="900px"/>
 </center></div>
 
 <p>12. Open role setting by clicking its name and choose tab “Trust relationships”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img11.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img11.png" width="900px"/>
 </center></div>
 
 <p>13. Click button “Edit trust relationships” and edit policy document, find entry “ec2.amazonaws.com” and change it to “robomaker.amazonaws.com”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img12.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img12.png" width="900px"/>
 </center></div>
 
 <p>14. Click “Update trust policy” button. Note the “Role ARN” entry, this will be required later.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img14.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img14.png" width="900px"/>
 </center></div>
 
 <p>15. Open “AWS Console”, in filter type “S3”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img15.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img15.png" width="900px"/>
 </center></div>
 
 <p>16. Open “S3” module.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img16.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img16.png" width="900px"/>
 </center></div>
 
 <p>17.  Click “Create bucket” button, in field “Bucket name” type DNS style name like "yourusername-bucket-robomaker" (it must be unique accross all names in Amazon S3, do not use "_" and "." in the name), from “Region dropdown” menu choose entry appropriate to your localization.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img17.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img17.png" width="900px"/>
 </center></div>
 
 <p>18. Proceed through creator, do not modify default values.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img18.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img18.png" width="900px"/>
 </center></div>
 
 <p>19. When you create bucket, open it, by clicking its name, it should be empty now. Note the bucket name, you will need it later.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img19.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img19.png" width="900px"/>
 </center></div>
 
 <p>20. Open “AWS Console”, in filter type “RoboMaker” and open “AWSRoboMaker” module.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img20.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img20.png" width="900px"/>
 </center></div>
 
 <p>21. Open “Development environments” tab.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img21.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img21.png" width="900px"/>
 </center></div>
 
 <p>22. Click “Create environment”, in field “Name” type “robomaker_env” and as “instance type” choose “c3.2xlarge”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img22.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img22.png" width="900px"/>
 </center></div>
 
 <p>23. Click "Create".</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img23.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23.png" width="900px"/>
 </center></div>
 
 <p>24. Download [ROSbotTutorial.tar.gz](https://files.husarion.com/ROSbotTutorial.tar.gz) and unpack it.</p>  
@@ -166,24 +166,24 @@ To begin, you need to have an active AWS account.
 <p>26. In editor open file “RoboMakerSettings.json” from folder “ROSbotTutorial”. Find all instances of "robomaker-bucket" and replace it with the name of your own bucket you've created in point <em>17</em>.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img23a.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23a.png" width="900px"/>
 </center></div>
 
 <p>27. In the same file find element "iamRole" and change its value to "Role ARN" entry you've saved in pont <em>14.</em> </p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img23b.png" />
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23b.png" />
 </center></div>
 <p>28.  Choose menu “RoboMakerRun” -> “Add or Edit Configurations”. </p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img24.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img24.png" width="900px"/>
 </center></div>
 
 <p>29. Click button “Switch config”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img25.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img25.png" width="900px"/>
 </center></div>
 
 <p>30. Choose “RoboMakerSettings.json” from folder “ROSbotTutorial” and click “OK” button and then "Save" button.</p>
@@ -191,31 +191,31 @@ To begin, you need to have an active AWS account.
 <p>31. Choose menu “RoboMakerRun” -> “Workflow” -> “ROSbotTutorial - Build and Bundle All”.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img26.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img26.png" width="900px"/>
 </center></div>
 
 <p>32. Package build process will start, when it is done, choose menu “RoboMakerRun” -> “Launch Simulation” -> “ROSbotTutorial”. Simulation job will be sent to RoboMaker. Wait until "Your simulation job was created." message appears in console.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img27.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img27.png" width="900px"/>
 </center></div>
 
 <p>33. Go to RoboMaker an open “Simulation jobs” menu.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img28.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img28.png" width="900px"/>
 </center></div>
 
 <p>34. Open simulation by clicking its name</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img29.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img29.png" width="900px"/>
 </center></div>
 
 <p>35. When it starts, you can open Gazebo view to watch as simulation proceeds.</p>
 
 <div><center>
-<img alt="" src="../../assets/img/aws-tutorials/aws_tutorial_img30.png" width="900px"/>
+<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img30.png" width="900px"/>
 </center></div>
 
 **Congratulations!**

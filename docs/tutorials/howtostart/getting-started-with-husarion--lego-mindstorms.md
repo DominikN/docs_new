@@ -64,17 +64,17 @@ One of sensors will detect the wall on the right side of the robot. It should be
 Your robot need another sensor facing ahead to detect any obstacles and evade them. Connect it to hSens2 port.
 Left motor should be connected to A motor port and the right one to D motor port.
 
-<div style="text-align: center"><img src="../../assets/img/howToStart/wallBOT_1.jpg"/></div>
+<div style="text-align: center"><img src="/docs/assets/img/howToStart/wallBOT_1.jpg"/></div>
 <div style="text-align: center"><i>Assembled robot with CORE2 controller and CORE2brick adapter</i></div>
 
 <p></p>
 
-<div style="text-align: center"><img src="../../assets/img/howToStart/wallBOT_2.jpg"/></div>
+<div style="text-align: center"><img src="/docs/assets/img/howToStart/wallBOT_2.jpg"/></div>
 <div style="text-align: center"><i>Assembled robot with RoboCORE controller</i></div>
 
 <p></p>
 
-<div style="text-align: center"><img src="../../assets/img/howToStart/wallBOT_3.jpg"/></div>
+<div style="text-align: center"><img src="/docs/assets/img/howToStart/wallBOT_3.jpg"/></div>
 <div style="text-align: center"><i>Assembled robot with CORE2 controller and CORE2brick adapter - side view</i></p></div>
 
 <p></p>
@@ -86,17 +86,17 @@ Sensors will detect object in front of the robot therefore you need to place bot
 Connect right sensor to hSens1 port and left one to hSens2 port.
 Left motor should be connected to A motor port and the right one to D motor port.
 
-<div style="text-align: center"><img src="../../assets/img/howToStart/shadowBOT_1.jpg"/></div>
+<div style="text-align: center"><img src="/docs/assets/img/howToStart/shadowBOT_1.jpg"/></div>
 <div style="text-align: center"><i>Assembled robot with CORE2 controller and CORE2brick adapter</i></div>
 
 <p></p>
 
-<div style="text-align: center"><img src="../../assets/img/howToStart/shadowBOT_2.jpg"/></div>
+<div style="text-align: center"><img src="/docs/assets/img/howToStart/shadowBOT_2.jpg"/></div>
 <div style="text-align: center"><i>Assembled robot with RoboCORE controller</i></div>
 
 <p></p>
 
-<div style="text-align: center"><img src="../../assets/img/howToStart/shadowBOT_3.jpg"/></div>
+<div style="text-align: center"><img src="/docs/assets/img/howToStart/shadowBOT_3.jpg"/></div>
 <div style="text-align: center"><i>Assembled robot with CORE2 controller and CORE2brick adapter - side view</i></p></div>
 
 <p></p>

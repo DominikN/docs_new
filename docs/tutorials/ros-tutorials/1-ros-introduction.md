@@ -7,7 +7,7 @@ id: 1-ros-introduction
 "The Robot Operating System (ROS) is a flexible framework for writing robot software. It is a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms." - according to the official [ROS webpage](http://www.ros.org/about-ros/).
 
 <div>
-<center><img src="../../assets/img/ros/ros_logo.jpeg" width="70%" height="70%" /></center>
+<center><img src="/docs/assets/img/ros/ros_logo.jpeg" width="70%" height="70%" /></center>
 </div>
 
 We prepared a set of tutorials to help you start building advanced robots. They are prepared to work with Husarion CORE2-ROS controller but they are also a valuable portion of knowledge for anybody interested in ROS.
@@ -120,11 +120,11 @@ The platform contains:
 And this is how it looks like:
 
 <div>
-<center><img src="../../assets/img/ROSbot_manual/colour_perspective.jpg" width="50%" height="45%" /></center>
+<center><img src="/docs/assets/img/ROSbot_manual/colour_perspective.jpg" width="50%" height="45%" /></center>
 </div>
 
 <div>
-<center><img src="../../assets/img/ROSbot_manual/colour_back.jpg" width="50%" height="50%" /></center>
+<center><img src="/docs/assets/img/ROSbot_manual/colour_back.jpg" width="50%" height="50%" /></center>
 </div>
 
 You can also test the performance of ROSbot using our simulation model in Gazebo environment. It is available here, at our <a href="https://github.com/husarion/rosbot_description">GitHub page</a>.
@@ -137,7 +137,7 @@ You can also try online simulator at <a href="http://www.theconstructsim.com/">w
 
 We also created package with all nodes and launch files from our ROS tutorials. You can download ready to use pkg from <a href="https://github.com/husarion/tutorial_pkg">GitHub page</a>.
 
-![image](../../assets/img/ROSbot_manual/rosbot_gazebo.png)
+![image](/docs/assets/img/ROSbot_manual/rosbot_gazebo.png)
 
 ## ROS and CORE2 Work flow
 
@@ -184,13 +184,13 @@ If you are working on Windows, press `WinKey + r` then type `mstsc`.
 
 You will see a window appear:
 
-<div><center><img src="../../assets/img/ros/man_1_1a.png" /></center></div>
+<div><center><img src="/docs/assets/img/ros/man_1_1a.png" /></center></div>
 
 Type in your device IP address and click `connect`. If you are working on
 Mac, you can use **Microsoft Remote Desktop** available at **AppStore**.
 If you are working on Ubuntu, you can use **Remmina**.
 
-![image](../../assets/img/ros/man_1_0.png)
+![image](/docs/assets/img/ros/man_1_0.png)
 
 The first step in working with ROS is to run master process called roscore.
 This node handles registration of other nodes, topics and services. After
@@ -286,7 +286,7 @@ We will begin with master by typing in the following code in the ecommand line:
 
 You should see something like this:
 
-![image](../../assets/img/ros/man_1_1.png)
+![image](/docs/assets/img/ros/man_1_1.png)
 
 Now you can use tools from chapter 2 in order to examine your system,
 don’t worry that you didn’t start any node yet.
@@ -401,7 +401,7 @@ $ roslaunch astra_launch astra.launch
 
 As output you should get something like below:
 
-![image](../../assets/img/ros/man_1_2.png)
+![image](/docs/assets/img/ros/man_1_2.png)
 
 **Task 1** 
 
@@ -419,7 +419,7 @@ Now you have camera node running, but can not see image from it yet. You will us
 
 As the output you should get:
 
-![image](../../assets/img/ros/man_1_3.png)
+![image](/docs/assets/img/ros/man_1_3.png)
 
 **Note for simulator**: Simulated environment consist of simple objects (plains, boxes etc.), due to this, image from camera will consist of simple shapes like triangles or rectangles.
 
@@ -438,7 +438,7 @@ the system. In new terminal type in:
 
 There will be no response in the terminal, but new window will appear. In upper left corner change "Nodes only" option to "Nodes/Topics (active)". You will see:
 
-![image](../../assets/img/ros/man_1_4.png)
+![image](/docs/assets/img/ros/man_1_4.png)
 
 Interpretation of the graph is as follows:
 
@@ -563,7 +563,7 @@ In case of working with Gazebo:
 ```
 You should get output like this:
 
-![image](../../assets/img/ros/man_1_5.png)
+![image](/docs/assets/img/ros/man_1_5.png)
 
 Notice that you do not need to run `roscore` before using `roslaunch`,
 if `roscore` is not running already, `roslaunch` will run it before

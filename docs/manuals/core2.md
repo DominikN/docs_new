@@ -5,13 +5,13 @@ id: core2
 
 <div class="clearfix">
 <div class="img-container">
-    <a href="../assets/img/core2-hardware/core2_top_small.jpg" data-fancybox="gallery" data-caption="CORE2 board">
-    <img src="../assets/img/core2-hardware/core2_top_small.jpg" alt="CORE2 board" class="hover-shadow"/>
+    <a href="/docs/assets/img/core2-hardware/core2_top_small.jpg" data-fancybox="gallery" data-caption="CORE2 board">
+    <img src="/docs/assets/img/core2-hardware/core2_top_small.jpg" alt="CORE2 board" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container">
-    <a href="../assets/img/core2-hardware/cheatsheet_small.jpg" data-fancybox="gallery" data-caption="CORE2 pinout">
-    <img src="../assets/img/core2-hardware/cheatsheet_small.jpg" alt="CORE2 pinout" class="hover-shadow"/>
+    <a href="/docs/assets/img/core2-hardware/cheatsheet_small.jpg" data-fancybox="gallery" data-caption="CORE2 pinout">
+    <img src="/docs/assets/img/core2-hardware/cheatsheet_small.jpg" alt="CORE2 pinout" class="hover-shadow"/>
     </a>
 </div> 
 </div>
@@ -97,7 +97,7 @@ This port is compatible with LEGO® MINDSTORMS® sets when a special adapter for
 
 <div class="image center h300">
 
-![](../assets/img/core2-hardware/hsensor.svg)
+![](/docs/assets/img/core2-hardware/hsensor.svg)
 
 </div>
 
@@ -192,7 +192,7 @@ All interfaces are compatible with 3.3V CMOS logic. The A/D converter range is 0
 
 <div class="image center">
 
-![](../assets/img/core2-hardware/hext.svg)
+![](/docs/assets/img/core2-hardware/hext.svg)
 
 </div>
 
@@ -388,7 +388,7 @@ You can connect up to 6 servo motors directly to CORE2. Power supply is onboard 
 
 <div class="image center h300">
 
-![](../assets/img/core2-hardware/hservo.svg)
+![](/docs/assets/img/core2-hardware/hservo.svg)
 
 </div>
 
@@ -447,7 +447,7 @@ The encoder interface is compatible with the majority of popular optical and mag
 
 <div class="image center h300">
 
-![](../assets/img/core2-hardware/hmot.svg)
+![](/docs/assets/img/core2-hardware/hmot.svg)
 
 </div>
 
@@ -500,7 +500,7 @@ The encoder interface is compatible with the majority of popular optical and mag
 
 <div class="thumb w180 right">
 
-![](../assets/img/core2-hardware/motors_encoders.jpg)
+![](/docs/assets/img/core2-hardware/motors_encoders.jpg)
 
 </div>
 
@@ -513,7 +513,7 @@ Remember not to power your motors using higher voltage than recommended in their
 
 <div class="thumb w180 right">
 
-![](../assets/img/core2-hardware/dc_motor.jpg)
+![](/docs/assets/img/core2-hardware/dc_motor.jpg)
 
 </div>
 
@@ -525,7 +525,7 @@ Despite the lack of the encoder, you still can recognize the extreme positions o
 
 <div class="thumb w180 right">
 
-![](../assets/img/core2-hardware/lego_motors.jpg)
+![](/docs/assets/img/core2-hardware/lego_motors.jpg)
 
 </div>
 
@@ -537,7 +537,7 @@ Remember that LEGO® motors have 9V nominal voltage and when you supply CORE2 wi
 
 <div class="thumb w180 right">
 
-![](../assets/img/core2-hardware/hstep.png)
+![](/docs/assets/img/core2-hardware/hstep.png)
 
 </div>
 
@@ -565,7 +565,7 @@ If you need to connect more than two CORE2s, you can attach jumpers in only one 
 
 <div class="image center h300">
 
-![](../assets/img/core2-hardware/hcan.svg)
+![](/docs/assets/img/core2-hardware/hcan.svg)
 
 </div>
 
@@ -598,7 +598,7 @@ If you need to connect more than two CORE2s, you can attach jumpers in only one 
 
 <div class="image center h300">
 
-![](../assets/img/core2-hardware/dbg.svg)
+![](/docs/assets/img/core2-hardware/dbg.svg)
 
 </div>
 
@@ -631,7 +631,7 @@ devices. Data connection and charging (up to 1A) can be provided simultaneously.
 
 <div class="thumb h100 right">
 
-![Jumpers configuration example](../assets/img/core2-hardware/jumper_USB_opis2.jpg "Jumpers configuration example")
+![Jumpers configuration example](/docs/assets/img/core2-hardware/jumper_USB_opis2.jpg "Jumpers configuration example")
 
 </div>
 
@@ -719,7 +719,7 @@ Just a connector for a standard microSD card. It uses one of the SPI interfaces 
 
 <div class="thumb w270 right">
 
-<img  width="50%" src="../assets/img/core2-hardware/leds.svg" alt="LEDs" />
+<img  width="50%" src="/docs/assets/img/core2-hardware/leds.svg" alt="LEDs" />
 
 </div>
 
@@ -742,7 +742,7 @@ while (true) {
 In case you observe LEDs blinking in a strange way, it means that the microcontroller fell into hard fault state and needs reset. It can happen if you accidentally execute an inappropriate program code. The picture below shows how it looks like:
 
 <div class="image h100">
-![](../assets/img/core2-hardware/L123_hard_fault.gif)
+![](/docs/assets/img/core2-hardware/L123_hard_fault.gif)
 </div>
 
 The buttons can be used in a very simple way:
@@ -774,7 +774,7 @@ The CORE2 power supply input has overvoltage (>16V), reverse-polarity and overcu
 
 <div class="thumb center">
 
-![](../assets/img/core2-hardware/powersupply.svg)
+![](/docs/assets/img/core2-hardware/powersupply.svg)
 
 </div>
 
@@ -897,42 +897,42 @@ There are 2 status LEDs - LR1 and LR2 - controlled directly from the ESP32/RPi d
         <td>Config mode</td>
         <td colspan="2">blinking alternately</td>
 	<td>600 ms</td>
-	<td><img src="../assets/img/core2-hardware/lr12_gif/LR12_config.gif" /></td>
+	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_config.gif" /></td>
     </tr>
     <tr>
         <td>Connecting</td>
         <td>OFF</td>
         <td>blinking</td>
 	<td>300 ms</td>
-	<td><img src="../assets/img/core2-hardware/lr12_gif/LR12_connecting.gif" /></td>
+	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_connecting.gif" /></td>
     </tr>
     <tr>
         <td>Connected</td>
         <td>OFF</td>
         <td>ON</td>
 	<td>-</td>
-	<td><img src="../assets/img/core2-hardware/lr12_gif/LR12_connected.gif" /></td>
+	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_connected.gif" /></td>
     </tr>
     <tr>
         <td>Not configured</td>
         <td>blinking</td>
         <td>OFF</td>
 	<td>100/1000 ms</td>
-	<td><img src="../assets/img/core2-hardware/lr12_gif/LR12_not_conf.gif" /></td>
+	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_not_conf.gif" /></td>
     </tr>
     <tr>
         <td>Invalid auth.</td>
         <td>blinking</td>
         <td>OFF</td>
 	<td>100 ms</td>
-	<td><img src="../assets/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif" /></td>
+	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif" /></td>
     </tr>
     <tr>
         <td>No Internet</td>
         <td>blinking</td>
         <td>ON</td>
 	<td>100 ms</td>
-	<td><img src="../assets/img/core2-hardware/lr12_gif/LR12_no_internet.gif" /></td>
+	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_no_internet.gif" /></td>
     </tr>
 </tbody>
 </table>
@@ -943,7 +943,7 @@ To obtain IP address of your CORE2-ROS, log into cloud.husarion.com and enter "M
 
 <div class="image center h300">
 
-![](../assets/img/core2-hardware/CORE2-ssh-ip.PNG)
+![](/docs/assets/img/core2-hardware/CORE2-ssh-ip.PNG)
 
 </div>
 
@@ -958,7 +958,7 @@ Password: 'husarion"
 
 <div class="thumb right w180">
 
-![](../assets/img/core2-hardware/rpi_connector.png "hRPI connector")
+![](/docs/assets/img/core2-hardware/rpi_connector.png "hRPI connector")
 
 </div>
 
