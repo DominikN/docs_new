@@ -26,14 +26,14 @@ const siteConfig = {
   // url: 'https://your-docusaurus-test-site.com', // Your website URL
   baseUrl: '/docs/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
-  url: 'https://byq77.github.io',
-  baseUrl: '/docusaurus-husarion-docs/',
+  url: 'https://husarion.com',
+  baseUrl: '/',
   // disableHeaderTitle: true,
   disableTitleTagline: true,
-  // docsUrl: '', // remove /docs/ from URL'
+  docsUrl: '', // remove /docs/ from URL'
   // Used for publishing and more
-  projectName: 'docusaurus-husarion-docs',
-  organizationName: 'byq77',
+  projectName: 'husarion-docs',
+  organizationName: 'husarion',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
