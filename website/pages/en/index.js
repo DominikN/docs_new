@@ -207,7 +207,6 @@ class Index extends React.Component {
         <div className="mainContainer">
         <Features />
         </div>
-        <script src="https://static.husarion.com/js/qa.js" async></script>
       </div>
     );
   }

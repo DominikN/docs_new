@@ -96,8 +96,9 @@ const siteConfig = {
     'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js',
     'https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js',
     'https://buttons.github.io/buttons.js',
-    'https://byq77.github.io/docusaurus-husarion-docs/js/scrollspy.js',
-    'https://byq77.github.io/docusaurus-husarion-docs/js/sidebarScroll.js',
+    'https://docs.husarion.com/js/scrollspy.js',
+    'https://docs.husarion.com/js/sidebarScroll.js',
+    'https://static.husarion.com/js/qa.js',
   ],
 
   stylesheets: [
