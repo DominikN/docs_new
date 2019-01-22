@@ -325,45 +325,51 @@ static const char * messages[] = {
     "mbed V5.10", "CORE2", "MCU", "STM32F407ZG", 
 };
 
+// ros task
+void rosThreadCallback(void)
+{
+    std_msgs::String str_msg;
+        
+    // Instantiate Publisher object with topic name "mbed device".
+    // Second parameter is reference to instance of object that
+    // will be used in communication.
+    ros::Publisher mbed_device("mbed_device", &str_msg);
+
+    // Initialize node and advertise our custom topic. 
+    nh.initNode();
+    nh.advertise(mbed_device);
+
+    int i=0, n = sizeof(messages)/sizeof(messages[0]);
+
+    while(1)
+    {
+        ros_led = !ros_led;
+        str_msg.data = messages[i%n];
+
+        // publish message to topic
+        mbed_device.publish(&str_msg);
+        i++;
+
+        // process all messages
+        nh.spinOnce();
+
+        ThisThread::sleep_for(1000);
+    }
+}
+
+void blinkerCallback(void)
+{
+    led1 = !led1;
+    led2 = !led2;
+}
+
 int main()
 {
-    // We use lambda style callback for registering a ros task
-    ros_thread.start([]()->void{
-        std_msgs::String str_msg;
-        
-        // Instantiate Publisher object with topic name "mbed device".
-        // Second parameter is reference to instance of object that
-        // will be used in communication.
-        ros::Publisher mbed_device("mbed_device", &str_msg);
+    // registering a ros task
+    ros_thread.start(callback(rosThreadCallback));
 
-        // Initialize node and advertise our custom topic. 
-        nh.initNode();
-        nh.advertise(mbed_device);
-
-        int i=0, n = sizeof(messages)/sizeof(messages[0]);
-
-        while(1)
-        {
-            ros_led = !ros_led;
-            str_msg.data = messages[i%n];
-
-            // publish message to topic
-            mbed_device.publish(&str_msg);
-            i++;
-
-            // process all messages
-            nh.spinOnce();
-
-            ThisThread::sleep_for(1000);
-        }
-    });
-
-    // We attach lambda style callback to blink on-board leds
-    // every 2 seconds.
-    blinker.attach([]()->void{
-        led1 = !led1;
-        led2 = !led2;
-    },2.0);
+    // We attach callback to blink leds every 2s
+    blinker.attach(callback(blinkerCallback),2.0);
 }
 ```
 
@@ -461,7 +467,7 @@ The example creates two topics - "raw_input" for user to send short String messa
 // LED3 = PE_4,
 
 // Port masks
-enum : uint8_t{
+enum {
     NONE = 0,
     L1 = 0b00000100,
     L2 = 0b00001000,
@@ -485,62 +491,67 @@ uint8_t input[BLOCK_SIZE];
 uint8_t output[BLOCK_SIZE];
 char formatted_output[2*BLOCK_SIZE+1];
 
+void subscriberCallback(const std_msgs::String &raw)
+{
+    // check if length <= 16
+    int n = strlen(raw.data);
+    if (n == 0 || n > 16)
+        return;
+    memcpy(input, raw.data, n);
+    // zero padding
+    for (int i = n; i < BLOCK_SIZE; ++i)
+        input[i] = 0;
+
+    // encrypt message
+    mbedtls_aes_crypt_ecb(&aes, MBEDTLS_AES_ENCRYPT, input, output);
+    message_ready = true;
+}
+
+void rosThreadCallback(void)
+{
+    ros::NodeHandle nh;
+
+    // the output will be formated string of characters
+    std_msgs::String str_output;
+    ros::Publisher pub("output_encrypted", &str_output);
+
+    // We instantiate publisher object with "input_raw" topic and attach
+    // callback for subscriber event (when user sends something).
+    ros::Subscriber<std_msgs::String> sub("input_raw", subscriberCallback);
+
+    nh.initNode();
+    nh.advertise(pub);
+
+    // subscribe to topic
+    nh.subscribe(sub);
+
+    // set aes key
+    mbedtls_aes_setkey_enc(&aes, secret_key, 128);
+    while (1)
+    {
+        // if message was encrypted send result to topic
+        if (message_ready)
+        {
+            int j = 0;
+            // format data
+            for (int i = 0; i < BLOCK_SIZE; ++i)
+            {
+                sprintf(formatted_output + j, "%02X", *(output + i));
+                j += 2;
+            }
+            str_output.data = formatted_output;
+            pub.publish(&str_output);
+            message_ready = false;
+        }
+        nh.spinOnce();
+        ThisThread::sleep_for(50);
+    }
+}
+
 int main()
 {
-    // We use lambda style callback for registering a ros task
-    ros_thread.start([]() -> void {
-        ros::NodeHandle nh;
-
-        // the output will be formated string of characters
-        std_msgs::String str_output;
-        ros::Publisher pub("output_encrypted", &str_output);
-        
-        // We instantiate publisher object with "input_raw" topic and attach lambda style 
-        // callback for subscriber event (when user sends something).
-        ros::Subscriber<std_msgs::String> sub("input_raw", [](const std_msgs::String& raw)-> void{
-            // check if length <= 16
-            int n = strlen(raw.data);
-            if(n == 0 || n > 16)
-                return;
-            memcpy(input,raw.data,n);
-            // zero padding
-            for(int i = n; i<BLOCK_SIZE; ++i)
-                input[i] = 0;
-
-            // encrypt message     
-            mbedtls_aes_crypt_ecb(&aes,MBEDTLS_AES_ENCRYPT,input,output);
-            message_ready = true;
-        });
-
-        nh.initNode();
-        nh.advertise(pub);
-        
-        // subscribe to topic 
-        nh.subscribe(sub);
-        
-        // set aes key
-        mbedtls_aes_setkey_enc( &aes, secret_key, 128);
-        while(1)
-        {
-            // if message was encrypted send result to topic
-            if(message_ready)
-            {
-                int j=0;
-                // format data 
-                for(int i=0;i<BLOCK_SIZE;++i)
-                {
-                    sprintf(formatted_output+j,"%02X",*(output+i));
-                    j+=2;
-                }
-                str_output.data = formatted_output;
-                pub.publish(&str_output);
-                message_ready = false;
-            }
-            nh.spinOnce();
-            ThisThread::sleep_for(50);
-        }
-    });
-
+    // registering a ros task
+    ros_thread.start(callback(rosThreadCallback));
     int i = 0, n = sizeof(masks);
     while(1)
     {
@@ -567,7 +578,7 @@ To receive encrypted messages, in a new tab run:
 To publish new message to "input_raw" topic open a new tab and run:
 
 ```bash
-    $ rostopic pub std_msgs/String "Hello World!" --once
+    $ rostopic pub input_raw std_msgs/String "Hello World!" --once
 ```
 
 <div>
