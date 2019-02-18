@@ -85,7 +85,6 @@ On Raspberry Pi:
 ```
 On UpBoard:
 ```
-/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyS4
 /opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyS4 _baud:=230400
 ```
 
