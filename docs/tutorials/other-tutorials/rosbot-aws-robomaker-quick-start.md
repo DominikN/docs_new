@@ -150,13 +150,14 @@ Click a button with a `cloud with arrow` (red square on image) to upload new fir
 
 In the previous step you have uploaded the firmware into your ROSbot. Let's check how it works!<br/>
 
-# RoboMaker ROSbot project #
+## RoboMaker ROSbot project ##
 
 We have prepared the repository containing setup files along with ROSbot model and launch files required to use [Husarion ROS tutorials](https://husarion.com/tutorials/) on [AWS RoboMaker](https://aws.amazon.com/robomaker/) and deploy them to ROSbot with use of Greengrass.
 Currently, tutorials [6 - SLAM navigation](https://husarion.com/tutorials/ros-tutorials/6-slam-navigation/), [7 - Path planning](https://husarion.com/tutorials/ros-tutorials/7-path-planning/) and [8 - Unknown environment exploration](https://husarion.com/tutorials/ros-tutorials/8-unknown-environment-exploration/) are tested, other tutorials will be added soon.
 
 
-#### Configure AWS Environment
+## Configure AWS Environment ##
+
 Before we use AWS RoboMaker to build and deploy the tutorial applications, we must first set up the AWS environment.  To simplify the configuration, we will use AWS CloudFormation.  CloudFormation enables us to use a template file to define the configuration of our environment.  We will use CloudFormation to create a bucket in Amaazon S3, as well as to create the necessary permissions in AWS Identity and Access Manager (IAM) that AWS RoboMaker requires to simulate and deploy our robot appliations.
 
 To deploy the template, sign in to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/).  Following the following steps to deploy the template:
@@ -174,7 +175,7 @@ To deploy the template, sign in to the [CloudFormation console](https://console.
 
 After a few brief minutes, the stack will be created.  When the status has changed to CREATE_COMPLETE, choose the stack you just created, and view its Outputs.  You will see 3 key/value pairs.  You will use these values later in this guide.
 
-#### ROSbot setup in RoboMaker
+## ROSbot setup in RoboMaker ##
 
 ROSbot need some system modifications before Greengrass will be able to run and deploy applications. To configure ROSbot:
 - sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/)
@@ -200,7 +201,7 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 
 - You will get `ROSbot-setup.zip` file, it need to be uploaded to ROSbot. The upload process will vary, depending on your host operating system.
 
-##### On Linux
+### On Linux ###
 
 Navigate to directory where the file is downloaded, by default it should be `~/Downloads`
 
@@ -214,7 +215,7 @@ cd ~/Downloads
 scp ROSbot-setup.zip husarion@ROSBOT_IP:ROSbot-setup.zip
 ```
 
-##### On Windows
+### On Windows ##
 
 You will need an SCP client, download and install [WinSCP](https://winscp.net/eng/download.php).
 
@@ -239,11 +240,11 @@ Drag and drop the `ROSbot-setup.zip` to the right tab.
 When the transfer is finished, close the window.
 
 
-#### ROSbot setup on device 
+## ROSbot setup on device ##
 
 You will need to make some system configurations on device. Depending on your host system, you can connect to your ROSbot with different methods:
 
-##### On Linux
+### On Linux ###
 
 Open terminal and start `ssh` connection, you will need to substitute `ROSBOT_IP` with device address you noted earlier:
 
@@ -253,7 +254,7 @@ ssh husarion@ROSBOT_IP
 
 Proceed to **Device setup** section.
 
-##### On Windows
+### On Windows ###
 
 Press `WinKey` + `r` then type `mstsc`.
 
@@ -265,7 +266,7 @@ Type in your device IP address and click connect.
 
 You will see the ROSbot desktop, from the top menu, choose the `Applications` -> `Terminal`.
 
-##### Device setup
+## Device setup ##
 
 In the terminal execute below commands:
 
@@ -291,7 +292,7 @@ sudo /greengrass/ggc/core/greengrassd start
 ```
 - Leave the ROSbot turned on, it will wait for deployment.
 
-#### Creating a RoboMaker IDE
+## Creating a RoboMaker IDE ##
 
 Application will be built using the RoboMaker environment. To create the IDE:
 - sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/home).
@@ -311,7 +312,7 @@ Application will be built using the RoboMaker environment. To create the IDE:
 ![RoboMaker IDE ready](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
 
 
-#### Deploying the application
+## Deploying the application ##
 
 To deploy application, you will use RoboMaker environment created in previous step:
 
@@ -351,7 +352,7 @@ When the script is done with its job, you can observe the deployment process:
 
 ![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_12.png)
 
-#### Viewing the results
+## Viewing the results ##
 
 ROSbots mission, after completing this tutorial, is to autonomously explore the environment around it.  It will drive to any location that is accessible and which cannot be observed from the already visited locations. It will create a map of that environment in the process using the data from the A2 LIDAR laser scanner mounted on top of it.
 
