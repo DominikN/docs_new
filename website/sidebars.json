@@ -43,7 +43,8 @@
           "tutorials/other-tutorials/hframework-library-development",
           "tutorials/other-tutorials/offline-development-tools",
           "tutorials/other-tutorials/how-to-use-core2-ros-local-serial-offline",
-          "tutorials/other-tutorials/run-ros-tutorials-using-aws-robomaker"
+          "tutorials/other-tutorials/run-ros-tutorials-using-aws-robomaker",
+          "tutorials/other-tutorials/rosbot-aws-robomaker-quick-start"
 
         ]
       }
