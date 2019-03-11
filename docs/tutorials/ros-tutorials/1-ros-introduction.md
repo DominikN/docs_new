@@ -220,7 +220,7 @@ To start using Gazebo with ROSbot model you need to download our package with mo
 From now your system is ready to run Gazebo with ROSbot. To start simulator use command:
 
 ```bash
-    $ roslaunch rosbot_gazebo rosbot_world.launch
+    $ roslaunch rosbot_description rosbot.launch
 ```
 
 ### Starting system step by step
@@ -538,14 +538,13 @@ At first you will need a `.launch` file.
     <arg name="use_gazebo" default="false"/>
 
     <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
 
     <node pkg="image_view" type="image_view" name="image_view">
         <remap from="/image" to="/camera/rgb/image_raw"/>
     </node>
 
-</launch>  
+</launch>   
 ``` 
 
 Copy the above code to text editor (and other parameters if needed) and save it to file `tutorial_1.launch` in your home directory.
