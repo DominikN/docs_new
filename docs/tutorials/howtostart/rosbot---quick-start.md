@@ -53,13 +53,13 @@ In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 3. Plug in one end of the Ethernet cable into your computer and other one to the adapter
 4. Connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and passowrd `husarion`
 5. Connect to a Wi-Fi network
-* in the terminal type `ifconfig wlan0` and press Enter
+...* in the terminal type `ifconfig wlan0` and press Enter
 * type `iwconfig wlan0 essid MY-WIFI-NETWORK key MY-WIFI-PASS` and press Enter
 * type `dhclient wlan0` and press Enter to obtain an IP address and connect to the WiFi network
 6. Connect to a Husarion cloud
 * open https://cloud.husarion.com in your web browser
-* click *Add new* button
-* enter device name and click *Next*
+* click **Add new** button
+* enter device name and click **Next**
 * copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
 * open Linux terminal and type (including code from the previous step) `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
 * after a few seconds you should see your device online at https://cloud.husarion.com
@@ -72,8 +72,8 @@ ROSbot is basically a computer running Ubuntu, so let's configure it like a stan
 3. Connect to a Wi-Fi network
 4. Connect to a Husarion cloud
 * open https://cloud.husarion.com in your web browser
-* click *Add new* button
-* enter device name and click *Next*
+* click **Add new** button
+* enter device name and click **Next**
 * copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
 * open Linux terminal and type (including code from the previous step) `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
 * after a few seconds you should see your device online at https://cloud.husarion.com
