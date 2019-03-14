@@ -62,7 +62,7 @@ In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 * enter device name and click **Next**
 * copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
 * open Linux terminal and type (including code from the previous step) 
-`sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
+```sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"```
 * after a few seconds you should see your device online at https://cloud.husarion.com
 
 ### Option 2: using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
