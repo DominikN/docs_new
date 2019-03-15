@@ -161,7 +161,7 @@ Currently, tutorials [6 - SLAM navigation](https://husarion.com/tutorials/ros-tu
 Before we use AWS RoboMaker to build and deploy the tutorial applications, we must first set up the AWS environment.  To simplify the configuration, we will use AWS CloudFormation.  CloudFormation enables us to use a template file to define the configuration of our environment.  We will use CloudFormation to create a bucket in Amaazon S3, as well as to create the necessary permissions in AWS Identity and Access Manager (IAM) that AWS RoboMaker requires to simulate and deploy our robot appliations.
 
 To deploy the template, sign in to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/).  Following the following steps to deploy the template:
-1.  Download the template file from [here](rosbot_tutorial_template.yaml).
+1.  Download the template file from [here](https://raw.githubusercontent.com/lukaszmitka/RoboMakerROSbotProject/master/rosbot_tutorial_template.yaml).
 2.  Click the **Create Stack** button.
 3.  Under *Choose a template*, choose *Upload a template to Amazon S3* and click **Choose File**.
 4.  Browse to the rosbot_tutorial_template.yaml file you download in Step 1 above.
