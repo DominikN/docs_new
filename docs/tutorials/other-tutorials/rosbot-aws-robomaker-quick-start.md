@@ -4,48 +4,45 @@ sidebar_label: 5. ROSbot + AWS Robomaker - Quick start tutorial
 id: rosbot-aws-robomaker-quick-start
 ---
 
-# ROSbot - introduction #
+# ROSbot - introduction
 
 ROSbot 2.0 is autonomous, open source robot platform. It can be used as a learning platform for Robot Operating System as well as a base for a variety of robotic applications such as research robots, inspection robots, custom service robots etc.
 
-## Unboxing ##
+## Unboxing
 
 What's in the box:
 
-* carrying case
-* ROSbot 2.0 (with optional 3D camera and LiDAR already assembled)
-* Wi-Fi 2.4GHz antenna
-* 3x 18650 Li-Ion reachargeable batteries
-* universal charger with power adapter
-* charging cable
-* microSD card with the software for ROSbot
-* USB to Ethernet adapter
+- carrying case
+- ROSbot 2.0 (with optional 3D camera and LiDAR already assembled)
+- Wi-Fi 2.4GHz antenna
+- 3x 18650 Li-Ion reachargeable batteries
+- universal charger with power adapter
+- charging cable
+- microSD card with the software for ROSbot
+- USB to Ethernet adapter
 
 <div><center><img src="https://raw.githubusercontent.com/husarion/static_docs/master/src/assets/img/howToStart/ROSbot_unboxing.jpg"/></center></div>
 
-## Rear panel discription ##
+## Rear panel discription
 
 In the picture below you can see names of the elements from the rear panel of the ROSbot.
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/ROSbot2_rear_panel.png)
 
-## Assembly ##
+## Mounting the batteries
 
-Your ROSbot is assembled, but to get it ready to work, you need to provide a power supply and attach the antenna. 
+Your ROSbot is assembled, but to get it ready to work, you need to provide a power supply and attach the antenna.
 
-To mount the batteries follow these steps:
+To mount the batteries turn ROSbot upside down and follow these steps:
 
-* turn ROSbot upside down
-* unscrew battery cover mounted with two screws
-![image](/docs/assets/img/aws-tutorials/quick-start/assembly_2.jpg)
-* remove the battery cover
-![image](/docs/assets/img/aws-tutorials/quick-start/assembly_3.jpg)
-* place batteries accordingly to the symbols, keeping the black strip under the batteries
-![image](/docs/assets/img/aws-tutorials/quick-start/assembly_4.jpg)
-* place batery cover and mount it with screws
-![image](/docs/assets/img/aws-tutorials/quick-start/assembly_1.jpg)
+1. unscrew battery cover mounted with two screws
+2. remove the battery cover
+3. place batteries **accordingly to the polarisation symbols (do it carefully!)**, keeping the black strip under the batteries
+4. place batery cover and mount it with screws
 
-## Quick start charging guide ##
+![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_battery.png)
+
+## Batteries charging guide
 
 1. Connect the power adapter to the charger and the output cable between charger and ROSbot (2 connectors on charger side, 1 black connector to ROSbot charging port).
 
@@ -54,11 +51,11 @@ To mount the batteries follow these steps:
 
 After this step is complete your charger should look like this:
 
-![image](/docs/assets/img/aws-tutorials/quick-start/charger_3.png)
+![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_charger.jpg)
 
 2. Use the first two buttons to select “LiPo BATT” mode and press [Start] button.
 3. Use arrows to select “LiPo CHARGE” mode.
-4. Press [Start] - the current value should start blinking. Use arrows to set the current to 1.5A. 
+4. Press [Start] - the current value should start blinking. Use arrows to set the current to 1.5A.
 5. Press [Start] again - the voltage value should start blinking. Select “11.1V(3S)” using arrows.
 6. Press and hold [Start] for 2 seconds. The charger should now ask for confirmation. Press [Start] again. The charging process should begin now.
 7. When charging is finished (after about 3 hours), the charger will generate a loud “beep” sound and will finish charging at the same time.
@@ -67,50 +64,43 @@ The picture below is a visualization of the mentioned steps.
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/charging.png)
 
+## Attaching the antenna
+
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/antenna_1.jpg)
+![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_antenna.png)
 
-After assembly it should look like this.
+## Connecting to Wi-Fi network and Husarion cloud
 
-![image](/docs/assets/img/aws-tutorials/quick-start/antenna_2.jpg)
+Setup [Husarion Cloud](https://cloud.husarion.com) account to program low-level firmware to your ROSbot.
 
-## Connecting to the cloud ##
+### Connecting using Ethernet adapter
 
-Before you start using the platform you need to create a [Husarion Cloud](https://cloud.husarion.com) account. 
-Now let's connect the ROSbot to [Husarion Cloud](https://cloud.husarion.com).  
+In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 
-### Connecting using mobile device and browser ###
+1. Turn on the robot and wait until it boots.
+2. Plug in Ethernet adapter (included in set) to USB port in the rear panel
+3. Plug in one end of the Ethernet cable into your computer and other one to the adapter
+4. Connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and passowrd `husarion`
+5. Connect to a Wi-Fi network
 
-Before you perform the next steps, install the hConfig mobile application on your smartphone or tablet:
-* [Google Play](https://play.google.com/store/apps/details?id=com.husarion.configtool2&hl=en)
-* [AppStore](https://itunes.apple.com/us/app/hconfig/id1283536270?mt=8)
+   - in the terminal type `ifconfig wlan0` and press Enter
+   - type `iwconfig wlan0 essid MY-WIFI-NETWORK key MY-WIFI-PASS` and press Enter
+   - type `dhclient wlan0` and press Enter to obtain an IP address and connect to the WiFi network
 
-1\. Open hConfig app on your smartphone and follow the wizard that will show you how to connect CORE2 (the controller that is inside the ROSBot) to your Wi-Fi network and your Husarion cloud account. The phone is required only once for configuration and connecting CORE2 with cloud. After that step is complete you will not be using it. After you select the Wi-Fi network for your CORE2 in the hConfig app, you can proceed to the next steps.
+6. Connect to a Husarion cloud
 
-The WiFi bradcasted by CORE2 controller can be used only for configuration, it does not allow to connect to the internet. Your phone may show warning regarding no internet connection while connected to this WiFi. You can ignore these warnings, as this will not interrupt the process.
-
-<b>For Android users: turn off mobile internet on your smartphone while using hConfig app </b>
-
-2\. hConfig app will ask you to add a new device. Open https://cloud.husarion.com in your browser and sign in.
-
-![image](/docs/assets/img/aws-tutorials/quick-start/1_signin.png)
-
-3\. Click "Add new device".
-
-![image](/docs/assets/img/aws-tutorials/quick-start/2_addNewDevice.png)
-
-4\. Enter the name for your ROSbot.
-
-![image](/docs/assets/img/aws-tutorials/quick-start/3_enterName.png)
-
-5\. Scan QR code using the hConfig app.
-
-![image](/docs/assets/img/aws-tutorials/quick-start/4_scanQr.png)
-
-6\. Well done! You just added your robot to the cloud!
+   - open https://cloud.husarion.com in your web browser
+   - click **Add new** button
+   - enter device name and click **Next**
+   - copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
+   - open Linux terminal and type (including code from the previous step)
+     - `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
+   - after a few seconds you should see your device online at https://cloud.husarion.com
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/5_devAdded.png)
+
+> There are two other ways to connect ROSbot to Husarion cloud: mouse + keyboard or mobile app. If you preffer them, check out this guide: https://husarion.com/tutorials/howtostart/rosbot---quick-start/#connecting-to-the-cloud
 
 ## Getting the device IP
 
@@ -122,7 +112,7 @@ Click "More" button to open device details view.
 
 Find line `Local IP` and note address provided, we will refer to it later as `ROSBOT_IP`.
 
-## Programming a firmware ##
+## Programming a firmware
 
 First you will program the ROSbot:
 
@@ -150,40 +140,41 @@ Click a button with a `cloud with arrow` (red square on image) to upload new fir
 
 In the previous step you have uploaded the firmware into your ROSbot. Let's check how it works!<br/>
 
-## RoboMaker ROSbot project ##
+## RoboMaker ROSbot project
 
 We have prepared the repository containing setup files along with ROSbot model and launch files required to use [Husarion ROS tutorials](https://husarion.com/tutorials/) on [AWS RoboMaker](https://aws.amazon.com/robomaker/) and deploy them to ROSbot with use of Greengrass.
 Currently, tutorials [6 - SLAM navigation](https://husarion.com/tutorials/ros-tutorials/6-slam-navigation/), [7 - Path planning](https://husarion.com/tutorials/ros-tutorials/7-path-planning/) and [8 - Unknown environment exploration](https://husarion.com/tutorials/ros-tutorials/8-unknown-environment-exploration/) are tested, other tutorials will be added soon.
 
+## Configure AWS Environment
 
-## Configure AWS Environment ##
+Before we use AWS RoboMaker to build and deploy the tutorial applications, we must first set up the AWS environment. To simplify the configuration, we will use AWS CloudFormation. CloudFormation enables us to use a template file to define the configuration of our environment. We will use CloudFormation to create a bucket in Amaazon S3, as well as to create the necessary permissions in AWS Identity and Access Manager (IAM) that AWS RoboMaker requires to simulate and deploy our robot appliations.
 
-Before we use AWS RoboMaker to build and deploy the tutorial applications, we must first set up the AWS environment.  To simplify the configuration, we will use AWS CloudFormation.  CloudFormation enables us to use a template file to define the configuration of our environment.  We will use CloudFormation to create a bucket in Amaazon S3, as well as to create the necessary permissions in AWS Identity and Access Manager (IAM) that AWS RoboMaker requires to simulate and deploy our robot appliations.
+To deploy the template, sign in to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/). Following the following steps to deploy the template:
 
-To deploy the template, sign in to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/).  Following the following steps to deploy the template:
 1.  Download the template file from [here](https://raw.githubusercontent.com/husarion/rosbot-robomaker/master/rosbot_tutorial_template.yaml).
 2.  Click the **Create Stack** button.
-3.  Under *Choose a template*, choose *Upload a template to Amazon S3* and click **Choose File**.
+3.  Under _Choose a template_, choose _Upload a template to Amazon S3_ and click **Choose File**.
 4.  Browse to the rosbot_tutorial_template.yaml file you download in Step 1 above.
 5.  Click **Next**.
-6.  On the next screen, provide a *Stack name*.  This should be something descriptive such as "ROSbot-setup".
-7.  In the *S3BucketName* field, provide a globally-unique name for the S3 bucket that will be created.  This S3 bucket will be used to store your robot application bundles, as well as any logs that your robot may generate during simulation.  Use a name unique to you, such as "&lt;user_id&gt;-rosbot-tutorial".  Replace "&lt;user-id&gt;" with a unique string.
+6.  On the next screen, provide a _Stack name_. This should be something descriptive such as "ROSbot-setup".
+7.  In the _S3BucketName_ field, provide a globally-unique name for the S3 bucket that will be created. This S3 bucket will be used to store your robot application bundles, as well as any logs that your robot may generate during simulation. Use a name unique to you, such as "&lt;user_id&gt;-rosbot-tutorial". Replace "&lt;user-id&gt;" with a unique string.
 8.  Choose **Next**.
 9.  On the Options page, leave all defaults and choose **Next**.
-10.  On the Review page, click the checkbox to acknowledge that CloudFormation will create IAM resources on your behalf.
-11.  Click **Create**.
+10. On the Review page, click the checkbox to acknowledge that CloudFormation will create IAM resources on your behalf.
+11. Click **Create**.
 
-After a few brief minutes, the stack will be created.  When the status has changed to CREATE_COMPLETE, choose the stack you just created, and view its Outputs.  You will see 3 key/value pairs.  You will use these values later in this guide.
+After a few brief minutes, the stack will be created. When the status has changed to CREATE_COMPLETE, choose the stack you just created, and view its Outputs. You will see 3 key/value pairs. You will use these values later in this guide.
 
-## ROSbot setup in RoboMaker ##
+## ROSbot setup in RoboMaker
 
 ROSbot need some system modifications before Greengrass will be able to run and deploy applications. To configure ROSbot:
+
 - sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/)
 - In the left navigation pane, choose **Fleet Management** and then choose **Robots**.
 
 ![RoboMaker robots](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_1.png)
 
-- Choose **Create robot*.
+- Choose \*_Create robot_.
 - In the **Name** field, type `ROSbot`.
 - From the **Architecture** dropdown menu choose **ARMHF**.
 - From the **AWS Greengrass group** dropdown menu choose **Create new**.
@@ -196,12 +187,11 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 
 ![RoboMaker robot created](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_3.png)
 
-
 - Choose **Download** button next to **Download and store your Core's security resources**
 
 - You will get `ROSbot-setup.zip` file, it need to be uploaded to ROSbot. The upload process will vary, depending on your host operating system.
 
-### On Linux ###
+### On Linux
 
 Navigate to directory where the file is downloaded, by default it should be `~/Downloads`
 
@@ -215,7 +205,7 @@ cd ~/Downloads
 scp ROSbot-setup.zip husarion@ROSBOT_IP:ROSbot-setup.zip
 ```
 
-### On Windows ##
+### On Windows
 
 You will need an SCP client, download and install [WinSCP](https://winscp.net/eng/download.php).
 
@@ -229,7 +219,7 @@ Start WinSCP, you will see the login dialog:
 - In `User name` field provide `husarion`.
 - In `Password` field provide `husarion`.
 
-When all fields are filled up,  click `Login` button to connect, you will see file manager view.
+When all fields are filled up, click `Login` button to connect, you will see file manager view.
 
 ![WinSCP file manager](/docs/assets/img/aws-tutorials/quick-start/winscp2.png)
 
@@ -239,12 +229,11 @@ Drag and drop the `ROSbot-setup.zip` to the right tab.
 
 When the transfer is finished, close the window.
 
-
-## ROSbot setup on device ##
+## ROSbot setup on device
 
 You will need to make some system configurations on device. Depending on your host system, you can connect to your ROSbot with different methods:
 
-### On Linux ###
+### On Linux
 
 Open terminal and start `ssh` connection, you will need to substitute `ROSBOT_IP` with device address you noted earlier:
 
@@ -254,7 +243,7 @@ ssh husarion@ROSBOT_IP
 
 Proceed to **Device setup** section.
 
-### On Windows ###
+### On Windows
 
 Press `WinKey` + `r` then type `mstsc`.
 
@@ -266,7 +255,7 @@ Type in your device IP address and click connect.
 
 You will see the ROSbot desktop, from the top menu, choose the `Applications` -> `Terminal`.
 
-## Device setup ##
+## Device setup
 
 In the terminal execute below commands:
 
@@ -278,7 +267,6 @@ chmod a+x setup_ROSbot_for_gg.sh
 sudo ./setup_ROSbot_for_gg.sh
 ```
 
-
 - Unzip ROSbot security resources:
 
 ```
@@ -287,14 +275,17 @@ sudo unzip ROSbot-setup.zip -d /greengrass
 ```
 
 - Start the GreenGrass:
+
 ```
 sudo /greengrass/ggc/core/greengrassd start
 ```
+
 - Leave the ROSbot turned on, it will wait for deployment.
 
-## Creating a RoboMaker IDE ##
+## Creating a RoboMaker IDE
 
 Application will be built using the RoboMaker environment. To create the IDE:
+
 - sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/home).
 
 ![RoboMaker new IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_4.png)
@@ -311,8 +302,7 @@ Application will be built using the RoboMaker environment. To create the IDE:
 
 ![RoboMaker IDE ready](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
 
-
-## Deploying the application ##
+## Deploying the application
 
 To deploy application, you will use RoboMaker environment created in previous step:
 
@@ -333,7 +323,7 @@ git clone --recurse-submodules https://github.com/husarion/rosbot-robomaker.git 
 
 ![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_10.png)
 
-- Start the configuration script. You need to provide the S3 bucket name and the ARNs of the IAM roles that were created by CloudFormation earlier.  The parameters to the script should be set to the corresponding values provided in the output of your CloudFormation stack:
+- Start the configuration script. You need to provide the S3 bucket name and the ARNs of the IAM roles that were created by CloudFormation earlier. The parameters to the script should be set to the corresponding values provided in the output of your CloudFormation stack:
 
 ```
 cd ~/environment/RoboMakerROSbotProject/
@@ -345,6 +335,7 @@ cd ~/environment/RoboMakerROSbotProject/
 The script will install all dependencies, configure project, build and set the deployment job.
 
 When the script is done with its job, you can observe the deployment process:
+
 - sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/)
 - In the left navigation pane, choose **Fleet Management** and then choose **Deployments**.
 - When new deplyment will appear, open it by clicking its name.
@@ -352,12 +343,11 @@ When the script is done with its job, you can observe the deployment process:
 
 ![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_12.png)
 
-## Viewing the results ##
+## Viewing the results
 
-ROSbots mission, after completing this tutorial, is to autonomously explore the environment around it.  It will drive to any location that is accessible and which cannot be observed from the already visited locations. It will create a map of that environment in the process using the data from the A2 LIDAR laser scanner mounted on top of it.
+ROSbots mission, after completing this tutorial, is to autonomously explore the environment around it. It will drive to any location that is accessible and which cannot be observed from the already visited locations. It will create a map of that environment in the process using the data from the A2 LIDAR laser scanner mounted on top of it.
 
 You may observe in real time how ROSbot is building the map. If you’d like to do that connect to ROSbot through a remote desktop client (this could be a `Remote Desktop Connection` on Windows or `Remmina` on Ubuntu).
-
 
 Open terminal witm menu `Applications` -> `Terminal emulation` and execute:
 
@@ -375,8 +365,8 @@ Map is considered complete, when there is no traversable gaps within the map bou
 
 When the map is complete, ROSbot will stop and wait for further commands, it is possible to set a destination point on a map using **`2D Nav Goal`** button in **Rviz**.
 
----------
+---
 
-*by Łukasz Mitka, Husarion*
+_by Łukasz Mitka, Husarion_
 
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
