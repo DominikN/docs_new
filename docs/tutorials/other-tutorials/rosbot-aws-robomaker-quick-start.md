@@ -15,7 +15,7 @@ What's in the box:
 - carrying case
 - ROSbot 2.0 (with optional 3D camera and LiDAR already assembled)
 - Wi-Fi 2.4GHz antenna
-- 3x 18650 Li-Ion reachargeable batteries
+- 3x 18650 Li-Ion rechargeable batteries
 - universal charger with power adapter
 - charging cable
 - microSD card with the software for ROSbot
@@ -23,7 +23,7 @@ What's in the box:
 
 <div><center><img src="https://raw.githubusercontent.com/husarion/static_docs/master/src/assets/img/howToStart/ROSbot_unboxing.jpg"/></center></div>
 
-## Rear panel discription
+## Rear panel description
 
 In the picture below you can see names of the elements from the rear panel of the ROSbot.
 
@@ -37,10 +37,10 @@ Your ROSbot is assembled, but to get it ready to work, you need to provide a pow
 
 To mount the batteries turn ROSbot upside down and follow these steps:
 
-1. unscrew battery cover mounted with two screws
-2. remove the battery cover
-3. place batteries **accordingly to the polarisation symbols (do it carefully!)**, keeping the black strip under the batteries
-4. place batery cover and mount it with screws
+1. Unscrew battery cover mounted with two screws
+2. Remove the battery cover
+3. Place batteries **accordingly to the polarization symbols (do it carefully!)**, keeping the black strip under the batteries
+4. Place batery cover and mount it with screws
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_battery.png)
 
@@ -83,7 +83,7 @@ In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 1. Turn on the robot and wait until it boots.
 2. Plug in Ethernet adapter (included in set) to USB port in the rear panel
 3. Plug in one end of the Ethernet cable into your computer and other one to the adapter
-4. Connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and passowrd `husarion`
+4. Connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`
 5. Connect to a Wi-Fi network
 
    - in the terminal type `ifconfig wlan0` and press Enter
