@@ -73,7 +73,7 @@ Next as always we have to open a terminal and run:
 ```
 roscore
 ```
-and in secound terminal we run depending on the model of our SBC.
+and in second terminal we run depending on the model of our SBC.
 
 On Asus Tinker Board:
 ```
