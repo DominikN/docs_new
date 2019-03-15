@@ -29,7 +29,9 @@ In the picture below you can see names of the elements from the rear panel of th
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/ROSbot2_rear_panel.png)
 
-## Mounting the batteries
+## Hardware setup
+
+### 1. Mounting the batteries
 
 Your ROSbot is assembled, but to get it ready to work, you need to provide a power supply and attach the antenna.
 
@@ -42,7 +44,7 @@ To mount the batteries turn ROSbot upside down and follow these steps:
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_battery.png)
 
-## Batteries charging guide
+### 2. Batteries charging guide
 
 1. Connect the power adapter to the charger and the output cable between charger and ROSbot (2 connectors on charger side, 1 black connector to ROSbot charging port).
 
@@ -64,7 +66,7 @@ The picture below is a visualization of the mentioned steps.
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/charging.png)
 
-## Attaching the antenna
+### 3. Attaching the antenna
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
