@@ -30,7 +30,12 @@ const siteConfig = {
   baseUrl: '/',
   // disableHeaderTitle: true,
   disableTitleTagline: true,
+  docsSideNavCollapsible: true,
+
+  //!!!!!!!!!! DO NOT COMMENT FOR PRODUCTION !!!!!!!!!!!!!!!!!!!
+  // To see pictures in local compilation comment line below:
   docsUrl: '', // remove /docs/ from URL'
+
   // Used for publishing and more
   projectName: 'husarion-docs',
   organizationName: 'husarion',
@@ -94,10 +99,11 @@ const siteConfig = {
   scripts: [
     'https://code.jquery.com/jquery-3.3.1.slim.min.js',
     'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js',
-    'https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js',
+    'https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js',
     'https://buttons.github.io/buttons.js',
     'https://docs.husarion.com/js/scrollspy.js',
     'https://docs.husarion.com/js/sidebarScroll.js',
+    // 'https://byq77.github.io/docusaurus-husarion-docs/js/sidebarScroll.js',
     'https://static.husarion.com/js/qa.js',
   ],
 
