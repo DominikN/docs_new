@@ -4,7 +4,7 @@ sidebar_label: 6. Using CORE2 to publish ROS topics through USB
 id: using-core2-to-publish-ros-topics-through-usb
 ---
 
-# Using CORE2 to publish ROS topics through USB
+# Introduction
 
 Have you ever wanted to increase the amount of computing power in your CORE2-ROS with RPi or Asus Tinker Board? You can easily replace the SBC with for your laptop or pc. This tutorial shows how to use CORE2 in ROS project with any type of computer with Linux.
 
