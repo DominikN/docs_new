@@ -57,7 +57,7 @@ const siteConfig = {
   // If you have users set above, you add it here:
   users,
   /* path to images for header/footer */
-  headerIcon: 'img/hus_docs_logo.png',
+  headerIcon: 'img/husarionDocLogo.png',
   footerIcon: '',
   favicon: 'img/favicon.ico',
 
