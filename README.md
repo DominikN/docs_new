@@ -16,7 +16,17 @@ Open `docs_new` dir, switch to `website` subdir and run:
 $ cd <installation_path>/docs_new/website && npm install # or yarn install
 ```
 
-#### 3. Run documentation website locally
+#### 3. Local build - images
+
+In order to see pictures in your local build you have to comment line `37` in `<installation_path>/docs_new/website/siteConfig.js` file:
+
+![image](https://user-images.githubusercontent.com/28567623/54622133-52a3d180-4a69-11e9-9c2e-8d4dc59b3bd7.png)
+
+> **For contributors**
+> 
+> Remember to remove comment before pushing to master branch!
+
+#### 4. Run documentation website locally
 
 In `website` subdir run:
 
