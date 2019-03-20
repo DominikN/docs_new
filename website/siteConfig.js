@@ -28,9 +28,14 @@ const siteConfig = {
   // For github.io type URLs, you would set the url and baseUrl like:
   url: 'https://husarion.com',
   baseUrl: '/',
-  // disableHeaderTitle: true,
+  disableHeaderTitle: true,
   disableTitleTagline: true,
+  docsSideNavCollapsible: true,
+
+  //!!!!!!!!!! DO NOT COMMENT FOR PRODUCTION !!!!!!!!!!!!!!!!!!!
+  // To see pictures in local compilation comment line below:
   docsUrl: '', // remove /docs/ from URL'
+
   // Used for publishing and more
   projectName: 'husarion-docs',
   organizationName: 'husarion',
@@ -52,7 +57,7 @@ const siteConfig = {
   // If you have users set above, you add it here:
   users,
   /* path to images for header/footer */
-  headerIcon: '',
+  headerIcon: 'img/husarionDocLogo.png',
   footerIcon: '',
   favicon: 'img/favicon.ico',
 
@@ -94,15 +99,18 @@ const siteConfig = {
   scripts: [
     'https://code.jquery.com/jquery-3.3.1.slim.min.js',
     'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js',
-    'https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js',
+    'https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js',
     'https://buttons.github.io/buttons.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
+    'https://docs.husarion.com/js/code-block-buttons.js',
     'https://docs.husarion.com/js/scrollspy.js',
     'https://docs.husarion.com/js/sidebarScroll.js',
     'https://static.husarion.com/js/qa.js',
   ],
 
   stylesheets: [
-    'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css'
+    'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css',
+    '/css/code-block-buttons.css'
   ],
 
   scrollToTop: true,
