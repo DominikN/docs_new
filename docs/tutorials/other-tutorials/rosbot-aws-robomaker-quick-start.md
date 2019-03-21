@@ -76,33 +76,24 @@ To attach the antenna, screw it to the antenna connector on the ROSbot rear pane
 
 Setup [Husarion Cloud](https://cloud.husarion.com) account to program low-level firmware to your ROSbot.
 
-### Connecting using Ethernet adapter
+### Connecting using display, mouse and keyboard
 
-In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
+ROSbot is basically a computer running Ubuntu, so let's configure it like a standard PC computer.
 
-1. Turn on the robot and wait until it boots.
-2. Plug in Ethernet adapter (included in set) to USB port in the rear panel.
-3. Plug in one end of the Ethernet cable into your computer and other one to the adapter.
-4. Connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`.
-5. Connect to a Wi-Fi network.
-
-   - In the terminal type `ifconfig wlan0` and press Enter.
-   - Type `iwconfig wlan0 essid MY-WIFI-NETWORK key MY-WIFI-PASS` and press Enter.
-   - Type `dhclient wlan0` and press Enter to obtain an IP address and connect to the WiFi network.
-
-6. Connect to a Husarion cloud.
-
-   - Open https://cloud.husarion.com in your web browser.
-   - Click **Add new** button.
-   - Enter device name and click **Next**.
-   - Copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`).
-   - Open Linux terminal and type (including code from the previous step).
-     - `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
-   - After a few seconds you should see your device online at https://cloud.husarion.com.
+1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
+2. Turn on the robot and wait until it boots.
+3. Connect to a Wi-Fi network
+4. Connect to a Husarion cloud
+* open https://cloud.husarion.com in your web browser
+* click **Add new** button
+* enter device name and click **Next**
+* copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
+* open Linux terminal and type (including code from the previous step) `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
+* after a few seconds you should see your device online at https://cloud.husarion.com
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/5_devAdded.png)
 
-> There are two other ways to connect ROSbot to Husarion cloud: mouse + keyboard or mobile app. If you prefer them, check out this guide: https://husarion.com/tutorials/howtostart/rosbot---quick-start/#connecting-to-the-cloud.
+> There are two other ways to connect ROSbot to Husarion cloud: ethernet adapter or mobile app. If you prefer them, check out this guide: https://husarion.com/tutorials/howtostart/rosbot---quick-start/#connecting-to-the-cloud.
 
 ## Getting the device IP
 
@@ -258,6 +249,11 @@ Type in your device IP address and click connect.
 You will see the ROSbot desktop, from the top menu, choose the `Applications` -> `Terminal`.
 
 ## Device setup
+
+Updates the package lists and upgrades for packages:
+
+`sudo apt update`
+`sudo apt dist-upgrade`
 
 In the terminal execute bellow commands:
 
