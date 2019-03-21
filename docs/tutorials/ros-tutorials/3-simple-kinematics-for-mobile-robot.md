@@ -458,24 +458,50 @@ Open Husarion WebIDE and open project that you created in section **Converting m
 Add header file:
 
 ```cpp
-    #include "geometry_msgs/PoseStamped.h"
-	#include "tf/tf.h"
+#include "geometry_msgs/PoseStamped.h"
+#include "tf/tf.h"
+#include "tf/transform_broadcaster.h"
+#include "sensor_msgs/JointState.h"
 ```
 
 Define message type and publisher for robot position:
 
 ```cpp
-    geometry_msgs::PoseStamped pose;
-	ros::Publisher *pose_pub;
+geometry_msgs::PoseStamped pose;
+ros::Publisher *pose_pub;
 ```
 
-Create a data structure:
+Define message type and publisher for `/tf` frame:
+
+```cpp
+geometry_msgs::TransformStamped robot_tf;
+tf::TransformBroadcaster broadcaster;
+```
+
+Define message type and publisher for wheel angular position:
+
+```cpp
+sensor_msgs::JointState joint_states;
+ros::Publisher *joint_state_pub;
+char *name[] = {"front_left_wheel_hinge", "front_right_wheel_hinge", "rear_left_wheel_hinge", "rear_right_wheel_hinge"};
+float pos[] = {0, 0, 0, 0};
+float vel[] = {0, 0, 0, 0};
+float eff[] = {0, 0, 0, 0};
+```
+
+Create a data structure for robot pose:
 
 ```cpp
 std::vector<float> rosbot_pose;
 ```
 
-Function for publishing robot position:
+Create data structure for wheel positions:
+
+```cpp
+wheelsState ws;
+```
+
+Initialization of robot position publisher as `geometry_msgs::PoseStamped` message type: 
 
 ```cpp
 void initPosePublisher()
@@ -487,11 +513,42 @@ void initPosePublisher()
 }
 ```
 
-In main function for initialization of PosePublisher:
+Initialization of robot position publisher in `/tf` tree:
 
-    initPosePublisher();
+```cpp
+void initTfPublisher()
+{
+	robot_tf.header.frame_id = "odom";
+	robot_tf.child_frame_id = "base_link";
+	robot_tf.transform.translation.x = 0.0;
+	robot_tf.transform.translation.y = 0.0;
+	robot_tf.transform.translation.z = 0.0;
+	robot_tf.transform.rotation.x = 0.0;
+	robot_tf.transform.rotation.y = 0.0;
+	robot_tf.transform.rotation.z = 0.0;
+	robot_tf.transform.rotation.w = 1.0;
+	broadcaster.init(nh);
+}
+```
 
-Put values to message and publish them:
+Initialization of wheel angular position publisher:
+
+```cpp
+void initJointStatePublisher()
+{
+	joint_state_pub = new ros::Publisher("/joint_states", &joint_states);
+	nh.advertise(*joint_state_pub);
+}
+```
+
+In main function, call initializers:
+
+```cpp
+	initPosePublisher();
+	initJointStatePublisher();
+	initTfPublisher();
+```
+Put values to messages and publish them:
 
 ```cpp
 	// get ROSbot pose
@@ -501,6 +558,26 @@ Put values to message and publish them:
 	pose.pose.orientation = tf::createQuaternionFromYaw(rosbot_pose[2]);
 	// publish pose
 	pose_pub->publish(&pose);
+
+	// get ROSbot tf
+	robot_tf.header.stamp = nh.now();
+	robot_tf.transform.translation.x = pose.pose.position.x;
+	robot_tf.transform.translation.y = pose.pose.position.y;
+	robot_tf.transform.rotation.x = pose.pose.orientation.x;
+	robot_tf.transform.rotation.y = pose.pose.orientation.y;
+	robot_tf.transform.rotation.z = pose.pose.orientation.z;
+	robot_tf.transform.rotation.w = pose.pose.orientation.w;
+	// publish tf
+	broadcaster.sendTransform(robot_tf);
+	
+	ws = rosbot.getWheelsState();
+	pos[0] = ws.FL;
+	pos[1] = ws.FR;
+	pos[2] = ws.RL;
+	pos[3] = ws.RR;
+	joint_states.position = pos;
+	joint_states.header.stamp = nh.now();
+	joint_state_pub->publish(&joint_states);
 ```
 
 Your final code should look like this:
@@ -512,8 +589,10 @@ Your final code should look like this:
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/BatteryState.h"
 #include "std_msgs/Bool.h"
+#include "sensor_msgs/JointState.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "tf/tf.h"
+#include "tf/transform_broadcaster.h"
 #include "ROSbot.h"
 
 using namespace hFramework;
@@ -532,13 +611,30 @@ static const ImuType imu_type = MPU9250;
 // If you want to use your own sensor:
 // static const ImuType imu_type = NO_IMU;
 
+// Uncomment one of these lines, accordingly version of your device
+uint32_t baudrate = 500000; // for ROSbot 2.0
+// uint32_t baudrate = 230400; // for ROSbot 2.0 PRO 
+
 ros::NodeHandle nh;
 sensor_msgs::BatteryState battery;
 ros::Publisher *battery_pub;
+sensor_msgs::JointState joint_states;
+ros::Publisher *joint_state_pub;
+//arrays for the message
+char *name[] = {"front_left_wheel_hinge", "front_right_wheel_hinge", "rear_left_wheel_hinge", "rear_right_wheel_hinge"};
+float pos[] = {0, 0, 0, 0};
+float vel[] = {0, 0, 0, 0};
+float eff[] = {0, 0, 0, 0};
+	
 geometry_msgs::PoseStamped pose;
 ros::Publisher *pose_pub;
 
 std::vector<float> rosbot_pose;
+
+wheelsState ws;
+
+geometry_msgs::TransformStamped robot_tf;
+tf::TransformBroadcaster broadcaster;
 
 int publish_counter = 0;
 
@@ -581,9 +677,41 @@ void initPosePublisher()
 	nh.advertise(*pose_pub);
 }
 
+void initTfPublisher()
+{
+	robot_tf.header.frame_id = "odom";
+	robot_tf.child_frame_id = "base_link";
+	robot_tf.transform.translation.x = 0.0;
+	robot_tf.transform.translation.y = 0.0;
+	robot_tf.transform.translation.z = 0.0;
+	robot_tf.transform.rotation.x = 0.0;
+	robot_tf.transform.rotation.y = 0.0;
+	robot_tf.transform.rotation.z = 0.0;
+	robot_tf.transform.rotation.w = 1.0;
+	broadcaster.init(nh);
+}
+
+void initJointStatePublisher()
+{
+	joint_state_pub = new ros::Publisher("/joint_states", &joint_states);
+	nh.advertise(*joint_state_pub);
+	joint_states.header.frame_id = "base_link";
+	//assigning the arrays to the message
+	joint_states.name = name;
+	joint_states.position = pos;
+	joint_states.velocity = vel;
+	joint_states.effort = eff;
+	//setting the length
+	joint_states.name_length = 4;
+	joint_states.position_length = 4;
+	joint_states.velocity_length = 4;
+	joint_states.effort_length = 4;
+}
+
 void hMain()
 {
 	rosbot.initROSbot(sensor_type);
+	RPi.init(baudrate);
 	platform.begin(&RPi);
 	nh.getHardware()->initWithDevice(&platform.LocalSerial);
 	nh.initNode();
@@ -592,21 +720,43 @@ void hMain()
 	initCmdVelSubscriber();
 	initResetOdomSubscriber();
 	initPosePublisher();
+	initJointStatePublisher();
+	initTfPublisher();
 
 	while (true)
 	{
 		nh.spinOnce();
 		publish_counter++;
 		if (publish_counter > 10)
-		{
+		{	
 			// get ROSbot pose
 			rosbot_pose = rosbot.getPose();
 			pose.pose.position.x = rosbot_pose[0];
 			pose.pose.position.y = rosbot_pose[1];
 			pose.pose.orientation = tf::createQuaternionFromYaw(rosbot_pose[2]);
 			// publish pose
-			pose_pub->publish(&pose);
-
+			pose_pub->publish(&pose);	
+			
+			// get ROSbot tf
+			robot_tf.header.stamp = nh.now();
+			robot_tf.transform.translation.x = pose.pose.position.x;
+			robot_tf.transform.translation.y = pose.pose.position.y;
+			robot_tf.transform.rotation.x = pose.pose.orientation.x;
+			robot_tf.transform.rotation.y = pose.pose.orientation.y;
+			robot_tf.transform.rotation.z = pose.pose.orientation.z;
+			robot_tf.transform.rotation.w = pose.pose.orientation.w;
+			// publish tf
+			broadcaster.sendTransform(robot_tf);
+			
+			ws = rosbot.getWheelsState();
+			pos[0] = ws.FL;
+			pos[1] = ws.FR;
+			pos[2] = ws.RL;
+			pos[3] = ws.RR;
+			joint_states.position = pos;
+			joint_states.header.stamp = nh.now();
+			joint_state_pub->publish(&joint_states);
+			
 			// get battery voltage
 			battery.voltage = rosbot.getBatteryLevel();
 			// publish battery voltage
