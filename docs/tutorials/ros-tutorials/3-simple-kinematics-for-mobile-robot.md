@@ -362,7 +362,7 @@ Infinite loop, waiting for incoming messages:
 
 Build your project and upload it to device.
 
-### Running motor controller
+### Running motor controller step by step ###
 
 In this section you will learn how to control your robot movement with
 keyboard. You will need `teleop_twist_keyboard` node from
@@ -403,7 +403,50 @@ You should get similar view in `rqt_graph`:
 
 ![image](/docs/assets/img/ros/man_3_1.png)
 
-### Determining robot position
+### Running motor controller with `roslaunch`
+
+To enable control of ROSbot with single launch file we need to prepare script which calls `ros-core2-client`.
+In `tutorial_pkg` direcotry create `scripts` sudirectory:
+
+``` bash
+cd ~/ros_workspace/src/tutorial_pkg
+mkdir scripts
+```
+
+Inside the `scripts` directory create file `serial_bridge.sh` and set it to executable:
+
+```bash
+cd ~/ros_workspace/src/tutorial_pkg/scripts
+touch serial_bridge.sh
+chmod a+x serial_bridge.sh
+```
+
+Open the file and paste into it:
+
+```bash
+#!/bin/bash
+/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2
+```
+
+Inside the `~/ros_workspace/src/tutorial_pkg/launch` create `tutorial_3.launch` with below content:
+
+```xml
+<launch>
+
+    <arg name="use_gazebo" default="false"/>
+
+    <include unless="$(arg use_gazebo)" file="$(find astra_launch)/launch/astra.launch"/>
+    <node unless="$(arg use_gazebo)" pkg="tutorial_pkg" type="serial_bridge.sh" name="serial_bridge" output="screen"/>
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
+
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+
+</launch>
+```
+
+We do not need to create separate launch files for `serial_bridge.sh` or `teleop_twist_keyboard` as these nodes can be configured with only one line.
+
+### Determining robot position ###
 
 This section is required only for ROSbot. Gazebo has already implemented it's own plugin to publish robot position.
 Now we will perform forward kinematics task- we will use encoders that
