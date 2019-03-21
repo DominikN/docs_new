@@ -45,7 +45,21 @@ To attach the antenna, screw it to the antenna connector on the ROSbot rear pane
 
 There are three ways to connect ROSbot to Husarion cloud: ethernet connection, mouse + keyboard or mobile app. Choose the most comfortable for you.
 
-### Option 1: using Ethernet adapter (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+### Option 1: using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+ROSbot is basically a computer running Ubuntu, so let's configure it like a standard PC computer.
+
+1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
+2. Turn on the robot and wait until it boots.
+3. Connect to a Wi-Fi network
+4. Connect to a Husarion cloud
+* open https://cloud.husarion.com in your web browser
+* click **Add new** button
+* enter device name and click **Next**
+* copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
+* open Linux terminal and type (including code from the previous step) `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
+* after a few seconds you should see your device online at https://cloud.husarion.com
+
+### Option 2: using Ethernet adapter (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
 In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 
 1. Turn on the robot and wait until it boots.
@@ -63,20 +77,6 @@ In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 * copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
 * open Linux terminal and type (including code from the previous step) 
 ```sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"```
-* after a few seconds you should see your device online at https://cloud.husarion.com
-
-### Option 2: using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
-ROSbot is basically a computer running Ubuntu, so let's configure it like a standard PC computer.
-
-1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
-2. Turn on the robot and wait until it boots.
-3. Connect to a Wi-Fi network
-4. Connect to a Husarion cloud
-* open https://cloud.husarion.com in your web browser
-* click **Add new** button
-* enter device name and click **Next**
-* copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
-* open Linux terminal and type (including code from the previous step) `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
 * after a few seconds you should see your device online at https://cloud.husarion.com
 
 ### Option 3: using hConfig app (only for ROSbot 2.0) ###
@@ -100,13 +100,34 @@ First you will program the Core2 part:
 
 Next you will proceed to ROS part of software:
 
-* Click "edit" next to your device name and sellect "More".
-* Choose "SSH terminal"
-* In terminal issue following commands:
+### On Linux ###
 
-Updates the package lists for upgrades for packages:
+Open terminal and start `ssh` connection, you will need to substitute `ROSBOT_IP` with device address you noted earlier:
+
+```
+ssh husarion@ROSBOT_IP
+```
+
+Proceed to **Device setup** section.
+
+### On Windows ###
+
+Press `WinKey` + `r` then type `mstsc`.
+
+You will see a window appear:
+
+![Windows RDP](/docs/assets/img/aws-tutorials/quick-start/win_rdp.png)
+
+Type in your device IP address and click connect.
+
+You will see the ROSbot desktop, from the top menu, choose the `Applications` -> `Terminal`.
+
+## Device setup
+
+Updates the package lists and upgrades for packages:
 
 `sudo apt update`
+`sudo apt dist-upgrade`
 
 Install the required packages:
 
@@ -138,16 +159,13 @@ Add environmental variables from the following file:
 
 `source devel/setup.sh`
 
+**Note that you have to do it every time you want to use ROSbot webui. You can also set it up permanently. Open .bashrc file in text editor:**
 
-```
-Note that you have to do it every time you want to use ROSbot webui. You can also set it up permanently. Open .bashrc file in text editor:
-
-nano ~/.bashrc
+`nano ~/.bashrc`
 
 Go to the end of file and add line:
 
-. /home/husarion/ros_workspace/devel/setup.sh 
-```
+`. /home/husarion/ros_workspace/devel/setup.sh`
 
 * Staying in terminal issue command: 
 

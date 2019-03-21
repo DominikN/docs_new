@@ -540,18 +540,25 @@ At first you will need a `.launch` file.
 
 ```launch
 <launch>
-    <arg name="use_rosbot" default="true"/>
+
     <arg name="use_gazebo" default="false"/>
 
-    <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
+    <include unless="$(arg use_gazebo)" file="$(find astra_launch)/launch/astra.launch"/>
     <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
 
     <node pkg="image_view" type="image_view" name="image_view">
         <remap from="/image" to="/camera/rgb/image_raw"/>
     </node>
 
+<<<<<<< HEAD
 </launch>
 ```
+
+=======
+</launch>
+
+````
+>>>>>>> c6abddcdf87186cf8dfe0ed7b1a521f76d9c9ded
 
 Copy the above code to text editor (and other parameters if needed) and save it to file `tutorial_1.launch` in your home directory.
 
@@ -560,12 +567,12 @@ terminal and, if working on ROSbot, type in:
 
 ```bash
     $ roslaunch tutorial_1.launch
-```
+````
 
 In case of working with Gazebo:
 
 ```bash
-    $ roslaunch tutorial_1.launch use_rosbot:=false use_gazebo:=true
+    $ roslaunch tutorial_1.launch use_gazebo:=true
 ```
 
 You should get output like this:

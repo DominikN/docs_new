@@ -243,15 +243,44 @@ is visible in the system.
 To remind, you can start ROS by typing in the name of the node, you can do this
 with the following command:
 
-    $ rosrun package_name node_type [options]
+```bash
+$ rosrun package_name node_type [options]
+```
+
+For the node you just created it will be:
+
+```bash
+$ rosrun tutorial_pkg tutorial_pkg_node
+```
 
 If you want to use `.launch` files associated with your custom package you will have to create `launch` directory:
 
-    $ mkdir ~/ros_workspace/src/tutorial_pkg/launch
+```bash
+$ mkdir ~/ros_workspace/src/tutorial_pkg/launch
+```
 
 Place your `.launch` files there. This way you can start them by typing:
 
-    $ roslaunch tutorial_pkg your_launch_file.launch
+```bash
+$ roslaunch tutorial_pkg your_launch_file.launch
+```
+
+Example launch file for `tutorial_pkg_node` will be as follows:
+
+```xml
+<launch>
+
+    <node pkg="tutorial_pkg" type="tutorial_pkg_node" name="tutorial_pkg_node" output="screen">
+    </node>
+
+</launch>
+```
+
+Save it as `tutorial_pkg_node.launch` in `~/ros_workspace/src/tutorial_pkg/launch` directory and launch it:
+
+```bash
+$ roslaunch tutorial_pkg tutorial_pkg_node.launch
+```
 
 ### Subscribing to topic ###
 
@@ -262,7 +291,9 @@ You will modify your node to subscribe to topic
 To process message received from the camera you need a header file with
 message type definition. You can include it with:
 
+```cpp
     #include <sensor_msgs/Image.h>
+```
 
 Image message is an object consisting of following fields:
 
@@ -380,23 +411,35 @@ Your final code should look like this:
 `rosnode`, `rostopic` and `rqt_graph` tools to examine system and check
 how data is passed between nodes.
 
-You can use below `.launch` file:
+When using launch files we can make use of prevoiously created files, this way we can make configuration easier and more readable. 
 
-``` launch
+Instead of configuring `tutorial_pkg_node` again, we will include file created in prevoius step:
+
+``` xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
     <arg name="use_gazebo" default="false"/>
 
-    <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
-    
-    <node pkg="tutorial_pkg" type="tutorial_pkg_node" name="tutorial_pkg_node" output="screen">
-    </node>
+    <include unless="$(arg use_gazebo)" file="$(find astra_launch)/launch/astra.launch"/>
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
+
+    <include file="$(find tutorial_pkg)/launch/tutorial_pkg_node.launch"/>
 
 </launch>
 ``` 
+
+Save above file as `tutorial_2.launch` in  `~/ros_workspace/src/tutorial_pkg/launch` directory and launch it:
+
+```bash
+$ roslaunch tutorial_pkg tutorial_2.launch
+```
+
+or if you are using **Gazebo** simulator:
+
+```bash
+$ roslaunch tutorial_pkg tutorial_2.launch use_gazebo:=true
+```
+
 
 ### Receiving parameters ###
 
@@ -471,6 +514,8 @@ Your final code should look like this:
 
 **Task 3** Run your node with parameter `print_brightness` set to `true`
 and again set to `false`. Observe how behaviour of node changes.
+
+To add parameter for node, you will need to add `<param>` tag inside `<node>` tag in `tutorial_pkg_node.launch` file.
 
 ### Publishing to topic ###
 
@@ -675,17 +720,9 @@ and check how data is passed between nodes. Let the nodes work for a
 certain time. Observe as new frames are being saved to your workspace
 directory.
 
-You can use below `.launch` file:
-
-``` launch
+For `image_saver` node you can create separate launch file:
+```xml
 <launch>
-
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
-
-    <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
 
     <node pkg="image_view" type="image_saver" name="image_saver">
         <param name="save_all_image" value="false" />
@@ -693,9 +730,22 @@ You can use below `.launch` file:
         <remap from="/image" to="/camera/rgb/image_raw"/>
     </node>
 
-    <node pkg="tutorial_pkg" type="tutorial_pkg_node" name="tutorial_pkg_node" output="screen">
-        <param name="print_brightness" value="false"/>
-    </node>
+</launch>
+```
+
+Save it as `image_saver.launch` in `~/ros_workspace/src/tutorial_pkg/launch` directory and include it in `tutorial_2.launch`:
+
+```xml
+<launch>
+
+    <arg name="use_gazebo" default="false"/>
+
+    <include unless="$(arg use_gazebo)" file="$(find astra_launch)/launch/astra.launch"/>
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
+
+    <include file="$(find tutorial_pkg)/launch/tutorial_pkg_node.launch"/>
+
+    <include file="$(find tutorial_pkg)/launch/image_saver.launch"/>
 
 </launch>
 ```

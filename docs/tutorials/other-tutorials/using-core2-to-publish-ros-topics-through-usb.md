@@ -4,9 +4,16 @@ sidebar_label: 6. Using CORE2 to publish ROS topics through USB
 id: using-core2-to-publish-ros-topics-through-usb
 ---
 
-# Using CORE2 to publish ROS topics through USB
+# Introduction
 
-Have you ever wanted to increase the amount of computing power in your CORE2-ROS with RPi or Asus Tinker Board? You can easily replace the SBC with for your laptop or pc. This tutorial shows how to use CORE2 in ROS project with any type of computer with Linux.
+Have you ever wanted to increase the amount of computing power in your CORE2-ROS with RPi or Asus Tinker Board? You can easily replace the SBC with for your laptop or PC. This tutorial shows how to use CORE2 in ROS project with any type of computer with Linux.
+
+## First steps ##
+
+1. Turn on your computer.
+2. Make sure you already have installed ROS. If you haven't, please check [installation manual](http://wiki.ros.org/kinetic/Installation/Ubuntu).
+3. Create new Husarion project in VSC following this [tutorial](https://husarion.com/tutorials/other-tutorials/offline-development-tools/).
+4. When you create new Husarion project open `main.cpp` file and take a look on code from next chapter.
 
 ## How to write a code
 
@@ -133,7 +140,7 @@ while (true)
     }
 ```
 
-You just have to flash this code to your CORE2 using offline development tools or Husarion Cloud.
+You just have to build (**[Ctrl]+[Shift]+[B]**) this code and flash (**[Ctrl]+[Shift]+[P] >> "Flash project to CORE2"**) it to your CORE2. You can also do it using IDE from Husarion Cloud.
 
 ## How to connect CORE2 and run communication
 
