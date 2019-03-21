@@ -840,6 +840,26 @@ To run it type in terminal:
     $ rviz
 ```
 
+You can also start all nodes with single `.launch` file:
+
+```xml
+<launch>
+
+    <arg name="use_gazebo" default="false"/>
+
+    <include unless="$(arg use_gazebo)" file="$(find astra_launch)/launch/astra.launch"/>
+    <node unless="$(arg use_gazebo)" pkg="tutorial_pkg" type="serial_bridge.sh" name="serial_bridge" output="screen"/>
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_3.rviz" required="true"/>
+
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+
+</launch>
+```
+
+Rviz can be launched with argument pointing to file `.rviz`,  it will contain window configuration. When you are satisfied with visualization parameters, choose **File** -> **Save config**. At next `rviz` launch config will be restored.
+
 New window will appear:
 
 ![image](/docs/assets/img/ros/man_3_3.png)
@@ -874,12 +894,12 @@ Find topic `/pose` and choose `Pose` and click **OK**.
 If you are working with Gazebo:
 Find topic `/odom` and choose `Odometry` and click **OK**.
 
-Then in visualized items list find position `Fixed Frame` and change it
-to `odom`. At this stage, you will need to type it. Later it will be possible to choose frame names from dropdown list, this will be covered in tutorial 6.
+Again click **Add**, choose tab **By display type**, **TF** and click **OK**.
+
+Then in visualized items list find position `Fixed Frame` and from dropdown list choose `odom`.
 
 After this is done, you should see an arrow representing position and orientation
-of your robot. Move your robot and observe as arrow changes its
-position.
+of your robot. You will see also representation of coordinate frames bounded with robot starting position and robot base. Move your robot and observe as arrow changes its position.
 
 ![image](/docs/assets/img/ros/man_3_5.png)
 
@@ -892,8 +912,7 @@ to the same view.
 After completing this tutorial you should be able to control motor
 attached to your CORE2 device, set desired velocity for robot with
 `geometry_msgs/Twist` message, determine position of your robot using
-odometry, publish it as a `PoseStamped` message and visualize position
-of your robot using `rviz`.
+odometry, publish it into `tf` frames or as a `PoseStamped` message and visualize position of your robot using `rviz`.
 
 ---
 
