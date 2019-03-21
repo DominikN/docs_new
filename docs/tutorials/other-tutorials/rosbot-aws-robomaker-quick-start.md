@@ -274,13 +274,17 @@ cd ~
 sudo unzip ROSbot-setup.zip -d /greengrass
 ```
 
-- Start the GreenGrass:
+- Restart ROSbot to apply chnages.
+
+At this moment, ROSbot is ready to start AWS GreenGrass and accept incoming deployments.
+
+Connect with ROSbot again, open terminal and start the GreenGrass:
 
 ```
 sudo /greengrass/ggc/core/greengrassd start
 ```
 
-- Leave the ROSbot turned on, it will wait for deployment.
+Leave the ROSbot turned on, it will wait for deployment.
 
 ## Creating a RoboMaker IDE
 
