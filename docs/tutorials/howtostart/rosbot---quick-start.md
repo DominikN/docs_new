@@ -124,10 +124,12 @@ You will see the ROSbot desktop, from the top menu, choose the `Applications` ->
 
 ## Device setup
 
-Updates the package lists and upgrades for packages:
+Type the following lines in the terminal to update the package list and upgrade packages:
 
-`sudo apt update`
-`sudo apt dist-upgrade`
+```
+sudo apt update
+sudo apt dist-upgrade
+```
 
 Install the required packages:
 
