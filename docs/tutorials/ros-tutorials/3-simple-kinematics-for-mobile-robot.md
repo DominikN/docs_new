@@ -142,6 +142,10 @@ static const ImuType imu_type = MPU9250;
 // If you want to use your own sensor:
 // static const ImuType imu_type = NO_IMU;
 
+// Uncomment one of these lines, accordingly version of your device
+uint32_t baudrate = 500000; // for ROSbot 2.0
+// uint32_t baudrate = 230400; // for ROSbot 2.0 PRO 
+
 ros::NodeHandle nh;
 sensor_msgs::BatteryState battery;
 ros::Publisher *battery_pub;
@@ -182,6 +186,7 @@ void initBatteryPublisher()
 void hMain()
 {
 	rosbot.initROSbot(sensor_type, imu_type);
+	RPi.init(baudrate);
 	platform.begin(&RPi);
 	nh.getHardware()->initWithDevice(&platform.LocalSerial);
 	nh.initNode();
@@ -247,6 +252,14 @@ Define which type of IMU you are using in your robot:
 static const ImuType imu_type = MPU9250;
 // If you want to use your own sensor:
 // static const ImuType imu_type = NO_IMU;
+```
+
+Define baudrate for serial communication, ROSbot 2.0 and ROSbot 2.0 PRO needs different serial port speed:
+
+```cpp
+// Uncomment one of these lines, accordingly version of your device
+uint32_t baudrate = 500000; // for ROSbot 2.0
+// uint32_t baudrate = 230400; // for ROSbot 2.0 PRO
 ```
 
 Create handle for node:
@@ -318,6 +331,7 @@ Main function, device and messages initialization:
 ```cpp
     void hMain() {
 	rosbot.initROSbot(sensor_type, imu_type);
+	RPi.init(baudrate);
 	platform.begin(&RPi);
 	nh.getHardware()->initWithDevice(&platform.LocalSerial);
 	nh.initNode();
