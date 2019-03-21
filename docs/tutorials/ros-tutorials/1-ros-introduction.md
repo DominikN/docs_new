@@ -4,6 +4,12 @@ sidebar_label: 1. ROS introduction
 id: 1-ros-introduction
 ---
 
+> You can run this tutorial on:
+>
+> - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
+> - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
+> - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
+
 "The Robot Operating System (ROS) is a flexible framework for writing robot software. It is a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms." - according to the official [ROS webpage](http://www.ros.org/about-ros/).
 
 <div>
@@ -53,13 +59,13 @@ intended to examine nodes and topics.
 ### rosnode
 
 Rosnode is a command line application for examining which nodes are
-registered in the system and also checking their statuses. 
+registered in the system and also checking their statuses.
 
 Using the application looks as follows:
 
-``` bash
+```bash
      $ rosnode command [node_name]
-``` 
+```
 
 Command could be:
 
@@ -76,13 +82,13 @@ Detailed info could be found in
 
 Rostopic is a command line application for examining which topics are
 already being published and subscribed, checking details of the selected topic
-or reading messages being sent in it. 
+or reading messages being sent in it.
 
 Using the application looks as follows:
 
-``` bash
+```bash
      $ rostopic command [topic_name]
-``` 
+```
 
 Command could be:
 
@@ -95,22 +101,23 @@ Command could be:
 Detailed info could be found in
 [ROS documentation](http://wiki.ros.org/rostopic).
 
-### rqt\_graph
+### rqt_graph
 
 `rqt_graph` is graphical tool for visualization of data flow across different nodes
-in the system. 
+in the system.
 
 Using the application looks as follows:
 
-``` bash
+```bash
      $ rqt_graph
 ```
 
 ## Robot platform
 
-This tutorial is created for ROSbot, open-source robot platform. You can read more about it here: [ROSbot manual](https://husarion.com/manuals/rosbot-manual/). 
+This tutorial is created for ROSbot, open-source robot platform. You can read more about it here: [ROSbot manual](https://husarion.com/manuals/rosbot-manual/).
 
 The platform contains:
+
 - 1 × Husarion CORE2-ROS version with ASUS Tinker Board
 - 1 × RPLIDAR A2 360°
 - 1 x RGBD camera Orbbec Astra
@@ -153,11 +160,11 @@ next to robot name.
 
 To connect by ssh type in terminal:
 
-``` bash
+```bash
     $ ssh husarion@xxx.xxx.xxx.xxx
-``` 
+```
 
-password is:  `husarion`
+password is: `husarion`
 
 To connect via remote desktop you need a remote desktop client
 application. Depending on your system, you may have various clients.
@@ -179,7 +186,6 @@ Parameters for connection are the following:
     </tr>
 </table>
 
-
 If you are working on Windows, press `WinKey + r` then type `mstsc`.
 
 You will see a window appear:
@@ -194,13 +200,13 @@ If you are working on Ubuntu, you can use **Remmina**.
 
 The first step in working with ROS is to run master process called roscore.
 This node handles registration of other nodes, topics and services. After
-this step is complete you can run your nodes. 
+this step is complete you can run your nodes.
 
 To start the master process you can use command:
 
-``` bash
+```bash
     $ roscore
-``` 
+```
 
 #### Starting Gazebo
 
@@ -212,7 +218,7 @@ To start using Gazebo with ROSbot model you need to download our package with mo
     $ catkin_init_workspace
     $ sudo apt update
     $ git clone https://github.com/husarion/rosbot_description.git
-    $ cd ~/ros_workspace 
+    $ cd ~/ros_workspace
     $ catkin_make
     $ source devel/setup.sh
 ```
@@ -229,11 +235,11 @@ You can start ROS nodes by typing name of each node manually.
 
 To do it you can use the following command:
 
-``` bash
+```bash
     $ rosrun package_name node_type [options]
-``` 
+```
 
-Package\_name and node\_type are names of package and node that you want
+Package_name and node_type are names of package and node that you want
 to run. `rosrun` executes node in the terminal and outputs text logs to the screen. To start multiple nodes simultaneously use `roslaunch`. You will learn about this tool soon.
 
 #### Defining node name
@@ -241,9 +247,9 @@ to run. `rosrun` executes node in the terminal and outputs text logs to the scre
 If you want to bind specific identifier to a node, at the end of the
 command, add:
 
-``` bash
+```bash
     __name:=new_node_name
-``` 
+```
 
 Note that there are two underscores before the name. If you want to learn more about naming convention used by ROS see [this](http://wiki.ros.org/ROS/Concepts#Names.Names) docs.
 
@@ -251,9 +257,9 @@ Note that there are two underscores before the name. If you want to learn more a
 
 You can also set parameter value by adding:
 
-``` bash
+```bash
     _param:=value
-``` 
+```
 
 Note that there is an underscore before the parameter name.
 
@@ -265,24 +271,24 @@ accepted, check documentation for exact node.
 If you want to change the name of the topic subscribed or published by a node, you
 can use remapping option. In order to do it, at the end of the command, add:
 
-``` bash
+```bash
     old_topic_name:=new_topic_name
-``` 
+```
 
 Note that there is no underscore before the old name.
 
 ### Starting system step by step - Example
 
-In this section, we will set up ROS system that is equipped with a Orbbec Astra 
+In this section, we will set up ROS system that is equipped with a Orbbec Astra
 camera and show image from camera on display. Use remote desktop client of your choice to connect to your ROSbot or Core2ROS. In case of latter remember to plug in Orbbec Astra camera to your SBC. You can also follow the tutorial in simulation mode using Gazebo and Husarion VM.
 
 #### Starting master
 
 We will begin with master by typing in the following code in the ecommand line:
 
-``` bash
+```bash
     $ roscore
-``` 
+```
 
 You should see something like this:
 
@@ -296,45 +302,45 @@ don’t worry that you didn’t start any node yet.
 Let’s begin by checking the list of existing nodes.
 In the new terminal type in:
 
-``` bash
+```bash
     $ rosnode list
-``` 
+```
 
 As the output you should get:
 
-``` bash
-    husarion@core2-ros:~$ rosnode list 
+```bash
+    husarion@core2-ros:~$ rosnode list
     /rosout
-``` 
+```
 
 This means, that you have now one node running which name is `/rosout`
-and it is responsible for handling console log mechanism. 
+and it is responsible for handling console log mechanism.
 
 Next you can check some info about this node:
 
-``` bash
+```bash
     $ rosnode info /rosout
-``` 
+```
 
 And as the output you should get:
 
-``` bash
-    husarion@core2-ros:~$ rosnode info /rosout 
+```bash
+    husarion@core2-ros:~$ rosnode info /rosout
     -------------------------------------
     Node [/rosout]
-    Publications: 
+    Publications:
      * /rosout_agg [rosgraph_msgs/Log]
-     
-    Subscriptions: 
+
+    Subscriptions:
      * /rosout [unknown type]
-     
-    Services: 
+
+    Services:
      * /rosout/set_logger_level
      * /rosout/get_loggers
-     
+
     contacting node http://core2-ros:48067/ ...
     Pid: 4594
-``` 
+```
 
 You can see here that node `/rosout` is publishing to topic
 `/rosout_agg`, subscribing topic `/rosout` and offering two services:
@@ -349,7 +355,7 @@ info about them. In new console type in:
 
 You should get in the output:
 
-    husarion@core2-ros:~$ rostopic list 
+    husarion@core2-ros:~$ rostopic list
     /rosout
     /rosout_agg
 
@@ -362,13 +368,13 @@ As the output you should get:
 
     husarion@core2-ros:~$ rostopic info /rosout
     Type: rosgraph_msgs/Log
-    
+
     Publishers: None
-    
-    Subscribers: 
+
+    Subscribers:
      * /rosout (http://core2-ros:33119/)
 
-From that you can read, that via topic `/rosout` only messages of type `rosgraph_msgs/Log` can be transmitted, there is no node that publishes to this topic and node `/rosout` subscribes it. 
+From that you can read, that via topic `/rosout` only messages of type `rosgraph_msgs/Log` can be transmitted, there is no node that publishes to this topic and node `/rosout` subscribes it.
 
 Now, leet's try to get similar info about the second topic:
 
@@ -376,12 +382,12 @@ Now, leet's try to get similar info about the second topic:
 
 As the output you should get:
 
-    husarion@core2-ros:~$ rostopic info /rosout_agg 
+    husarion@core2-ros:~$ rostopic info /rosout_agg
     Type: rosgraph_msgs/Log
-    
-    Publishers: 
+
+    Publishers:
      * /rosout (http://core2-ros:33119/)
-     
+
     Subscribers: None
 
 From that you can read, that via topic `/rosout_agg` only messages of type `rosgraph_msgs/Log` can be transmitted, node `/rosout` publishes to this topic and there is no node that subscribes it.
@@ -390,8 +396,8 @@ From that you can read, that via topic `/rosout_agg` only messages of type `rosg
 
 If you are using simulator, you can skip this section, as the driver for camera will not be necessary.
 
-Now you will run few nodes for handling Astra camera device. For this task you should use `astra.launch` from package `astra_launch` because this is the default camera installed in ROSbot. 
-We will explain how `launch` file works later. 
+Now you will run few nodes for handling Astra camera device. For this task you should use `astra.launch` from package `astra_launch` because this is the default camera installed in ROSbot.
+We will explain how `launch` file works later.
 
 You can start camera nodes by typing in the terminal:
 
@@ -403,7 +409,7 @@ As output you should get something like below:
 
 ![image](/docs/assets/img/ros/man_1_2.png)
 
-**Task 1** 
+**Task 1**
 
 Use `rosnode` and `rostopic` tools to check if new nodes or
 topic appeared in the system. Next find some info regarding new node and
@@ -423,13 +429,13 @@ As the output you should get:
 
 **Note for simulator**: Simulated environment consist of simple objects (plains, boxes etc.), due to this, image from camera will consist of simple shapes like triangles or rectangles.
 
-**Task 2** 
+**Task 2**
 
 Use `rosnode` and `rostopic` tools to check what changed in
 the system after running another node. Notice what changed in properties
 of `/camera/rgb/image_raw` topic.
 
-#### Examining system with rqt\_graph
+#### Examining system with rqt_graph
 
 Now you will use `rqt_graph` tool in order to get graph of data flow in
 the system. In new terminal type in:
@@ -442,17 +448,17 @@ There will be no response in the terminal, but new window will appear. In upper 
 
 Interpretation of the graph is as follows:
 
--   Ovals represent nodes
+- Ovals represent nodes
 
--   Rectangles represent topics
+- Rectangles represent topics
 
--   Big rectangles containing other elements represent namespace (shared part of the name)
+- Big rectangles containing other elements represent namespace (shared part of the name)
 
--   Arrows pointing from node to topic represent publication to this
-    topic
+- Arrows pointing from node to topic represent publication to this
+  topic
 
--   Arrows pointing from topic to node represent subscription to this
-    topic
+- Arrows pointing from topic to node represent subscription to this
+  topic
 
 ### Starting system with `roslaunch`
 
@@ -471,59 +477,59 @@ the package- you can run it from any folder. The second option is when you
 use standalone launch file- you must run it in the folder where the launch
 file is located or point the path to it.
 
-#### Structure of .launch file 
+#### Structure of .launch file
 
 Structure of `.launch` file is defined in a markup language derived from XML and similar to
-HTML. Content of the `.launch` file is inserted between the start and end tags: `<launch>...</launch>` (root element). Other elements including those that define nodes should be placed between them. 
+HTML. Content of the `.launch` file is inserted between the start and end tags: `<launch>...</launch>` (root element). Other elements including those that define nodes should be placed between them.
 You can define node using `node` element:
 
-``` launch
+```launch
     <node pkg="package_name" type="node" name="id" required="true" output="screen">
     </node>
-``` 
+```
 
 Where fields `pkg`, `type` and `name` are required, rest are optional.
 
 Meaning of each field:
 
--   `pkg` - name of the epackage
+- `pkg` - name of the epackage
 
--   `type` - node to be run
+- `type` - node to be run
 
--   `name` - id which will be binded to the node
+- `name` - id which will be binded to the node
 
--   `required` - if true, all nodes in the `.launch` file will be
-    stopped if this node stops or fails, default value is false.
+- `required` - if true, all nodes in the `.launch` file will be
+  stopped if this node stops or fails, default value is false.
 
--   `output` - if value is `screen` node output will be directed to
-    screen, if value is `log` output will be directed to log file,
-    default is log.
+- `output` - if value is `screen` node output will be directed to
+  screen, if value is `log` output will be directed to log file,
+  default is log.
 
 For each node parameters can be set or topics can be remapped.
 
 For setting parameters use element `param`:
 
-``` launch
+```launch
     <param name="name" value="value"/>
-``` 
+```
 
 Meaning of the fields:
 
--   `name` - name of the parameter
+- `name` - name of the parameter
 
--   `value` - desired value of the parameter
+- `value` - desired value of the parameter
 
 For remapping the topic names use element `remap`:
 
-``` launch
+```launch
     <remap from="/old" to="/new"/>
-``` 
+```
 
 Meaning of the fields:
 
--   `from` - old topic's name
+- `from` - old topic's name
 
--   `to` - desired topic's name
+- `to` - desired topic's name
 
 ### Starting system with `roslaunch` - Example
 
@@ -532,7 +538,7 @@ this time with use of `roslaunch` tool.
 
 At first you will need a `.launch` file.
 
-``` launch
+```launch
 <launch>
 
     <arg name="use_gazebo" default="false"/>
@@ -544,8 +550,15 @@ At first you will need a `.launch` file.
         <remap from="/image" to="/camera/rgb/image_raw"/>
     </node>
 
-</launch> 
-``` 
+<<<<<<< HEAD
+</launch>
+```
+
+=======
+</launch>
+
+````
+>>>>>>> c6abddcdf87186cf8dfe0ed7b1a521f76d9c9ded
 
 Copy the above code to text editor (and other parameters if needed) and save it to file `tutorial_1.launch` in your home directory.
 
@@ -554,21 +567,23 @@ terminal and, if working on ROSbot, type in:
 
 ```bash
     $ roslaunch tutorial_1.launch
-```
+````
 
 In case of working with Gazebo:
+
 ```bash
     $ roslaunch tutorial_1.launch use_gazebo:=true
 ```
+
 You should get output like this:
 
 ![image](/docs/assets/img/ros/man_1_5.png)
 
 Notice that you do not need to run `roscore` before using `roslaunch`,
 if `roscore` is not running already, `roslaunch` will run it before
-starting nodes. 
+starting nodes.
 
-**Task 3** 
+**Task 3**
 
 Use `rosnode`, `rostopic` and `rqt_graph`
 tools to examine system started with use of `roslaunch`, there should be
@@ -582,10 +597,8 @@ node, setting parameters and remapping topic names. You should be able
 to check what nodes are running in system and to which topics they are
 publishing and subscribing.
 
+---
 
----------
+_by Łukasz Mitka, Husarion_
 
-*by Łukasz Mitka, Husarion*
-
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
-
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_

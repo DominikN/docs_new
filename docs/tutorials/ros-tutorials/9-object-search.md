@@ -4,7 +4,13 @@ sidebar_label: 9. Object search
 id: 9-object-search
 ---
 
-## Introduction ##
+> You can run this tutorial on:
+>
+> - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
+> - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
+> - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
+
+## Introduction
 
 Object search task defines a mission in which robot has to explore environment while observing if given object exists in explored area. For this purpose it is necessary to use two different approaches, one for exploration and second for object recognition. In prevoius tutorial we already discussed object environment exploration and object recognition as separate tasks. Beside launching them together, it is necessary to keep track of which obstacles were checked by the object recognition process. Task is considered as finished when object is succesfully recognized or all obstacles were checked with no object detection.
 
@@ -17,7 +23,7 @@ We have prepared ready to go virtual environment with end effect of following th
 <img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
 </center></div>
 
-## Object search in ROS ##
+## Object search in ROS
 
 It is possible to use configurations from prevoius tutorials for area exloration and object detection. We will use:
 
@@ -29,17 +35,17 @@ It is possible to use configurations from prevoius tutorials for area exloration
 
 Furthermore we will need our own node to keep track of checked obstacles.
 
-### Requirements regarding robot ###
+### Requirements regarding robot
 
 Before continuing with object detection task certain requirements must be met, robot should:
 
--   subscribe `/move_base/goal` topic with message type `geometry_msgs/PoseStamped` in which robot desired positions are included.
+- subscribe `/move_base/goal` topic with message type `geometry_msgs/PoseStamped` in which robot desired positions are included.
 
--   Publish map to `/map` topic with message type `nav_msgs/OccupancyGrid`.
+- Publish map to `/map` topic with message type `nav_msgs/OccupancyGrid`.
 
--   Publish to `/tf` topic transformations between robot starting point relative to map, robot relative to its starting point, laser scanner relative to robot and camera realative to robot.
+- Publish to `/tf` topic transformations between robot starting point relative to map, robot relative to its starting point, laser scanner relative to robot and camera realative to robot.
 
--   Be equipped with RGB-D camera (Orbbec Astra is used in tutorial)
+- Be equipped with RGB-D camera (Orbbec Astra is used in tutorial)
 
 ### System architecture
 
@@ -49,7 +55,7 @@ Our search system will consist of many cooperating ROS nodes, before we start co
 
 Due to the fact that all computations would be exccesive load for SBC in the robot, some of the tasks will be moved to other computer.
 
-### Configuration of `explore_server` and `move_base` nodes ###
+### Configuration of `explore_server` and `move_base` nodes
 
 `Explore server` and `move_base` nodes can be used with the same configuration as in prevoius tutorials, make sure you have `costmap_common_params.yaml`, `local_costmap_params.yaml`, `global_costmap_params.yaml`, `trajectory_planner.yaml` and `exploration.yaml` file in `tutorial_pkg/config` directory.
 
@@ -61,21 +67,21 @@ You can use the same images that you scanned in tutorial 4. Searching node will 
 
 For the node we will define below parameters:
 
--   `objects_path` with value `$(find tutorial_pkg)/image_rec/`
+- `objects_path` with value `$(find tutorial_pkg)/image_rec/`
 
--   `object_prefix` with value `object`
+- `object_prefix` with value `object`
 
--   `gui` with value `true`
+- `gui` with value `true`
 
--   `subscribe_depth` with value `true`
+- `subscribe_depth` with value `true`
 
 We will also need to remap topics:
 
--   from `rgb/image_rect_color` to `/rgb_raw`
+- from `rgb/image_rect_color` to `/rgb_raw`
 
--   from `depth_registered/image_raw` to `/depth_raw`
+- from `depth_registered/image_raw` to `/depth_raw`
 
--   from `depth_registered/camera_info` to `/camera/depth/camera_info`
+- from `depth_registered/camera_info` to `/camera/depth/camera_info`
 
 ### Configuration of `depthimage_to_laserscan` node
 
@@ -83,44 +89,41 @@ Node `depthimage_to_laserscan` from package `depthimage_to_laserscan` makes proj
 
 For the node we will define below parameters:
 
--   `scan_height` with value `1`
+- `scan_height` with value `1`
 
--   `range_min` with value `0.45`
+- `range_min` with value `0.45`
 
--   `range_max` with value `1.5`
+- `range_max` with value `1.5`
 
 We will also need to remap topics:
 
--   from= `/image` to `/camera/depth/image`
+- from= `/image` to `/camera/depth/image`
 
--   from= `/scan` to `/proj_scan`
+- from= `/scan` to `/proj_scan`
 
 ### Configuration of video streaming to external computer
 
 We will be performing image analysis on external computer, this could be PC connected through LAN or remote server connected through husarnet. Though it is possible to stream uncompressed images to other device, it is not adviced due to the huge bandwidth usage. Much better way is to use `image_transport` package to stream compressed images. For this we will need to start few aditional nodes. Two of them will be running on robot, they will subscribe respectively raw RGB and depth image and publish compressed images. Another two nodes will be running on another machine, their task will be to decompress images and publish them for further usage. All mentioned nodes are from `image_transport` package and are of type `republish`.
 
-First node on robot will be defined with argument:` raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish` and no parameters.
+First node on robot will be defined with argument:`raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish` and no parameters.
 
 Second node on robot will be defined with argument: `raw in:=/camera/depth/image_raw compressed out:=/depth_republish` and below parameters:
 
--   `compressed/format` with value `png`
+- `compressed/format` with value `png`
 
--   `compressed/png_level` with value `1`
+- `compressed/png_level` with value `1`
 
+First node on external computer will be defined with argument:`compressed in:=/rgb_republish raw out:=/rgb_raw` and below parameter:
 
-First node on external computer will be defined with argument:` compressed in:=/rgb_republish raw out:=/rgb_raw` and below parameter:
-
--   `compressed/mode` with value `color`
+- `compressed/mode` with value `color`
 
 Second node on external computer will be defined with argument: `compressed in:=/depth_republish raw out:=/depth_raw` and below parameter:
 
--   `compressed/mode` with value `unchanged`
-
+- `compressed/mode` with value `unchanged`
 
 ### Key methods in `search_manager` node
 
 The `search_manager` node that we will use in this tutorial is responsible for managing exploration and trajectory planning tasks. It also takes care of marking checked obstacles.
-
 
 For controlling exploration and path planning tasks, we will use `actionlib` library.
 
@@ -147,7 +150,6 @@ void start_frontier_exploration()
 
 Method `createExplorationGoal()` of class `SearchManager` creates data structure containing parameters of exploration task.
 
-
 To stop the exploration task we will define function:
 
 ```
@@ -159,6 +161,7 @@ void cancel_exploration_action()
     explore_canceller.publish(cancel_exploration);
 }
 ```
+
 If empty goal ID is published, this causes all exploration tasks to be cancelled.
 
 Similarly we define function for cancelling path planning task:
@@ -174,8 +177,6 @@ void cancel_move_base_action()
 ```
 
 We do not need to specify any function for initializaion of path planning, this is done by the exploration server or when destination point is published.
-
-
 
 We also need to monitor statuses of other tasks. Define callback for path planning:
 
@@ -201,7 +202,6 @@ void status_callback(const actionlib_msgs::GoalStatusArrayConstPtr &status)
     }
 }
 ```
-
 
 Define callback for exploration:
 
@@ -231,9 +231,9 @@ void explore_status_callback(const actionlib_msgs::GoalStatusArrayConstPtr &stat
 }
 ```
 
-Both callbacks are checking status of currently executed task and update appropriate global variable. These variables will be used in node main loop. 
+Both callbacks are checking status of currently executed task and update appropriate global variable. These variables will be used in node main loop.
 
-Now we will proceed to `main()` function of the node. In the body of the function we begin  with node initialization:
+Now we will proceed to `main()` function of the node. In the body of the function we begin with node initialization:
 
 ```
     ros::init(argc, argv, "search_manager_node");
@@ -1319,53 +1319,51 @@ target_link_libraries(search_manager
 
 Now you can build your workspace with `catkin_make`.
 
-### Launching search task ###
-
+### Launching search task
 
 To remind, you will need to run following nodes:
 
--   `CORE2` bridge node -
-    `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 `
+- `CORE2` bridge node -
+  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
 
--   `rplidarNode` - driver for rpLidar laser scanner
+- `rplidarNode` - driver for rpLidar laser scanner
 
--   `astra_camera` - driver for Orbbec Astra RGB-D camera
+- `astra_camera` - driver for Orbbec Astra RGB-D camera
 
--   `drive_controller_node` - `tf` publisher for transformation of robot
-    relative to starting point
+- `drive_controller_node` - `tf` publisher for transformation of robot
+  relative to starting point
 
--    `republish` nodes for managing image streaming
+- `republish` nodes for managing image streaming
 
 Or instead ot these nodes, `Gazebo`:
 
--   `roslaunch rosbot_gazebo maze_world.launch`
+- `roslaunch rosbot_gazebo maze_world.launch`
 
-And: 
+And:
 
--   `static_transform_publisher` - `tf` publisher for transformation of
-    laser scanner relative to robot and camera relative to robot
+- `static_transform_publisher` - `tf` publisher for transformation of
+  laser scanner relative to robot and camera relative to robot
 
--   `slam_gmapping` - map building node
+- `slam_gmapping` - map building node
 
--   `move_base` - trajectory planner
+- `move_base` - trajectory planner
 
--   `explore_server` - exploration task
+- `explore_server` - exploration task
 
--   `rviz` - visualization tool
+- `rviz` - visualization tool
 
--   `find_object_2d` - image recognition tool
+- `find_object_2d` - image recognition tool
 
--   `search_manager` - executive node for search task that you just build
+- `search_manager` - executive node for search task that you just build
 
 It is necessary to distnguish launching search task on ROSbot and in Gazebo. Essential difference is that some processes will be moved from ROSbot to separate device to improve performance.
 When using Gazebo all processes can be executed on single device, we assume that worksatation is capable enough to run all of them. If you want, there are no restrictions to use Gazebo with similar setup as for ROSbot.
-
 
 #### Gazebo version
 
 For Gazebo you can use below `launch` file:
 
-``` launch
+```launch
 <launch>
 
     <param name="use_sim_time" value="true"/>
@@ -1441,6 +1439,7 @@ For Gazebo you can use below `launch` file:
 
 </launch>
 ```
+
 ![image](/docs/assets/img/ros/man_9_gazebo.png)
 
 #### ROSbot version
@@ -1540,28 +1539,28 @@ And second to be run on another device:
 </launch>
 ```
 
-### Observing the progresses ###
+### Observing the progresses
 
 Object search progresses are published as `nav_msgs/OccupancyGrid`, obstacles that are detected by mapping node and waiting to be checked are published on `/obstacles/pending` topic and obstacles that were already inspected are published on `/obstacles/checked`.
 
 To view them in Rviz add objects:
 
--   `/obstacles/pending/Map`
+- `/obstacles/pending/Map`
 
--   `/obstacles/checked/Map` - for this one chenge `Color Scheme` to `costmap`, it will be easier to distinguish maps
+- `/obstacles/checked/Map` - for this one chenge `Color Scheme` to `costmap`, it will be easier to distinguish maps
 
--   `/proj_scan/LaserScan` - these are obstacles observed by the camera
+- `/proj_scan/LaserScan` - these are obstacles observed by the camera
 
--   From menu "Add" -> "By display type" choose "Robot model" - this will let you see where robot travelled
+- From menu "Add" -> "By display type" choose "Robot model" - this will let you see where robot travelled
 
 ![image](/docs/assets/img/ros/man_9_rviz.png)
 
-## Summary ##
+## Summary
 
 After completing this tutorial you should be familiar with controlling tasks using `actionlib` library. You will also know basic usage of `grid_map` library to load, edit, create from scratch and publish `nav_msgs/OccupancyGrid` maps. Finally you will be able to configure your robot to search for an object in selected area.
 
----------
+---
 
-*by Łukasz Mitka, Husarion*
+_by Łukasz Mitka, Husarion_
 
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_

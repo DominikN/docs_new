@@ -4,17 +4,23 @@ sidebar_label: 5. Running ROS on multiple machines
 id: 5-running-ros-on-multiple-machines
 ---
 
-## Introduction ##
+> You can run this tutorial on:
+>
+> - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
+> - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
+> - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
+
+## Introduction
 
 In this manual you will learn how to configure ROS to work on multiple
 computers.You will use this configuration to set up system consisting of
 two robots, which perform task of searching an object.
 
-In this manual you will need two robots based on CORE2 with the same equipment as in the previous manual. 
+In this manual you will need two robots based on CORE2 with the same equipment as in the previous manual.
 
 In case you are working on **Gazebo** simulator, it is not possible to setup system to work on multiple computers, altough you can simulate many ROSbots in simulator running on one machine. Just skip the section **Network setup** and proceed to **Performing a task with multiple machines**.
 
-## Network setup ##
+## Network setup
 
 To run ROS on multiple machines, all of them must be in the same local
 network- if necessary, use `hConfig` app to connect all devices to one
@@ -36,7 +42,7 @@ export ROS_MASTER_URI=http://X.X.X.X:11311
 export ROS_IP=Y.Y.Y.Y
 ```
 
-On second robot also open the `.bashrc` file and add two lines at file ending. This time replace `X.X.X.X` with IP address of master device and `Y.Y.Y.Y` with IP address of second robot. 
+On second robot also open the `.bashrc` file and add two lines at file ending. This time replace `X.X.X.X` with IP address of master device and `Y.Y.Y.Y` with IP address of second robot.
 
 TIP! Remember that `roscore` must be running on the device indicated as ROS master!!!
 
@@ -51,7 +57,7 @@ Next run `image_view` node on machine with `roscore`. You should see
 the image from camera mounted on the device with `astra.launch` running.
 Again use `rqt_graph` to examine what changed in the system.
 
-## Performing a task with multiple machines ##
+## Performing a task with multiple machines
 
 In this section we will program two robots to search objects one
 after another. To do that we will need one node which manages the search
@@ -63,95 +69,95 @@ teach at least four objects. Remember that both robots need to have the
 same image database, you should copy saved images from one device to
 another.
 
-### `mission_controller` node ###
+### `mission_controller` node
 
 In `tutorial_pkg` package in `src` folder create file
 `mission_controller.cpp` and open it with a text editor.
 
 Begin with the headers:
 
-``` cpp
+```cpp
     #include <ros/ros.h>
     #include <std_msgs/Char.h>
     #include <std_srvs/Empty.h>
-``` 
+```
 
 Publisher for current task:
 
-``` cpp
+```cpp
     ros::Publisher task_pub;
-``` 
+```
 
 Constants with IDs of objects to be found:
 
-``` cpp
+```cpp
     #define OBJECT_1_ID 8
     #define OBJECT_2_ID 6
     #define HOME_1_ID 12
     #define HOME_2_ID 11
-``` 
+```
 
 Vector to store sequence of searched objects:
 
-``` cpp
+```cpp
     std::vector<int> objects;
-``` 
-    
+```
+
 Number of currently searched object:
 
-``` cpp
+```cpp
     uint8_t current_object = 0;
-``` 
+```
 
 Message for sending id of currently searched object:
 
-``` cpp
+```cpp
     std_msgs::Char task;
-``` 
+```
 
 Service callback function for reporting found objects:
 
-``` cpp
+```cpp
     bool object_found(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res) {
         current_object++;
         ROS_INFO("Current object: %d", current_object);
         return true;
     }
-``` 
+```
 
 In `main` function, definining sequence of searched objects:
 
-``` cpp
+```cpp
     objects.push_back(OBJECT_1_ID);
     objects.push_back(OBJECT_2_ID);
     objects.push_back(HOME_1_ID);
     objects.push_back(HOME_2_ID);
-``` 
+```
 
 Node initialization:
 
-``` cpp
+```cpp
     ros::init(argc, argv, "mission_controller");
     ros::NodeHandle n("~");
     ros::Rate loop_rate(50);
-``` 
+```
 
 Registering the service- objects that are found will be reported here:
 
-``` cpp
+```cpp
     ros::ServiceServer service = n.advertiseService("/object_found", object_found);
-``` 
+```
 
 Publishing topic with ID of currently searched object:
 
-``` cpp
+```cpp
     task_pub = n.advertise<std_msgs::Char>("/task", 1);
-``` 
+```
 
 In infinite while loop- triggering incoming messages, checking ID of currently
 searched object and publishing it:
 
-``` cpp
+```cpp
     ros::spinOnce();
     loop_rate.sleep();
     if (current_object < objects.size()) {
@@ -161,11 +167,11 @@ searched object and publishing it:
        task.data = 0;
     }
     task_pub.publish(task);
-``` 
+```
 
 Your final file should look like this:
 
-``` cpp
+```cpp
 #include <ros/ros.h>
 #include <std_msgs/Char.h>
 #include <std_srvs/Empty.h>
@@ -218,35 +224,35 @@ int main(int argc, char **argv)
 }
 ```
 
-### `search_controller` node ###
+### `search_controller` node
 
 In the same package create another file named `search_controller.cpp`
 and open it with text editor.
 
 Begin with the header files:
 
-``` cpp
+```cpp
     #include <ros/ros.h>
     #include <std_msgs/Float32MultiArray.h>
     #include <geometry_msgs/Twist.h>
     #include <sensor_msgs/Range.h>
     #include <std_msgs/Char.h>
     #include <std_srvs/Empty.h>
-``` 
+```
 
 Publisher and message for desired velocity:
 
-``` cpp
+```cpp
     ros::Publisher action_pub;
     geometry_msgs::Twist set_vel;
-``` 
+```
 
 Variables for distance measured by sensors:
 
-``` cpp
+```cpp
     float distL = 0;
     float distR = 0;
-``` 
+```
 
 Variables for storing maximum sensor range:
 
@@ -257,26 +263,26 @@ Variables for storing maximum sensor range:
 
 Variable for currently searched object ID:
 
-``` cpp
+```cpp
     u_char search_obj;
-``` 
+```
 
 IDs of objects to be searched by this node:
 
-``` cpp
+```cpp
     int objectID;
     int homeID;
-``` 
+```
 
 Client for found object reporting service:
 
-``` cpp
+```cpp
     ros::ServiceClient client;
-``` 
+```
 
 Callbacks for updating distances and object ID:
 
-``` cpp
+```cpp
     void distL_callback(const sensor_msgs::Range &range) {
        distL = range.range;
        sensorL_max = range.max_range;
@@ -295,7 +301,7 @@ Callbacks for updating distances and object ID:
 Callback for handling recognized objects, if ID is in accordance with
 searched object, reporting it to service:
 
-``` cpp
+```cpp
     void objectCallback(const std_msgs::Float32MultiArrayPtr &object)
     {
         if (object->data.size() > 0)
@@ -308,72 +314,72 @@ searched object, reporting it to service:
             }
         }
     }
-``` 
+```
 
 In main function, node initialization:
 
-``` cpp
+```cpp
     ros::init(argc, argv, "action_controller");
     ros::NodeHandle n("~");
-``` 
+```
 
 Subscribing to topics:
 
-``` cpp
+```cpp
     ros::Subscriber sub = n.subscribe("objects", 1, objectCallback);
     ros::Subscriber distL_sub = n.subscribe("range/fl", 1, distL_callback);
     ros::Subscriber distR_sub = n.subscribe("range/fr", 1, distR_callback);
     ros::Subscriber task_sub = n.subscribe("/task", 1, task_callback);
-``` 
+```
 
 Getting `objectID` and `homeID` params, robot will search only for objects
 with these IDs:
 
-``` cpp
+```cpp
     n.param<int>("objectID", objectID, 0);
     n.param<int>("homeID", homeID, 0);
-``` 
+```
 
 Initiating client for the service:
 
-``` cpp
+```cpp
     client = n.serviceClient<std_srvs::Empty>("/object_found");
-``` 
+```
 
 Setting loop rate:
 
-``` cpp
+```cpp
     ros::Rate loop_rate(10);
-``` 
+```
 
 Initiating velocity publisher:
 
-``` cpp
+```cpp
     action_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
-``` 
+```
 
 Setting default values for velocity:
 
-``` cpp
+```cpp
     set_vel.linear.x = 0;
     set_vel.linear.y = 0;
     set_vel.linear.z = 0;
     set_vel.angular.x = 0;
     set_vel.angular.y = 0;
     set_vel.angular.z = 0;
-``` 
+```
 
 In infinite while loop, triggering incoming messages:
 
-``` cpp
+```cpp
     ros::spinOnce();
     loop_rate.sleep();
-``` 
+```
 
 If searched object ID complies with this node’s ID, setting desired robot
 velocity based on sensor measurements:
 
-``` cpp
+```cpp
     if (search_obj == objectID || search_obj == homeID)
     {
         if (distL > 1)
@@ -411,11 +417,11 @@ velocity based on sensor measurements:
         set_vel.angular.z = 0;
     }
     action_pub.publish(set_vel);
-``` 
+```
 
 Your final file should look like this:
 
-``` cpp
+```cpp
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <geometry_msgs/Twist.h>
@@ -534,7 +540,7 @@ int main(int argc, char **argv)
 }
 ```
 
-### Building the nodes ###
+### Building the nodes
 
 To build your nodes you need to edit the `CMakeLists.txt` file. Find
 line:
@@ -566,12 +572,12 @@ Add:
 Now you can build your nodes, but before you run them, `launch` file for
 them will be required.
 
-### Running the nodes on ROSbots ###
+### Running the nodes on ROSbots
 
 To run your nodes you need two `launch` files, one for each robot. First
 will be running on one robot:
 
-``` launch
+```launch
 <launch>
 
     <include file="$(find astra_launch)/launch/astra.launch"/>
@@ -601,7 +607,7 @@ identify objects which will be searched for by robot.
 
 Second `launch` file will be running on another robot:
 
-``` launch
+```launch
 <launch>
 
     <include file="$(find astra_launch)/launch/astra.launch">
@@ -619,7 +625,7 @@ Second `launch` file will be running on another robot:
         <remap from="objects" to="objects_2"/>
         <remap from="cmd_vel" to="cmd_vel_2"/>
         <remap from="rangeL" to="rangeL_2"/>
-        <remap from="rangeR" to="rangeR_2"/>        
+        <remap from="rangeR" to="rangeR_2"/>
         <param name="objectID" value="8"/>
         <param name="homeID" value="9"/>
     </node>
@@ -644,14 +650,14 @@ node:
 
 On another robot run second `launch` file with `CORE2` bridge node:
 
-    $ /opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 __name:=serial_node_2 
+    $ /opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 __name:=serial_node_2
     cmd_vel:=cmd_vel_2 rangeL:=rangeL_2 rangeR:=rangeR_2 pose:=pose_2
 
 Observe as one of your robots moves avoiding obstacles. When it finds an
 object, second robot starts seearching. They should move sequentially
 until all objects are recognized.
 
-### Running the nodes in Gazebo ###
+### Running the nodes in Gazebo
 
 Gazego will be running on one machine, thus you will use only one launch file. In this case you will use namespaces to distinguish robots, each robot will publish and subscribe topics with its own prefix. Only the `mission_controller_node` will be working without any namespace to communicate with both robots. All parameters for nodes must be set with the same values as for ROSbots.
 
@@ -751,6 +757,7 @@ sudo husarnet websetup
 ```
 
 You will get response similar to:
+
 ```
 Go to https://app.husarnet.com/husarnet/fc94cd22622bf708b9bb22d5589275fa8832943ffdb0175bff7e16ce to manage your network from web browser.
 ```
@@ -761,9 +768,8 @@ Open the provied link in web browser, you will see device configuration dialog:
 
 Type desired name of the devide into field `Name for this device`, you will use this name to distinguish your devices in dashboard.
 From `Add to network` dropdown menu choose name of network that you created in previous step.
- 
-Repeat procedure of adding device with second robot.
 
+Repeat procedure of adding device with second robot.
 
 #### Setting the master
 
@@ -777,7 +783,7 @@ You can set device to be master in its settings. Choose device you want to be ma
 
 Check `ROS master` checkbox and push button "Update".
 
-When you will start `roscore` on master, message `ROS master (roscore) is not running on robot-2. ` will be gone. 
+When you will start `roscore` on master, message `ROS master (roscore) is not running on robot-2.` will be gone.
 
 Your first Huarnet newtork is configured and ready:
 
@@ -787,15 +793,15 @@ Your first Huarnet newtork is configured and ready:
 
 Husarnet provide encrypted and direct virtual network for your devices, but it does not modify the ROS workflow. Just go back to section "Running the nodes on ROSbots", start required nodes and oberve as your robots perform the task.
 
-## Summary ##
+## Summary
 
 After completing this tutorial you should be able to configure your
 CORE2 devices to work together and exchange data with each other. You
 should also know how to program robots for performing tasks in
 cooperation.
 
----------
+---
 
-*by Łukasz Mitka, Husarion*
+_by Łukasz Mitka, Husarion_
 
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_

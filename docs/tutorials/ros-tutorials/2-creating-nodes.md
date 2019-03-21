@@ -4,6 +4,12 @@ sidebar_label: 2. Creating nodes
 id: 2-creating-nodes
 ---
 
+> You can run this tutorial on:
+>
+> - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
+> - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
+> - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
+
 ## Workspace setup ##
 
 To begin developing your own nodes, you need to do some workspace
