@@ -4,7 +4,13 @@ sidebar_label: 4. Visual object recognition
 id: 4-visual-object-recognition
 ---
 
-## Introduction ##
+> You can run this tutorial on:
+>
+> - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
+> - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
+> - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
+
+## Introduction
 
 Objects can be recognized by a robot with use of a vision system. It is
 based on image characteristics like points, lines, edges colours and
@@ -26,7 +32,7 @@ package for both teaching and recognition.
 
 As an image source we will use nodes from `astra.launch` as in tutorial 1.
 
-## Teaching objects ##
+## Teaching objects
 
 Anything could be an object to recognize, but remember, that the more edges
 and contrast colours it has, the easier it will be recognized. A piece
@@ -126,9 +132,9 @@ When you have enough objects in the database choose from the main toolbar
 **`File`** → **`Save objects...`** and choose a folder to
 store recognized objects. Close the window and stop all running nodes.
 
-## Recognizing objects ##
+## Recognizing objects
 
-Objects will be recognized by the same node which was used for teaching but 
+Objects will be recognized by the same node which was used for teaching but
 it works in slightly different configuration. We will set two new parameters
 for the node. For parameter `gui` we will set value `false`, this will run
 node without window for learning objects as we no longer need it.
@@ -162,7 +168,7 @@ To watch messages published in the topic, you can use `rostopic` tool:
 
     $ rostopic echo /objects
 
-## Making decision with recognized object ##
+## Making decision with recognized object
 
 To perform a robot action based on recognized object, we will make a new
 node. It’s task will be to subscribe `/objects` topic and publish
@@ -171,7 +177,7 @@ message to `/cmd_vel` with speed and direction depending on the object.
 Create a new file, name it `action_controller.cpp` and place it in `src`
 folder under `tutorial_pkg`. Then open it in text editor and paste below code:
 
-``` cpp
+```cpp
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <geometry_msgs/Twist.h>
@@ -232,71 +238,71 @@ int main(int argc, char **argv) {
       ros::spinOnce();
       loop_rate.sleep();
    }
-}   
+}
 ```
 
 Below is an explanation of the code line by line.
 
 Including required headers:
 
-``` cpp
+```cpp
     #include <ros/ros.h>
     #include <std_msgs/Float32MultiArray.h>
     #include <geometry_msgs/Twist.h>
-``` 
+```
 
 Defining constants for recognized objects, adjusting values to IDs of objects
 recognized by your system:
 
-``` cpp
+```cpp
     #define SMILE 8
     #define ARROW_LEFT 9
     #define ARROW_UP 10
     #define ARROW_DOWN 11
-``` 
+```
 
 Integer for storing object identifier:
 
-``` cpp
+```cpp
     int id = 0;
-``` 
+```
 
 Publisher for velocity commands:
 
-``` cpp
+```cpp
     ros::Publisher action_pub;
-``` 
+```
 
 Velocity command message:
 
-``` cpp
+```cpp
     geometry_msgs::Twist set_vel;
-``` 
+```
 
 Callback function for handling incoming messages with recognized objects
 data:
 
-``` cpp
+```cpp
     void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
-``` 
+```
 
 Checking if size of `data` field is non zero, if it is, then object is
 recognized. When `data` field size is zero, then no object was
 recognized.
 
-``` cpp
+```cpp
     if (object->data.size() > 0) {
-``` 
+```
 
 Reading id of recognized object:
 
-``` cpp
+```cpp
     id = object->data[0];
-``` 
+```
 
 Depending on recognized object, setting appropriate speed values:
 
-``` cpp
+```cpp
     switch (id) {
              case ARROW_LEFT:
                 set_vel.linear.x = 0;
@@ -314,65 +320,65 @@ Depending on recognized object, setting appropriate speed values:
                 set_vel.linear.x = 0;
                 set_vel.angular.z = 0;
           }
-``` 
+```
 
 Publishing velocity command message:
 
-``` cpp
+```cpp
     action_pub.publish(set_vel);
-``` 
+```
 
 Stopping all motors when no object was detected:
 
-``` cpp
+```cpp
     } else {
           // No object detected
           set_vel.linear.x = 0;
           set_vel.angular.z = 0;
           action_pub.publish(set_vel);
        }
-``` 
+```
 
 Main function, node initialization and setting main loop interval:
 
-``` cpp
+```cpp
     int main(int argc, char **argv) {
        ros::init(argc, argv, "action_controller");
        ros::NodeHandle n("~");
        ros::Rate loop_rate(50);
-``` 
+```
 
 Subscribing to `/objects` topic:
 
-``` cpp
+```cpp
     ros::Subscriber sub = n.subscribe("/objects", 1, objectCallback);
-``` 
+```
 
 Preparing publisher for velocity commands:
 
-``` cpp
+```cpp
     action_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
-``` 
+```
 
 Setting zeros for initial speed values:
 
-``` cpp
+```cpp
     set_vel.linear.x = 0;
        set_vel.linear.y = 0;
        set_vel.linear.z = 0;
        set_vel.angular.x = 0;
        set_vel.angular.y = 0;
        set_vel.angular.z = 0;
-``` 
+```
 
 Main loop, waiting for trigger messages:
 
-``` cpp
+```cpp
     while (ros::ok()) {
           ros::spinOnce();
           loop_rate.sleep();
        }
-``` 
+```
 
 Last thing to do is editting the `CMakeLists.txt` file. Find line:
 
@@ -403,7 +409,7 @@ how it drives and turns depending on differnt objects.
 
 You can use below `launch` file:
 
-``` launch
+```launch
 <launch>
 
     <arg name="use_rosbot" default="true"/>
@@ -432,7 +438,7 @@ You can use below `launch` file:
 </launch>
 ```
 
-## Getting position of recognized object ##
+## Getting position of recognized object
 
 Besides the ID of recognized object, `find_object_2d` node is also
 publishing a homography matrix of recognized object. In computer vision
@@ -449,66 +455,66 @@ Open `action_controller.cpp` file in text editor.
 
 Begin with including of required header file:
 
-``` cpp
+```cpp
     #include <opencv2/opencv.hpp>
-``` 
+```
 
 Variable for storing camera centre- this should be half of your camera
 horizontal resolution:
 
-``` cpp
+```cpp
     int camera_center = 320; // left 0, right 640
-``` 
+```
 
 Variables for defining rotation speed:
 
-``` cpp
+```cpp
     float max_ang_vel = 0.6;
     float min_ang_vel = 0.4;
     float ang_vel = 0;
-``` 
+```
 
 Variable for object width and height:
 
-``` cpp
+```cpp
     float objectWidth = object->data[1];
     float objectHeight = object->data[2];
-``` 
+```
 
 Variable for storing calculated object centre:
 
-``` cpp
+```cpp
     float x_pos;
-``` 
+```
 
 Variable defining how much rotation speed should increase with every
 pixel of object displacement:
 
-``` cpp
+```cpp
     float speed_coefficient = (float) camera_center / max_ang_vel /4;
-``` 
+```
 
 Object for homography matrix:
 
-``` cpp
+```cpp
     cv::Mat cvHomography(3, 3, CV_32F);
-``` 
+```
 
 Vectors for storing input and output planes:
 
-``` cpp
+```cpp
     std::vector<cv::Point2f> inPts, outPts;
 ```
 
 Adding new case in `switch` statement:
 
-``` cpp
+```cpp
     case SMILE:
-``` 
+```
 
 Extracting coefficients homography matrix:
 
-``` cpp
+```cpp
     cvHomography.at<float>(0, 0) = object->data[3];
     cvHomography.at<float>(1, 0) = object->data[4];
     cvHomography.at<float>(2, 0) = object->data[5];
@@ -518,35 +524,35 @@ Extracting coefficients homography matrix:
     cvHomography.at<float>(0, 2) = object->data[9];
     cvHomography.at<float>(1, 2) = object->data[10];
     cvHomography.at<float>(2, 2) = object->data[11];
-``` 
+```
 
 Defining corners of input plane:
 
-``` cpp
+```cpp
     inPts.push_back(cv::Point2f(0, 0));
     inPts.push_back(cv::Point2f(objectWidth, 0));
     inPts.push_back(cv::Point2f(0, objectHeight));
     inPts.push_back(cv::Point2f(objectWidth, objectHeight));
-``` 
+```
 
 Calculating perspective transformation:
 
-``` cpp
+```cpp
     cv::perspectiveTransform(inPts, outPts, cvHomography);
-``` 
+```
 
 Calculating centre of object from its corners:
 
-``` cpp
+```cpp
     x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x + outPts.at(3).x) / 4;
-``` 
+```
 
 Calculating angular speed value proportional to position of object and putting
 it into velocity message:
 
-``` cpp
+```cpp
             ang_vel = -(x_pos - camera_center) / speed_coefficient;
-            
+
             if (ang_vel >= -(min_ang_vel/2) && ang_vel <= (min_ang_vel/2)){
                 set_vel.angular.z = 0;
 	    }
@@ -559,11 +565,11 @@ it into velocity message:
 	    else {
 		set_vel.angular.z = ang_vel;
 	    }
-``` 
+```
 
 Your final file should look like this:
 
-``` cpp
+```cpp
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <geometry_msgs/Twist.h>
@@ -624,10 +630,10 @@ void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
             inPts.push_back(cv::Point2f(objectWidth, objectHeight));
             cv::perspectiveTransform(inPts, outPts, cvHomography);
 
-            x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x + 
+            x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x +
 	    	outPts.at(3).x) / 4;
             ang_vel = -(x_pos - camera_center) / speed_coefficient;
-            
+
             if (ang_vel >= -(min_ang_vel/2) && ang_vel <= (min_ang_vel/2)){
                 set_vel.angular.z = 0;
 	    }
@@ -640,7 +646,7 @@ void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
 	    else {
 		set_vel.angular.z = ang_vel;
 	    }
-            
+
             break;
          default: // other object
             set_vel.linear.x = 0;
@@ -716,46 +722,46 @@ and change it to:
 
 Now you can build your node and test it.
 
-**Task 2** Run your node along with `find_object_2d` and `astra.launch` or **Gazebo** simulator. 
+**Task 2** Run your node along with `find_object_2d` and `astra.launch` or **Gazebo** simulator.
 Place the object with ID bonded to new case in switch statement in front of your robot. Observe how it turns towards the object.
 
-## Following the object ##
+## Following the object
 
 In this section you will modify your robot to turn and also drive
 towards the object while keeping distance to it. For keeping the distance we
-will use one of two different types of sensors. 
+will use one of two different types of sensors.
 
 Log in to Husarion Cloud and open project that you created in previous
 manual. You will need to edit it a little.
 
 Include required header files:
 
-``` cpp
+```cpp
     #include "sensor_msgs/Range.h"
     #include "tf/tf.h"
-``` 
+```
 
 Message objects for all sensor measurement:
 
-``` cpp
+```cpp
 sensor_msgs::Range rangeFL;
 sensor_msgs::Range rangeFR;
 sensor_msgs::Range rangeRL;
 sensor_msgs::Range rangeRR;
-``` 
+```
 
 Publishers for measurement messages:
 
-``` cpp
+```cpp
 ros::Publisher *range_pub_fl;
 ros::Publisher *range_pub_fr;
 ros::Publisher *range_pub_rl;
 ros::Publisher *range_pub_rr;
-``` 
+```
 
 Function for initialization of publishers and messages with sensor parameters:
 
-``` cpp
+```cpp
 void initDistanceSensorsPublisher()
 {
 	range_fl.header.frame_id = "range_fl";
@@ -820,11 +826,11 @@ void initDistanceSensorsPublisher()
 		nh.advertise(*range_pub_rr);
 	}
 }
-``` 
+```
 
 Assign values to variables, put into messages and publish them:
 
-``` cpp
+```cpp
 if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
 {
 	// get ranges from distance sensors
@@ -840,11 +846,11 @@ if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
 	range_pub_rl->publish(&range_rl);
 	range_pub_rr->publish(&range_rr);
 }
-``` 
+```
 
 Whole file should look like this:
 
-``` cpp
+```cpp
 #include "hFramework.h"
 #include "hCloudClient.h"
 #include "ros.h"
@@ -1059,24 +1065,24 @@ file in text editor.
 
 Begin with including required header file:
 
-``` cpp
+```cpp
     #include <sensor_msgs/Range.h>
-``` 
+```
 
 Add variables for measured object distance, average distance and desired
 distance to obstacle:
 
-``` cpp
+```cpp
     float distFL = 0;
     float distFR = 0;
     float average_dist = 0;
     float desired_dist = 0.2;
-``` 
+```
 
 Callback functions for incoming sensor messages, their task is only to
 put values into appropriate variables:
 
-``` cpp
+```cpp
     void distFL_callback(const sensor_msgs::Range &range) {
        distFL = range.range;
     }
@@ -1084,13 +1090,13 @@ put values into appropriate variables:
     void distFR_callback(const sensor_msgs::Range &range) {
        distFR = range.range;
     }
-``` 
+```
 
 Then, in `switch` statement, calculate average distance and set velocity
 proportional to it only if both sensors found an obstacle, else set zero
 value for linear velocity:
 
-``` cpp
+```cpp
     if (distFL > 0 && distFR > 0) {
         average_dist = (distFL + distFR) / 2;
         set_vel.linear.x = (average_dist - desired_dist) /4;
@@ -1098,18 +1104,18 @@ value for linear velocity:
     else {
         set_vel.linear.x = 0;
     }
-``` 
+```
 
 In main function, subscribe to sensor topics:
 
-``` cpp
+```cpp
     ros::Subscriber distFL_sub = n.subscribe("/range/fl", 1, distFL_callback);
     ros::Subscriber distFR_sub = n.subscribe("/range/fr", 1, distFR_callback);
-``` 
+```
 
 Final file should look like this:
 
-``` cpp
+```cpp
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/Int32MultiArray.h>
@@ -1188,7 +1194,7 @@ void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
             x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x +
 	    	outPts.at(3).x) / 4;
             ang_vel = -(x_pos - camera_center) / speed_coefficient;
-            
+
             if (ang_vel >= -(min_ang_vel/2) && ang_vel <= (min_ang_vel/2)){
                 set_vel.angular.z = 0;
                     if (distFL > 0 && distFR > 0) {
@@ -1258,7 +1264,7 @@ Now you can build your node and test it.
 Place the same object as in Task 2 in front of your robot.
 Observe how it turns and drives towards the object.
 
-## Summary ##
+## Summary
 
 After completing this tutorial you should be able to configure your
 CORE2 device with vision system to recognize objects. You should also be
@@ -1267,8 +1273,8 @@ create a node that perform specific action related to recognized objects.
 You should also know how to handle proximity sensors with `sensor_msgs/Range`
 message type.
 
----------
+---
 
-*by Łukasz Mitka, Husarion*
+_by Łukasz Mitka, Husarion_
 
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_

@@ -4,7 +4,13 @@ sidebar_label: 7. Path planning
 id: 7-path-planning
 ---
 
-## Introduction ##
+> You can run this tutorial on:
+>
+> - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
+> - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
+> - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
+
+## Introduction
 
 Task of path planning for mobile robot is to determine sequence of
 manoeuvrers to be taken by robot in order to move from starting point to
@@ -12,19 +18,19 @@ destination avoiding collision with obstacles.
 
 Sample algorithms for path planning are:
 
--   Dijkstra’s algorithm
+- Dijkstra’s algorithm
 
--   A\*
+- A\*
 
--   D\*
+- D\*
 
--   Artificial potential field method
+- Artificial potential field method
 
--   Visibility graph method
+- Visibility graph method
 
 Path planning algorithms may be based on graph or occupancy grid.
 
-### Graph methods ###
+### Graph methods
 
 Method that is using graphs, defines places where robot can be and
 possibilities to traverse between these places. In this representation
@@ -35,36 +41,36 @@ door width or energy required to open it. Finding the trajectory is
 based on finding the shortest path between two vertices while one of
 them is robot current position and second is destination.
 
-### Occupancy grid methods ###
+### Occupancy grid methods
 
 Method that is using occupancy grid divides area into cells (e.g. map
 pixels) and assign them as occupied or free. One of cells is marked as
 robot position and another as a destination. Finding the trajectory is
 based on finding shortest line that do not cross any of occupied cells.
 
-## Occupancy grid path planning in ROS ##
+## Occupancy grid path planning in ROS
 
 In ROS it is possible to plan a path based on occupancy grid, e.g. the
 one obtained from `slam_gmapping`. Path planner is `move_base` node from
 `move_base` package.
 
-### Requirements regarding robot ###
+### Requirements regarding robot
 
 Before continuing with `move_base` node certain requirements must be
 met, robot should:
 
--   subscribe `cmd_vel` topic with message type `geometry_msgs/Twist` in
-    which robot desired velocities are included.
+- subscribe `cmd_vel` topic with message type `geometry_msgs/Twist` in
+  which robot desired velocities are included.
 
--   Publish to `/tf` topic transformations between robot relative to
-    starting point and laser scanner relative to robot.
+- Publish to `/tf` topic transformations between robot relative to
+  starting point and laser scanner relative to robot.
 
--   Publish map to `/map` topic with message type
-    `nav_msgs/OccupancyGrid`
+- Publish map to `/map` topic with message type
+  `nav_msgs/OccupancyGrid`
 
 Above configuration is met by the robot created in previous manual.
 
-## Configuration of `move_base` node ##
+## Configuration of `move_base` node
 
 `Move_base` node creates cost map basing on occupancy grid. , Cost map
 is a grid in which every cell gets assigned value (cost) determining
@@ -76,7 +82,7 @@ motion and global for trajectory with longer range.
 For `move_base` node some parameters for cost map and trajectory planner
 need to be defined, they are stored in `.yaml` files.
 
-### Common parameters for cost map ###
+### Common parameters for cost map
 
 Common parameters are used both by local and global cost map. We will
 define following parameters:
@@ -107,20 +113,20 @@ was updated.
 
 This parameter defines type of sensor used to provide data.
 
-    laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, 
+    laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan,
     	topic: scan, marking: true, clearing: true}
 
 This parameter define properties of used sensor, these are:
 
--   `sensor_frame` - coordinate frame tied to sensor
+- `sensor_frame` - coordinate frame tied to sensor
 
--   `data_type` - type of message published by sensor
+- `data_type` - type of message published by sensor
 
--   `topic` - name of topic where sensor data is published
+- `topic` - name of topic where sensor data is published
 
--   `marking` - true if sensor can be used to mark area as occupied
+- `marking` - true if sensor can be used to mark area as occupied
 
--   `clearing` - true if sensor can be used to mark area as clear
+- `clearing` - true if sensor can be used to mark area as clear
 
 <!-- -->
 
@@ -140,7 +146,7 @@ This parameter define if costmap should be always published with complete data.
 
 Your final file should look like below:
 
-``` 
+```
 obstacle_range: 6.0
 raytrace_range: 8.5
 footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
@@ -151,11 +157,11 @@ laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, topic: scan
 global_frame: map
 robot_base_frame: base_link
 always_send_full_costmap: true
-``` 
+```
 
 Save it as `costmap_common_params.yaml` in `tutorial_pkg/config` directory.
 
-### Parameters for local cost map ###
+### Parameters for local cost map
 
 These parameters are used only by local cost map. We will define
 following parameters:
@@ -228,7 +234,7 @@ local_costmap:
 
 Save it as `local_costmap_params.yaml` in `tutorial_pkg/config` directory.
 
-### Parameters for global cost map ###
+### Parameters for global cost map
 
 These parameters are used only by global cost map. Parameter meaning is
 the same as for local cost map, but values may be different.
@@ -252,7 +258,7 @@ global_costmap:
 
 Save it as `global_costmap_params.yaml` in `tutorial_pkg/config` directory.
 
-### Parameters for trajectory planner ###
+### Parameters for trajectory planner
 
 These parameters are used by trajectory planner. We will define
 following parameters:
@@ -334,7 +340,7 @@ Save it as `trajectory_planner.yaml` in `tutorial_pkg/config` directory.
 Remember that you may need to adjust cost map and trajectory planner
 parameters to your robot and area that you want to explore.
 
-### Launching path planning node ###
+### Launching path planning node
 
 To test above configuration you will need to run `move_base` node with
 nodes from SLAM configuration, you will not need only
@@ -343,28 +349,28 @@ planner.
 
 To sum up, you will need to run following nodes:
 
--   `CORE2` bridge node -
-    `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 `
+- `CORE2` bridge node -
+  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
 
--   `drive_controller_node` - `tf` publisher for transformation of robot
-    relative to starting point
+- `drive_controller_node` - `tf` publisher for transformation of robot
+  relative to starting point
 
--   `rplidarNode` - driver for rpLidar laser scanner
+- `rplidarNode` - driver for rpLidar laser scanner
 
 Or instead ot these three, `Gazebo`:
 
--   `roslaunch rosbot_gazebo maze_world.launch`
+- `roslaunch rosbot_gazebo maze_world.launch`
 
-And: 
+And:
 
--   `static_transform_publisher` - `tf` publisher for transformation of
-    laser scanner relative to robot
+- `static_transform_publisher` - `tf` publisher for transformation of
+  laser scanner relative to robot
 
--   `slam_gmapping` - map building node
+- `slam_gmapping` - map building node
 
--   `move_base` - trajectory planner
+- `move_base` - trajectory planner
 
--   `rviz` - visualization tool
+- `rviz` - visualization tool
 
 For the `move_base` node you will need to specify paths for `.yaml`
 configuration files.
@@ -395,7 +401,7 @@ Load trajectory planner parameters:
 
 You can use below `launch` file:
 
-``` launch
+```launch
 <launch>
 
     <arg name="use_rosbot" default="true"/>
@@ -403,7 +409,7 @@ You can use below `launch` file:
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
-    
+
     <param if="$(arg use_gazebo)" name="use_sim_time" value="true"/>
 
     <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
@@ -423,7 +429,7 @@ You can use below `launch` file:
         <param name="odom_frame" value="odom" />
         <param name="delta" value="0.1" />
     </node>
-    
+
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
         <param name="controller_frequency" value="10.0"/>
         <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
@@ -436,7 +442,7 @@ You can use below `launch` file:
 </launch>
 ```
 
-### Setting goal for trajectory planner ###
+### Setting goal for trajectory planner
 
 After you launched trajectory planner with all accompanying nodes, your
 robot still will not be moving anywhere. You have to specify target
@@ -447,11 +453,11 @@ planned trajectory. Go to `rviz`, add `Tf`, `/scan` and `/map`, again
 open object adding window, go to tab **`By topic`** and from the list
 select
 
--   `move_base/TrajectoryPlannerROS/local_plan/Path`
+- `move_base/TrajectoryPlannerROS/local_plan/Path`
 
--   `move_base/TrajectoryPlannerROS/global_plan/Path`
+- `move_base/TrajectoryPlannerROS/global_plan/Path`
 
--   `move_base/global_costmap/footprint/Polygon`
+- `move_base/global_costmap/footprint/Polygon`
 
 Then for global plan path change its colour to red (values 255; 0; 0):
 
@@ -478,17 +484,17 @@ Having all the elements visualized, you can set goal for robot, from
 Observe as path is generated (you should see a line from your robot
 pointing to direction) and robot is moving to its destination.
 
-![image](/docs/assets/img/ros/man_7_3.png)  
+![image](/docs/assets/img/ros/man_7_3.png)
 
-## Summary ##
+## Summary
 
 After completing this tutorial you should be able to configure
 `move_base` node to plan trajectory for your robot, visualize cost maps
 and planned trajectory in rviz and finally set destination point using
 rviz.
 
----------
+---
 
-*by Łukasz Mitka, Husarion*
+_by Łukasz Mitka, Husarion_
 
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_

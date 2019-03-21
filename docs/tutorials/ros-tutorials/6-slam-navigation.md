@@ -4,7 +4,13 @@ sidebar_label: 6. SLAM navigation
 id: 6-slam-navigation
 ---
 
-## Introduction ##
+> You can run this tutorial on:
+>
+> - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
+> - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
+> - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
+
+## Introduction
 
 SLAM (simultaneous localization and mapping) is a technique for creating
 a map of environment and determining robot position at the same time. It
@@ -15,7 +21,6 @@ order to create map it is necessary to merge measurements from previous
 positions.
 
 For definition of SLAM problem we use given values (1,2) and expected values (3,4):
-
 
 <p>1.  Robot control </p>
 	<table class="ros-tutorials">
@@ -35,7 +40,6 @@ For definition of SLAM problem we use given values (1,2) and expected values (3,
 	    </tr>
 	</table>
 
-
 <p>3.  Environment map</p>
 	<table class="ros-tutorials">
 	    <tr>
@@ -43,7 +47,7 @@ For definition of SLAM problem we use given values (1,2) and expected values (3,
 		<td width="60">(3)</td>
 	    </tr>
 	</table>
- 
+
 
 <p>4.  Robot trajectory</p>
 	<table class="ros-tutorials">
@@ -52,7 +56,6 @@ For definition of SLAM problem we use given values (1,2) and expected values (3,
 		<td width="60">(4)</td>
 	    </tr>
 	</table>
-
 
 <p>6. Robot trajectory estimates are determined with:</p>
 	<table class="ros-tutorials">
@@ -72,8 +75,7 @@ topic: `/tf`. Message `tf/Transform` consist of transformation
 frames and timestamp. Publishing to `/tf` is done in different way than
 to any other topic, we will write `tf` publisher in the example.
 
-### Publishing transformation ###
-
+### Publishing transformation
 
 We will make a node that subscribe to `/pose` topic with message type
 `geometry_msgs/PoseStamped` and publish transformation between objects
@@ -81,36 +83,36 @@ mentioned in `/pose`. This node is required only on ROSbot, Gazebo is publishing
 
 Begin with headers:
 
-``` cpp
+```cpp
     #include <ros/ros.h>
     #include <geometry_msgs/PoseStamped.h>
     #include <tf/transform_broadcaster.h>
-``` 
+```
 
 Publisher for transformation:
 
-``` cpp
+```cpp
     static tf::TransformBroadcaster br;
-``` 
+```
 
 Transformation message:
 
-``` cpp
+```cpp
     tf::Transform transform;
-``` 
+```
 
 Quaternion for storing rotation data:
 
-``` cpp
+```cpp
     tf::Quaternion q;
-``` 
+```
 
 Function for handling incoming `/PoseStamped` messages, extract
 quaternion parameters from message and put it to quaternion structure,
 put translation parameters into transform message, put quaternion
 structure into transform message, publish transform:
 
-``` cpp
+```cpp
     void pose_callback(const geometry_msgs::PoseStampedPtr &pose) {
        q.setX(pose->pose.orientation.x);
        q.setY(pose->pose.orientation.y);
@@ -122,23 +124,23 @@ structure into transform message, publish transform:
 
        br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_link"));
     }
-``` 
+```
 
 Publishing of transform is done with `sendTransform` function which
 parameter is `StampedTransform` object. This object parameters are:
 
--   `transform` - transformation data
+- `transform` - transformation data
 
--   `ros::Time::now()` - timestamp for current transformation
+- `ros::Time::now()` - timestamp for current transformation
 
--   `odom` - transformation parent frame - the one that is static
+- `odom` - transformation parent frame - the one that is static
 
--   `base_link` - transformation child frame - the one that is
-    transformed
+- `base_link` - transformation child frame - the one that is
+  transformed
 
 In main function just initialize node and subscribe to `/pose` topic:
 
-``` cpp
+```cpp
     int main(int argc, char **argv) {
        ros::init(argc, argv, "drive_controller");
        ros::NodeHandle n("~");
@@ -149,11 +151,11 @@ In main function just initialize node and subscribe to `/pose` topic:
           loop_rate.sleep();
        }
     }
-``` 
+```
 
 Your final file should look like this:
 
-``` cpp
+```cpp
 #include <ros/ros.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <tf/transform_broadcaster.h>
@@ -214,7 +216,7 @@ And specify libraries to link:
             ${catkin_LIBRARIES}
             )
 
-### Publisher for static transformations ###
+### Publisher for static transformations
 
 If we want to publish transformation which is not changing in time, we
 can use `static_transform_publisher` from `tf` package. We will use it
@@ -226,16 +228,16 @@ We can run it from command line:
 
 Arguments are consecutively:
 
--   `0 0 0` - x y z axes of translation, values are in meters
+- `0 0 0` - x y z axes of translation, values are in meters
 
--   `3.14 0 0 ` - z y x axes of rotation, values are in radians
+- `3.14 0 0` - z y x axes of rotation, values are in radians
 
--   `base_link` - transformation parent frame - the one that is static
+- `base_link` - transformation parent frame - the one that is static
 
--   `laser_frame` - transformation child frame - the one that is
-    transformed
+- `laser_frame` - transformation child frame - the one that is
+  transformed
 
--   `100` - delay between consecutive messages
+- `100` - delay between consecutive messages
 
 You can use it to adjust position of your laser scanner relative to
 robot. The best would be, if you place scanner in such a way that its
@@ -254,15 +256,15 @@ Remember that if you have improperly mounted scanner or its position is
 not set correctly, your map will be generated with errors or it will be
 not generated at all.
 
-### Visualizing transformation with rviz ###
+### Visualizing transformation with rviz
 
 You can visualize all transformations that are published in the system.
 To test it run:
 
--   `CORE2` bridge node -
-    `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 `
+- `CORE2` bridge node -
+  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
 
--   `drive_controller_node` - publisher that you just created
+- `drive_controller_node` - publisher that you just created
 
 Or instead ot these two start `Gazebo`:
 
@@ -270,10 +272,9 @@ Or instead ot these two start `Gazebo`:
 
 You will also need `rviz` and keyboard controller:
 
--   `teleop_twist_keyboard` - keyboard controller
+- `teleop_twist_keyboard` - keyboard controller
 
--   `rviz` - visualization tool
-
+- `rviz` - visualization tool
 
 You may also add some `static_transform_publisher` nodes.
 
@@ -284,12 +285,12 @@ accordingly to robot movement.
 
 ![image](/docs/assets/img/ros/man_6_1.png)
 
-## SLAM implementation in ROS ##
+## SLAM implementation in ROS
 
 To perform accurate and precise SLAM, the best is to use laser scanner
 and odometry system with high resolution encoders.
 
-### Running the laser scanner ###
+### Running the laser scanner
 
 In this example we will use **`rpLidar`** laser scanner. Place it on
 your robot, main rotation axis should pass the centre of robot. Front of
@@ -306,7 +307,7 @@ To test it you can run only this one node:
     $ rosrun rplidar_ros rplidarNode
 ```
 
-For **Gazebo** you do not need any additional nodes, just start simulator and laser scans will be already published to appropriate topic. 
+For **Gazebo** you do not need any additional nodes, just start simulator and laser scans will be already published to appropriate topic.
 
 In case there are no scans showing, there may be a problem with laser scanner plugin for Gazebo. Some GPUs, mainly the integrated ones have problems with proper rendering of laser scanner. To solve it, you will have to change the used plugin to CPU based. Go to file `rosbot.gazebo` located in `rosbot_description/src/rosbot_description/urdf`, comment out section succeeding `<!-- RpLidar using GPU -->` line with `<!--` to begin comment and `-->` to end comment and uncomment section succeeding `<!-- RpLidar using CPU -->` line by deleting `<!--` and `-->`.
 
@@ -325,12 +326,12 @@ resemble shape of obstacles surrounding your robot.
 
 Shut down `rplidarNode` and run it again, but with some other nodes:
 
--   `CORE2` bridge node -
-    `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 `
+- `CORE2` bridge node -
+  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
 
--   `rplidarNode` - driver for rpLidar laser scanner
+- `rplidarNode` - driver for rpLidar laser scanner
 
--   `drive_controller_node` - publisher that you just created
+- `drive_controller_node` - publisher that you just created
 
 Or instead of these three, start `Gazebo`:
 
@@ -338,13 +339,12 @@ Or instead of these three, start `Gazebo`:
 
 You will also need:
 
--   `static_transform_publisher` - `tf` publisher for transformation of
-    laser scanner relative to robot
+- `static_transform_publisher` - `tf` publisher for transformation of
+  laser scanner relative to robot
 
--   `teleop_twist_keyboard` - keyboard controller
+- `teleop_twist_keyboard` - keyboard controller
 
-
--   `rviz` - visualization tool
+* `rviz` - visualization tool
 
 You can use below `launch` file:
 
@@ -360,7 +360,7 @@ You can use below `launch` file:
     <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
         <param name="angle_compensate" type="bool" value="true"/>
     </node>
-    
+
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
@@ -379,7 +379,7 @@ shape accordingly to obstacles passed by robot.
 
 ![image](/docs/assets/img/ros/man_6_3.png)
 
-### Navigation and map building ###
+### Navigation and map building
 
 For building a map and localizing robot relative to it, we will use
 `slam_gmapping` node from `gmapping` package.
@@ -392,13 +392,13 @@ the actual map data.
 
 We need to set few parameters:
 
--   `base_frame` - name of frame related with robot, in our case it will
-    be `base_link`
+- `base_frame` - name of frame related with robot, in our case it will
+  be `base_link`
 
--   `odom_frame` - name of frame related with starting point, in our
-    case it will be `odom`
+- `odom_frame` - name of frame related with starting point, in our
+  case it will be `odom`
 
--   `delta` - map resolution expressed as size of every pixel in meters
+- `delta` - map resolution expressed as size of every pixel in meters
 
 You can use below `launch` file:
 
@@ -414,7 +414,7 @@ You can use below `launch` file:
     <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
         <param name="angle_compensate" type="bool" value="true"/>
     </node>
-    
+
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
@@ -447,15 +447,15 @@ below:
 
 ![image](/docs/assets/img/ros/man_6_5.png)
 
-## Summary ##
+## Summary
 
 After completing this tutorial you should be able to publish
 transformations between various frames, connect laser scanner to the
 system, set up `slam_gmapping` node to perform SLAM task and visualize
 map, robot position and all related frames.
 
----------
+---
 
-*by Łukasz Mitka, Husarion*
+_by Łukasz Mitka, Husarion_
 
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
