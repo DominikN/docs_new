@@ -21,19 +21,21 @@ position and orientation based on wheels rotation measurements. To achieve that 
 
 Description:
 
-- <div>R<sub>c</sub> - robot geometric centre</div>
-- <div>x<sub>c</sub> - robot geometric centre x position</div>
-- <div>y<sub>c</sub> - robot geometric centre y position</div>
-- <div>x<sub>r</sub> - robot local x axis that determines front of the robot</div>
-- α - robot angular position
-- <div>W<sub>FL</sub> - front left wheel</div>
-- <div>W<sub>FR</sub> - front right wheel</div>
-- <div>W<sub>RL</sub> - rear left wheel</div>
-- <div>W<sub>RR</sub> - rear right wheel</div>
-- <div>W<sub>L</sub> - virtual left wheel</div>
-- <div>W<sub>R</sub> - virtual right wheel</div>
-- <div>l<sub>1</sub> - distance between robot centre and front/rear wheels</div>
-- <div>l<sub>2</sub> - distance between robot left and right wheels</div>
+<ul>
+<li>R<sub>c</sub> - robot geometric centre</li>
+<li>x<sub>c</sub> - robot geometric centre x position</li>
+<li>y<sub>c</sub> - robot geometric centre y position</li>
+<li>x<sub>r</sub> - robot local x axis that determines front of the robot</li>
+<li>α - robot angular position</li>
+<li>W<sub>FL</sub> - front left wheel</li>
+<li>W<sub>FR</sub> - front right wheel</li>
+<li>W<sub>RL</sub> - rear left wheel</li>
+<li>W<sub>RR</sub> - rear right wheel</li>
+<li>W<sub>L</sub> - virtual left wheel</li>
+<li>W<sub>R</sub> - virtual right wheel</li>
+<li>l<sub>1</sub> - distance between robot centre and front/rear wheels</li>
+<li>l<sub>2</sub> - distance between robot left and right wheels</li>
+</ul>
 
 Our mobile robot has constraints. It can only move in `x-y` plane and it has 3 DOF (degrees of freedom). However not all of DOFs are controllable which means robot cannot move in every direction of its local axes (e.g. it cannot move sideways). Such drive system is called **non-holonomic**. When amount of controllable DOFs is equal to total DOFs then a robot can be called **holonomic**. To achieve that some mobile robots are built using Omni or Mecanum wheels and thanks to vectoring movement they can change position without changing their heading (orientation).
 
@@ -42,8 +44,10 @@ Our mobile robot has constraints. It can only move in `x-y` plane and it has 3 D
 The robot position is determined by a tuple (x<sub>c</sub>, y<sub>c</sub>, α). The forward kinematic task is to find new robot position (x<sub>c</sub>, y<sub>c</sub>, α)'
 after time _δt_ for given control parameters:
 
-- <div>v<sub>R</sub> - linear speed of right virtual wheel
-- <div>v<sub>L</sub> - linear speed of left virtual wheel
+<ul>
+<li>v<sub>R</sub> - linear speed of right virtual wheel</li>
+<li>v<sub>L</sub> - linear speed of left virtual wheel</li>
+</ul>
 
 In our case the angular speed ω and the angular position Φ of each virtual wheel will be an average of its real counterparts:
 
