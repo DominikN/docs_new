@@ -118,3 +118,13 @@ ul.toc-headings > li {
   .h300 img {
     max-height: 300px;
   }
+
+  sub { 
+    vertical-align: sub;
+    font-size: smaller;
+  }
+
+  sup { 
+    vertical-align: super;
+    font-size: smaller;
+  }

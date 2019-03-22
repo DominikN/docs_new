@@ -20,22 +20,19 @@ position and orientation based on wheels rotation measurements. To achieve that 
 <div><center><img src="/docs/assets/img/ros/robot_scheme.png" width="50%" height="50%"/></center></div>
 
 Description:
-
-<ul>
-<li>R<sub>c</sub> - robot geometric centre</li>
-<li>x<sub>c</sub> - robot geometric centre x position</li>
-<li>y<sub>c</sub> - robot geometric centre y position</li>
-<li>x<sub>r</sub> - robot local x axis that determines front of the robot</li>
-<li>α - robot angular position</li>
-<li>W<sub>FL</sub> - front left wheel</li>
-<li>W<sub>FR</sub> - front right wheel</li>
-<li>W<sub>RL</sub> - rear left wheel</li>
-<li>W<sub>RR</sub> - rear right wheel</li>
-<li>W<sub>L</sub> - virtual left wheel</li>
-<li>W<sub>R</sub> - virtual right wheel</li>
-<li>l<sub>1</sub> - distance between robot centre and front/rear wheels</li>
-<li>l<sub>2</sub> - distance between robot left and right wheels</li>
-</ul>
+* R<sub>c</sub> - robot geometric centre
+* x<sub>c</sub> - robot geometric centre x position
+* y<sub>c</sub> - robot geometric centre y position
+* x<sub>r</sub> - robot local x axis that determines front of the robot
+* α - robot angular position
+* W<sub>FL</sub> - front left wheel
+* W<sub>FR</sub> - front right wheel
+* W<sub>RL</sub> - rear left wheel
+* W<sub>RR</sub> - rear right wheel
+* W<sub>L</sub> - virtual left wheel
+* W<sub>R</sub> - virtual right wheel
+* l<sub>1</sub> - distance between robot centre and front/rear wheels
+* l<sub>2</sub> - distance between robot left and right wheels
 
 Our mobile robot has constraints. It can only move in `x-y` plane and it has 3 DOF (degrees of freedom). However not all of DOFs are controllable which means robot cannot move in every direction of its local axes (e.g. it cannot move sideways). Such drive system is called **non-holonomic**. When amount of controllable DOFs is equal to total DOFs then a robot can be called **holonomic**. To achieve that some mobile robots are built using Omni or Mecanum wheels and thanks to vectoring movement they can change position without changing their heading (orientation).
 
@@ -43,11 +40,8 @@ Our mobile robot has constraints. It can only move in `x-y` plane and it has 3 D
 
 The robot position is determined by a tuple (x<sub>c</sub>, y<sub>c</sub>, α). The forward kinematic task is to find new robot position (x<sub>c</sub>, y<sub>c</sub>, α)'
 after time _δt_ for given control parameters:
-
-<ul>
-<li>v<sub>R</sub> - linear speed of right virtual wheel</li>
-<li>v<sub>L</sub> - linear speed of left virtual wheel</li>
-</ul>
+* v<sub>R</sub> - linear speed of right virtual wheel
+* v<sub>L</sub> - linear speed of left virtual wheel
 
 In our case the angular speed ω and the angular position Φ of each virtual wheel will be an average of its real counterparts:
 
@@ -81,13 +75,10 @@ To get position:
 We assume starting position as (0,0).
 
 In order for code to work correctly wheels should be connected to ports in following manner:
-
-<ul>
-<li>front left wheel (W<sub>FL</sub>) - hMot4</li>
-<li>front right wheel (W<sub>FR</sub>) - hMot1</li>
-<li>rear left wheel (W<sub>RL</sub>) - hMot3</li>
-<li>rear right wheel (W<sub>RR</sub>) - hMot2</li>
-</ul>
+* front left wheel (W<sub>FL</sub>) - hMot4
+* front right wheel (W<sub>FR</sub>) - hMot1
+* rear left wheel (W<sub>RL</sub>) - hMot3
+* rear right wheel (W<sub>RR</sub>) - hMot2
 
 The implementation of the equations above in hFramework can be found [here](https://github.com/husarion/hFramework/blob/master/src/rosbot/ROSbot.cpp#L126).
 
