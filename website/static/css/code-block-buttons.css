@@ -10,9 +10,9 @@ pre {
     cursor: pointer;
     border: 1px solid transparent;
     padding: 0;
-    color: #8b8d8e;
+    color: #acacac;
     background-color: transparent;
-    height: 30px;
+    height: 10px;
     transition: all .25s ease-out;
   }
   
