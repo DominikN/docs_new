@@ -82,10 +82,12 @@ We assume starting position as (0,0).
 
 In order for code to work correctly wheels should be connected to ports in following manner:
 
-- <div>front left wheel (W<sub>FL</sub>) - hMot4</div>
-- <div>front right wheel (W<sub>FR</sub>) - hMot1</div>
-- <div>rear left wheel (W<sub>RL</sub>) - hMot3</div>
-- <div>rear right wheel (W<sub>RR</sub>) - hMot2</div>
+<ul>
+<li>front left wheel (W<sub>FL</sub>) - hMot4</li>
+<li>front right wheel (W<sub>FR</sub>) - hMot1</li>
+<li>rear left wheel (W<sub>RL</sub>) - hMot3</li>
+<li>rear right wheel (W<sub>RR</sub>) - hMot2</li>
+</ul>
 
 The implementation of the equations above in hFramework can be found [here](https://github.com/husarion/hFramework/blob/master/src/rosbot/ROSbot.cpp#L126).
 
