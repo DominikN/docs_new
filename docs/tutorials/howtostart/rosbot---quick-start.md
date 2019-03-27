@@ -157,35 +157,33 @@ Change directory and build code using catkin_make:
 
 `catkin_make`
 
-Add environmental variables from the following file:
+Add environmental variables by executing this in Linux command line:
 
 `source devel/setup.sh`
 
-**Note that you have to do it every time you want to use ROSbot webui. You can also set it up permanently. Open .bashrc file in text editor:**
-
-`nano ~/.bashrc`
-
-Go to the end of file and add line:
-
-`. /home/husarion/ros_workspace/devel/setup.sh`
-
-* Staying in terminal issue command: 
-
-`sudo nano /etc/nginx/sites-enabled/default`
-
-This will open text editor with configuration file, find line:  
-
-`root /var/www/html;`
-
-and change it to:  
-
-`root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
-
-
-* To exit text editor press: "Ctrl + x", "y", "Enter"
-* Again in terminal issue command:  
-
-`sudo systemctl restart nginx`
+>**Note that you have to do it every time you want to use ROSbot webui**. To set it up permanently, open .bashrc file in text editor:
+>
+>`nano ~/.bashrc`
+>
+>Go to the end of file and add line:
+>
+>`. /home/husarion/ros_workspace/devel/setup.sh`
+>
+>* Staying in terminal issue command: 
+>
+>`sudo nano /etc/nginx/sites-enabled/default`
+>
+>This will open text editor with configuration file. Find line:  
+>
+>`root /var/www/html;`
+>
+>and change it to:  
+>
+>`root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
+>* To exit text editor press: "Ctrl + x", "y", "Enter"
+>* Again in terminal issue command:  
+>
+>`sudo systemctl restart nginx`
 
 
 ## Usage
