@@ -88,7 +88,8 @@ ROSbot is basically a computer running Ubuntu, so let's configure it like a stan
 * click **Add new** button
 * enter device name and click **Next**
 * copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
-* open Linux terminal and type (including code from the previous step) `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`
+* open Linux terminal execude a command (including code from the previous step) 
+`sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
 * after a few seconds you should see your device online at https://cloud.husarion.com
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/5_devAdded.png)

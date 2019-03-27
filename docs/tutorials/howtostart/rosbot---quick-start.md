@@ -135,6 +135,10 @@ Install the required packages:
 
 `sudo apt install python-tornado python-pip ros-kinetic-rosbridge-suite ros-kinetic-web-video-server nginx`
 
+and:
+
+`pip install python-wifi ifparser`
+
 Create new work space and change directory:
 
 `mkdir ~/ros_workspace`
@@ -169,22 +173,22 @@ Add environmental variables by executing this in Linux command line:
 >
 >`. /home/husarion/ros_workspace/devel/setup.sh`
 >
->Staying in terminal issue command: 
->
->`sudo nano /etc/nginx/sites-enabled/default`
->
->This will open text editor with configuration file. Find line:  
->
->`root /var/www/html;`
->
->and change it to:  
->
->`root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
->To exit text editor press: "Ctrl + x", "y", "Enter"
->
->Again in terminal issue command:  
->
->`sudo systemctl restart nginx`
+Staying in terminal issue command: 
+
+`sudo nano /etc/nginx/sites-enabled/default`
+
+This will open text editor with configuration file. Find line:  
+
+`root /var/www/html;`
+
+and change it to:  
+
+`root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
+To exit text editor press: "Ctrl + x", "y", "Enter"
+
+Again in terminal issue command:  
+
+`sudo systemctl restart nginx`
 
 
 ## Usage
