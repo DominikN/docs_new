@@ -169,7 +169,7 @@ Add environmental variables by executing this in Linux command line:
 >
 >`. /home/husarion/ros_workspace/devel/setup.sh`
 >
->* Staying in terminal issue command: 
+>Staying in terminal issue command: 
 >
 >`sudo nano /etc/nginx/sites-enabled/default`
 >
@@ -180,8 +180,9 @@ Add environmental variables by executing this in Linux command line:
 >and change it to:  
 >
 >`root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
->* To exit text editor press: "Ctrl + x", "y", "Enter"
->* Again in terminal issue command:  
+>To exit text editor press: "Ctrl + x", "y", "Enter"
+>
+>Again in terminal issue command:  
 >
 >`sudo systemctl restart nginx`
 
