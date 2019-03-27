@@ -16,7 +16,7 @@ id: 1-ros-introduction
 <center><img src="/docs/assets/img/ros/ros_logo.jpeg" width="70%" height="70%" /></center>
 </div>
 
-We prepared a set of tutorials to help you start building advanced robots. They are prepared to work with Husarion CORE2-ROS controller but they are also a valuable portion of knowledge for anybody interested in ROS.
+We prepared a set of tutorials to help you start building advanced robots. They are prepared to work with Husarion [ROSbot 2.0](https://husarion.com/manuals/rosbot-manual/) but they are also a valuable portion of knowledge for anybody interested in ROS.
 
 ## System structure
 
