@@ -90,15 +90,15 @@ That's a deprecated option, so previously mentioned instructions are prefferred.
 
 ## Programming ##
 
-First you will program the Core2 part:
+First you will program the low-level firmware running on STM32F4 microcontroller (part of CORE2-ROS controller):
 
 * Turn on your ROSbot.
 * At https://cloud.husarion.com  click "edit" next to your device name and sellect "IDE".
-* Create a new project using Core2 as your board and 'ROSbot default firmwre' as a template.
-* Build and upload program to the deivce.
-* Go back to cloud panel
+* Create a new project using CORE2 as your board and 'ROSbot default firmware' as a template.
+* Build and upload program to the deivce (use button with a cloud in left-up corner).
+* Go back to main panel of https://cloud.husarion.com
 
-Next you will proceed to ROS part of software:
+Next you will proceed to ROS part of software running on a single board computer (ASUS Tinker Board):
 
 ### On Linux ###
 
