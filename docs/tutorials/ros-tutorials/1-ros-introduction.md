@@ -282,7 +282,7 @@ Note that there is no underscore before the old name.
 ### Starting system step by step - Example
 
 In this section, we will set up ROS system that is equipped with a Orbbec Astra
-camera and show image from camera on display. Use remote desktop client of your choice to connect to your ROSbot or Core2ROS. In case of latter remember to plug in Orbbec Astra camera to your SBC. You can also follow the tutorial in simulation mode using Gazebo and Husarion VM.
+camera and show image from camera on display. Use remote desktop client of your choice to connect to your ROSbot. You can also follow the tutorial in simulation mode using **Gazebo and Husarion VM** mentioned before.
 
 #### Starting master
 
