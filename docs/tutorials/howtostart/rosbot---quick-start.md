@@ -67,8 +67,8 @@ In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 3. Plug in one end of the Ethernet cable into your computer and other one to the adapter
 4. Connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and passowrd `husarion`
 5. Connect to a Wi-Fi network
-* in the terminal type `nmcli c add type wifi save yes autoconnect yes con-name <ConnName> ifname wlan0 ssid <NetworkSSID>` and press Enter
-* type `nmcli c modify <ConnName> wifi-sec.key-mgmt wpa-psk wifi-sec.psk <Password>` and press Enter to obtain an IP address and connect to the WiFi network
+* in the terminal type `nmcli c add type wifi save yes autoconnect yes con-name rosbot20wifi ifname wlan0 ssid <NetworkSSID>` and press Enter
+* type `nmcli c modify rosbot20wifi wifi-sec.key-mgmt wpa-psk wifi-sec.psk <Password>` and press Enter to obtain an IP address and connect to the WiFi network
 6. Connect to a Husarion cloud
 * open https://cloud.husarion.com in your web browser
 * click **Add new** button
