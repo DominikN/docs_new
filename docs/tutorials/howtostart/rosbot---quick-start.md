@@ -94,7 +94,7 @@ First you will program the low-level firmware running on STM32F4 microcontroller
 
 * Turn on your ROSbot.
 * At https://cloud.husarion.com  click "edit" next to your device name and sellect "IDE".
-* Create a new project using CORE2 as your board and 'ROSbot default firmware' as a template.
+* Create a new project using CORE2 as your board and **"ROSbot default firmware"** as a template.
 * Build and upload program to the deivce (use button with a cloud in left-up corner).
 * Go back to main panel of https://cloud.husarion.com
 
