@@ -154,7 +154,7 @@ According to the method of your choice, proceed to section **Connecting to ROSbo
 
 #### Connecting to ROSbot
 
-Before you start working with ROS on CORE2 platform, you need to connect
+Before you start working with ROS on ROSbot 2.0 platform, you need to connect to
 your device first. You can establish connection in two ways: using `ssh` or via
 remote desktop. For both methods you need an IP address of your CORE2-
 it could be found on cloud.husarion.com after clicking “more” button
