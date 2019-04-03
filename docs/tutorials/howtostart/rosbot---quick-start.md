@@ -153,7 +153,7 @@ Clone repository containing rosbot webui:
 
 Clone `husarion_ros` repository:
 
-`git clone https://github.com/lukaszmitka/husarion_ros.git`
+`git clone https://github.com/husarion/husarion_ros.git`
 
 Change directory and build code using catkin_make: 
 
@@ -184,6 +184,7 @@ This will open text editor with configuration file. Find line:
 and change it to:  
 
 `root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
+
 To exit text editor press: "Ctrl + x", "y", "Enter"
 
 Again in terminal issue command:  
