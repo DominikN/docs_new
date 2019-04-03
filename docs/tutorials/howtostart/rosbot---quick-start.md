@@ -133,11 +133,11 @@ sudo apt dist-upgrade
 
 Install the required packages:
 
-`sudo apt install python-tornado python-pip ros-kinetic-rosbridge-suite ros-kinetic-web-video-server nginx`
+`sudo apt install python-pip ros-kinetic-rosbridge-suite ros-kinetic-web-video-server nginx`
 
 and:
 
-`pip install python-wifi ifparser`
+`python -m pip install --user tornado==4.5.3 python-wifi ifparser`
 
 Create new work space and change directory:
 
