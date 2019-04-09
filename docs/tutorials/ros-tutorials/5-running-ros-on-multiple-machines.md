@@ -31,13 +31,13 @@ Choose one device for it- we will call it `master`.
 
 On the master device open the `.bashrc` file:
 
-```
+```bash
 nano ~/.bashrc
 ```
 
 And add two lines at file ending, replacing `X.X.X.X` and `Y.Y.Y.Y` with IP address of master device.
 
-```
+```bash
 export ROS_MASTER_URI=http://X.X.X.X:11311
 export ROS_IP=Y.Y.Y.Y
 ```
@@ -77,96 +77,100 @@ In `tutorial_pkg` package in `src` folder create file
 Begin with the headers:
 
 ```cpp
-    #include <ros/ros.h>
-    #include <std_msgs/Char.h>
-    #include <std_srvs/Empty.h>
+#include <ros/ros.h>
+#include <std_msgs/Char.h>
+#include <std_srvs/Empty.h>
 ```
 
 Publisher for current task:
 
 ```cpp
-    ros::Publisher task_pub;
+ros::Publisher task_pub;
 ```
 
 Constants with IDs of objects to be found:
 
 ```cpp
-    #define OBJECT_1_ID 8
-    #define OBJECT_2_ID 6
-    #define HOME_1_ID 12
-    #define HOME_2_ID 11
+#define OBJECT_1_ID 8
+#define OBJECT_2_ID 6
+#define HOME_1_ID 12
+#define HOME_2_ID 11
 ```
 
 Vector to store sequence of searched objects:
 
 ```cpp
-    std::vector<int> objects;
+std::vector<int> objects;
 ```
 
 Number of currently searched object:
 
 ```cpp
-    uint8_t current_object = 0;
+uint8_t current_object = 0;
 ```
 
 Message for sending id of currently searched object:
 
 ```cpp
-    std_msgs::Char task;
+std_msgs::Char task;
 ```
 
 Service callback function for reporting found objects:
 
 ```cpp
-    bool object_found(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res) {
-        current_object++;
-        ROS_INFO("Current object: %d", current_object);
-        return true;
-    }
+bool object_found(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res)
+{
+   current_object++;
+   ROS_INFO("Current object: %d", current_object);
+   return true;
+}
 ```
 
 In `main` function, definining sequence of searched objects:
 
 ```cpp
-    objects.push_back(OBJECT_1_ID);
-    objects.push_back(OBJECT_2_ID);
-    objects.push_back(HOME_1_ID);
-    objects.push_back(HOME_2_ID);
+objects.push_back(OBJECT_1_ID);
+objects.push_back(OBJECT_2_ID);
+objects.push_back(HOME_1_ID);
+objects.push_back(HOME_2_ID);
 ```
 
 Node initialization:
 
 ```cpp
-    ros::init(argc, argv, "mission_controller");
-    ros::NodeHandle n("~");
-    ros::Rate loop_rate(50);
+ros::init(argc, argv, "mission_controller");
+ros::NodeHandle n("~");
+ros::Rate loop_rate(50);
 ```
 
 Registering the service- objects that are found will be reported here:
 
 ```cpp
-    ros::ServiceServer service = n.advertiseService("/object_found", object_found);
+ros::ServiceServer service = n.advertiseService("/object_found", object_found);
 ```
 
 Publishing topic with ID of currently searched object:
 
 ```cpp
-    task_pub = n.advertise<std_msgs::Char>("/task", 1);
+task_pub = n.advertise<std_msgs::Char>("/task", 1);
 ```
 
 In infinite while loop- triggering incoming messages, checking ID of currently
 searched object and publishing it:
 
 ```cpp
-    ros::spinOnce();
-    loop_rate.sleep();
-    if (current_object < objects.size()) {
-       task.data = objects[current_object];
-    } else {
-       // mission finished
-       task.data = 0;
-    }
-    task_pub.publish(task);
+ros::spinOnce();
+loop_rate.sleep();
+if (current_object < objects.size())
+{
+   task.data = objects[current_object];
+}
+else
+{
+   // mission finished
+   task.data = 0;
+}
+task_pub.publish(task);
 ```
 
 Your final file should look like this:
@@ -190,37 +194,37 @@ std_msgs::Char task;
 
 bool object_found(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res)
 {
-    current_object++;
-    ROS_INFO("Current object: %d", current_object);
-    return true;
+   current_object++;
+   ROS_INFO("Current object: %d", current_object);
+   return true;
 }
 
 int main(int argc, char **argv)
 {
-    objects.push_back(OBJECT_1_ID);
-    objects.push_back(OBJECT_2_ID);
-    objects.push_back(HOME_1_ID);
-    objects.push_back(HOME_2_ID);
-    ros::init(argc, argv, "mission_controller");
-    ros::NodeHandle n("~");
-    ros::Rate loop_rate(50);
-    ros::ServiceServer service = n.advertiseService("/object_found", object_found);
-    task_pub = n.advertise<std_msgs::Char>("/task", 1);
-    while (ros::ok())
-    {
-        ros::spinOnce();
-        loop_rate.sleep();
-        if (current_object < objects.size())
-        {
-            task.data = objects[current_object];
-        }
-        else
-        {
-            // mission finished
-            task.data = 0;
-        }
-        task_pub.publish(task);
-    }
+   objects.push_back(OBJECT_1_ID);
+   objects.push_back(OBJECT_2_ID);
+   objects.push_back(HOME_1_ID);
+   objects.push_back(HOME_2_ID);
+   ros::init(argc, argv, "mission_controller");
+   ros::NodeHandle n("~");
+   ros::Rate loop_rate(50);
+   ros::ServiceServer service = n.advertiseService("/object_found", object_found);
+   task_pub = n.advertise<std_msgs::Char>("/task", 1);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      loop_rate.sleep();
+      if (current_object < objects.size())
+      {
+         task.data = objects[current_object];
+      }
+      else
+      {
+         // mission finished
+         task.data = 0;
+      }
+      task_pub.publish(task);
+   }
 }
 ```
 
@@ -232,191 +236,194 @@ and open it with text editor.
 Begin with the header files:
 
 ```cpp
-    #include <ros/ros.h>
-    #include <std_msgs/Float32MultiArray.h>
-    #include <geometry_msgs/Twist.h>
-    #include <sensor_msgs/Range.h>
-    #include <std_msgs/Char.h>
-    #include <std_srvs/Empty.h>
+#include <ros/ros.h>
+#include <std_msgs/Float32MultiArray.h>
+#include <geometry_msgs/Twist.h>
+#include <sensor_msgs/Range.h>
+#include <std_msgs/Char.h>
+#include <std_srvs/Empty.h>
 ```
 
 Publisher and message for desired velocity:
 
 ```cpp
-    ros::Publisher action_pub;
-    geometry_msgs::Twist set_vel;
+ros::Publisher action_pub;
+geometry_msgs::Twist set_vel;
 ```
 
 Variables for distance measured by sensors:
 
 ```cpp
-    float distL = 0;
-    float distR = 0;
+float distL = 0;
+float distR = 0;
 ```
 
 Variables for storing maximum sensor range:
 
 ```cpp
-    float sensorL_max = 0;
-    float sensorR_max = 0;
+float sensorL_max = 0;
+float sensorR_max = 0;
 ```
 
 Variable for currently searched object ID:
 
 ```cpp
-    u_char search_obj;
+u_char search_obj;
 ```
 
 IDs of objects to be searched by this node:
 
 ```cpp
-    int objectID;
-    int homeID;
+int objectID;
+int homeID;
 ```
 
 Client for found object reporting service:
 
 ```cpp
-    ros::ServiceClient client;
+ros::ServiceClient client;
 ```
 
 Callbacks for updating distances and object ID:
 
 ```cpp
-    void distL_callback(const sensor_msgs::Range &range) {
-       distL = range.range;
-       sensorL_max = range.max_range;
-    }
+void distL_callback(const sensor_msgs::Range &range)
+{
+   distL = range.range;
+   sensorL_max = range.max_range;
+}
 
-    void distR_callback(const sensor_msgs::Range &range) {
-       distR = range.range;
-       sensorR_max = range.max_range;
-    }
+void distR_callback(const sensor_msgs::Range &range)
+{
+   distR = range.range;
+   sensorR_max = range.max_range;
+}
 
-    void task_callback(const std_msgs::Char &task) {
-       search_obj = task.data;
-    }
+void task_callback(const std_msgs::Char &task)
+{
+   search_obj = task.data;
+}
 ```
 
 Callback for handling recognized objects, if ID is in accordance with
 searched object, reporting it to service:
 
 ```cpp
-    void objectCallback(const std_msgs::Float32MultiArrayPtr &object)
-    {
-        if (object->data.size() > 0)
-        {
-            if (search_obj == object->data[0])
-            {
-                ROS_INFO("Object found, call service %s", client.getService().c_str());
-                std_srvs::Empty srv;
-                client.call(srv);
-            }
-        }
-    }
+void objectCallback(const std_msgs::Float32MultiArrayPtr &object)
+{
+   if (object->data.size() > 0)
+   {
+      if (search_obj == object->data[0])
+      {
+         ROS_INFO("Object found, call service %s", client.getService().c_str());
+         std_srvs::Empty srv;
+         client.call(srv);
+      }
+   }
+}
 ```
 
 In main function, node initialization:
 
 ```cpp
-    ros::init(argc, argv, "action_controller");
-    ros::NodeHandle n("~");
+ros::init(argc, argv, "action_controller");
+ros::NodeHandle n("~");
 ```
 
 Subscribing to topics:
 
 ```cpp
-    ros::Subscriber sub = n.subscribe("objects", 1, objectCallback);
-    ros::Subscriber distL_sub = n.subscribe("range/fl", 1, distL_callback);
-    ros::Subscriber distR_sub = n.subscribe("range/fr", 1, distR_callback);
-    ros::Subscriber task_sub = n.subscribe("/task", 1, task_callback);
+ros::Subscriber sub = n.subscribe("objects", 1, objectCallback);
+ros::Subscriber distL_sub = n.subscribe("range/fl", 1, distL_callback);
+ros::Subscriber distR_sub = n.subscribe("range/fr", 1, distR_callback);
+ros::Subscriber task_sub = n.subscribe("/task", 1, task_callback);
 ```
 
 Getting `objectID` and `homeID` params, robot will search only for objects
 with these IDs:
 
 ```cpp
-    n.param<int>("objectID", objectID, 0);
-    n.param<int>("homeID", homeID, 0);
+n.param<int>("objectID", objectID, 0);
+n.param<int>("homeID", homeID, 0);
 ```
 
 Initiating client for the service:
 
 ```cpp
-    client = n.serviceClient<std_srvs::Empty>("/object_found");
+client = n.serviceClient<std_srvs::Empty>("/object_found");
 ```
 
 Setting loop rate:
 
 ```cpp
-    ros::Rate loop_rate(10);
+ros::Rate loop_rate(10);
 ```
 
 Initiating velocity publisher:
 
 ```cpp
-    action_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+action_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 ```
 
 Setting default values for velocity:
 
 ```cpp
-    set_vel.linear.x = 0;
-    set_vel.linear.y = 0;
-    set_vel.linear.z = 0;
-    set_vel.angular.x = 0;
-    set_vel.angular.y = 0;
-    set_vel.angular.z = 0;
+set_vel.linear.x = 0;
+set_vel.linear.y = 0;
+set_vel.linear.z = 0;
+set_vel.angular.x = 0;
+set_vel.angular.y = 0;
+set_vel.angular.z = 0;
 ```
 
 In infinite while loop, triggering incoming messages:
 
 ```cpp
-    ros::spinOnce();
-    loop_rate.sleep();
+ros::spinOnce();
+loop_rate.sleep();
 ```
 
 If searched object ID complies with this node’s ID, setting desired robot
 velocity based on sensor measurements:
 
 ```cpp
-    if (search_obj == objectID || search_obj == homeID)
-    {
-        if (distL > 1)
-        {
-            distL = 1;
-        }
-        if (distR > 1)
-        {
-            distR = 1;
-        }
-        if (distL > 0 && distR > 0)
-        {
-            set_vel.angular.z = (distL - distR) * 2;
-            set_vel.linear.x = ((distL + distR) / 2) - ((sensorL_max +sensorR_max) / 4);
-        }
-        else if (distL > 0)
-        {
-            set_vel.angular.z = -0.25;
-            set_vel.linear.x = -0.125;
-        }
-        else if (distR > 0)
-        {
-            set_vel.angular.z = 0.25;
-            set_vel.linear.x = -0.125;
-        }
-        else
-        {
-            set_vel.linear.x = 0.25;
-            set_vel.angular.z = 0;
-        }
-    }
-    else
-    {
-        set_vel.linear.x = 0;
-        set_vel.angular.z = 0;
-    }
-    action_pub.publish(set_vel);
+if (search_obj == objectID || search_obj == homeID)
+{
+   if (distL > 1)
+   {
+      distL = 1;
+   }
+   if (distR > 1)
+   {
+      distR = 1;
+   }
+   if (distL > 0 && distR > 0)
+   {
+      set_vel.angular.z = (distL - distR) * 2;
+      set_vel.linear.x = ((distL + distR) / 2) - ((sensorL_max + sensorR_max) / 4);
+   }
+   else if (distL > 0)
+   {
+      set_vel.angular.z = -0.25;
+      set_vel.linear.x = -0.125;
+   }
+   else if (distR > 0)
+   {
+      set_vel.angular.z = 0.25;
+      set_vel.linear.x = -0.125;
+   }
+   else
+   {
+      set_vel.linear.x = 0.25;
+      set_vel.angular.z = 0;
+   }
+}
+else
+{
+   set_vel.linear.x = 0;
+   set_vel.angular.z = 0;
+}
+action_pub.publish(set_vel);
 ```
 
 Your final file should look like this:
@@ -445,98 +452,98 @@ ros::ServiceClient client;
 
 void distL_callback(const sensor_msgs::Range &range)
 {
-    distL = range.range;
-    sensorL_max = range.max_range;
+   distL = range.range;
+   sensorL_max = range.max_range;
 }
 
 void distR_callback(const sensor_msgs::Range &range)
 {
-    distR = range.range;
-    sensorR_max = range.max_range;
+   distR = range.range;
+   sensorR_max = range.max_range;
 }
 
 void task_callback(const std_msgs::Char &task)
 {
-    search_obj = task.data;
+   search_obj = task.data;
 }
 
 void objectCallback(const std_msgs::Float32MultiArrayPtr &object)
 {
-    if (object->data.size() > 0)
-    {
-        if (search_obj == object->data[0])
-        {
-            ROS_INFO("Object found, call service %s", client.getService().c_str());
-            std_srvs::Empty srv;
-            client.call(srv);
-        }
-    }
+   if (object->data.size() > 0)
+   {
+      if (search_obj == object->data[0])
+      {
+         ROS_INFO("Object found, call service %s", client.getService().c_str());
+         std_srvs::Empty srv;
+         client.call(srv);
+      }
+   }
 }
 
 int main(int argc, char **argv)
 {
 
-    ros::init(argc, argv, "action_controller");
-    ros::NodeHandle n("~");
-    ros::Subscriber sub = n.subscribe("objects", 1, objectCallback);
-    ros::Subscriber distL_sub = n.subscribe("range/fl", 1, distL_callback);
-    ros::Subscriber distR_sub = n.subscribe("range/fr", 1, distR_callback);
-    ros::Subscriber task_sub = n.subscribe("/task", 1, task_callback);
+   ros::init(argc, argv, "action_controller");
+   ros::NodeHandle n("~");
+   ros::Subscriber sub = n.subscribe("objects", 1, objectCallback);
+   ros::Subscriber distL_sub = n.subscribe("range/fl", 1, distL_callback);
+   ros::Subscriber distR_sub = n.subscribe("range/fr", 1, distR_callback);
+   ros::Subscriber task_sub = n.subscribe("/task", 1, task_callback);
 
-    n.param<int>("objectID", objectID, 0);
-    n.param<int>("homeID", homeID, 0);
-    client = n.serviceClient<std_srvs::Empty>("/object_found");
+   n.param<int>("objectID", objectID, 0);
+   n.param<int>("homeID", homeID, 0);
+   client = n.serviceClient<std_srvs::Empty>("/object_found");
 
-    ros::Rate loop_rate(10);
-    action_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-    set_vel.linear.x = 0;
-    set_vel.linear.y = 0;
-    set_vel.linear.z = 0;
-    set_vel.angular.x = 0;
-    set_vel.angular.y = 0;
-    set_vel.angular.z = 0;
-    while (ros::ok())
-    {
-        ros::spinOnce();
-        loop_rate.sleep();
-        if (search_obj == objectID || search_obj == homeID)
-        {
-            if (distL > 1)
-            {
-                distL = 1;
-            }
-            if (distR > 1)
-            {
-                distR = 1;
-            }
-            if (distL > 0 && distR > 0)
-            {
-                set_vel.angular.z = (distL - distR) * 2;
-                set_vel.linear.x = ((distL + distR) / 2) - ((sensorL_max + sensorR_max) / 4);
-            }
-            else if (distL > 0)
-            {
-                set_vel.angular.z = -0.25;
-                set_vel.linear.x = -0.125;
-            }
-            else if (distR > 0)
-            {
-                set_vel.angular.z = 0.25;
-                set_vel.linear.x = -0.125;
-            }
-            else
-            {
-                set_vel.linear.x = 0.25;
-                set_vel.angular.z = 0;
-            }
-        }
-        else
-        {
-            set_vel.linear.x = 0;
+   ros::Rate loop_rate(10);
+   action_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+   set_vel.linear.x = 0;
+   set_vel.linear.y = 0;
+   set_vel.linear.z = 0;
+   set_vel.angular.x = 0;
+   set_vel.angular.y = 0;
+   set_vel.angular.z = 0;
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      loop_rate.sleep();
+      if (search_obj == objectID || search_obj == homeID)
+      {
+         if (distL > 1)
+         {
+            distL = 1;
+         }
+         if (distR > 1)
+         {
+            distR = 1;
+         }
+         if (distL > 0 && distR > 0)
+         {
+            set_vel.angular.z = (distL - distR) * 2;
+            set_vel.linear.x = ((distL + distR) / 2) - ((sensorL_max + sensorR_max) / 4);
+         }
+         else if (distL > 0)
+         {
+            set_vel.angular.z = -0.25;
+            set_vel.linear.x = -0.125;
+         }
+         else if (distR > 0)
+         {
+            set_vel.angular.z = 0.25;
+            set_vel.linear.x = -0.125;
+         }
+         else
+         {
+            set_vel.linear.x = 0.25;
             set_vel.angular.z = 0;
-        }
-        action_pub.publish(set_vel);
-    }
+         }
+      }
+      else
+      {
+         set_vel.linear.x = 0;
+         set_vel.angular.z = 0;
+      }
+      action_pub.publish(set_vel);
+   }
 }
 ```
 
@@ -545,29 +552,39 @@ int main(int argc, char **argv)
 To build your nodes you need to edit the `CMakeLists.txt` file. Find
 line:
 
-    add_executable(action_controller_node src/action_controller.cpp)
+```
+add_executable(action_controller_node src/action_controller.cpp)
+```
 
 And add two more lines:
 
-    add_executable(mission_controller_node src/mission_controller.cpp)
-    add_executable(search_controller_node src/search_controller.cpp)
+```
+add_executable(mission_controller_node src/mission_controller.cpp)
+add_executable(search_controller_node src/search_controller.cpp)
+```
 
 Then after:
 
-    target_link_libraries(action_controller_node
-            ${catkin_LIBRARIES}
-            ${OpenCV_LIBRARIES}
-            )
+```
+target_link_libraries(action_controller_node
+    ${catkin_LIBRARIES}
+    ${OpenCV_LIBRARIES}
+)
+```
 
 Add:
 
-    target_link_libraries(mission_controller_node
-            ${catkin_LIBRARIES}
-            )
+```
+target_link_libraries(mission_controller_node
+    ${catkin_LIBRARIES}
+)
+```
 
-    target_link_libraries(search_controller_node
-            ${catkin_LIBRARIES}
-            )
+```
+target_link_libraries(search_controller_node
+    ${catkin_LIBRARIES}
+)
+```
 
 Now you can build your nodes, but before you run them, `launch` file for
 them will be required.
@@ -577,7 +594,7 @@ them will be required.
 To run your nodes you need two `launch` files, one for each robot. First
 will be running on one robot:
 
-```launch
+```xml
 <launch>
 
     <include file="$(find astra_launch)/launch/astra.launch"/>
@@ -607,7 +624,7 @@ identify objects which will be searched for by robot.
 
 Second `launch` file will be running on another robot:
 
-```launch
+```xml
 <launch>
 
     <include file="$(find astra_launch)/launch/astra.launch">
@@ -646,13 +663,15 @@ remap all topic names.
 Then on one of the robots run first `launch` file with `CORE2` bridge
 node:
 
-    $ /opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2
+```bash
+/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2
+```
 
 On another robot run second `launch` file with `CORE2` bridge node:
 
-    $ /opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 __name:=serial_node_2
-    cmd_vel:=cmd_vel_2 rangeL:=rangeL_2 rangeR:=rangeR_2 pose:=pose_2
-
+```bash
+/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 __name:=serial_node_2 cmd_vel:=cmd_vel_2 rangeL:=rangeL_2 rangeR:=rangeR_2 pose:=pose_2
+```
 Observe as one of your robots moves avoiding obstacles. When it finds an
 object, second robot starts seearching. They should move sequentially
 until all objects are recognized.
@@ -663,7 +682,7 @@ Gazego will be running on one machine, thus you will use only one launch file. I
 
 You can use below launch file:
 
-```
+```xml
 <launch>
 
     <include file="$(find rosbot_gazebo)/launch/world.launch"/>
@@ -702,7 +721,6 @@ You can use below launch file:
     </node>
 
 </launch>
-
 ```
 
 ## Connecting through Husarnet
@@ -735,14 +753,14 @@ Before you add device to network, it is required to setup the environment.
 
 Open `.bashrc` file and find lines that ypu added at the beginning of this tutorial:
 
-```
+```bash
 export ROS_MASTER_URI=http://X.X.X.X:11311
 export ROS_IP=Y.Y.Y.Y
 ```
 
 and replace them with:
 
-```
+```bash
 export ROS_MASTER_URI=http://master:11311
 export ROS_IPV6=on
 ```
@@ -752,7 +770,7 @@ Setting ROS_MASTER_URI to http://master:11311 ensures ROS will always connect to
 
 Execute command:
 
-```
+```bash
 sudo husarnet websetup
 ```
 

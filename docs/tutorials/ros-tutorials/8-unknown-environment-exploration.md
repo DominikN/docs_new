@@ -60,33 +60,40 @@ frequency, map coordinate frame name, robot coordinate frame name,
 resolution and define if map should follow position of robot, these
 parameters have the same meaning as for trajectory planning:
 
-    footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
-    transform_tolerance: 5
-    update_frequency: 5
-    publish_frequency: 5
-    global_frame: map
-    robot_base_frame: base_link
+```yaml
+footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
+transform_tolerance: 5
+update_frequency: 5
+publish_frequency: 5
+global_frame: map
+robot_base_frame: base_link
+```
 
 Define what kind of map layers to use:
 
-    plugins:
-        - {name: static,           type: "costmap_2d::StaticLayer"}
-        - {name: explore_boundary, type: "frontier_exploration::BoundedExploreLayer"}
-        - {name: inflation,        type: "costmap_2d::InflationLayer"}
+```yaml
+plugins:
+    - {name: static,           type: "costmap_2d::StaticLayer"}
+    - {name: explore_boundary, type: "frontier_exploration::BoundedExploreLayer"}
+    - {name: inflation,        type: "costmap_2d::InflationLayer"}
+```
 
 Parameters for static map layer, map topic name and define if map can
 change:
 
-    static:
-        map_topic: /map
-        subscribe_to_updates: true
-
+```yaml
+static:
+    map_topic: /map
+    subscribe_to_updates: true
+```
 Parameters for exploration boundaries layer:
 
-    explore_boundary:
-        resize_to_boundary: false
-        frontier_travel_point: "middle"
-        explore_clear_space: false
+```yaml
+explore_boundary:
+    resize_to_boundary: false
+    frontier_travel_point: "middle"
+    explore_clear_space: false
+```
 
 Parameters meaning:
 
@@ -102,12 +109,14 @@ Parameters meaning:
 
 Parameters for obstacles inflation layer, define inflation radius:
 
-    inflation:
-        inflation_radius: 0.5
+```yaml
+inflation:
+    inflation_radius: 0.5
+```
 
 Your final file should look like below:
 
-```
+```yaml
 footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
 transform_tolerance: 5
 update_frequency: 5
@@ -170,12 +179,12 @@ And:
 For the `explore_server` node you will need to specify some parameters
 and paths for `.yaml` configuration files:
 
-```launch
-    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
-        <param name="frequency" type="double" value="1.0"/>
-        <param name="goal_aliasing" type="double" value="0.5"/>
-        <rosparam ns="explore_costmap" subst_value="true" file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
-    </node>
+```xml
+<node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
+    <param name="frequency" type="double" value="1.0"/>
+    <param name="goal_aliasing" type="double" value="0.5"/>
+    <rosparam ns="explore_costmap" subst_value="true" file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
+</node>
 ```
 
 Parameter `frequency` defines how often new goal should be recalculated
@@ -184,7 +193,7 @@ published to trajectory planner.
 
 You can use below `launch` file:
 
-```launch
+```xml
 <launch>
 
     <arg name="use_rosbot" default="true"/>

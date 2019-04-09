@@ -84,27 +84,27 @@ mentioned in `/pose`. This node is required only on ROSbot, Gazebo is publishing
 Begin with headers:
 
 ```cpp
-    #include <ros/ros.h>
-    #include <geometry_msgs/PoseStamped.h>
-    #include <tf/transform_broadcaster.h>
+#include <ros/ros.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <tf/transform_broadcaster.h>
 ```
 
 Publisher for transformation:
 
 ```cpp
-    static tf::TransformBroadcaster br;
+static tf::TransformBroadcaster br;
 ```
 
 Transformation message:
 
 ```cpp
-    tf::Transform transform;
+tf::Transform transform;
 ```
 
 Quaternion for storing rotation data:
 
 ```cpp
-    tf::Quaternion q;
+tf::Quaternion q;
 ```
 
 Function for handling incoming `/PoseStamped` messages, extract
@@ -113,17 +113,18 @@ put translation parameters into transform message, put quaternion
 structure into transform message, publish transform:
 
 ```cpp
-    void pose_callback(const geometry_msgs::PoseStampedPtr &pose) {
-       q.setX(pose->pose.orientation.x);
-       q.setY(pose->pose.orientation.y);
-       q.setZ(pose->pose.orientation.z);
-       q.setW(pose->pose.orientation.w);
+void pose_callback(const geometry_msgs::PoseStampedPtr &pose)
+{
+   q.setX(pose->pose.orientation.x);
+   q.setY(pose->pose.orientation.y);
+   q.setZ(pose->pose.orientation.z);
+   q.setW(pose->pose.orientation.w);
 
-       transform.setOrigin( tf::Vector3(pose->pose.position.x, pose->pose.position.y, 0.0) );
-       transform.setRotation(q);
+   transform.setOrigin(tf::Vector3(pose->pose.position.x, pose->pose.position.y, 0.0));
+   transform.setRotation(q);
 
-       br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_link"));
-    }
+   br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_link"));
+}
 ```
 
 Publishing of transform is done with `sendTransform` function which
@@ -141,16 +142,18 @@ parameter is `StampedTransform` object. This object parameters are:
 In main function just initialize node and subscribe to `/pose` topic:
 
 ```cpp
-    int main(int argc, char **argv) {
-       ros::init(argc, argv, "drive_controller");
-       ros::NodeHandle n("~");
-       ros::Subscriber pose_sub = n.subscribe("/pose", 1, pose_callback);
-       ros::Rate loop_rate(100);
-       while (ros::ok()) {
-          ros::spinOnce();
-          loop_rate.sleep();
-       }
-    }
+int main(int argc, char **argv)
+{
+   ros::init(argc, argv, "drive_controller");
+   ros::NodeHandle n("~");
+   ros::Subscriber pose_sub = n.subscribe("/pose", 1, pose_callback);
+   ros::Rate loop_rate(100);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      loop_rate.sleep();
+   }
+}
 ```
 
 Your final file should look like this:
@@ -160,35 +163,34 @@ Your final file should look like this:
 #include <geometry_msgs/PoseStamped.h>
 #include <tf/transform_broadcaster.h>
 
-
 tf::Transform transform;
 tf::Quaternion q;
 
 void pose_callback(const geometry_msgs::PoseStampedPtr &pose)
 {
-    static tf::TransformBroadcaster br;
-    q.setX(pose->pose.orientation.x);
-    q.setY(pose->pose.orientation.y);
-    q.setZ(pose->pose.orientation.z);
-    q.setW(pose->pose.orientation.w);
+   static tf::TransformBroadcaster br;
+   q.setX(pose->pose.orientation.x);
+   q.setY(pose->pose.orientation.y);
+   q.setZ(pose->pose.orientation.z);
+   q.setW(pose->pose.orientation.w);
 
-    transform.setOrigin(tf::Vector3(pose->pose.position.x, pose->pose.position.y, 0.0));
-    transform.setRotation(q);
+   transform.setOrigin(tf::Vector3(pose->pose.position.x, pose->pose.position.y, 0.0));
+   transform.setRotation(q);
 
-    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_link"));
+   br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_link"));
 }
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "drive_controller");
-    ros::NodeHandle n("~");
-    ros::Subscriber pose_sub = n.subscribe("/pose", 1, pose_callback);
-    ros::Rate loop_rate(100);
-    while (ros::ok())
-    {
-        ros::spinOnce();
-        loop_rate.sleep();
-    }
+   ros::init(argc, argv, "drive_controller");
+   ros::NodeHandle n("~");
+   ros::Subscriber pose_sub = n.subscribe("/pose", 1, pose_callback);
+   ros::Rate loop_rate(100);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      loop_rate.sleep();
+   }
 }
 ```
 
@@ -196,26 +198,32 @@ Save it as `drive_controller.cpp`.
 
 Now in `CMakeLists.txt` file find line:
 
+```
     find_package(catkin REQUIRED COMPONENTS
         roscpp
     )
+```
 
 and change it to:
 
+```
     find_package(catkin REQUIRED COMPONENTS
         roscpp tf
     )
+```
 
 then declare executable:
 
-    add_executable(drive_controller_node src/drive_controller.cpp)
-
+```
+add_executable(drive_controller_node src/drive_controller.cpp)
+```
 And specify libraries to link:
 
-    target_link_libraries(drive_controller_node
-            ${catkin_LIBRARIES}
-            )
-
+```
+target_link_libraries(drive_controller_node
+    ${catkin_LIBRARIES}
+)
+```
 ### Publisher for static transformations
 
 If we want to publish transformation which is not changing in time, we
@@ -224,8 +232,9 @@ for publishing relation between robot base and laser scanner.
 
 We can run it from command line:
 
-    $ rosrun tf static_transform_publisher 0 0 0 3.14 0 0 base_link laser_frame 100
-
+```bash
+$ rosrun tf static_transform_publisher 0 0 0 3.14 0 0 base_link laser_frame 100
+```
 Arguments are consecutively:
 
 - `0 0 0` - x y z axes of translation, values are in meters
@@ -246,12 +255,14 @@ scanner base should face the same direction as robot front. Most
 probably your laser scanner will be attached above robot base. To set
 scanner 10 centimeters above robot you should use:
 
-    $ rosrun tf static_transform_publisher 0 0 0.1 0 0 0 base_link laser_frame 100
-
+```bash
+rosrun tf static_transform_publisher 0 0 0.1 0 0 0 base_link laser_frame 100
+```
 And if your scanner is also rotated by 180º around z-axis it should be:
 
-    $ rosrun tf static_transform_publisher 0 0 0.1 3.14 0 0 base_link laser_frame 100
-
+```bash
+rosrun tf static_transform_publisher 0 0 0.1 3.14 0 0 base_link laser_frame 100
+```
 Remember that if you have improperly mounted scanner or its position is
 not set correctly, your map will be generated with errors or it will be
 not generated at all.
@@ -304,7 +315,7 @@ not need more configuration for it now.
 To test it you can run only this one node:
 
 ```bash
-    $ rosrun rplidar_ros rplidarNode
+rosrun rplidar_ros rplidarNode
 ```
 
 For **Gazebo** you do not need any additional nodes, just start simulator and laser scans will be already published to appropriate topic.
@@ -348,7 +359,7 @@ You will also need:
 
 You can use below `launch` file:
 
-```
+```xml
 <launch>
 
     <arg name="use_rosbot" default="true"/>
@@ -363,7 +374,7 @@ You can use below `launch` file:
 
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 
-    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
+    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
@@ -402,7 +413,7 @@ We need to set few parameters:
 
 You can use below `launch` file:
 
-```
+```xml
 <launch>
 
     <arg name="use_rosbot" default="true"/>

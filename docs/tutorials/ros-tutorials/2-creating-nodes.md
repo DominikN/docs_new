@@ -19,7 +19,9 @@ libraries and compiled nodes will be stored.
 First you need to create a folder, where your workspace will be located.
 You can do this by typing in:
 
-     $ mkdir -p ~/ros_workspace/src
+```bash
+mkdir -p ~/ros_workspace/src
+```
 
 This will create folder named `ros_workspace` and folder `src` inside it. 
 All of the source files for your nodes will be stored in folder `src`.
@@ -27,27 +29,33 @@ All of the source files for your nodes will be stored in folder `src`.
 Then you can initialize your workspace with command
 `catkin_init_workspace` executed in `src` folder:
 
-    $ cd ~/ros_workspace/src
-    $ catkin_init_workspace
+```bash
+cd ~/ros_workspace/src
+catkin_init_workspace
+```
 
 Now you can move to your workspace main directory:
 
-    $ cd ~/ros_workspace
+```bash
+cd ~/ros_workspace
+```
 
 and compile it:
 
-    $ catkin_make
-
+```bash
+catkin_make
+```
 After this command you should get output like this:
 
 ![image](/docs/assets/img/ros/man_2_1.png)
 
 And it should end with:
 
-    ####
-    #### Running command: "make -j4 -l4" in "/home/pi/ros_workspace/build"
-    ####
-
+```
+####
+#### Running command: "make -j4 -l4" in "/home/pi/ros_workspace/build"
+####
+```
 After this operation you should have two new folders in your workspace:
 `build` for storing files that are used during compilation and `devel`
 for storing output files.
@@ -63,8 +71,9 @@ created with command `catkin_create_pkg` and it must be executed in
 
 Syntax of `catkin_create_pkg` is:
 
-    catkin_create_pkg package_name [required packages]
-
+```bash
+catkin_create_pkg package_name [required packages]
+```
 where `package_name` is desired package name and argument
 `required packages` is optional and contain names of packages that are used
 by newly created packages.
@@ -73,8 +82,10 @@ For our tutorial we will create package named `tutorial_pkg` which
 depends on package `roscpp`. Package `roscpp` is a basic ROS library for
 C++.
 
-    $ cd ~/ros_workspace/src 
-    $ catkin_create_pkg tutorial_pkg roscpp
+```bash
+cd ~/ros_workspace/src 
+catkin_create_pkg tutorial_pkg roscpp
+```
 
 After typing in this command you should get output like this:
 
@@ -101,75 +112,79 @@ Created files are:
 Let’s create C++ file for your node, name it `tutorial_pkg_node.cpp` and
 place it in `src` folder under `tutorial_pkg`:
 
-    $ touch ~/ros_workspace/src/tutorial_pkg/src/tutorial_pkg_node.cpp
+```bash
+touch ~/ros_workspace/src/tutorial_pkg/src/tutorial_pkg_node.cpp
+``` 
 
 Open file in your favourite text editor and paste:
 
 ``` cpp
-     #include <ros/ros.h>
-     
-     int main(int argc, char **argv) {
-        ros::init(argc, argv, "example_node");
-        ros::NodeHandle n("~");
-        ros::Rate loop_rate(50);
-        while (ros::ok()) {
-           ros::spinOnce();
-           loop_rate.sleep();
-        }
-     }
+#include <ros/ros.h>
+
+int main(int argc, char **argv)
+{
+    ros::init(argc, argv, "example_node");
+    ros::NodeHandle n("~");
+    ros::Rate loop_rate(50);
+    while (ros::ok())
+    {
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+}
 ```
 
 
 Code explanation line by line:
 
 ``` cpp
-    #include <ros/ros.h>
+#include <ros/ros.h>
 ``` 
 
 Add header files for basic ROS libraries.
 
 ``` cpp
-    int main(int argc, char **argv) {
+int main(int argc, char **argv) {
 ``` 
 
 Beginning of node main function.
 
 
 ``` cpp
-    ros::init(argc, argv, "example_node");
+ros::init(argc, argv, "example_node");
 ``` 
 
 Initialization of ROS node, this function contacts with ROS master and
 registers node in the system.
 
 ``` cpp
-    ros::NodeHandle n("~");
+ros::NodeHandle n("~");
 ``` 
 
 Get the handle for node, this handle is required for interactions with
 system e.g. subscribing to topic.
 
 ``` cpp
-    ros::Rate loop_rate(50);
+ros::Rate loop_rate(50);
 ``` 
 
 Define rate for repeatable operations.
 
 ``` cpp
-    while (ros::ok()) {
+while (ros::ok()) {
 ``` 
 
 Check if ROS is working. E.g. if ROS master is stopped or there was sent
 signal to stop the system, `ros::ok()` will return false.
 
 ``` cpp
-    ros::spinOnce();
+ros::spinOnce();
 ``` 
 
 Process all incoming messages.
 
 ``` cpp
-    loop_rate.sleep();
+loop_rate.sleep();
 ``` 
 
 Wait until defined time passes.
@@ -183,14 +198,18 @@ Before you build the node, you need to edit `CMakeLists.txt` from
 
 Find line:
 
-    # add_compile_options(-std=c++11)
+```
+# add_compile_options(-std=c++11)
+```
 
 and uncomment it (remove `#` sign). This will allow to use C++11 standard of C++. 
 
 You should also find and uncomment line:
 
-    # add_executable(${PROJECT_NAME}_node src/tutorial_pkg_node.cpp)
-    
+```
+# add_executable(${PROJECT_NAME}_node src/tutorial_pkg_node.cpp)
+```
+
 This will let the compiler know that it should create executable 
 file from defined source. Created executable
 will be your node. Variable `PROJECT_NAME` is defined by line `project(tutorial_pkg)`.
@@ -198,9 +217,11 @@ This results in `tutorial_pkg_node` as the name of the executable. You can adjus
 
 After that find and uncomment lines:
 
-    # target_link_libraries(${PROJECT_NAME}_node
-    #   ${catkin_LIBRARIES}
-    # )
+```
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
+```
 
 This will cause compiler to link libraries required by your node. Save
 the changes and close editor.
@@ -208,9 +229,11 @@ the changes and close editor.
 Open terminal, move to workspace main directory and build your project
 with command `catkin_make`:
 
-    $ cd ~/ros_workspace 
-    $ catkin_make
- 
+```bash
+cd ~/ros_workspace 
+catkin_make
+```
+
 You should get output like this:
 
 ![image](/docs/assets/img/ros/man_2_3.png)
@@ -220,13 +243,15 @@ You should get output like this:
 Your node is built and ready for running, but before you run it, you
 need to load some environment variables:
 
-    $ source ~/ros_workspace/devel/setup.sh
+```bash
+source ~/ros_workspace/devel/setup.sh
+```
 
 These environment variables allow you to run node regardless of
 directory you are working in. You have to load it every time you open
 new terminal or you can add line:
 
-```
+```bash
 . ~/ros_workspace/devel/setup.sh
 ```
 
@@ -244,25 +269,25 @@ To remind, you can start ROS by typing in the name of the node, you can do this
 with the following command:
 
 ```bash
-$ rosrun package_name node_type [options]
+rosrun package_name node_type [options]
 ```
 
 For the node you just created it will be:
 
 ```bash
-$ rosrun tutorial_pkg tutorial_pkg_node
+rosrun tutorial_pkg tutorial_pkg_node
 ```
 
 If you want to use `.launch` files associated with your custom package you will have to create `launch` directory:
 
 ```bash
-$ mkdir ~/ros_workspace/src/tutorial_pkg/launch
+mkdir ~/ros_workspace/src/tutorial_pkg/launch
 ```
 
 Place your `.launch` files there. This way you can start them by typing:
 
 ```bash
-$ roslaunch tutorial_pkg your_launch_file.launch
+roslaunch tutorial_pkg your_launch_file.launch
 ```
 
 Example launch file for `tutorial_pkg_node` will be as follows:
@@ -279,7 +304,7 @@ Example launch file for `tutorial_pkg_node` will be as follows:
 Save it as `tutorial_pkg_node.launch` in `~/ros_workspace/src/tutorial_pkg/launch` directory and launch it:
 
 ```bash
-$ roslaunch tutorial_pkg tutorial_pkg_node.launch
+roslaunch tutorial_pkg tutorial_pkg_node.launch
 ```
 
 ### Subscribing to topic ###
@@ -292,7 +317,7 @@ To process message received from the camera you need a header file with
 message type definition. You can include it with:
 
 ```cpp
-    #include <sensor_msgs/Image.h>
+#include <sensor_msgs/Image.h>
 ```
 
 Image message is an object consisting of following fields:
@@ -314,51 +339,52 @@ Image message is an object consisting of following fields:
 Then you need a function for processing received message:
 
 ``` cpp
-    void imageCallback(const sensor_msgs::ImageConstPtr &image) {
-       long long sum = 0;
-       for( int value : image->data )
-       {
-          sum+=value;
-       }
-       int avg = sum/image->data.size();
-       std::cout << "Brightness: " << avg << std::endl;
-    }
+void imageCallback(const sensor_msgs::ImageConstPtr &image)
+{
+   long long sum = 0;
+   for (int value : image->data)
+   {
+      sum += value;
+   }
+   int avg = sum / image->data.size();
+   std::cout << "Brightness: " << avg << std::endl;
+}
 ``` 
 
 Code explanation line by line:
 
 ``` cpp
-    void imageCallback(const sensor_msgs::ImageConstPtr &image)
+void imageCallback(const sensor_msgs::ImageConstPtr &image)
 ``` 
 
 Function definition, argument is pointer to incoming message.
 
 ``` cpp
-    long long sum = 0;
+long long sum = 0;
 ``` 
 
 Variable for storing sum of all pixel values.
 
 ``` cpp
-    for( int value : image->data )
+for( int value : image->data )
 ``` 
 
 Iteration through every pixel and colour.
 
 ``` cpp
-    sum+=value;
+sum+=value;
 ``` 
 
 Add current pixel value to sum.
 
 ``` cpp
-    int avg = sum/image->data.size();
+int avg = sum/image->data.size();
 ``` 
 
 Calculate average value.
 
 ``` cpp
-    std::cout << "Brightness: " << avg << std::endl;
+std::cout << "Brightness: " << avg << std::endl;
 ``` 
 
 Print brightness value to screen.
@@ -366,7 +392,7 @@ Print brightness value to screen.
 Last thing to do is defining topic to subscribe:
 
 ``` cpp
-    ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
+ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
 ``` 
 
 Here we use method `subscribe` of `NodeHandle` object. Arguments of
@@ -383,28 +409,32 @@ method are:
 Your final code should look like this:
 
 ``` cpp
-     #include <ros/ros.h>
-     #include <sensor_msgs/Image.h>
+#include <ros/ros.h>
+#include <sensor_msgs/Image.h>
 
-     void imageCallback(const sensor_msgs::ImageConstPtr &image) {
-        long long sum = 0;
-        for (int value : image->data) {
-           sum += value;
-        }
-        int avg = sum / image->data.size();
-        std::cout << "Brightness: " << avg << std::endl;
-     }
+void imageCallback(const sensor_msgs::ImageConstPtr &image)
+{
+   long long sum = 0;
+   for (int value : image->data)
+   {
+      sum += value;
+   }
+   int avg = sum / image->data.size();
+   std::cout << "Brightness: " << avg << std::endl;
+}
 
-     int main(int argc, char **argv) {
-        ros::init(argc, argv, "example_node");
-        ros::NodeHandle n("~");
-        ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
-        ros::Rate loop_rate(50);
-        while (ros::ok()) {
-           ros::spinOnce();
-           loop_rate.sleep();
-        }
-     }
+int main(int argc, char **argv)
+{
+   ros::init(argc, argv, "example_node");
+   ros::NodeHandle n("~");
+   ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
+   ros::Rate loop_rate(50);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      loop_rate.sleep();
+   }
+}
 ``` 
 
 **Task 2** Build your node and run it along with camera driver. Use
@@ -431,13 +461,13 @@ Instead of configuring `tutorial_pkg_node` again, we will include file created i
 Save above file as `tutorial_2.launch` in  `~/ros_workspace/src/tutorial_pkg/launch` directory and launch it:
 
 ```bash
-$ roslaunch tutorial_pkg tutorial_2.launch
+roslaunch tutorial_pkg tutorial_2.launch
 ```
 
 or if you are using **Gazebo** simulator:
 
 ```bash
-$ roslaunch tutorial_pkg tutorial_2.launch use_gazebo:=true
+roslaunch tutorial_pkg tutorial_2.launch use_gazebo:=true
 ```
 
 
@@ -454,13 +484,13 @@ To receive the parameter you need a variable to store its value, in this
 example variable should have a global scope:
 
 ``` cpp
-    bool print_b;
+bool print_b;
 ``` 
 
 Then receive parameter value:
 
 ``` cpp
-    n.param<bool>("print_brightness", print_b, false);
+n.param<bool>("print_brightness", print_b, false);
 ``` 
 
 Here we use method `param` of `NodeHandle` object. Arguments of method
@@ -475,41 +505,47 @@ are:
 Last thing is to print brightness dependant on parameter value:
 
 ``` cpp
-    if(print_b){
-            std::cout << "Brightness: " << avg << std::endl;
-        }
+if (print_b)
+{
+   std::cout << "Brightness: " << avg << std::endl;
+}
 ``` 
 
 Your final code should look like this:
 
 ``` cpp
-     #include <ros/ros.h>
-     #include <sensor_msgs/Image.h>
-     
-     bool print_b;
+#include <ros/ros.h>
+#include <sensor_msgs/Image.h>
 
-     void imageCallback(const sensor_msgs::ImageConstPtr &image) {
-        long long sum = 0;
-        for (int value : image->data) {
-           sum += value;
-        }
-        int avg = sum / image->data.size();
-        if(print_b){
-            std::cout << "Brightness: " << avg << std::endl;
-        }
-     }
+bool print_b;
 
-     int main(int argc, char **argv) {
-        ros::init(argc, argv, "example_node");
-        ros::NodeHandle n("~");
-        ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
-        n.param<bool>("print_brightness", print_b, false);
-        ros::Rate loop_rate(50);
-        while (ros::ok()) {
-           ros::spinOnce();
-           loop_rate.sleep();
-        }
-     }
+void imageCallback(const sensor_msgs::ImageConstPtr &image)
+{
+   long long sum = 0;
+   for (int value : image->data)
+   {
+      sum += value;
+   }
+   int avg = sum / image->data.size();
+   if (print_b)
+   {
+      std::cout << "Brightness: " << avg << std::endl;
+   }
+}
+
+int main(int argc, char **argv)
+{
+   ros::init(argc, argv, "example_node");
+   ros::NodeHandle n("~");
+   ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
+   n.param<bool>("print_brightness", print_b, false);
+   ros::Rate loop_rate(50);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      loop_rate.sleep();
+   }
+}
 ``` 
 
 **Task 3** Run your node with parameter `print_brightness` set to `true`
@@ -526,19 +562,19 @@ with only one field `data`, which contain actual integer data.
 Begin with including message header file:
 
 ``` cpp
-    #include <std_msgs/UInt8.h>
+#include <std_msgs/UInt8.h>
 ``` 
 
 Next define publisher object with global scope:
 
 ``` cpp
-    ros::Publisher brightness_pub;
+ros::Publisher brightness_pub;
 ``` 
 
 Then register in the system to publish to a specific topic:
 
 ``` cpp
-    brightness_pub = n.advertise<std_msgs::UInt8>("brightness" , 1);
+brightness_pub = n.advertise<std_msgs::UInt8>("brightness" , 1);
 ``` 
 
 Here we use method `advertise` of `NodeHandle` object. Arguments of
@@ -555,9 +591,9 @@ Last thing is to put some data into message and send it to topic with
 some frequency:
 
 ``` cpp
-    std_msgs::UInt8 brightness_value;
-    brightness_value.data=avg;
-    brightness_pub.publish(brightness_value);
+std_msgs::UInt8 brightness_value;
+brightness_value.data=avg;
+brightness_pub.publish(brightness_value);
 ``` 
 
 In our example it can be done while processing each message incoming
@@ -566,39 +602,44 @@ from camera topic.
 Your final code should look like this:
 
 ``` cpp
-     #include <ros/ros.h>
-     #include <sensor_msgs/Image.h>
-     #include <std_msgs/UInt8.h>
-     
-     bool print_b;
-     ros::Publisher brightness_pub;
+#include <ros/ros.h>
+#include <sensor_msgs/Image.h>
+#include <std_msgs/UInt8.h>
 
-     void imageCallback(const sensor_msgs::ImageConstPtr &image) {
-        long long sum = 0;
-        for (int value : image->data) {
-           sum += value;
-        }
-        int avg = sum / image->data.size();
-        if(print_b){
-            std::cout << "Brightness: " << avg << std::endl;
-        }
-        std_msgs::UInt8 brightness_value;
-        brightness_value.data=avg;
-        brightness_pub.publish(brightness_value);
-     }
+bool print_b;
+ros::Publisher brightness_pub;
 
-     int main(int argc, char **argv) {
-        ros::init(argc, argv, "example_node");
-        ros::NodeHandle n("~");
-        ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
-        n.param<bool>("print_brightness", print_b, false);
-        brightness_pub = n.advertise<std_msgs::UInt8>("brightness" , 1);
-        ros::Rate loop_rate(50);
-        while (ros::ok()) {
-           ros::spinOnce();
-           loop_rate.sleep();
-        }
-     }
+void imageCallback(const sensor_msgs::ImageConstPtr &image)
+{
+   long long sum = 0;
+   for (int value : image->data)
+   {
+      sum += value;
+   }
+   int avg = sum / image->data.size();
+   if (print_b)
+   {
+      std::cout << "Brightness: " << avg << std::endl;
+   }
+   std_msgs::UInt8 brightness_value;
+   brightness_value.data = avg;
+   brightness_pub.publish(brightness_value);
+}
+
+int main(int argc, char **argv)
+{
+   ros::init(argc, argv, "example_node");
+   ros::NodeHandle n("~");
+   ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
+   n.param<bool>("print_brightness", print_b, false);
+   brightness_pub = n.advertise<std_msgs::UInt8>("brightness", 1);
+   ros::Rate loop_rate(50);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      loop_rate.sleep();
+   }
+}
 ``` 
 
 **Task 4** Compile your node and run it with `astra.launch`. Use `rosnode`,
@@ -622,26 +663,26 @@ per given number of frames.
 Begin with importing required header files:
 
 ``` cpp
-    #include <std_srvs/Empty.h>
+#include <std_srvs/Empty.h>
 ``` 
 
 We need one variable for counting passed frames:
 
 ``` cpp
-    int frames_passed = 0;
+int frames_passed = 0;
 ``` 
 
 In `imageCallback` function increment counter with every incoming
 message:
 
 ``` cpp
-    frames_passed++;
+frames_passed++;
 ``` 
 
 Create a client which will be caling to service:
 
 ``` cpp
-    ros::ServiceClient client = n.serviceClient<std_srvs::Empty>("/image_saver/save");
+ros::ServiceClient client = n.serviceClient<std_srvs::Empty>("/image_saver/save");
 ``` 
 
 Here we use method `serviceClient` of `NodeHandle` object. Method has
@@ -651,67 +692,74 @@ message type for service: `std_srvs::Empty`.
 Instantiate message object:
 
 ``` cpp
-    std_srvs::Empty srv;
+std_srvs::Empty srv;
 ``` 
 
 Check if required number of frames passed and reset counter:
 
 ``` cpp
-    if (frames_passed>100){
-             frames_passed=0;
+if (frames_passed > 100)
+{
+   frames_passed = 0;
 ``` 
 
 Call the service:
 
 ``` cpp
-    client.call(srv);
+client.call(srv);
 ``` 
 
 Your final code should look like this:
 
 ``` cpp
-     #include <ros/ros.h>
-     #include <sensor_msgs/Image.h>
-     #include <std_msgs/UInt8.h>
-     #include <std_srvs/Empty.h>
-     
-     bool print_b;
-     ros::Publisher brightness_pub;
-     int frames_passed = 0;
+#include <ros/ros.h>
+#include <sensor_msgs/Image.h>
+#include <std_msgs/UInt8.h>
+#include <std_srvs/Empty.h>
 
-     void imageCallback(const sensor_msgs::ImageConstPtr &image) {
-        long long sum = 0;
-        for (int value : image->data) {
-           sum += value;
-        }
-        int avg = sum / image->data.size();
-        if(print_b){
-            std::cout << "Brightness: " << avg << std::endl;
-        }
-        std_msgs::UInt8 brightness_value;
-        brightness_value.data=avg;
-        brightness_pub.publish(brightness_value);
-        frames_passed++;
-     }
+bool print_b;
+ros::Publisher brightness_pub;
+int frames_passed = 0;
 
-     int main(int argc, char **argv) {
-        ros::init(argc, argv, "example_node");
-        ros::NodeHandle n("~");
-        ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
-        n.param<bool>("print_brightness", print_b, false);
-        brightness_pub = n.advertise<std_msgs::UInt8>("brightness" , 1);
-        ros::ServiceClient client = n.serviceClient<std_srvs::Empty>("/image_saver/save");
-        std_srvs::Empty srv;
-        ros::Rate loop_rate(50);
-        while (ros::ok()) {
-           ros::spinOnce();
-           if (frames_passed>100){
-              frames_passed=0;
-              client.call(srv);
-           }
-           loop_rate.sleep();
-        }
-     }
+void imageCallback(const sensor_msgs::ImageConstPtr &image)
+{
+   long long sum = 0;
+   for (int value : image->data)
+   {
+      sum += value;
+   }
+   int avg = sum / image->data.size();
+   if (print_b)
+   {
+      std::cout << "Brightness: " << avg << std::endl;
+   }
+   std_msgs::UInt8 brightness_value;
+   brightness_value.data = avg;
+   brightness_pub.publish(brightness_value);
+   frames_passed++;
+}
+
+int main(int argc, char **argv)
+{
+   ros::init(argc, argv, "example_node");
+   ros::NodeHandle n("~");
+   ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
+   n.param<bool>("print_brightness", print_b, false);
+   brightness_pub = n.advertise<std_msgs::UInt8>("brightness", 1);
+   ros::ServiceClient client = n.serviceClient<std_srvs::Empty>("/image_saver/save");
+   std_srvs::Empty srv;
+   ros::Rate loop_rate(50);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      if (frames_passed > 100)
+      {
+         frames_passed = 0;
+         client.call(srv);
+      }
+      loop_rate.sleep();
+   }
+}
 ```
 
 **Task 5** Build your node and run it with `astra.launch` and `image_saver`. 
@@ -721,6 +769,7 @@ certain time. Observe as new frames are being saved to your workspace
 directory.
 
 For `image_saver` node you can create separate launch file:
+
 ```xml
 <launch>
 
@@ -732,7 +781,6 @@ For `image_saver` node you can create separate launch file:
 
 </launch>
 ```
-
 Save it as `image_saver.launch` in `~/ros_workspace/src/tutorial_pkg/launch` directory and include it in `tutorial_2.launch`:
 
 ```xml
@@ -752,7 +800,9 @@ Save it as `image_saver.launch` in `~/ros_workspace/src/tutorial_pkg/launch` dir
 
 To delete image files created by this example run following command in your `ros_workspace` directory:
 
-    $ rm $(find image*)
+```bash
+rm $(find image*)
+```
 
 ### Providing a service ###
 
@@ -765,27 +815,27 @@ not and string for short summary of executed action.
 Start with including required header files:
 
 ``` cpp
-    #include <std_srvs/Trigger.h>
+#include <std_srvs/Trigger.h>
 ``` 
 
 Add variable for storing number of saved images:
 
 ``` cpp
-    int saved_imgs = 0;
+int saved_imgs = 0;
 ``` 
 
 Next, you need a function to execute when service is called:
 
 ``` cpp
-    bool saved_img(std_srvs::Trigger::Request  &req, std_srvs::Trigger::Response &res)
-    {
-       res.success=1;
-       std::string str("Saved images: ");
-       std::string num = std::to_string(saved_imgs);
-       str.append(num);
-       res.message= str;
-       return true;
-    }
+bool saved_img(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &res)
+{
+   res.success = 1;
+   std::string str("Saved images: ");
+   std::string num = std::to_string(saved_imgs);
+   str.append(num);
+   res.message = str;
+   return true;
+}
 ``` 
 
 Arguments for this function are pointers to request and response data.
@@ -795,39 +845,39 @@ data, in that case these are pointer of void type.
 Prepare string with response description:
 
 ``` cpp
-    std::string str("Saved images: ");
-    std::string num = std::to_string(saved_imgs);
-    str.append(num);
+std::string str("Saved images: ");
+std::string num = std::to_string(saved_imgs);
+str.append(num);
 ``` 
 
 Fill string field with data:
 
 ``` cpp
-    res.message= str;
+res.message= str;
 ``` 
 
 Fill integer field with data, this mean service was executed properly:
 
 ``` cpp
-    res.success=1;
+res.success=1;
 ``` 
 
 Finish function, response will be sent to requesting node:
 
 ``` cpp
-    return true;
+return true;
 ``` 
 
 next thing to do is to increment image counter after saving frame:
 
 ``` cpp
-    saved_imgs++;
+saved_imgs++;
 ``` 
 
 Last thing to do is to register provided service in the system:
 
 ``` cpp
-    ros::ServiceServer service = n.advertiseService("saved_images", saved_img);
+ros::ServiceServer service = n.advertiseService("saved_images", saved_img);
 ``` 
 Here we use method `advertiseService` of `NodeHandle` object. Arguments
 of method are:
@@ -839,61 +889,68 @@ of method are:
 Your final code should look like this:
 
 ``` cpp
-     #include <ros/ros.h>
-     #include <sensor_msgs/Image.h>
-     #include <std_msgs/UInt8.h>
-     #include <std_srvs/Empty.h>
-     #include <std_srvs/Trigger.h>
+#include <ros/ros.h>
+#include <sensor_msgs/Image.h>
+#include <std_msgs/UInt8.h>
+#include <std_srvs/Empty.h>
+#include <std_srvs/Trigger.h>
 
-     bool print_b;
-     ros::Publisher brightness_pub;
-     int frames_passed = 0;
-     int saved_imgs = 0;
+bool print_b;
+ros::Publisher brightness_pub;
+int frames_passed = 0;
+int saved_imgs = 0;
 
-     void imageCallback(const sensor_msgs::ImageConstPtr &image) {
-        long long sum = 0;
-        for (int value : image->data) {
-           sum += value;
-        }
-        int avg = sum / image->data.size();
-        if (print_b) {
-           std::cout << "Brightness: " << avg << std::endl;
-        }
-        std_msgs::UInt8 brightness_value;
-        brightness_value.data = avg;
-        brightness_pub.publish(brightness_value);
-        frames_passed++;
-     }
+void imageCallback(const sensor_msgs::ImageConstPtr &image)
+{
+   long long sum = 0;
+   for (int value : image->data)
+   {
+      sum += value;
+   }
+   int avg = sum / image->data.size();
+   if (print_b)
+   {
+      std::cout << "Brightness: " << avg << std::endl;
+   }
+   std_msgs::UInt8 brightness_value;
+   brightness_value.data = avg;
+   brightness_pub.publish(brightness_value);
+   frames_passed++;
+}
 
-     bool saved_img(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &res) {
-        res.success = 1;
-        std::string str("Saved images: ");
-        std::string num = std::to_string(saved_imgs);
-        str.append(num);
-        res.message = str;
-        return true;
-     }
+bool saved_img(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &res)
+{
+   res.success = 1;
+   std::string str("Saved images: ");
+   std::string num = std::to_string(saved_imgs);
+   str.append(num);
+   res.message = str;
+   return true;
+}
 
-     int main(int argc, char **argv) {
-        ros::init(argc, argv, "example_node");
-        ros::NodeHandle n("~");
-        ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
-        n.param<bool>("print_brightness", print_b, false);
-        brightness_pub = n.advertise<std_msgs::UInt8>("brightness", 1);
-        ros::ServiceClient client = n.serviceClient<std_srvs::Empty>("/image_saver/save");
-        std_srvs::Empty srv;
-        ros::ServiceServer service = n.advertiseService("saved_images", saved_img);
-        ros::Rate loop_rate(50);
-        while (ros::ok()) {
-           ros::spinOnce();
-           if (frames_passed > 100) {
-              frames_passed = 0;
-              client.call(srv);
-              saved_imgs++;
-           }
-           loop_rate.sleep();
-        }
-     }
+int main(int argc, char **argv)
+{
+   ros::init(argc, argv, "example_node");
+   ros::NodeHandle n("~");
+   ros::Subscriber sub = n.subscribe("/camera/rgb/image_raw", 10, imageCallback);
+   n.param<bool>("print_brightness", print_b, false);
+   brightness_pub = n.advertise<std_msgs::UInt8>("brightness", 1);
+   ros::ServiceClient client = n.serviceClient<std_srvs::Empty>("/image_saver/save");
+   std_srvs::Empty srv;
+   ros::ServiceServer service = n.advertiseService("saved_images", saved_img);
+   ros::Rate loop_rate(50);
+   while (ros::ok())
+   {
+      ros::spinOnce();
+      if (frames_passed > 100)
+      {
+         frames_passed = 0;
+         client.call(srv);
+         saved_imgs++;
+      }
+      loop_rate.sleep();
+   }
+}
 ``` 
 
 **Task 6** Build your node and run it as in previous task. Use
@@ -902,7 +959,9 @@ Your final code should look like this:
 Use `rosservice call` tool to call service provided by your node. Usage
 of `rosservice` is analogical to `rostopic`. To call service type:
 
-    $ rosservice call /tutorial_pkg_node/saved_images
+```bash
+rosservice call /tutorial_pkg_node/saved_images
+```
 
 As a response you should get something like this:
 

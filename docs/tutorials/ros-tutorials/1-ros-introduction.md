@@ -64,7 +64,7 @@ registered in the system and also checking their statuses.
 Using the application looks as follows:
 
 ```bash
-     $ rosnode command [node_name]
+rosnode command [node_name]
 ```
 
 Command could be:
@@ -87,7 +87,7 @@ or reading messages being sent in it.
 Using the application looks as follows:
 
 ```bash
-     $ rostopic command [topic_name]
+rostopic command [topic_name]
 ```
 
 Command could be:
@@ -109,7 +109,7 @@ in the system.
 Using the application looks as follows:
 
 ```bash
-     $ rqt_graph
+rqt_graph
 ```
 
 ## Robot platform
@@ -163,7 +163,7 @@ next to robot name.
 To connect by ssh type in terminal:
 
 ```bash
-    $ ssh husarion@xxx.xxx.xxx.xxx
+ssh husarion@xxx.xxx.xxx.xxx
 ```
 
 password is: `husarion`
@@ -207,7 +207,7 @@ this step is complete you can run your nodes.
 To start the master process you can use command:
 
 ```bash
-    $ roscore
+roscore
 ```
 
 #### Starting Gazebo
@@ -215,20 +215,20 @@ To start the master process you can use command:
 To start using Gazebo with ROSbot model you need to download our package with model and configuration files to ROS workspace directory. Meaning and structure of workspace will be discussed later, now you will just create it with:
 
 ```bash
-    $ mkdir -p ~/ros_workspace/src
-    $ cd ~/ros_workspace/src
-    $ catkin_init_workspace
-    $ sudo apt update
-    $ git clone https://github.com/husarion/rosbot_description.git
-    $ cd ~/ros_workspace
-    $ catkin_make
-    $ source devel/setup.sh
+mkdir -p ~/ros_workspace/src
+cd ~/ros_workspace/src
+catkin_init_workspace
+sudo apt update
+git clone https://github.com/husarion/rosbot_description.git
+cd ~/ros_workspace
+catkin_make
+source devel/setup.sh
 ```
 
 From now your system is ready to run Gazebo with ROSbot. To start simulator use command:
 
 ```bash
-    $ roslaunch rosbot_description rosbot.launch
+roslaunch rosbot_description rosbot.launch
 ```
 
 ### Starting system step by step
@@ -238,7 +238,7 @@ You can start ROS nodes by typing name of each node manually.
 To do it you can use the following command:
 
 ```bash
-    $ rosrun package_name node_type [options]
+rosrun package_name node_type [options]
 ```
 
 Package_name and node_type are names of package and node that you want
@@ -250,7 +250,7 @@ If you want to bind specific identifier to a node, at the end of the
 command, add:
 
 ```bash
-    __name:=new_node_name
+__name:=new_node_name
 ```
 
 Note that there are two underscores before the name. If you want to learn more about naming convention used by ROS see [this](http://wiki.ros.org/ROS/Concepts#Names.Names) docs.
@@ -260,7 +260,7 @@ Note that there are two underscores before the name. If you want to learn more a
 You can also set parameter value by adding:
 
 ```bash
-    _param:=value
+_param:=value
 ```
 
 Note that there is an underscore before the parameter name.
@@ -274,7 +274,7 @@ If you want to change the name of the topic subscribed or published by a node, y
 can use remapping option. In order to do it, at the end of the command, add:
 
 ```bash
-    old_topic_name:=new_topic_name
+old_topic_name:=new_topic_name
 ```
 
 Note that there is no underscore before the old name.
@@ -289,7 +289,7 @@ camera and show image from camera on display. Use remote desktop client of your 
 We will begin with master by typing in the following code in the ecommand line:
 
 ```bash
-    $ roscore
+roscore
 ```
 
 You should see something like this:
@@ -305,14 +305,14 @@ Let’s begin by checking the list of existing nodes.
 In the new terminal type in:
 
 ```bash
-    $ rosnode list
+rosnode list
 ```
 
 As the output you should get:
 
 ```bash
-    husarion@core2-ros:~$ rosnode list
-    /rosout
+husarion@core2-ros:~$ rosnode list
+/rosout
 ```
 
 This means, that you have now one node running which name is `/rosout`
@@ -321,27 +321,27 @@ and it is responsible for handling console log mechanism.
 Next you can check some info about this node:
 
 ```bash
-    $ rosnode info /rosout
+rosnode info /rosout
 ```
 
 And as the output you should get:
 
 ```bash
-    husarion@core2-ros:~$ rosnode info /rosout
-    -------------------------------------
-    Node [/rosout]
-    Publications:
-     * /rosout_agg [rosgraph_msgs/Log]
+husarion@core2-ros:~$ rosnode info /rosout
+-------------------------------------
+Node [/rosout]
+Publications:
+ * /rosout_agg [rosgraph_msgs/Log]
 
-    Subscriptions:
-     * /rosout [unknown type]
+Subscriptions:
+ * /rosout [unknown type]
 
-    Services:
-     * /rosout/set_logger_level
-     * /rosout/get_loggers
+Services:
+ * /rosout/set_logger_level
+ * /rosout/get_loggers
 
-    contacting node http://core2-ros:48067/ ...
-    Pid: 4594
+contacting node http://core2-ros:48067/ ...
+Pid: 4594
 ```
 
 You can see here that node `/rosout` is publishing to topic
@@ -353,44 +353,53 @@ You can see here that node `/rosout` is publishing to topic
 Now we will check what topics are registered in the system and receivee some
 info about them. In new console type in:
 
-    $ rostopic list
-
+```bash
+rostopic list
+```
 You should get in the output:
 
-    husarion@core2-ros:~$ rostopic list
-    /rosout
-    /rosout_agg
-
+```bash
+husarion@core2-ros:~$ rostopic list
+/rosout
+/rosout_agg
+```
 This means that you have two topics registered in the system. Let’s get
 some info about first of them:
 
-    $ rostopic info /rosout
+```bash
+rostopic info /rosout
+```
 
 As the output you should get:
 
-    husarion@core2-ros:~$ rostopic info /rosout
-    Type: rosgraph_msgs/Log
+```
+husarion@core2-ros:~$ rostopic info /rosout
+Type: rosgraph_msgs/Log
 
-    Publishers: None
+Publishers: None
 
-    Subscribers:
-     * /rosout (http://core2-ros:33119/)
-
+Subscribers:
+ * /rosout (http://core2-ros:33119/)
+```
 From that you can read, that via topic `/rosout` only messages of type `rosgraph_msgs/Log` can be transmitted, there is no node that publishes to this topic and node `/rosout` subscribes it.
 
 Now, leet's try to get similar info about the second topic:
 
-    $ rostopic info /rosout_agg
+```bash
+rostopic info /rosout_agg
+```
 
 As the output you should get:
 
-    husarion@core2-ros:~$ rostopic info /rosout_agg
-    Type: rosgraph_msgs/Log
+```bash
+husarion@core2-ros:~$ rostopic info /rosout_agg
+Type: rosgraph_msgs/Log
 
-    Publishers:
-     * /rosout (http://core2-ros:33119/)
+Publishers:
+ * /rosout (http://core2-ros:33119/)
 
-    Subscribers: None
+Subscribers: None
+```
 
 From that you can read, that via topic `/rosout_agg` only messages of type `rosgraph_msgs/Log` can be transmitted, node `/rosout` publishes to this topic and there is no node that subscribes it.
 
@@ -403,8 +412,8 @@ We will explain how `launch` file works later.
 
 You can start camera nodes by typing in the terminal:
 
-```
-$ roslaunch astra_launch astra.launch
+```bash
+roslaunch astra_launch astra.launch
 ```
 
 As output you should get something like below:
@@ -421,8 +430,8 @@ topics.
 
 Now you have camera node running, but can not see image from it yet. You will use node `image_view` from `image_view` package. This node by default subscribes to topic `image`. You need to remap this name to topic published by the camera node. If you performed task 1, you should know that astra nodes are publishing to many topics. To run image view node with remapping topic name type in the terminal:
 
-```
-    $ rosrun image_view image_view image:=/camera/rgb/image_raw
+```bash
+rosrun image_view image_view image:=/camera/rgb/image_raw
 ```
 
 As the output you should get:
@@ -442,7 +451,9 @@ of `/camera/rgb/image_raw` topic.
 Now you will use `rqt_graph` tool in order to get graph of data flow in
 the system. In new terminal type in:
 
-    $ rqt_graph
+```bash
+rqt_graph
+```
 
 There will be no response in the terminal, but new window will appear. In upper left corner change "Nodes only" option to "Nodes/Topics (active)". You will see:
 
@@ -468,11 +479,15 @@ Interpretation of the graph is as follows:
 time. This tool uses `.launch` files which contain configuration of all
 nodes to be run. Usage of `roslaunch` is simple. In the new terminal type in:
 
-    roslaunch package file.launch
+```bash
+roslaunch package file.launch
+```
 
 or
 
-    roslaunch file.launch
+```bash
+roslaunch file.launch
+```
 
 The first one is for the case when you use launch file provided with
 the package- you can run it from any folder. The second option is when you
@@ -485,9 +500,9 @@ Structure of `.launch` file is defined in a markup language derived from XML and
 HTML. Content of the `.launch` file is inserted between the start and end tags: `<launch>...</launch>` (root element). Other elements including those that define nodes should be placed between them.
 You can define node using `node` element:
 
-```launch
-    <node pkg="package_name" type="node" name="id" required="true" output="screen">
-    </node>
+```xml
+<node pkg="package_name" type="node" name="id" required="true" output="screen">
+</node>
 ```
 
 Where fields `pkg`, `type` and `name` are required, rest are optional.
@@ -511,8 +526,8 @@ For each node parameters can be set or topics can be remapped.
 
 For setting parameters use element `param`:
 
-```launch
-    <param name="name" value="value"/>
+```xml
+<param name="name" value="value"/>
 ```
 
 Meaning of the fields:
@@ -523,8 +538,8 @@ Meaning of the fields:
 
 For remapping the topic names use element `remap`:
 
-```launch
-    <remap from="/old" to="/new"/>
+```xml
+<remap from="/old" to="/new"/>
 ```
 
 Meaning of the fields:
@@ -540,7 +555,7 @@ this time with use of `roslaunch` tool.
 
 At first you will need a `.launch` file.
 
-```launch
+```xml
 <launch>
 
     <arg name="use_gazebo" default="false"/>
@@ -552,15 +567,8 @@ At first you will need a `.launch` file.
         <remap from="/image" to="/camera/rgb/image_raw"/>
     </node>
 
-<<<<<<< HEAD
-</launch>
+</launch>    
 ```
-
-=======
-</launch>
-
-````
->>>>>>> c6abddcdf87186cf8dfe0ed7b1a521f76d9c9ded
 
 Copy the above code to text editor (and other parameters if needed) and save it to file `tutorial_1.launch` in your home directory.
 
@@ -568,13 +576,13 @@ Next, close all consoles and nodes that are already running, go to new
 terminal and, if working on ROSbot, type in:
 
 ```bash
-    $ roslaunch tutorial_1.launch
-````
+roslaunch tutorial_1.launch
+```
 
 In case of working with Gazebo:
 
 ```bash
-    $ roslaunch tutorial_1.launch use_gazebo:=true
+roslaunch tutorial_1.launch use_gazebo:=true
 ```
 
 You should get output like this:

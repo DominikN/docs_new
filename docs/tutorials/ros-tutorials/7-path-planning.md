@@ -87,35 +87,42 @@ need to be defined, they are stored in `.yaml` files.
 Common parameters are used both by local and global cost map. We will
 define following parameters:
 
-    obstacle_range: 6.0
-
+```yaml
+obstacle_range: 6.0
+```
 In this range obstacles will be considered during path planning.
 
-    raytrace_range: 8.5
+```yaml
+raytrace_range: 8.5
+```
 
 This parameter defines range in which area could be considered as free.
 
-    footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
-
+```yaml
+footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
+```
 This parameter defines coordinates of robot outline, this will
 considered during collision detecting.
 
-    map_topic: /map
-
+```yaml
+map_topic: /map
+```
 This parameter defines topic where occupancy grid is published.
 
-    subscribe_to_updates: true
-
+```yaml
+subscribe_to_updates: true
+```
 This parameter defines if `move_base` should periodically check if map
 was updated.
 
-    observation_sources: laser_scan_sensor
-
+```yaml
+observation_sources: laser_scan_sensor
+```
 This parameter defines type of sensor used to provide data.
 
-    laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan,
-    	topic: scan, marking: true, clearing: true}
-
+```yaml
+laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+```
 This parameter define properties of used sensor, these are:
 
 - `sensor_frame` - coordinate frame tied to sensor
@@ -128,17 +135,19 @@ This parameter define properties of used sensor, these are:
 
 - `clearing` - true if sensor can be used to mark area as clear
 
-<!-- -->
-
-    global_frame: map
+```yaml
+global_frame: map
+```
 
 This parameter defines coordinate frame tied to occupancy grid map.
 
-    robot_base_frame: base_link
+```yaml
+robot_base_frame: base_link
+```
 
 This parameter defines coordinate frame tied to robot.
 
-```
+```yaml
 always_send_full_costmap: true
 ```
 
@@ -146,7 +155,7 @@ This parameter define if costmap should be always published with complete data.
 
 Your final file should look like below:
 
-```
+```yaml
 obstacle_range: 6.0
 raytrace_range: 8.5
 footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
@@ -166,58 +175,73 @@ Save it as `costmap_common_params.yaml` in `tutorial_pkg/config` directory.
 These parameters are used only by local cost map. We will define
 following parameters:
 
-    local_costmap:
-
+```yaml
+local_costmap:
+```
 This parameter groups following parameters to be considered only by
 local planner.
 
-    update_frequency: 5
-
+```yaml
+update_frequency: 5
+```
 This parameter defines how often cost should be recalculated.
 
-    publish_frequency: 5
+```yaml
+publish_frequency: 5
+```
 
 This parameter defines how often cost map should be published to topic.
 
-    transform_tolerance: 0.25
-
+```yaml
+transform_tolerance: 0.25
+```
 This parameter define latency in published transforms (in seconds), if
 transforms are older than this, planner will stop.
 
-    static_map: false
+```yaml
+static_map: false
+```
 
 This parameter defines if map can change in time, true if map will not
 change.
 
-    rolling_window: true
+```yaml
+rolling_window: true
+```
 
 This parameter defines if map should follow position of robot.
 
-    width: 3
-    height: 3
+```yaml
+width: 3
+height: 3
+```
 
 These parameters define size of map (in meters).
 
-    origin_x: -1.5
-    origin_y: -1.5
-
+```yaml
+origin_x: -1.5
+origin_y: -1.5
+```
 These parameters define position of left bottom map corner (in meters).
 If these values are half of map size, and `rolling_window` is set to
 `true`, then robot will always be in cost map centre.
 
-    resolution: 0.1
+```yaml
+resolution: 0.1
+```
 
 This parameter define size of single map cell (in meters).
 
-    inflation_radius: 1.0
-
+```yaml
+inflation_radius: 1.0
+```
 This parameter defines distance to obstacle where cost should be
 considered, any further from obstacle than this value will be treated as
 no cost.
 
 Your final file should look like below:
 
-```
+```yaml
 local_costmap:
   update_frequency: 5
   publish_frequency: 5
@@ -241,7 +265,7 @@ the same as for local cost map, but values may be different.
 
 Your file for global cost map should look like below:
 
-```
+```yaml
 global_costmap:
   update_frequency: 2.5
   publish_frequency: 2.5
@@ -263,59 +287,76 @@ Save it as `global_costmap_params.yaml` in `tutorial_pkg/config` directory.
 These parameters are used by trajectory planner. We will define
 following parameters:
 
-    TrajectoryPlannerROS:
-
+```yaml
+TrajectoryPlannerROS:
+```
 This parameter groups following parameters to be considered only by
 trajectory planner.
 
-    max_vel_x: 0.2
+```yaml
+max_vel_x: 0.2
+```
 
 This parameter defines maximum linear velocity that will be set by
 trajectory planner.
 
-    min_vel_x: 0.1
+```yaml
+min_vel_x: 0.1
+```
 
 This parameter defines minimum linear velocity that will be set by
 trajectory planner. This should be adjusted to overcome rolling
 resistance and other forces that may suppress robot from moving.
 
-    max_vel_theta: 0.35
-    min_vel_theta: -0.35
+```yaml
+max_vel_theta: 0.35
+min_vel_theta: -0.35
+```
 
 This parameter defines maximum angular velocity that will be set by
 trajectory planner.
 
-    min_in_place_vel_theta: 0.25
+```yaml
+min_in_place_vel_theta: 0.25
+```
 
 This parameter defines minimum angular velocity that will be set by
 trajectory planner. This should be adjusted to overcome rolling
 resistance and other forces that may suppress robot from moving.
 
-    acc_lim_theta: 0.25
-    acc_lim_x: 2.5
-    acc_lim_Y: 2.5
+```yaml
+acc_lim_theta: 0.25
+acc_lim_x: 2.5
+acc_lim_Y: 2.5
+```
 
 These parameters define maximum values of accelerations used by
 trajectory planner.
 
-    holonomic_robot: false
+```yaml
+holonomic_robot: false
+```
 
 This parameter defines if robot is holonomic.
 
-    meter_scoring: true
+```yaml
+meter_scoring: true
+```
 
 This parameter defines if cost function arguments are expressed in map
 cells or meters (if true, meters are considered).
 
-    xy_goal_tolerance: 0.15
-    yaw_goal_tolerance: 0.25
+```yaml
+xy_goal_tolerance: 0.15
+yaw_goal_tolerance: 0.25
+```
 
 These parameters define how far from destination it can be considered as
 reached. Linear tolerance is in meters, angular tolerance is in radians.
 
 Your final file should look like below:
 
-```
+```yaml
 TrajectoryPlannerROS:
   max_vel_x: 0.2
   min_vel_x: 0.1
@@ -377,31 +418,40 @@ configuration files.
 
 Set frequency for trajectory generation:
 
-    <param name="controller_frequency" value="10.0"/>
-
+```xml
+<param name="controller_frequency" value="10.0"/>
+```
 Load common parameters for global cost map:
 
-    <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+```xml
+<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+```
 
 Load common parameters for local cost map:
 
-    <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+```xml
+<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+```
 
 Load only local cost map parameters:
 
-    <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-
+```xml
+<rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+```
 Load only global cost map parameters:
 
-    <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+```xml
+<rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+```
 
 Load trajectory planner parameters:
 
-    <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
-
+```xml
+<rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+```
 You can use below `launch` file:
 
-```launch
+```xml
 <launch>
 
     <arg name="use_rosbot" default="true"/>

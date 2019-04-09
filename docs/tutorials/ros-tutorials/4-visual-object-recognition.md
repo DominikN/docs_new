@@ -46,11 +46,11 @@ and it will use less CPU making interface more responsive.
 
 You can use below `launch` file:
 
-```
+```xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
+    <arg name="use_rosbot" default="false"/>
+    <arg name="use_gazebo" default="true"/>
 
     <arg name="teach" default="true"/>
     <arg name="recognize" default="false"/>
@@ -166,7 +166,9 @@ published in the topic.
 
 To watch messages published in the topic, you can use `rostopic` tool:
 
-    $ rostopic echo /objects
+```bash
+rostopic echo /objects
+```
 
 ## Making decision with recognized object
 
@@ -191,29 +193,34 @@ int id = 0;
 ros::Publisher action_pub;
 geometry_msgs::Twist set_vel;
 
-void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
-   if (object->data.size() > 0) {
+void objectCallback(const std_msgs::Float32MultiArrayPtr &object)
+{
+   if (object->data.size() > 0)
+   {
       id = object->data[0];
 
-      switch (id) {
-         case ARROW_LEFT:
-            set_vel.linear.x = 0;
-            set_vel.angular.z = 1;
-            break;
-         case ARROW_UP:
-            set_vel.linear.x = 1;
-            set_vel.angular.z = 0;
-            break;
-         case ARROW_DOWN:
-            set_vel.linear.x = -1;
-            set_vel.angular.z = 0;
-            break;
-         default: // other object
-            set_vel.linear.x = 0;
-            set_vel.angular.z = 0;
+      switch (id)
+      {
+      case ARROW_LEFT:
+         set_vel.linear.x = 0;
+         set_vel.angular.z = 1;
+         break;
+      case ARROW_UP:
+         set_vel.linear.x = 1;
+         set_vel.angular.z = 0;
+         break;
+      case ARROW_DOWN:
+         set_vel.linear.x = -1;
+         set_vel.angular.z = 0;
+         break;
+      default: // other object
+         set_vel.linear.x = 0;
+         set_vel.angular.z = 0;
       }
       action_pub.publish(set_vel);
-   } else {
+   }
+   else
+   {
       // No object detected
       set_vel.linear.x = 0;
       set_vel.angular.z = 0;
@@ -221,7 +228,8 @@ void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
    }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
 
    ros::init(argc, argv, "action_controller");
    ros::NodeHandle n("~");
@@ -234,7 +242,8 @@ int main(int argc, char **argv) {
    set_vel.angular.x = 0;
    set_vel.angular.y = 0;
    set_vel.angular.z = 0;
-   while (ros::ok()) {
+   while (ros::ok())
+   {
       ros::spinOnce();
       loop_rate.sleep();
    }
@@ -246,44 +255,44 @@ Below is an explanation of the code line by line.
 Including required headers:
 
 ```cpp
-    #include <ros/ros.h>
-    #include <std_msgs/Float32MultiArray.h>
-    #include <geometry_msgs/Twist.h>
+#include <ros/ros.h>
+#include <std_msgs/Float32MultiArray.h>
+#include <geometry_msgs/Twist.h>
 ```
 
 Defining constants for recognized objects, adjusting values to IDs of objects
 recognized by your system:
 
 ```cpp
-    #define SMILE 8
-    #define ARROW_LEFT 9
-    #define ARROW_UP 10
-    #define ARROW_DOWN 11
+#define SMILE 8
+#define ARROW_LEFT 9
+#define ARROW_UP 10
+#define ARROW_DOWN 11
 ```
 
 Integer for storing object identifier:
 
 ```cpp
-    int id = 0;
+int id = 0;
 ```
 
 Publisher for velocity commands:
 
 ```cpp
-    ros::Publisher action_pub;
+ros::Publisher action_pub;
 ```
 
 Velocity command message:
 
 ```cpp
-    geometry_msgs::Twist set_vel;
+geometry_msgs::Twist set_vel;
 ```
 
 Callback function for handling incoming messages with recognized objects
 data:
 
 ```cpp
-    void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
+void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
 ```
 
 Checking if size of `data` field is non zero, if it is, then object is
@@ -291,114 +300,125 @@ recognized. When `data` field size is zero, then no object was
 recognized.
 
 ```cpp
-    if (object->data.size() > 0) {
+if (object->data.size() > 0) {
 ```
 
 Reading id of recognized object:
 
 ```cpp
-    id = object->data[0];
+id = object->data[0];
 ```
 
 Depending on recognized object, setting appropriate speed values:
 
 ```cpp
-    switch (id) {
-             case ARROW_LEFT:
-                set_vel.linear.x = 0;
-                set_vel.angular.z = 1;
-                break;
-             case ARROW_UP:
-                set_vel.linear.x = 1;
-                set_vel.angular.z = 0;
-                break;
-             case ARROW_DOWN:
-                set_vel.linear.x = -1;
-                set_vel.angular.z = 0;
-                break;
-             default: // other object
-                set_vel.linear.x = 0;
-                set_vel.angular.z = 0;
-          }
+switch (id)
+{
+case ARROW_LEFT:
+   set_vel.linear.x = 0;
+   set_vel.angular.z = 1;
+   break;
+case ARROW_UP:
+   set_vel.linear.x = 1;
+   set_vel.angular.z = 0;
+   break;
+case ARROW_DOWN:
+   set_vel.linear.x = -1;
+   set_vel.angular.z = 0;
+   break;
+default: // other object
+   set_vel.linear.x = 0;
+   set_vel.angular.z = 0;
+}
 ```
 
 Publishing velocity command message:
 
 ```cpp
-    action_pub.publish(set_vel);
+action_pub.publish(set_vel);
 ```
 
 Stopping all motors when no object was detected:
 
 ```cpp
-    } else {
-          // No object detected
-          set_vel.linear.x = 0;
-          set_vel.angular.z = 0;
-          action_pub.publish(set_vel);
-       }
+else
+{
+   // No object detected
+   set_vel.linear.x = 0;
+   set_vel.angular.z = 0;
+   action_pub.publish(set_vel);
+}
 ```
 
 Main function, node initialization and setting main loop interval:
 
 ```cpp
-    int main(int argc, char **argv) {
-       ros::init(argc, argv, "action_controller");
-       ros::NodeHandle n("~");
-       ros::Rate loop_rate(50);
+int main(int argc, char **argv)
+{
+   ros::init(argc, argv, "action_controller");
+   ros::NodeHandle n("~");
+   ros::Rate loop_rate(50);
 ```
 
 Subscribing to `/objects` topic:
 
 ```cpp
-    ros::Subscriber sub = n.subscribe("/objects", 1, objectCallback);
+ros::Subscriber sub = n.subscribe("/objects", 1, objectCallback);
 ```
 
 Preparing publisher for velocity commands:
 
 ```cpp
-    action_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+action_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 ```
 
 Setting zeros for initial speed values:
 
 ```cpp
-    set_vel.linear.x = 0;
-       set_vel.linear.y = 0;
-       set_vel.linear.z = 0;
-       set_vel.angular.x = 0;
-       set_vel.angular.y = 0;
-       set_vel.angular.z = 0;
+set_vel.linear.x = 0;
+set_vel.linear.y = 0;
+set_vel.linear.z = 0;
+set_vel.angular.x = 0;
+set_vel.angular.y = 0;
+set_vel.angular.z = 0;
 ```
 
 Main loop, waiting for trigger messages:
 
 ```cpp
-    while (ros::ok()) {
-          ros::spinOnce();
-          loop_rate.sleep();
-       }
+while (ros::ok())
+{
+   ros::spinOnce();
+   loop_rate.sleep();
+}
 ```
 
 Last thing to do is editting the `CMakeLists.txt` file. Find line:
 
-    add_executable(tutorial_pkg_node src/tutorial_pkg_node.cpp)
+```
+add_executable(tutorial_pkg_node src/tutorial_pkg_node.cpp)
+```
 
 and add below code after it:
 
-    add_executable(action_controller_node src/action_controller.cpp)
-
+```
+add_executable(action_controller_node src/action_controller.cpp)
+```
 Find also:
 
-    target_link_libraries(tutorial_pkg_node
-      ${catkin_LIBRARIES}
-    )
+```
+target_link_libraries(tutorial_pkg_node
+    ${catkin_LIBRARIES}
+)
+```
 
 and add below code after it:
 
-    target_link_libraries(action_controller_node
-      ${catkin_LIBRARIES}
-    )
+```
+target_link_libraries(action_controller_node
+    ${catkin_LIBRARIES}
+)
+```
 
 Now you can build your node and test it.
 
@@ -409,14 +429,14 @@ how it drives and turns depending on differnt objects.
 
 You can use below `launch` file:
 
-```launch
+```xml
 <launch>
 
     <arg name="use_rosbot" default="true"/>
     <arg name="use_gazebo" default="false"/>
 
-    <arg name="teach" default="true"/>
-    <arg name="recognize" default="false"/>
+    <arg name="teach" default="false"/>
+    <arg name="recognize" default="true"/>
 
     <arg if="$(arg teach)" name="chosen_world" value="rosbot_world_teaching"/>
     <arg if="$(arg recognize)" name="chosen_world" value="rosbot_world_recognition"/>
@@ -456,115 +476,119 @@ Open `action_controller.cpp` file in text editor.
 Begin with including of required header file:
 
 ```cpp
-    #include <opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 ```
 
 Variable for storing camera centre- this should be half of your camera
 horizontal resolution:
 
 ```cpp
-    int camera_center = 320; // left 0, right 640
+int camera_center = 320; // left 0, right 640
 ```
 
 Variables for defining rotation speed:
 
 ```cpp
-    float max_ang_vel = 0.6;
-    float min_ang_vel = 0.4;
-    float ang_vel = 0;
+float max_ang_vel = 0.6;
+float min_ang_vel = 0.4;
+float ang_vel = 0;
 ```
 
 Variable for object width and height:
 
 ```cpp
-    float objectWidth = object->data[1];
-    float objectHeight = object->data[2];
+float objectWidth = object->data[1];
+float objectHeight = object->data[2];
 ```
 
 Variable for storing calculated object centre:
 
 ```cpp
-    float x_pos;
+float x_pos;
 ```
 
 Variable defining how much rotation speed should increase with every
 pixel of object displacement:
 
 ```cpp
-    float speed_coefficient = (float) camera_center / max_ang_vel /4;
+float speed_coefficient = (float) camera_center / max_ang_vel /4;
 ```
 
 Object for homography matrix:
 
 ```cpp
-    cv::Mat cvHomography(3, 3, CV_32F);
+cv::Mat cvHomography(3, 3, CV_32F);
 ```
 
 Vectors for storing input and output planes:
 
 ```cpp
-    std::vector<cv::Point2f> inPts, outPts;
+std::vector<cv::Point2f> inPts, outPts;
 ```
 
 Adding new case in `switch` statement:
 
 ```cpp
-    case SMILE:
+case SMILE:
 ```
 
 Extracting coefficients homography matrix:
 
 ```cpp
-    cvHomography.at<float>(0, 0) = object->data[3];
-    cvHomography.at<float>(1, 0) = object->data[4];
-    cvHomography.at<float>(2, 0) = object->data[5];
-    cvHomography.at<float>(0, 1) = object->data[6];
-    cvHomography.at<float>(1, 1) = object->data[7];
-    cvHomography.at<float>(2, 1) = object->data[8];
-    cvHomography.at<float>(0, 2) = object->data[9];
-    cvHomography.at<float>(1, 2) = object->data[10];
-    cvHomography.at<float>(2, 2) = object->data[11];
+cvHomography.at<float>(0, 0) = object->data[3];
+cvHomography.at<float>(1, 0) = object->data[4];
+cvHomography.at<float>(2, 0) = object->data[5];
+cvHomography.at<float>(0, 1) = object->data[6];
+cvHomography.at<float>(1, 1) = object->data[7];
+cvHomography.at<float>(2, 1) = object->data[8];
+cvHomography.at<float>(0, 2) = object->data[9];
+cvHomography.at<float>(1, 2) = object->data[10];
+cvHomography.at<float>(2, 2) = object->data[11];
 ```
 
 Defining corners of input plane:
 
 ```cpp
-    inPts.push_back(cv::Point2f(0, 0));
-    inPts.push_back(cv::Point2f(objectWidth, 0));
-    inPts.push_back(cv::Point2f(0, objectHeight));
-    inPts.push_back(cv::Point2f(objectWidth, objectHeight));
+inPts.push_back(cv::Point2f(0, 0));
+inPts.push_back(cv::Point2f(objectWidth, 0));
+inPts.push_back(cv::Point2f(0, objectHeight));
+inPts.push_back(cv::Point2f(objectWidth, objectHeight));
 ```
 
 Calculating perspective transformation:
 
 ```cpp
-    cv::perspectiveTransform(inPts, outPts, cvHomography);
+cv::perspectiveTransform(inPts, outPts, cvHomography);
 ```
 
 Calculating centre of object from its corners:
 
 ```cpp
-    x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x + outPts.at(3).x) / 4;
+x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x + outPts.at(3).x) / 4;
 ```
 
 Calculating angular speed value proportional to position of object and putting
 it into velocity message:
 
 ```cpp
-            ang_vel = -(x_pos - camera_center) / speed_coefficient;
+ang_vel = -(x_pos - camera_center) / speed_coefficient;
 
-            if (ang_vel >= -(min_ang_vel/2) && ang_vel <= (min_ang_vel/2)){
-                set_vel.angular.z = 0;
-	    }
-	    else if (ang_vel >=max_ang_vel){
-		set_vel.angular.z = max_ang_vel;
-	    }
-	    else if (ang_vel <=-max_ang_vel){
-		set_vel.angular.z = -max_ang_vel;
-	    }
-	    else {
-		set_vel.angular.z = ang_vel;
-	    }
+if (ang_vel >= -(min_ang_vel / 2) && ang_vel <= (min_ang_vel / 2))
+{
+   set_vel.angular.z = 0;
+}
+else if (ang_vel >= max_ang_vel)
+{
+   set_vel.angular.z = max_ang_vel;
+}
+else if (ang_vel <= -max_ang_vel)
+{
+   set_vel.angular.z = -max_ang_vel;
+}
+else
+{
+   set_vel.angular.z = ang_vel;
+}
 ```
 
 Your final file should look like this:
@@ -588,72 +612,82 @@ float max_ang_vel = 0.6;
 float min_ang_vel = 0.4;
 float ang_vel = 0;
 
-void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
-   if (object->data.size() > 0) {
+void objectCallback(const std_msgs::Float32MultiArrayPtr &object)
+{
+   if (object->data.size() > 0)
+   {
       id = object->data[0];
 
       float objectWidth = object->data[1];
       float objectHeight = object->data[2];
       float x_pos;
-      float speed_coefficient = (float) camera_center / max_ang_vel /4;
+      float speed_coefficient = (float)camera_center / max_ang_vel / 4;
 
       // Find corners OpenCV
       cv::Mat cvHomography(3, 3, CV_32F);
       std::vector<cv::Point2f> inPts, outPts;
-      switch (id) {
-         case ARROW_LEFT:
-            set_vel.linear.x = 0;
-            set_vel.angular.z = 1.0;
-            break;
-         case ARROW_UP:
-            set_vel.linear.x = 1;
+      switch (id)
+      {
+      case ARROW_LEFT:
+         set_vel.linear.x = 0;
+         set_vel.angular.z = 1.0;
+         break;
+      case ARROW_UP:
+         set_vel.linear.x = 1;
+         set_vel.angular.z = 0;
+         break;
+      case ARROW_DOWN:
+         set_vel.linear.x = -1;
+         set_vel.angular.z = 0;
+         break;
+      case SMILE:
+         cvHomography.at<float>(0, 0) = object->data[3];
+         cvHomography.at<float>(1, 0) = object->data[4];
+         cvHomography.at<float>(2, 0) = object->data[5];
+         cvHomography.at<float>(0, 1) = object->data[6];
+         cvHomography.at<float>(1, 1) = object->data[7];
+         cvHomography.at<float>(2, 1) = object->data[8];
+         cvHomography.at<float>(0, 2) = object->data[9];
+         cvHomography.at<float>(1, 2) = object->data[10];
+         cvHomography.at<float>(2, 2) = object->data[11];
+
+         inPts.push_back(cv::Point2f(0, 0));
+         inPts.push_back(cv::Point2f(objectWidth, 0));
+         inPts.push_back(cv::Point2f(0, objectHeight));
+         inPts.push_back(cv::Point2f(objectWidth, objectHeight));
+         cv::perspectiveTransform(inPts, outPts, cvHomography);
+
+         x_pos = (int)(outPts.at(0).x + outPts.at(1).x + outPts.at(2).x +
+                       outPts.at(3).x) /
+                 4;
+         ang_vel = -(x_pos - camera_center) / speed_coefficient;
+
+         if (ang_vel >= -(min_ang_vel / 2) && ang_vel <= (min_ang_vel / 2))
+         {
             set_vel.angular.z = 0;
-            break;
-         case ARROW_DOWN:
-            set_vel.linear.x = -1;
-            set_vel.angular.z = 0;
-            break;
-         case SMILE:
-            cvHomography.at<float>(0, 0) = object->data[3];
-            cvHomography.at<float>(1, 0) = object->data[4];
-            cvHomography.at<float>(2, 0) = object->data[5];
-            cvHomography.at<float>(0, 1) = object->data[6];
-            cvHomography.at<float>(1, 1) = object->data[7];
-            cvHomography.at<float>(2, 1) = object->data[8];
-            cvHomography.at<float>(0, 2) = object->data[9];
-            cvHomography.at<float>(1, 2) = object->data[10];
-            cvHomography.at<float>(2, 2) = object->data[11];
+         }
+         else if (ang_vel >= max_ang_vel)
+         {
+            set_vel.angular.z = max_ang_vel;
+         }
+         else if (ang_vel <= -max_ang_vel)
+         {
+            set_vel.angular.z = -max_ang_vel;
+         }
+         else
+         {
+            set_vel.angular.z = ang_vel;
+         }
 
-            inPts.push_back(cv::Point2f(0, 0));
-            inPts.push_back(cv::Point2f(objectWidth, 0));
-            inPts.push_back(cv::Point2f(0, objectHeight));
-            inPts.push_back(cv::Point2f(objectWidth, objectHeight));
-            cv::perspectiveTransform(inPts, outPts, cvHomography);
-
-            x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x +
-	    	outPts.at(3).x) / 4;
-            ang_vel = -(x_pos - camera_center) / speed_coefficient;
-
-            if (ang_vel >= -(min_ang_vel/2) && ang_vel <= (min_ang_vel/2)){
-                set_vel.angular.z = 0;
-	    }
-	    else if (ang_vel >=max_ang_vel){
-		set_vel.angular.z = max_ang_vel;
-	    }
-	    else if (ang_vel <=-max_ang_vel){
-		set_vel.angular.z = -max_ang_vel;
-	    }
-	    else {
-		set_vel.angular.z = ang_vel;
-	    }
-
-            break;
-         default: // other object
-            set_vel.linear.x = 0;
-            set_vel.angular.z = 0;
+         break;
+      default: // other object
+         set_vel.linear.x = 0;
+         set_vel.angular.z = 0;
       }
       action_pub.publish(set_vel);
-   } else {
+   }
+   else
+   {
       // No object detected
       set_vel.linear.x = 0;
       set_vel.angular.z = 0;
@@ -661,7 +695,8 @@ void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
    }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
    std_msgs::String s;
    std::string str;
    str.clear();
@@ -679,7 +714,8 @@ int main(int argc, char **argv) {
    set_vel.angular.x = 0;
    set_vel.angular.y = 0;
    set_vel.angular.z = 0;
-   while (ros::ok()) {
+   while (ros::ok())
+   {
       ros::spinOnce();
       loop_rate.sleep();
    }
@@ -688,37 +724,47 @@ int main(int argc, char **argv) {
 
 Last thing to do is to edit the `CMakeLists.txt` file. Find line:
 
-    find_package(catkin REQUIRED COMPONENTS roscpp )
+```
+find_package(catkin REQUIRED COMPONENTS roscpp )
+```
 
 and add below code after it:
 
-    find_package( OpenCV REQUIRED )
+```
+find_package( OpenCV REQUIRED )
+```
 
 Find also:
 
-    include_directories(
-            ${catkin_INCLUDE_DIRS}
-    )
-
+```
+include_directories(
+    ${catkin_INCLUDE_DIRS}
+)
+```
 and change it to:
 
-    include_directories(
-            ${catkin_INCLUDE_DIRS}
-            ${OpenCV_INCLUDE_DIRS}
-    )
+```
+include_directories(
+    ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
+)
+```
 
 Find:
 
-    target_link_libraries(action_controller_node
-            ${catkin_LIBRARIES}
-            )
-
+```
+target_link_libraries(action_controller_node
+    ${catkin_LIBRARIES}
+)
+```
 and change it to:
 
-    target_link_libraries(action_controller_node
-            ${catkin_LIBRARIES}
-            ${OpenCV_LIBRARIES}
-            )
+```
+target_link_libraries(action_controller_node
+    ${catkin_LIBRARIES}
+    ${OpenCV_LIBRARIES}
+)
+```
 
 Now you can build your node and test it.
 
@@ -737,94 +783,69 @@ manual. You will need to edit it a little.
 Include required header files:
 
 ```cpp
-    #include "sensor_msgs/Range.h"
-    #include "tf/tf.h"
-```
-
-Message objects for all sensor measurement:
-
-```cpp
-sensor_msgs::Range rangeFL;
-sensor_msgs::Range rangeFR;
-sensor_msgs::Range rangeRL;
-sensor_msgs::Range rangeRR;
-```
-
-Publishers for measurement messages:
-
-```cpp
-ros::Publisher *range_pub_fl;
-ros::Publisher *range_pub_fr;
-ros::Publisher *range_pub_rl;
-ros::Publisher *range_pub_rr;
-```
-
-Function for initialization of publishers and messages with sensor parameters:
-
-```cpp
 void initDistanceSensorsPublisher()
 {
-	range_fl.header.frame_id = "range_fl";
-	range_fr.header.frame_id = "range_fr";
-	range_rl.header.frame_id = "range_rl";
-	range_rr.header.frame_id = "range_rr";
+   range_fl.header.frame_id = "range_fl";
+   range_fr.header.frame_id = "range_fr";
+   range_rl.header.frame_id = "range_rl";
+   range_rr.header.frame_id = "range_rr";
 
-	switch (sensor_type)
-	{
-	case SENSOR_LASER:
-		range_fl.field_of_view = 0.26;
-		range_fl.min_range = 0.03;
-		range_fl.max_range = 0.90;
+   switch (sensor_type)
+   {
+   case SENSOR_LASER:
+      range_fl.field_of_view = 0.26;
+      range_fl.min_range = 0.03;
+      range_fl.max_range = 0.90;
 
-		range_fr.field_of_view = 0.26;
-		range_fr.min_range = 0.03;
-		range_fr.max_range = 0.90;
+      range_fr.field_of_view = 0.26;
+      range_fr.min_range = 0.03;
+      range_fr.max_range = 0.90;
 
-		range_rl.field_of_view = 0.26;
-		range_rl.min_range = 0.03;
-		range_rl.max_range = 0.90;
+      range_rl.field_of_view = 0.26;
+      range_rl.min_range = 0.03;
+      range_rl.max_range = 0.90;
 
-		range_rr.field_of_view = 0.26;
-		range_rr.min_range = 0.03;
-		range_rr.max_range = 0.90;
-		break;
-	case SENSOR_INFRARED:
-		range_fl.radiation_type = sensor_msgs::Range::INFRARED;
-		range_fl.field_of_view = 0.26;
-		range_fl.min_range = 0.05;
-		range_fl.max_range = 0.299;
+      range_rr.field_of_view = 0.26;
+      range_rr.min_range = 0.03;
+      range_rr.max_range = 0.90;
+      break;
+   case SENSOR_INFRARED:
+      range_fl.radiation_type = sensor_msgs::Range::INFRARED;
+      range_fl.field_of_view = 0.26;
+      range_fl.min_range = 0.05;
+      range_fl.max_range = 0.299;
 
-		range_fr.radiation_type = sensor_msgs::Range::INFRARED;
-		range_fr.field_of_view = 0.26;
-		range_fr.min_range = 0.05;
-		range_fr.max_range = 0.299;
+      range_fr.radiation_type = sensor_msgs::Range::INFRARED;
+      range_fr.field_of_view = 0.26;
+      range_fr.min_range = 0.05;
+      range_fr.max_range = 0.299;
 
-		range_rl.radiation_type = sensor_msgs::Range::INFRARED;
-		range_rl.field_of_view = 0.26;
-		range_rl.min_range = 0.05;
-		range_rl.max_range = 0.299;
+      range_rl.radiation_type = sensor_msgs::Range::INFRARED;
+      range_rl.field_of_view = 0.26;
+      range_rl.min_range = 0.05;
+      range_rl.max_range = 0.299;
 
-		range_rr.radiation_type = sensor_msgs::Range::INFRARED;
-		range_rr.field_of_view = 0.26;
-		range_rr.min_range = 0.05;
-		range_rr.max_range = 0.299;
-		break;
-	case NO_DISTANCE_SENSOR:
-		// Do your own implementation
-		break;
-	}
+      range_rr.radiation_type = sensor_msgs::Range::INFRARED;
+      range_rr.field_of_view = 0.26;
+      range_rr.min_range = 0.05;
+      range_rr.max_range = 0.299;
+      break;
+   case NO_DISTANCE_SENSOR:
+      // Do your own implementation
+      break;
+   }
 
-	if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
-	{
-		range_pub_fl = new ros::Publisher("/range/fl", &range_fl);
-		range_pub_fr = new ros::Publisher("/range/fr", &range_fr);
-		range_pub_rl = new ros::Publisher("/range/rl", &range_rl);
-		range_pub_rr = new ros::Publisher("/range/rr", &range_rr);
-		nh.advertise(*range_pub_fl);
-		nh.advertise(*range_pub_fr);
-		nh.advertise(*range_pub_rl);
-		nh.advertise(*range_pub_rr);
-	}
+   if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
+   {
+      range_pub_fl = new ros::Publisher("/range/fl", &range_fl);
+      range_pub_fr = new ros::Publisher("/range/fr", &range_fr);
+      range_pub_rl = new ros::Publisher("/range/rl", &range_rl);
+      range_pub_rr = new ros::Publisher("/range/rr", &range_rr);
+      nh.advertise(*range_pub_fl);
+      nh.advertise(*range_pub_fr);
+      nh.advertise(*range_pub_rl);
+      nh.advertise(*range_pub_rr);
+   }
 }
 ```
 
@@ -902,161 +923,161 @@ int publish_counter = 0;
 
 void twistCallback(const geometry_msgs::Twist &twist)
 {
-	rosbot.setSpeed(twist.linear.x, twist.angular.z);
+   rosbot.setSpeed(twist.linear.x, twist.angular.z);
 }
 
 void initCmdVelSubscriber()
 {
-	ros::Subscriber<geometry_msgs::Twist> *cmd_sub = new ros::Subscriber<geometry_msgs::Twist>("/cmd_vel", &twistCallback);
-	nh.subscribe(*cmd_sub);
+   ros::Subscriber<geometry_msgs::Twist> *cmd_sub = new ros::Subscriber<geometry_msgs::Twist>("/cmd_vel", &twistCallback);
+   nh.subscribe(*cmd_sub);
 }
 
 void resetCallback(const std_msgs::Bool &msg)
 {
-	if (msg.data == true)
-	{
-		rosbot.reset_odometry();
-	}
+   if (msg.data == true)
+   {
+      rosbot.reset_odometry();
+   }
 }
 
 void initResetOdomSubscriber()
 {
-	ros::Subscriber<std_msgs::Bool> *odom_reset_sub = new ros::Subscriber<std_msgs::Bool>("/reset_odom", &resetCallback);
-	nh.subscribe(*odom_reset_sub);
+   ros::Subscriber<std_msgs::Bool> *odom_reset_sub = new ros::Subscriber<std_msgs::Bool>("/reset_odom", &resetCallback);
+   nh.subscribe(*odom_reset_sub);
 }
 
 void initDistanceSensorsPublisher()
 {
-	range_fl.header.frame_id = "range_fl";
-	range_fr.header.frame_id = "range_fr";
-	range_rl.header.frame_id = "range_rl";
-	range_rr.header.frame_id = "range_rr";
+   range_fl.header.frame_id = "range_fl";
+   range_fr.header.frame_id = "range_fr";
+   range_rl.header.frame_id = "range_rl";
+   range_rr.header.frame_id = "range_rr";
 
-	switch (sensor_type)
-	{
-	case SENSOR_LASER:
-		range_fl.field_of_view = 0.26;
-		range_fl.min_range = 0.03;
-		range_fl.max_range = 0.90;
+   switch (sensor_type)
+   {
+   case SENSOR_LASER:
+      range_fl.field_of_view = 0.26;
+      range_fl.min_range = 0.03;
+      range_fl.max_range = 0.90;
 
-		range_fr.field_of_view = 0.26;
-		range_fr.min_range = 0.03;
-		range_fr.max_range = 0.90;
+      range_fr.field_of_view = 0.26;
+      range_fr.min_range = 0.03;
+      range_fr.max_range = 0.90;
 
-		range_rl.field_of_view = 0.26;
-		range_rl.min_range = 0.03;
-		range_rl.max_range = 0.90;
+      range_rl.field_of_view = 0.26;
+      range_rl.min_range = 0.03;
+      range_rl.max_range = 0.90;
 
-		range_rr.field_of_view = 0.26;
-		range_rr.min_range = 0.03;
-		range_rr.max_range = 0.90;
-		break;
-	case SENSOR_INFRARED:
-		range_fl.radiation_type = sensor_msgs::Range::INFRARED;
-		range_fl.field_of_view = 0.26;
-		range_fl.min_range = 0.05;
-		range_fl.max_range = 0.299;
+      range_rr.field_of_view = 0.26;
+      range_rr.min_range = 0.03;
+      range_rr.max_range = 0.90;
+      break;
+   case SENSOR_INFRARED:
+      range_fl.radiation_type = sensor_msgs::Range::INFRARED;
+      range_fl.field_of_view = 0.26;
+      range_fl.min_range = 0.05;
+      range_fl.max_range = 0.299;
 
-		range_fr.radiation_type = sensor_msgs::Range::INFRARED;
-		range_fr.field_of_view = 0.26;
-		range_fr.min_range = 0.05;
-		range_fr.max_range = 0.299;
+      range_fr.radiation_type = sensor_msgs::Range::INFRARED;
+      range_fr.field_of_view = 0.26;
+      range_fr.min_range = 0.05;
+      range_fr.max_range = 0.299;
 
-		range_rl.radiation_type = sensor_msgs::Range::INFRARED;
-		range_rl.field_of_view = 0.26;
-		range_rl.min_range = 0.05;
-		range_rl.max_range = 0.299;
+      range_rl.radiation_type = sensor_msgs::Range::INFRARED;
+      range_rl.field_of_view = 0.26;
+      range_rl.min_range = 0.05;
+      range_rl.max_range = 0.299;
 
-		range_rr.radiation_type = sensor_msgs::Range::INFRARED;
-		range_rr.field_of_view = 0.26;
-		range_rr.min_range = 0.05;
-		range_rr.max_range = 0.299;
-		break;
-	case NO_DISTANCE_SENSOR:
-		// Do your own implementation
-		break;
-	}
+      range_rr.radiation_type = sensor_msgs::Range::INFRARED;
+      range_rr.field_of_view = 0.26;
+      range_rr.min_range = 0.05;
+      range_rr.max_range = 0.299;
+      break;
+   case NO_DISTANCE_SENSOR:
+      // Do your own implementation
+      break;
+   }
 
-	if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
-	{
-		range_pub_fl = new ros::Publisher("/range/fl", &range_fl);
-		range_pub_fr = new ros::Publisher("/range/fr", &range_fr);
-		range_pub_rl = new ros::Publisher("/range/rl", &range_rl);
-		range_pub_rr = new ros::Publisher("/range/rr", &range_rr);
-		nh.advertise(*range_pub_fl);
-		nh.advertise(*range_pub_fr);
-		nh.advertise(*range_pub_rl);
-		nh.advertise(*range_pub_rr);
-	}
+   if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
+   {
+      range_pub_fl = new ros::Publisher("/range/fl", &range_fl);
+      range_pub_fr = new ros::Publisher("/range/fr", &range_fr);
+      range_pub_rl = new ros::Publisher("/range/rl", &range_rl);
+      range_pub_rr = new ros::Publisher("/range/rr", &range_rr);
+      nh.advertise(*range_pub_fl);
+      nh.advertise(*range_pub_fr);
+      nh.advertise(*range_pub_rl);
+      nh.advertise(*range_pub_rr);
+   }
 }
 
 void initBatteryPublisher()
 {
-	battery_pub = new ros::Publisher("/battery", &battery);
-	nh.advertise(*battery_pub);
+   battery_pub = new ros::Publisher("/battery", &battery);
+   nh.advertise(*battery_pub);
 }
 
 void initPosePublisher()
 {
-	pose.header.frame_id = "base_link";
-	pose.pose.orientation = tf::createQuaternionFromYaw(0);
-	pose_pub = new ros::Publisher("/pose", &pose);
-	nh.advertise(*pose_pub);
+   pose.header.frame_id = "base_link";
+   pose.pose.orientation = tf::createQuaternionFromYaw(0);
+   pose_pub = new ros::Publisher("/pose", &pose);
+   nh.advertise(*pose_pub);
 }
 
 void hMain()
 {
-	Serial.printf("init ROSbot\n");
-	rosbot.initROSbot(sensor_type);
-	Serial.printf("init with dvice\n");
-	platform.begin(&RPi);
-	nh.getHardware()->initWithDevice(&platform.LocalSerial);
-	nh.initNode();
+   Serial.printf("init ROSbot\n");
+   rosbot.initROSbot(sensor_type);
+   Serial.printf("init with dvice\n");
+   platform.begin(&RPi);
+   nh.getHardware()->initWithDevice(&platform.LocalSerial);
+   nh.initNode();
 
-	initBatteryPublisher();
-	initPosePublisher();
-	initDistanceSensorsPublisher();
-	initCmdVelSubscriber();
-	initResetOdomSubscriber();
+   initBatteryPublisher();
+   initPosePublisher();
+   initDistanceSensorsPublisher();
+   initCmdVelSubscriber();
+   initResetOdomSubscriber();
 
-	while (true)
-	{
-		nh.spinOnce();
-		publish_counter++;
-		if (publish_counter > 10)
-		{
-			// get ROSbot pose
-			rosbot_pose = rosbot.getPose();
-			pose.pose.position.x = rosbot_pose[0];
-			pose.pose.position.y = rosbot_pose[1];
-			pose.pose.orientation = tf::createQuaternionFromYaw(rosbot_pose[2]);
-			// publish pose
-			pose_pub->publish(&pose);
+   while (true)
+   {
+      nh.spinOnce();
+      publish_counter++;
+      if (publish_counter > 10)
+      {
+         // get ROSbot pose
+         rosbot_pose = rosbot.getPose();
+         pose.pose.position.x = rosbot_pose[0];
+         pose.pose.position.y = rosbot_pose[1];
+         pose.pose.orientation = tf::createQuaternionFromYaw(rosbot_pose[2]);
+         // publish pose
+         pose_pub->publish(&pose);
 
-			if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
-			{
-				// get ranges from distance sensors
-				ranges = rosbot.getRanges(sensor_type);
-				range_fl.range = ranges[0];
-				range_fr.range = ranges[1];
-				range_rl.range = ranges[2];
-				range_rr.range = ranges[3];
-				Serial.printf("Ranges %f %f %f %f\n", ranges[0], ranges[1], ranges[2], ranges[3]);
-				// publish ranges
-				range_pub_fl->publish(&range_fl);
-				range_pub_fr->publish(&range_fr);
-				range_pub_rl->publish(&range_rl);
-				range_pub_rr->publish(&range_rr);
-			}
+         if (sensor_type != SensorType::NO_DISTANCE_SENSOR)
+         {
+            // get ranges from distance sensors
+            ranges = rosbot.getRanges(sensor_type);
+            range_fl.range = ranges[0];
+            range_fr.range = ranges[1];
+            range_rl.range = ranges[2];
+            range_rr.range = ranges[3];
+            Serial.printf("Ranges %f %f %f %f\n", ranges[0], ranges[1], ranges[2], ranges[3]);
+            // publish ranges
+            range_pub_fl->publish(&range_fl);
+            range_pub_fr->publish(&range_fr);
+            range_pub_rl->publish(&range_rl);
+            range_pub_rr->publish(&range_rr);
+         }
 
-			// get battery voltage
-			battery.voltage = rosbot.getBatteryLevel();
-			// publish battery voltage
-			battery_pub->publish(&battery);
-			publish_counter = 0;
-		}
-		sys.delay(10);
-	}
+         // get battery voltage
+         battery.voltage = rosbot.getBatteryLevel();
+         // publish battery voltage
+         battery_pub->publish(&battery);
+         publish_counter = 0;
+      }
+      sys.delay(10);
+   }
 }
 ```
 
@@ -1066,30 +1087,32 @@ file in text editor.
 Begin with including required header file:
 
 ```cpp
-    #include <sensor_msgs/Range.h>
+#include <sensor_msgs/Range.h>
 ```
 
 Add variables for measured object distance, average distance and desired
 distance to obstacle:
 
 ```cpp
-    float distFL = 0;
-    float distFR = 0;
-    float average_dist = 0;
-    float desired_dist = 0.2;
+float distFL = 0;
+float distFR = 0;
+float average_dist = 0;
+float desired_dist = 0.2;
 ```
 
 Callback functions for incoming sensor messages, their task is only to
 put values into appropriate variables:
 
 ```cpp
-    void distFL_callback(const sensor_msgs::Range &range) {
-       distFL = range.range;
-    }
+void distFL_callback(const sensor_msgs::Range &range)
+{
+   distFL = range.range;
+}
 
-    void distFR_callback(const sensor_msgs::Range &range) {
-       distFR = range.range;
-    }
+void distFR_callback(const sensor_msgs::Range &range)
+{
+   distFR = range.range;
+}
 ```
 
 Then, in `switch` statement, calculate average distance and set velocity
@@ -1097,20 +1120,22 @@ proportional to it only if both sensors found an obstacle, else set zero
 value for linear velocity:
 
 ```cpp
-    if (distFL > 0 && distFR > 0) {
-        average_dist = (distFL + distFR) / 2;
-        set_vel.linear.x = (average_dist - desired_dist) /4;
-    }
-    else {
-        set_vel.linear.x = 0;
-    }
+if (distFL > 0 && distFR > 0)
+{
+   average_dist = (distFL + distFR) / 2;
+   set_vel.linear.x = (average_dist - desired_dist) / 4;
+}
+else
+{
+   set_vel.linear.x = 0;
+}
 ```
 
 In main function, subscribe to sensor topics:
 
 ```cpp
-    ros::Subscriber distFL_sub = n.subscribe("/range/fl", 1, distFL_callback);
-    ros::Subscriber distFR_sub = n.subscribe("/range/fr", 1, distFR_callback);
+ros::Subscriber distFL_sub = n.subscribe("/range/fl", 1, distFL_callback);
+ros::Subscriber distFR_sub = n.subscribe("/range/fr", 1, distFR_callback);
 ```
 
 Final file should look like this:
@@ -1141,87 +1166,101 @@ float distFR = 0;
 float average_dist = 0;
 float desired_dist = 0.2;
 
-void distFL_callback(const sensor_msgs::Range &range) {
+void distFL_callback(const sensor_msgs::Range &range)
+{
    distFL = range.range;
 }
 
-void distFR_callback(const sensor_msgs::Range &range) {
+void distFR_callback(const sensor_msgs::Range &range)
+{
    distFR = range.range;
 }
 
-void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
-   if (object->data.size() > 0) {
+void objectCallback(const std_msgs::Float32MultiArrayPtr &object)
+{
+   if (object->data.size() > 0)
+   {
       id = object->data[0];
 
       float objectWidth = object->data[1];
       float objectHeight = object->data[2];
       float x_pos;
-      float speed_coefficient = (float) camera_center / max_ang_vel;
+      float speed_coefficient = (float)camera_center / max_ang_vel;
 
       // Find corners OpenCV
       cv::Mat cvHomography(3, 3, CV_32F);
       std::vector<cv::Point2f> inPts, outPts;
-      switch (id) {
-         case ARROW_LEFT:
-            set_vel.linear.x = 0;
-            set_vel.angular.z = 1;
-            break;
-         case ARROW_UP:
-            set_vel.linear.x = 1;
+      switch (id)
+      {
+      case ARROW_LEFT:
+         set_vel.linear.x = 0;
+         set_vel.angular.z = 1;
+         break;
+      case ARROW_UP:
+         set_vel.linear.x = 1;
+         set_vel.angular.z = 0;
+         break;
+      case ARROW_DOWN:
+         set_vel.linear.x = -1;
+         set_vel.angular.z = 0;
+         break;
+      case SMILE:
+         cvHomography.at<float>(0, 0) = object->data[3];
+         cvHomography.at<float>(1, 0) = object->data[4];
+         cvHomography.at<float>(2, 0) = object->data[5];
+         cvHomography.at<float>(0, 1) = object->data[6];
+         cvHomography.at<float>(1, 1) = object->data[7];
+         cvHomography.at<float>(2, 1) = object->data[8];
+         cvHomography.at<float>(0, 2) = object->data[9];
+         cvHomography.at<float>(1, 2) = object->data[10];
+         cvHomography.at<float>(2, 2) = object->data[11];
+
+         inPts.push_back(cv::Point2f(0, 0));
+         inPts.push_back(cv::Point2f(objectWidth, 0));
+         inPts.push_back(cv::Point2f(0, objectHeight));
+         inPts.push_back(cv::Point2f(objectWidth, objectHeight));
+         cv::perspectiveTransform(inPts, outPts, cvHomography);
+
+         x_pos = (int)(outPts.at(0).x + outPts.at(1).x + outPts.at(2).x +
+                       outPts.at(3).x) /
+                 4;
+         ang_vel = -(x_pos - camera_center) / speed_coefficient;
+
+         if (ang_vel >= -(min_ang_vel / 2) && ang_vel <= (min_ang_vel / 2))
+         {
             set_vel.angular.z = 0;
-            break;
-         case ARROW_DOWN:
-            set_vel.linear.x = -1;
-            set_vel.angular.z = 0;
-            break;
-         case SMILE:
-            cvHomography.at<float>(0, 0) = object->data[3];
-            cvHomography.at<float>(1, 0) = object->data[4];
-            cvHomography.at<float>(2, 0) = object->data[5];
-            cvHomography.at<float>(0, 1) = object->data[6];
-            cvHomography.at<float>(1, 1) = object->data[7];
-            cvHomography.at<float>(2, 1) = object->data[8];
-            cvHomography.at<float>(0, 2) = object->data[9];
-            cvHomography.at<float>(1, 2) = object->data[10];
-            cvHomography.at<float>(2, 2) = object->data[11];
+            if (distFL > 0 && distFR > 0)
+            {
+               average_dist = (distFL + distFR) / 2;
+               set_vel.linear.x = (average_dist - desired_dist) / 4;
+            }
+            else
+            {
+               set_vel.linear.x = 0;
+            }
+         }
+         else if (ang_vel >= max_ang_vel)
+         {
+            set_vel.angular.z = max_ang_vel;
+         }
+         else if (ang_vel <= -max_ang_vel)
+         {
+            set_vel.angular.z = -max_ang_vel;
+         }
+         else
+         {
+            set_vel.angular.z = ang_vel;
+         }
 
-            inPts.push_back(cv::Point2f(0, 0));
-            inPts.push_back(cv::Point2f(objectWidth, 0));
-            inPts.push_back(cv::Point2f(0, objectHeight));
-            inPts.push_back(cv::Point2f(objectWidth, objectHeight));
-            cv::perspectiveTransform(inPts, outPts, cvHomography);
-
-            x_pos = (int) (outPts.at(0).x + outPts.at(1).x + outPts.at(2).x +
-	    	outPts.at(3).x) / 4;
-            ang_vel = -(x_pos - camera_center) / speed_coefficient;
-
-            if (ang_vel >= -(min_ang_vel/2) && ang_vel <= (min_ang_vel/2)){
-                set_vel.angular.z = 0;
-                    if (distFL > 0 && distFR > 0) {
-                        average_dist = (distFL + distFR) / 2;
-                        set_vel.linear.x = (average_dist - desired_dist) /4;
-                    }
-                    else {
-                        set_vel.linear.x = 0;
-                    }
-	    }
-	    else if (ang_vel >=max_ang_vel){
-		set_vel.angular.z = max_ang_vel;
-	    }
-	    else if (ang_vel <=-max_ang_vel){
-		set_vel.angular.z = -max_ang_vel;
-	    }
-	    else {
-		set_vel.angular.z = ang_vel;
-	    }
-
-            break;
-         default: // other object
-            set_vel.linear.x = 0;
-            set_vel.angular.z = 0;
+         break;
+      default: // other object
+         set_vel.linear.x = 0;
+         set_vel.angular.z = 0;
       }
       action_pub.publish(set_vel);
-   } else {
+   }
+   else
+   {
       // No object detected
       set_vel.linear.x = 0;
       set_vel.angular.z = 0;
@@ -1229,7 +1268,8 @@ void objectCallback(const std_msgs::Float32MultiArrayPtr &object) {
    }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
 
    std_msgs::String s;
    std::string str;
@@ -1251,7 +1291,8 @@ int main(int argc, char **argv) {
    set_vel.angular.x = 0;
    set_vel.angular.y = 0;
    set_vel.angular.z = 0;
-   while (ros::ok()) {
+   while (ros::ok())
+   {
       ros::spinOnce();
       loop_rate.sleep();
    }
