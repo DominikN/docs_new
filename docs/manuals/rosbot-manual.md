@@ -78,7 +78,7 @@ You can also test the performance of ROSbot using our simulation model in Gazebo
 
 You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="https://husarion.com/tutorials/ros-tutorials/1-ros-introduction/">link</a>. They will guide you through different aspects of programming autonomous vehicles in ROS
 
-# Hardware guide #
+## Hardware guide ##
 
 ## Specification ##
 
@@ -379,7 +379,7 @@ Software for ROSbot can be divided into 2 parts:
  - to clear all user changes and restore factory settings.
  To do that, you have to disassembly the top cover, unscrew the 4 screws on the CORE2 corners and carefully carry up CORE2 with SBC. Then you can change the microSD card and flash the OS. You can find the image and flash manual [here](core2#os-image-for-raspberrypi-tinkerboard). If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
 
-# First steps #
+## First steps ##
 
 ## Connection to Husarion Cloud ##
 
@@ -443,7 +443,7 @@ Remember to replace `ESSID` and `pass` with name and passowrd of chosen network.
 
 ROSbot will try to connect to this network each time it boots.
 
-# Docs and links #
+## Docs and links ##
 All helpful documents and links in one place:
 
 * [ROSbot Safety Instructions](https://files.husarion.com/docs2/ROSbot_safety_instructions_1.0.pdf "ROSbot Safety Instructions") - important!
