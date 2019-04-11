@@ -385,7 +385,7 @@ This process will differ depending on ROSbot version that you have.
 #### ROSbot 2.0 ####
 
 1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, thel pull it out. You can find SD card slot on ROSbot right side.
-![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
+ ![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
 2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads) (there is a single image for both platforms).
 3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
