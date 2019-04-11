@@ -372,12 +372,59 @@ If you need more information about charging, please read the [Charging manual fo
 Software for ROSbot can be divided into 2 parts:
  * A firmware that works on the real-time controller (CORE2) and can be developed and uploaded from [Husarion Cloud](https://cloud.husarion.com/) with WebIDE. It can also be developed offline using [Visual Studio Code IDE](/tutorials/other-tutorials/offline-development-tools).
  * OS based on Ubuntu 16.04, which runs on the SBC (ASUS Tinker Board) and contains all components needed to start working with ROS immediately. The microSD card with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
+
+ ### System reinstallation ###
  
- In some cases you will need to flash the OS image to the microSD card once again:
+ In some cases you will need to restore ROSbot system to its default settings:
  - in case of accidential damage of the system,
  - to update the OS (it can be udpated remotely, but flashing the microSD card can be easier sometimes),
  - to clear all user changes and restore factory settings.
- To do that, you have to disassembly the top cover, unscrew the 4 screws on the CORE2 corners and carefully carry up CORE2 with SBC. Then you can change the microSD card and flash the OS. You can find the image and flash manual [here](core2#os-image-for-raspberrypi-tinkerboard). If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
+
+This process will differ depending on ROSbot version that you have.
+
+#### ROSbot 2.0 ####
+
+1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, thel pull it out. You can find SD card slot on ROSbot right side.
+![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
+2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads) (there is a single image for both platforms).
+3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
+4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
+ - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
+ - Download [Etcher](https://www.balena.io/etcher/) and install it.
+ - Connect an SD card reader with the SD card inside.
+ - Open Etcher and select from your hard drive .img file that you extracted.
+ - Select the SD card you wish to write your image to.
+ - Review your selections and click 'Flash!' to begin writing data to the SD card.
+5. Insert SD card back to ROSbot
+6. Proceed to **ROSbot quick-start** [Connecting to the cloud](https://husarion.com/tutorials/howtostart/rosbot---quick-start/#connecting-to-the-cloud) section.
+
+#### ROSbot 2.0 PRO ####
+
+Before you begin, you will need:
+- USB drive (at least 8GB)
+- Mouse, keyboard and USB hub
+- Display with HDMI cable
+
+1. Download Ubuntu 16.04 installation image from official [Ubuntu Releases](http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-amd64.iso).
+2. Flash Ubuntu on USB drive (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
+ - Download [Etcher](https://www.balena.io/etcher/) and install it.
+ - Plug in USB drive into your computer.
+ - Open Etcher and select from your hard drive .iso file that you downloaded.
+ - Select the USB drive you wish to write your image to.
+ - Review your selections and click 'Flash!' to begin writing data to the USB drive.
+3. Plug keyboard and mouse through USB hub to one of the USB-A ports on ROSbot rear panel.
+4. Connect monitor to HDMI port on ROSbot rear panel.
+5. Plug in USB drive into second USB-A port on ROSbot rear panel.
+6. Press "Esc" during booting.
+7. You will see blue window with "Enter Password", press "Enter".
+8. Click "Right arrow" to enter Boot card and change Boot Option Priorities for your USB drive.
+9. Save & Exit.
+10. After Restart chose option Install Ubuntu (remember to choose option with erasing new Ubuntu and remove all part of the old one).
+11. After installation go to [files.husarion.com](https://files.husarion.com) and download `upboard.sh` file.
+12. Change file permissions: `sudo chmod 777 upboard.sh`
+13. Run file: `sudo ./upboard.sh` (remember to chose option "NO" when you will see a dialog window with question about abandon kernel removal).
+14. After finish, reboot device.
+15. Proceed to **ROSbot quick-start** [Connecting to the cloud](https://husarion.com/tutorials/howtostart/rosbot---quick-start/#connecting-to-the-cloud) section.
 
 ## First steps ##
 
