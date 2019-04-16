@@ -1374,7 +1374,7 @@ For Gazebo you can use below `launch` file:
     <arg name="debug" default="false"/>
 
     <include file="$(find rosbot_gazebo)/launch/search_world.launch"/>
-    <include file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
+    <include file="$(find rosbot_description)/launch/rosbot.launch"/>
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0.019 0 0 3.14 0 0 base_link laser 100" />
 
