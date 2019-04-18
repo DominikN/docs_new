@@ -78,7 +78,7 @@ You can also test the performance of ROSbot using our simulation model in Gazebo
 
 You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="https://husarion.com/tutorials/ros-tutorials/1-ros-introduction/">link</a>. They will guide you through different aspects of programming autonomous vehicles in ROS
 
-# Hardware guide #
+## Hardware guide ##
 
 ## Specification ##
 
@@ -372,23 +372,105 @@ If you need more information about charging, please read the [Charging manual fo
 Software for ROSbot can be divided into 2 parts:
  * A firmware that works on the real-time controller (CORE2) and can be developed and uploaded from [Husarion Cloud](https://cloud.husarion.com/) with WebIDE. It can also be developed offline using [Visual Studio Code IDE](/tutorials/other-tutorials/offline-development-tools).
  * OS based on Ubuntu 16.04, which runs on the SBC (ASUS Tinker Board) and contains all components needed to start working with ROS immediately. The microSD card with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
+
+ ### System reinstallation ###
  
- In some cases you will need to flash the OS image to the microSD card once again:
+ In some cases you will need to restore ROSbot system to its default settings:
  - in case of accidential damage of the system,
  - to update the OS (it can be udpated remotely, but flashing the microSD card can be easier sometimes),
  - to clear all user changes and restore factory settings.
- To do that, you have to disassembly the top cover, unscrew the 4 screws on the CORE2 corners and carefully carry up CORE2 with SBC. Then you can change the microSD card and flash the OS. You can find the image and flash manual [here](core2#os-image-for-raspberrypi-tinkerboard). If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
 
-# First steps #
+This process will differ depending on ROSbot version that you have.
 
-## Connection to Husarion Cloud ##
+#### ROSbot 2.0 ####
 
-* Things you need: the ROSbot, any Android device with Wi-Fi connectivity and with hConfig app installed (available on <a href="https://play.google.com/store/apps/details?id=com.husarion.configtool2">Google Play</a> and <a href="https://itunes.apple.com/us/app/hconfig/id1283536270?app=itunes&platform=iphone&preserveScrollPosition=true">App Store</a>), any PC computer to work with ROSbot, the Wi-Fi network.
-* Login or register on cloud.husarion.com.
-* Register your ROSbot on your cloud account by clicking “Add new device”.
-* Launch the hConfig application and follow the instructions.
-Note: The app will ask you to hold hCfg button on CORE2 and to watch LR1, LR2 LEDs – they are all available on the rear panel.
-* Now you should see your ROSbot online and you can start with ROSbot tutorial.
+1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, thel pull it out. You can find SD card slot on ROSbot right side.
+ ![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
+2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads) (there is a single image for both platforms).
+3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
+4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
+ - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
+ - Download [Etcher](https://www.balena.io/etcher/) and install it.
+ - Connect an SD card reader with the SD card inside.
+ - Open Etcher and select from your hard drive .img file that you extracted.
+ - Select the SD card you wish to write your image to.
+ - Review your selections and click 'Flash!' to begin writing data to the SD card.
+5. Insert SD card back to ROSbot
+6. Proceed to [Connecting to Husarion cloud](#connecting-to-husarion-cloud) section.
+
+#### ROSbot 2.0 PRO ####
+
+Before you begin, you will need:
+- USB drive (at least 8GB)
+- Mouse, keyboard and USB hub
+- Display with HDMI cable
+
+1. Download Ubuntu 16.04 installation image from official [Ubuntu Releases](http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-amd64.iso).
+2. Flash Ubuntu on USB drive (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
+ - Download [Etcher](https://www.balena.io/etcher/) and install it.
+ - Plug in USB drive into your computer.
+ - Open Etcher and select from your hard drive .iso file that you downloaded.
+ - Select the USB drive you wish to write your image to.
+ - Review your selections and click 'Flash!' to begin writing data to the USB drive.
+3. Plug keyboard and mouse through USB hub to one of the USB-A ports on ROSbot rear panel.
+4. Connect monitor to HDMI port on ROSbot rear panel.
+5. Plug in USB drive into second USB-A port on ROSbot rear panel.
+6. Press "Esc" during booting.
+7. You will see blue window with "Enter Password", press "Enter".
+8. Click "Right arrow" to enter Boot card and change Boot Option Priorities for your USB drive.
+9. Save & Exit.
+10. After Restart chose option Install Ubuntu (remember to choose option with erasing new Ubuntu and remove all part of the old one).
+11. After installation go to [files.husarion.com](https://files.husarion.com) and download `upboard.sh` file.
+12. Change file permissions: `sudo chmod 777 upboard.sh`
+13. Run file: `sudo ./upboard.sh` (remember to chose option "NO" when you will see a dialog window with question about abandon kernel removal).
+14. After finish, reboot device.
+15. Proceed to [Connecting to Husarion cloud](#connecting-to-husarion-cloud) section.
+
+## Connecting to Husarion Cloud ##
+
+There are three ways to connect ROSbot to Husarion cloud: ethernet connection, mouse + keyboard or mobile app. Choose the most comfortable for you.
+
+### Option 1: using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+ROSbot is basically a computer running Ubuntu, so let's configure it like a standard PC computer.
+
+1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
+2. Turn on the robot and wait until it boots.
+3. Connect to a Wi-Fi network
+4. Connect to a Husarion cloud
+* open https://cloud.husarion.com in your web browser
+* click **Add new** button
+* enter device name and click **Next**
+* copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
+* open Linux terminal execude a command (including code from the previous step) 
+`sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
+* after a few seconds you should see your device online at https://cloud.husarion.com
+
+### Option 2: using Ethernet adapter (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
+
+1. Turn on the robot and wait until it boots.
+2. Plug in Ethernet adapter (included in set) to USB port in the rear panel
+3. Plug in one end of the Ethernet cable into your computer and other one to the adapter
+4. Connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and passowrd `husarion`
+5. Connect to a Wi-Fi network
+* in the terminal type `nmcli c add type wifi save yes autoconnect yes con-name rosbot20wifi ifname wlan0 ssid <NetworkSSID>` and press Enter
+* type `nmcli c modify rosbot20wifi wifi-sec.key-mgmt wpa-psk wifi-sec.psk <Password>` and press Enter to obtain an IP address and connect to the WiFi network
+6. Connect to a Husarion cloud
+* open https://cloud.husarion.com in your web browser
+* click **Add new** button
+* enter device name and click **Next**
+* copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
+* open Linux terminal execude a command (including code from the previous step) 
+`sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
+* after a few seconds you should see your device online at https://cloud.husarion.com
+
+### Option 3: using hConfig app (only for ROSbot 2.0) ###
+That's a deprecated option, so previously mentioned instructions are prefferred.
+
+* Press and hold the hCfg button on ROSbots rear panel.
+* Turn on the power switch.
+* When blue and yellow LEDs starts blinking, release the hCfg button.
+* Connect your mobile device to Husarion Wi-Fi and open hConfig app (<a href="https://itunes.apple.com/us/app/hconfig/id1283536270?mt=8">hConfig in AppStore</a> or <a href="https://play.google.com/store/apps/details?id=com.husarion.configtool2">hConfig in Google Play</a>) to connect ROSbot to the Wi-Fi network and your user account at <a href="https://cloud.husarion.com">cloud.husarion.com</a> (<a href="https://husarion.com/core2/tutorials/howtostart/run-your-first-program/#run-your-first-program-connecting-to-the-cloud">how to do this</a>).
 
 ## ROS tutorials ##
 
@@ -443,7 +525,7 @@ Remember to replace `ESSID` and `pass` with name and passowrd of chosen network.
 
 ROSbot will try to connect to this network each time it boots.
 
-# Docs and links #
+## Docs and links ##
 All helpful documents and links in one place:
 
 * [ROSbot Safety Instructions](https://files.husarion.com/docs2/ROSbot_safety_instructions_1.0.pdf "ROSbot Safety Instructions") - important!

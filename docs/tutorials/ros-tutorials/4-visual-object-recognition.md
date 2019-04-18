@@ -40,9 +40,7 @@ of paper with something drawn on it would be enough for this tutorial.
 
 First you should run `find_object_2d` and `astra.launch`. Node
 `find_object_2d` by default subscribe to `image` topic, you should remap
-it to topic `/camera/rgb/image_raw`. We will also decrease the
-camera framerate, as it is not necessary to check for objects so often
-and it will use less CPU making interface more responsive.
+it to topic `/camera/rgb/image_raw`.
 
 You can use below `launch` file:
 
