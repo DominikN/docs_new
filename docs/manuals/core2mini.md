@@ -365,7 +365,7 @@ allows you not only to upload the code to the CORE2mini, but it is also a debugg
 
 To use the DBG interface, you need an additional hardware programmer/debugger: ST-LINK/V2. You can find the original one here: [ST-LINK/V2](http://www.st.com/web/catalog/tools/FM146/CL1984/SC724/SS1677/PF251168)
 
-You also need to configure the offline development environment. You will find the instructions here: [Husarion SDK](https://wiki.husarion.com/howto:installation)
+You also need to configure the offline development environment. You will find the instructions here: [Husarion SDK](https://husarion.com/tutorials/other-tutorials/offline-development-tools/)
 
 ### hSerial ###
 The hSerial port is an USB device port with a standard micro B USB connector, but it's called "hSerial" because this port is connected to the serial port of the microcontroller. It is not the native USB port - it uses the FTDI® chip to connect the internal serial port to your computer or other USB host.
