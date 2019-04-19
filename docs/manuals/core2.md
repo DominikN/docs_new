@@ -16,7 +16,7 @@ id: core2
 </div> 
 </div>
 
-## Electrical specification
+# Electrical specification
 
 <table class="text_table">
     <tr>
@@ -742,7 +742,7 @@ while (true) {
 In case you observe LEDs blinking in a strange way, it means that the microcontroller fell into hard fault state and needs reset. It can happen if you accidentally execute an inappropriate program code. The picture below shows how it looks like:
 
 <div class="image h100">
-![](/docs/assets/img/core2-hardware/L123_hard_fault.gif)
+<img src="/docs/assets/img/core2-hardware/L123_hard_fault.gif" alt="LEDs_hard_fault" />
 </div>
 
 The buttons can be used in a very simple way:
@@ -954,7 +954,7 @@ ssh husarion@192.168.0.29
 ```
 Password: 'husarion"
 
-## hRPI connector ##
+### hRPI connector ###
 
 <div class="thumb right w180">
 
