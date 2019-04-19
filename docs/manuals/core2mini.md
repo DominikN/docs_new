@@ -380,7 +380,7 @@ CORE2mini cannot be powered via the USB hSerial port!
 ### hSD ###
 Just a connector for a standard microSD card. It uses one of the SPI interfaces available in the microcontroller. The rest is software.
 
-## LEDs ##
+### LEDs ###
 
 <div class="thumb w270 right">
 
@@ -462,7 +462,7 @@ The CORE2mini power supply input has overvoltage (>16V), reverse-polarity and ov
 </tbody>
 </table>
 
-## Controlling servo power supply ##
+### Controlling servo power supply ###
 
 ```
 hServoModule.enablePower(); //turn servo DC/DC power converter on
@@ -504,7 +504,7 @@ They cannot be charged - they are only the “link” to omit 3 unnecessary plac
 
 ***
 
-# Internet access #
+## Internet access ##
 
 To use CORE2mini hardware from the cloud, you need to provide the Internet connection for CORE2mini.
 
@@ -512,7 +512,7 @@ This can be done thanks to cheap Wi-Fi module, such as ESP32, as well as a Linux
 
 By now you know 2 basic ways to connect CORE2mini to the Internet, ESP32 adapter or a Raspberry Pi computer. In the future other options will be available.
 
-## Connecting CORE2mini to the cloud ##
+### Connecting CORE2mini to the cloud ###
 
 Use hConfig app (to be found on AppStore or Google Play) where wizard will guide you through all the steps required to connect your CORE2mini to the Husarion cloud.
 
@@ -670,10 +670,11 @@ guide for connecting CORE2mini with our cloud. -->
 
 ***
 
-# Updating firmware #
+## Updating firmware ##
+
 In this section you will find instructions on how to update CORE2mini bootloader when a newer version is available. You can also find information on how to install the newest image for external modules, that provide Internet access for CORE2mini.
 
-## Updating CORE2mini bootloader ##
+### Updating CORE2mini bootloader ###
 
 You need to have Visual Studio Code installed with Husarion extension. Please follow this guide if you haven't done this before: [VSCode installation](/tutorials/other-tutorials/offline-development-tools/#offline-development-tools-installation-guide) 
 1. Locate core2-flasher utility (YOUR_HOME_PATH/.vscode/extensions/husarion.husarion-VERSION/sdk/tools/YOUR_ARCH/core2-flasher).
@@ -700,7 +701,7 @@ You need to have Visual Studio Code installed with Husarion extension. Please fo
   core2-flasher.exe --protect
   ```
 
-## Updating ESP32 firmware ##
+### Updating ESP32 firmware ###
 
 Make sure that your CORE2mini is connected with your cloud account. [This is a guide](/tutorials/howtostart/run-your-first-program#run-your-first-program-connecting-to-the-cloud) that explains how to do it.
 
@@ -713,7 +714,7 @@ That's all, your ESP32 firmware is up-to-date.
 
 ***
 
-# Docs for download #
+## Docs for download ##
 All downloadable documents in one place:
 
 * [CORE2mini Safety Instructions](https://files.husarion.com/docs2/CORE2mini_safety_instructions_1.0.pdf "CORE2mini Safety Instructions") - important!

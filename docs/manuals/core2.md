@@ -16,7 +16,7 @@ id: core2
 </div> 
 </div>
 
-# Electrical specification
+## Electrical specification ##
 
 <table class="text_table">
     <tr>
@@ -77,9 +77,9 @@ id: core2
 </table>
 
 
-## Ports description #
+## Ports description ##
 
-### hSensor 
+### hSensor ###
 
 CORE2 is equipped with six hSensor ports (Shrouded Box Header: 2×3-Pin, 0.1" (2.54 mm) Male).
 
@@ -354,7 +354,7 @@ All interfaces are compatible with 3.3V CMOS logic. The A/D converter range is 0
 [comment]: <> (***Advice: use <mark>ctrl + SPACE</mark> after typing "software_name." to see methods in the web IDE.***)
 
 
-#### Communication interfaces ####
+### Communication interfaces ###
 
 <table class="text_table">
 <tbody>
@@ -757,7 +757,7 @@ while (true) {
 }
 ```
 
-# Power supply #
+## Power supply ##
 
 Before powering the CORE2 you should know something about its power supply input.
 
@@ -770,7 +770,7 @@ When using motors or other high-power modules with CORE2/CORE2-ROS, the minimum 
 
 The CORE2 power supply input has overvoltage (>16V), reverse-polarity and overcurrent (~4A) protections. The long-term overvoltage state shall be avoided!
 
-## Block diagram ##
+### Block diagram ###
 
 <div class="thumb center">
 
@@ -825,7 +825,7 @@ The CORE2 power supply input has overvoltage (>16V), reverse-polarity and overcu
 </tbody>
 </table>
 
-## Controlling servo power supply ##
+### Controlling servo power supply ###
 
 ```
 hServoModule.enablePower(); //turn servo DC/DC power converter on
@@ -867,7 +867,7 @@ They cannot be charged - they are only the “link” to omit 3 unnecessary plac
 
 ***
 
-# Internet access #
+## Internet access ##
 
 To use CORE2 hardware from the cloud, you need to provide the Internet connection for CORE2.
 
@@ -875,7 +875,7 @@ This can be done thanks to cheap Wi-Fi module, such as ESP32, as well as a Linux
 
 By now you know 2 basic ways to connect CORE2 to the Internet, ESP32 adapter or a Raspberry Pi computer. In the future other options will be available.
 
-## Connecting CORE2 to the cloud ##
+### Connecting CORE2 to the cloud ###
 
 
 Use hConfig app (to be found on AppStore or Google Play) where wizard will guide you through all the steps required to connect your CORE2 to the Husarion cloud.
@@ -954,7 +954,7 @@ ssh husarion@192.168.0.29
 ```
 Password: 'husarion"
 
-### hRPI connector ###
+## hRPI connector ##
 
 <div class="thumb right w180">
 
@@ -1053,10 +1053,11 @@ guide for connecting CORE2 with our cloud. -->
 
 ***
 
-# Updating firmware #
+## Updating firmware ##
+
 In this section you will find instructions on how to update CORE2 bootloader when a newer version is available. You can also find information on how to install the newest image for external modules, that provide Internet access for CORE2.
 
-## Updating CORE2 bootloader ##
+### Updating CORE2 bootloader ###
 
 You need to have Visual Studio Code installed with Husarion extension. Please follow this guide if you haven't done this before: [VSCode installation](/tutorials/other-tutorials/offline-development-tools#offline-development-tools-installation-guide) 
 1. Locate core2-flasher utility (YOUR_HOME_PATH/.vscode/extensions/husarion.husarion-VERSION/sdk/tools/YOUR_ARCH/core2-flasher).
@@ -1083,7 +1084,7 @@ You need to have Visual Studio Code installed with Husarion extension. Please fo
   core2-flasher.exe --protect
   ```
 
-## Updating ESP32 firmware ##
+### Updating ESP32 firmware ###
 
 Make sure that your CORE2 is connected with your cloud account. [This is a guide](https://husarion.com/core2/tutorials/howtostart/run-your-first-program/#run-your-first-program-connecting-to-the-cloud) that explains how to do it.
 
@@ -1094,21 +1095,21 @@ Make sure that your CORE2 is connected with your cloud account. [This is a guide
 
 That's all, your ESP32 firmware is up-to-date.
 
-## OS image for RaspberryPi/Tinkerboard ##
+### OS image for RaspberryPi/Tinkerboard ###
 
-### Installing new image ###
+#### Installing new image ####
 
 1. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads) (there is a single image for both platforms).
 2. Follow the [official guide on raspberrypi.org webpage](https://www.raspberrypi.org/documentation/installation/installing-images/) for writing image to SD card.
 
-### Updating OS ###
+#### Updating OS ####
 
 1. [Login to your CORE2-ROS](/tutorials/ros-tutorials/1-ros-introduction#1-ros-introduction-ros-and-core2-work-flow).
 2. Execute in terminal: `apt-get update; apt-get dist-upgrade -y`
 
 ***
 
-# Docs for download #
+## Docs for download ##
 All downloadable documents in one place:
 
 * [CORE2 Safety Instructions](http://files.husarion.com/doc_files/CORE2_Safety_Instructions.pdf "CORE2 Safety Instructions") - important!
