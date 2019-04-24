@@ -19,7 +19,7 @@ ROSbot is an affordable robot platform for rapid development of autonomous robot
 - rear panel providing interfaces for additional modules
 
 In ROSbot 2.0:
-- CORE2-ROS controller with <a href="https://www.asus.com/pl/Single-Board-Computer/Tinker-Board/">Asus Tinker Board</a> with Rockchip RK3288 up to 1,8GHz, 2 GB DDR RAM and 16 GB MicroSD.
+- CORE2-ROS controller with <a href="https://www.asus.com/pl/Single-Board-Computer/Tinker-Board/">Asus Tinker Board</a> with Rockchip RK3288 up to 1,8GHz, 2GB DDR3 RAM and 16 GB MicroSD.
 - RPLIDAR A2 laser scanner
 
 <div class="clearfix">
