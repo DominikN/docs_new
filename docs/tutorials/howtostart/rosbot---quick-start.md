@@ -202,10 +202,12 @@ Programming procedure needs to be done only once, on further uses, you can start
 * Note the address next to "Local IP" (in "Edit"->"More" section), you will need it in a while.
 * In terminal issue following command:
 
-If you using ROSbot 2.0:
+If you use ROSbot 2.0:
+
 `roslaunch rosbot_webui demo.launch`
 
-If you using ROSbot 2.0 PRO:
+If you use ROSbot 2.0 PRO:
+
 `roslaunch rosbot_webui demo_rosbot_pro.launch`
 
 * Connect your laptop or mobile device to the same network as ROSbot.
