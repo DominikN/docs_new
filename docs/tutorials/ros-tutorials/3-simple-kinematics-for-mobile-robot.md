@@ -126,7 +126,7 @@ paste following:
 using namespace hFramework;
 
 // Uncomment one of these lines, accordingly to range sensor type of your ROSbot
-// If you have version with infared sensor:
+// If you have version with infrared sensor:
 // static const SensorType sensor_type = SENSOR_INFRARED;
 // If you have version with laser sensor:
 static const SensorType sensor_type = SENSOR_LASER;
@@ -233,7 +233,7 @@ Define which type of distance sensor you are using in your robot:
 
 ```cpp
 // Uncomment one of these lines, accordingly to range sensor type of your ROSbot
-// If you have version with infared sensor:
+// If you have version with infrared sensor:
 // static const SensorType sensor_type = SENSOR_INFRARED;
 // If you have version with laser sensor:
 static const SensorType sensor_type = SENSOR_LASER;
@@ -595,7 +595,7 @@ Your final code should look like this:
 using namespace hFramework;
 
 // Uncomment one of these lines, accordingly to range sensor type of your ROSbot
-// If you have version with infared sensor:
+// If you have version with infrared sensor:
 // static const SensorType sensor_type = SENSOR_INFRARED;
 // If you have version with laser sensor:
 static const SensorType sensor_type = SENSOR_LASER;
