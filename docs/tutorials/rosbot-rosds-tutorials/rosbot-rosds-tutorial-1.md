@@ -5,6 +5,7 @@ id: rosbot-rosds-tutorial-1
 ---
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/p-ZG6E-PZVA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
 
 **How to make a robot move around an indoor area, following a fixed path, while avoiding unexpected obstacles?**
 
