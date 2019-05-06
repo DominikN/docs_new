@@ -159,7 +159,7 @@ To begin, you need to have an active AWS account.
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23.png" width="900px"/>
 </center></div>
 
-<p>24. Download [ROSbotTutorial.tar.gz](https://files.husarion.com/ROSbotTutorial.tar.gz) and unpack it.</p>  
+<p>24. Download <a href="https://files.husarion.com/ROSbotTutorial.tar.gz">ROSbotTutorial.tar.gz</a> and unpack it.</p>  
 
 <p>25. Open the environment, from menu “File” choose “Upload local files…” -> “Select folder” and upload the folder “ROSbotTutorial”. Wait until upload is done.</p>
 
