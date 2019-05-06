@@ -153,7 +153,7 @@ To begin, you need to have an active AWS account.
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img22.png" width="900px"/>
 </center></div>
 
-<p>23. Click "Create".</p>
+<p>23. Click "Create". You will be redirected to IDE.</p>
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23.png" width="900px"/>
