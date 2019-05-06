@@ -153,13 +153,13 @@ To begin, you need to have an active AWS account.
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img22.png" width="900px"/>
 </center></div>
 
-<p>23. Click "Create".</p>
+<p>23. Click "Create". You will be redirected to IDE.</p>
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23.png" width="900px"/>
 </center></div>
 
-<p>24. Download [ROSbotTutorial.tar.gz](https://files.husarion.com/ROSbotTutorial.tar.gz) and unpack it.</p>  
+<p>24. Download <a href="https://files.husarion.com/ROSbotTutorial.tar.gz">ROSbotTutorial.tar.gz</a> and unpack it.</p>  
 
 <p>25. Open the environment, from menu “File” choose “Upload local files…” -> “Select folder” and upload the folder “ROSbotTutorial”. Wait until upload is done.</p>
 
@@ -174,7 +174,7 @@ To begin, you need to have an active AWS account.
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23b.png" />
 </center></div>
-<p>28.  Choose menu “RoboMakerRun” -> “Add or Edit Configurations”. </p>
+<p>28.  Choose menu “Run” -> “Add or Edit Configurations”. </p>
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img24.png" width="900px"/>
@@ -188,19 +188,19 @@ To begin, you need to have an active AWS account.
 
 <p>30. Choose “RoboMakerSettings.json” from folder “ROSbotTutorial” and click “OK” button and then "Save" button.</p>
 
-<p>31. Choose menu “RoboMakerRun” -> “Workflow” -> “ROSbotTutorial - Build and Bundle All”.</p>
+<p>31. Choose menu “Run” -> “Workflow” -> “ROSbotTutorial - Build and Bundle All”.</p>
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img26.png" width="900px"/>
 </center></div>
 
-<p>32. Package build process will start, when it is done, choose menu “RoboMakerRun” -> “Launch Simulation” -> “ROSbotTutorial”. Simulation job will be sent to RoboMaker. Wait until "Your simulation job was created." message appears in console.</p>
+<p>32. Package build process will start, when it is done, choose menu “Run” -> “Launch Simulation” -> “ROSbotTutorial”. Simulation job will be sent to RoboMaker. Wait until "Your simulation job was created." message appears in console.</p>
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img27.png" width="900px"/>
 </center></div>
 
-<p>33. Go to RoboMaker an open “Simulation jobs” menu.</p>
+<p>33. Go to RoboMaker and open “Simulation jobs” menu.</p>
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img28.png" width="900px"/>
