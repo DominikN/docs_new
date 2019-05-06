@@ -168,7 +168,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     <tr>
         <td>RGBD camera</td>
         <td>1</td>
-        <td>Orbbec Astra with RGB image size 1280x960 and depth image size 640x480.</td> 
+        <td>Orbbec Astra with RGB image size 640x480 and depth image size 640x480.</td> 
     </tr>
     <tr>
         <td>Batteries</td>
