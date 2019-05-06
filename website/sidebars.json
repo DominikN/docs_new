@@ -29,6 +29,13 @@
           "tutorials/ros-tutorials/9-object-search"
         ]
       },
+	  {
+        "type": "subcategory",
+        "label": "ROSbot 2.0 + ROSDS LIVE-Class",
+        "ids": [
+          "tutorials/ROSbot-ROSDS-tutorials/ROSbot-ROSDS-tutorial-1",
+        ]
+      },
       {
         "type": "subcategory",
         "label": "Mbed tutorials",
