@@ -1113,4 +1113,4 @@ That's all, your ESP32 firmware is up-to-date.
 All downloadable documents in one place:
 
 * [CORE2 Safety Instructions](http://files.husarion.com/doc_files/CORE2_Safety_Instructions.pdf "CORE2 Safety Instructions") - important!
-* [CORE2 board mechanical drawing](http://files.husarion.com/doc_files/CORE2_board.pdf "CORE2 board mechanical drawing")
+* [CORE2 board mechanical drawing](https://files.husarion.com/docs2/CORE2_dimensions.pdf "CORE2 board mechanical drawing")
