@@ -18,11 +18,11 @@ Patrolling means that the robot is going to move around an area making a kind of
 In the class, we'll define a procedure to capture the main points of the trajectory that the robot has to follow. Then, we will create a ROS program that calls the ROS Navigation Stack with those points, making the robot follow them in an endless loop.
 
 You will receive the ROSject with the robot simulation, notebook with instructions, the map of the area already done, and all the launches required to start the navigation stack for the ROSbot.
-* If you want to learn how to create the map, check our Live Class n.49: https://youtu.be/RknTTpga64s
-* If you want to learn how to start the navigation system based on the map, check our previous Live Class n.50: https://youtu.be/4nctAuEaWbI
+- If you want to learn how to create the map, check our Live Class n.49: https://youtu.be/RknTTpga64s
+- If you want to learn how to start the navigation system based on the map, check our previous Live Class n.50: https://youtu.be/4nctAuEaWbI
 
 Robots used in this class:
-* ROSbot 2.0 from Husarion (https://husarion.com/)
+- ROSbot 2.0 from Husarion (https://husarion.com/)
 
 If you missed the class, you can find the ROSject files and full-code used in the class at the Robot Ignite Academy: https://www.robotigniteacademy.com
 
