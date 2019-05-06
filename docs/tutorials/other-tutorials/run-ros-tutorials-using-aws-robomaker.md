@@ -200,7 +200,7 @@ To begin, you need to have an active AWS account.
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img27.png" width="900px"/>
 </center></div>
 
-<p>33. Go to RoboMaker an open “Simulation jobs” menu.</p>
+<p>33. Go to RoboMaker and open “Simulation jobs” menu.</p>
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img28.png" width="900px"/>
