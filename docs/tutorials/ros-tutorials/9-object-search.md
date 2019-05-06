@@ -1462,9 +1462,9 @@ When running search task on ROSbot, you will need two `launch` files, first to b
 
     <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
 
-    <node pkg="image_transport" type="republish" name="depth_compress" args=" raw in:=/camera/depth/image_raw compressed out:=/depth_republish">
-        <param name="compressed/format" value="png"/>
-        <param name="compressed/png_level" value="1"/>
+    <node pkg="image_transport" type="republish" name="depth_republish" args=" raw in:=/camera/depth/image_raw compressedDepth out:=/depth_republish">
+        <param name="compressedDepth/format" value="png"/>
+        <param name="compressedDepth/png_level" value="1"/>
     </node>
 
     <node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
@@ -1511,7 +1511,7 @@ And second to be run on another device:
         <param name="compressed/mode" value="color"/>
     </node>
 
-    <node pkg="image_transport" type="republish" name="depth_decompress" args=" compressed in:=/depth_republish raw out:=/depth_raw ">
+    <node pkg="image_transport" type="republish" name="depth_decompress" args=" compressedDepth in:=/depth_republish raw out:=/depth_raw ">
         <param name="compressed/mode" value="unchanged"/>
     </node>
 
