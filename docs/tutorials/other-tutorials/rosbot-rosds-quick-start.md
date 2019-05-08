@@ -44,6 +44,8 @@ echo '. ~/ros_workspace/devel/setup.sh' >> ~/.bashrc
 
 Below setup is required each time ROSbot is connecting to RDS:
 
+RDS cloud uses [Husarnet](https://husarnet.com/) to provide low-latency, secure connection between cloud environment and physical robot. Husarnet is a P2P Virtual LAN network, so from your ROSbot and RDS environment point of view, they are in the same LAN network. That means you can execute some ROS nodes in the RDS and other ones in the physical robot.
+
 Connect with ROSbot through SSH or remote desktop and issue below commands:
 
 ```bash
