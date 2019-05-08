@@ -52,7 +52,8 @@
           "tutorials/other-tutorials/how-to-use-core2-ros-local-serial-offline",
           "tutorials/other-tutorials/run-ros-tutorials-using-aws-robomaker",
           "tutorials/other-tutorials/rosbot-aws-robomaker-quick-start",
-          "tutorials/other-tutorials/using-core2-to-publish-ros-topics-through-usb"
+          "tutorials/other-tutorials/using-core2-to-publish-ros-topics-through-usb",
+          "tutorials/other-tutorials/rosbot-rosds-quick-start"
         ]
       }
     ]
