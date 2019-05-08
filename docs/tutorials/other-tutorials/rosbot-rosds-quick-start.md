@@ -4,7 +4,7 @@ sidebar_label: 7. ROSbot + ROSDS Quick Start
 id: rosbot-rosds-quick-start
 ---
 
-This tutorial will walk you throug connecting ROSbot to [ROS Development Studio (RDS)](https://rds.theconstructsim.com/) cloud service.
+This tutorial will walk you through connecting ROSbot to [ROS Development Studio (RDS)](https://rds.theconstructsim.com/) cloud service.
 We will show you, how to setup ROSbot to be controlled remotely with application hosted in cloud.
 
 ## Step 1: ROSbot configuration
