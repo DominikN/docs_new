@@ -29,20 +29,35 @@ network. You will need IP address of every device.
 While working on multiple machines, you need only one `roscore` running.
 Choose one device for it- we will call it `master`.
 
+ROSbots are coming preconfigured with [Husarnet](https://husarnet.com/) support, which provide low-latency, secure connection between robots. Husarnet is a P2P Virtual LAN network, so from your ROSbots point of view, they are in the same LAN network even if they are not physically in the same network. Husarnet setup is covered in [Connecting through Husarnet](#Connecting-through-Husarnet) section.
+
 On the master device open the `.bashrc` file:
 
 ```bash
 nano ~/.bashrc
 ```
 
-And add two lines at file ending, replacing `X.X.X.X` and `Y.Y.Y.Y` with IP address of master device.
+To disable husarnet entries, find lines:
+
+```bash
+export ROS_MASTER_URI=http://master:11311
+export ROS_IPV6=on
+```
+and comment them with `#`:
+
+```bash
+#export ROS_MASTER_URI=http://master:11311
+#export ROS_IPV6=on
+```
+
+Then add two lines at file ending, replacing `X.X.X.X` and `Y.Y.Y.Y` with IP address of master device.
 
 ```bash
 export ROS_MASTER_URI=http://X.X.X.X:11311
 export ROS_IP=Y.Y.Y.Y
 ```
 
-On second robot also open the `.bashrc` file and add two lines at file ending. This time replace `X.X.X.X` with IP address of master device and `Y.Y.Y.Y` with IP address of second robot.
+On second robot also open the `.bashrc` file, comment Husarnet entries and add two lines at file ending. This time replace `X.X.X.X` with IP address of master device and `Y.Y.Y.Y` with IP address of second robot.
 
 TIP! Remember that `roscore` must be running on the device indicated as ROS master!!!
 
@@ -751,7 +766,7 @@ You can use button "Add element" to add to your network cloud elements or mobile
 
 Before you add device to network, it is required to setup the environment.
 
-Open `.bashrc` file and find lines that ypu added at the beginning of this tutorial:
+Open `.bashrc` file and find lines that you added at the beginning of this tutorial:
 
 ```bash
 export ROS_MASTER_URI=http://X.X.X.X:11311
