@@ -29,7 +29,7 @@ network. You will need IP address of every device.
 While working on multiple machines, you need only one `roscore` running.
 Choose one device for it- we will call it `master`.
 
-ROSbots are coming preconfigured with [Husarnet](https://husarnet.com/) support, which provide low-latency, secure connection between robots. Husarnet is a P2P Virtual LAN network, so from your ROSbots point of view, they are in the same LAN network even if they are not physically in the same network. Husarnet setup is covered in [Connecting through Husarnet](#Connecting-through-Husarnet) section.
+ROSbots are coming preconfigured with [Husarnet](https://husarnet.com/) support, which provide low-latency, secure connection between robots. Husarnet is a P2P Virtual LAN network, so from your ROSbots point of view, they are in the same LAN network even if they are not physically in the same network. Husarnet setup is covered in [Connecting through Husarnet](#connecting-through-husarnet) section.
 
 On the master device open the `.bashrc` file:
 
