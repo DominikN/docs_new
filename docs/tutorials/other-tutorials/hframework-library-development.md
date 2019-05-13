@@ -110,6 +110,10 @@ myproject.hex
 ```	
 	**That means you have successfully built your first project, together with hFramework sources.**
 12. In next step find folder `tools` in your `.vscode\extensions\husarion.husarion-1.5.6\sdk` directory, and copy this folder to hFramework repository that you cloned from git, e.g. `C:/Husarion/hFramework`.
-13. To program CORE2 via USB, click [Ctrl]+[Shift]+[P] and select "Flash project to CORE2". Make sure that you replaced USB driver for your CORE2 to the "WinUSB (v6.1.7600.16385)" using [Zadig](https://husarion.com/core2/tutorials/howtostart/offline-development-tools/#offline-development-tools-installation-guide).
+13. To program CORE2 via USB, click [Ctrl]+[Shift]+[P] and select "Flash project to CORE2". 
+
+If you are using **Windows**:
+
+Make sure that you replaced USB driver for your CORE2 to the "WinUSB (v6.1.7600.16385)" using [Zadig](https://husarion.com/core2/tutorials/howtostart/offline-development-tools/#offline-development-tools-installation-guide).
 
 P.S. To get back to the previous version of the USB driver you need to open "device manager" in Windows and uninstall USB connection associated with FTDI/CORE2, together with the driver for this device (tick the checkbox). In uninstallation confirmation windows select a checkbox to uninstall the driver and click OK.
