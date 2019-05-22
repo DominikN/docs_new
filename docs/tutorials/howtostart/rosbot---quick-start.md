@@ -4,8 +4,6 @@ sidebar_label: 6. ROSbot - quick start
 id: rosbot---quick-start
 ---
 
-# ROSbot - quick start #
-
 ROSbot 2.0 and ROSbot 2.0 PRO are autonomous, open source robot platforms running on CORE2-ROS controller. It can be used as a learning platform for Robot Operating System as well as a base for a variety of robotic applications like inspection robots, custom service robots etc.
 
 If you don't have one, you can purchase it <a href="https://store.husarion.com/">here</a>.
