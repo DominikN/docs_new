@@ -624,7 +624,6 @@ void scanCallback(const sensor_msgs::LaserScanConstPtr &msg)
    ranges_size = msg->ranges.size();
    uint32_t s = msg->header.stamp.sec;
    uint32_t ns = msg->header.stamp.nsec;
-   ROS_INFO("Scan time: %d,%d", s, ns);
 
    double camera_x;
    double camera_y;
@@ -923,8 +922,8 @@ bool SearchManager::lookup_camera_transform(double *cam_x, double *cam_y, double
     try
     {
         tf::StampedTransform rgbd_scan_to_map_transform;
+        listener->waitForTransform("/map", "/camera_link", scan_time, ros::Duration(1.0));
         listener->lookupTransform("/map", "/camera_link", scan_time, rgbd_scan_to_map_transform);
-        std::cout << "LookupTime: " << scan_time.sec << ", " << scan_time.nsec << std::endl;
         *cam_x = rgbd_scan_to_map_transform.getOrigin().x();
         *cam_y = rgbd_scan_to_map_transform.getOrigin().y();
         tf::Quaternion quat = rgbd_scan_to_map_transform.getRotation();
