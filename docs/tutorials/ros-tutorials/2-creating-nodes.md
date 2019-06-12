@@ -437,7 +437,7 @@ int main(int argc, char **argv)
 }
 ``` 
 
-**Task 2** Build your node and run it along with camera driver. Use
+**Task 2** Build your node and run it along with `astra.launch`. Use
 `rosnode`, `rostopic` and `rqt_graph` tools to examine system and check
 how data is passed between nodes.
 
@@ -642,7 +642,7 @@ int main(int argc, char **argv)
 }
 ``` 
 
-**Task 4** Compile your node and run it with `astra.launch`. Use `rosnode`,
+**Task 4** Compile your node and run it along with `astra.launch`. Use `rosnode`,
 `rostopic` and `rqt_graph` tools to examine the system, then use
 `rostopic echo` tool to read brightness of the image from the camera.
 
