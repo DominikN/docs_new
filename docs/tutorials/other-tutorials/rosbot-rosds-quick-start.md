@@ -59,7 +59,7 @@ In **Device name** field type name of your device `rosbot-rds` then push button 
 
 ![ROSds_webUI_active](/docs/assets/img/rosds-tutorials/rosds_webui_active.png)
 
-Rosbot is ready to connecte with RDS.
+ROSbot is ready to connect with RDS.
 
 ## Step 3: Working on RDS
 
