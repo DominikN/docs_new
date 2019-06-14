@@ -19,7 +19,6 @@ cd RDS
 git clone https://bitbucket.org/theconstructcore/rosds_real_robot_connection.git
 cd rosds_real_robot_connection/
 ./realrobot_setup.sh rosbot
-sudo -H python -m pip install npyscreen
 ```
 
 We will use Husarion `tutorial_pkg` as an example, but you can configure in the same way any other ROS application. 
@@ -46,32 +45,21 @@ Below setup is required each time ROSbot is connecting to RDS:
 
 RDS cloud uses [Husarnet](https://husarnet.com/) to provide low-latency, secure connection between cloud environment and physical robot. Husarnet is a P2P Virtual LAN network, so from your ROSbot and RDS environment point of view, they are in the same LAN network. That means you can execute some ROS nodes in the RDS and other ones in the physical robot.
 
-Connect with ROSbot through SSH or remote desktop and issue below commands:
-
-```bash
-cd ~RDS/rosds_real_robot_connection/
-sudo python real_robot_cli_ui.py
+ROSbot can be connected to RDS using web panel, go to web browser and open, please substitute **`ROSbotIP`** with your device IP in local network:
+```
+ROSbotIP:3000
 ```
 
-- In **Device Name** field provide `rosbot`.
-- From ***Pick One** list choose **`( ) ON`**.
-- Field **Robot URL** will get filled with link, copy it for further use
-- Choose **OK** to Exit
+You will see connection panel:
 
-![ROSbot config](/docs/assets/img/rosds-tutorials/rosbot_config.png)
+![ROSds_webUI](/docs/assets/img/rosds-tutorials/rosds_webui.png)
 
-ROSbot is configured to wait for connection form RDS.
 
-It is required to start example application, we will use SLAM and path planning:
+In **Device name** field type name of your device `rosbot-rds` then push button **Turn On**, you will see link under **ROSbot URL**:
 
-```bash
-roslaunch tutorial_pkg tutorial_7_core.launch
-```
+![ROSds_webUI_active](/docs/assets/img/rosds-tutorials/rosds_webui_active.png)
 
-In another terminal execute: 
-```bash
-/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 
-```
+Rosbot is ready to connecte with RDS.
 
 ## Step 3: Working on RDS
 
@@ -81,7 +69,7 @@ Open menu **Real Robot** and choose button **Connect to Robot**
 
 ![Real Robot 1](/docs/assets/img/rosds-tutorials/rds_connect_to_real_robot.png)
 
-In dialog menu provide `rosbot` in **Robot name** field and in **Robot URL* paste link that you have copied earlier.
+In dialog menu provide `rosbot-rds` in **Robot name** field and in **Robot URL* paste link that you have copied earlier.
 
 ![Real Robot 2](/docs/assets/img/rosds-tutorials/rds_connect_to_real_robot_2.png)
 
@@ -89,7 +77,24 @@ When process is finished, you should see menu allowing you to choose master devi
 
 ![Real Robot 3](/docs/assets/img/rosds-tutorials/rds_connect_to_real_robot_3.png)
 
-Select **Tools** -> **Shell** to open terminal view and launch visualization tools:
+Select **Tools** -> **Shell** to open terminal view, connect to ROSbot through SSH:
+```
+ssh husarion@rosbot-rds
+```
+You will be prompted to accept new trusted address, type `yes` then you will need to provide password, default for ROSbot is `husarion`.
+
+Launch selected application:
+
+```bash
+roslaunch tutorial_pkg tutorial_7_core.launch
+```
+
+In another terminal, again connect through SSH to ROSbot and execute: 
+```bash
+/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2 
+```
+
+In third terminal view launch visualization tools:
 
 ```bash
 roslaunch rosbot_description model_preview.launch
