@@ -206,6 +206,8 @@ You can use below `launch` file:
 
     <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
         <param name="angle_compensate" type="bool" value="true"/>
+        <param name="serial_baudrate"     type="int"    value="115200"/><!--model A2 (ROSbot 2.0) -->
+        <!--param name="serial_baudrate"     type="int"    value="256000"--><!-- model A3 (ROSbot 2.0 PRO) -->
     </node>
 
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>

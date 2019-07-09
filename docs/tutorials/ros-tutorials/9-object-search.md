@@ -1449,7 +1449,10 @@ When running search task on ROSbot, you will need two `launch` files, first to b
 
     <include file="$(find astra_launch)/launch/astra.launch"></include>
 
+    <!-- ROSbot 2.0 -->
     <include file="$(find rplidar_ros)/launch/rplidar.launch"></include>
+    <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rplidar_ros)/launch/rplidar_a3.launch"></include> -->
 
     <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" required="true">
         <remap from="/image" to="/camera/depth/image_raw"/>
