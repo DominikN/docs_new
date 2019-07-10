@@ -21,212 +21,106 @@ In this tutorial we will show you how to setup environment at AWS RoboMaker to l
 
 *IMPORTANT: AWS RoboMaker is a paid service and you may be charged based on the usage of some of its functionalities. For pricing info visit https://aws.amazon.com/robomaker/pricing/* .
 
-## Setting up Husarion ROS tutorial on AWS
+## Setting up AWS account
 
-To begin, you need to have an active AWS account.
+To begin, you need to have an active AWS account. Go to [signup panel](https://portal.aws.amazon.com/billing/signup?registration-confirmation#/start) and follow steps required to create account.
 
 <div><center>
 <img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img1.png" width="900px" />
 </center></div>
 
-<p>1. Go to “AWS management console” at <a href="https://aws.amazon.com/">https://aws.amazon.com/</a> .</p>
-<p>2. In search field start typing “IAM”.</p>
+## Configure AWS Environment
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img2.png" width="900px"/>
-</center></div>
+Before we use AWS RoboMaker to build and deploy the tutorial applications, we must first set up the AWS environment. To simplify the configuration, we will use AWS CloudFormation. CloudFormation enables us to use a template file to define the configuration of our environment. We will use CloudFormation to create a bucket in Amaazon S3, as well as to create the necessary permissions in AWS Identity and Access Manager (IAM) that AWS RoboMaker requires to simulate and deploy our robot applications.
 
-<p>3. Open IAM module.</p>
+To deploy the template, sign in to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/). Following the following steps to deploy the template:
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img3.png" width="900px"/>
-</center></div>
+1.  Download the template file from [here](https://raw.githubusercontent.com/husarion/rosbot-robomaker/master/rosbot_tutorial_template.yaml).
+2.  Click the **Create Stack** button.
+3.  Under _Choose a template_, choose _Upload a template to Amazon S3_ and click **Choose File**.
+4.  Browse to the rosbot_tutorial_template.yaml file you download in Step 1 above.
+5.  Click **Next**.
+6.  On the next screen, provide a _Stack name_. This should be something descriptive such as "ROSbot-setup".
+7.  In the _S3BucketName_ field, provide a globally-unique name for the S3 bucket that will be created. This S3 bucket will be used to store your robot application bundles, as well as any logs that your robot may generate during simulation. Use a name unique to you, such as "&lt;user_id&gt;-rosbot-tutorial". Replace "&lt;user-id&gt;" with a unique string.
+8.  Choose **Next**.
+9.  On the Options page, leave all defaults and choose **Next**.
+10. On the Review page, click the checkbox to acknowledge that CloudFormation will create IAM resources on your behalf.
+11. Click **Create**.
 
-<p>4. Go to “Roles”.</p>
+After a few brief minutes, the stack will be created. When the status has changed to CREATE_COMPLETE, choose the stack you just created, and view its Outputs. You will see 3 key/value pairs. You will use these values later in this guide.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img4.png" width="900px"/>
-</center></div>
+## Setup RoboMaker IDE
+1. Open [RoboMaker module](https://console.aws.amazon.com/robomaker/home)
 
-<p>5. Click “Create role”.</p>
-<p>6. In dialog choose “EC2”.</p>
-<p>7. Click “Next: Permissions”.</p>
+2. Open “Development environments” tab.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img5.png" width="900px"/>
-</center></div>
+![Development environments](/docs/assets/img/aws-tutorials/aws_tutorial_img21.png)
 
-<p>8. In “Attach permissions policies” dialog, add (You can use filter to search for them):</p>
+3. Click “Create environment”
+- In field **Name** type `robomaker_env` and as **instance type** choose `c3.2xlarge`. You can select different instances type to improve bundling performance.
+- In **VPC** dropdown list choose the default value.
+- In the **Subnets** dropdown list choose the first subnet. You can select different subnet if necessary.
 
-* `CloudWatchFullAccess`
-* `AWSRoboMakerFullAccess`
-* `AmazonS3FullAccess`
+![Create environment dialog](/docs/assets/img/aws-tutorials/aws_tutorial_img22.png)
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img6.png" width="900px"/>
-</center></div>
+4. Click "Create". You will be redirected to IDE.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img7.png" width="900px"/>
-</center></div>
+![RoboMaker IDE](/docs/assets/img/aws-tutorials/aws_tutorial_img23.png)
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img8.png" width="900px"/>
-</center></div>
+- In the IDE, go to bash tab and clone the `rosbot-robomaker` repository in `~/environment/` directory:
 
-<p>9. Click “Next: Tags”, we do not need any tags, thus we proceed to Reviev.</p>
-<p>10. Click “Next: Review”. In field “Role name” type “robomaker_role” and make sure that in “Policies” section you have three entries.</p>
+```
+cd ~/environment/
+git clone --recurse-submodules https://github.com/husarion/rosbot-robomaker.git RoboMakerROSbotProject
+```
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img9.png" width="900px"/>
-</center></div>
+5. Configure project
 
-<p>11. Click “Create role” button, you will be redirected to “Roles” view.</p>
+In this step you will need key/value pairs obtained in CloudForamtion module
+- Replace `$BUCKET_NAME` with value of `S3BucketName` from CloudFormation
+- Replace `$IAM_ROLE` eith value of `RoboMakerRole` from CloudFormation
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img10.png" width="900px"/>
-</center></div>
+```
+cd ~/environment/RoboMakerROSbotProject/
+python configure_project.py --bucket $BUCKET_NAME --iam $IAM_ROLE
+```
 
-<p>12. Open role setting by clicking its name and choose tab “Trust relationships”.</p>
+## Launch sumilation job
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img11.png" width="900px"/>
-</center></div>
+1.  Choose menu **Run** -> **Add or Edit Configurations**.
 
-<p>13. Click button “Edit trust relationships” and edit policy document, find entry “ec2.amazonaws.com” and change it to “robomaker.amazonaws.com”.</p>
+![RoboMaker configuration dialog](/docs/assets/img/aws-tutorials/aws_tutorial_img24.png)
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img12.png" width="900px"/>
-</center></div>
+2. Click button **Switch config**.
 
-<p>14. Click “Update trust policy” button. Note the “Role ARN” entry, this will be required later.</p>
+3. Choose `RoboMakerSettings.json` from folder `RoboMakerROSbotProject` and click **OK** button and then **Save** button.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img14.png" width="900px"/>
-</center></div>
+![Switch config dialog](/docs/assets/img/aws-tutorials/aws_tutorial_img25.png)
 
-<p>15. Open “AWS Console”, in filter type “S3”.</p>
+4. Choose menu **Run** -> **Workflow** -> **ROSbotTutorial - Build and Bundle All**.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img15.png" width="900px"/>
-</center></div>
+![Workflow menu](/docs/assets/img/aws-tutorials/aws_tutorial_img26.png)
 
-<p>16. Open “S3” module.</p>
+5. Package build process will start, when it is done, choose menu **Run** -> **Launch Simulation** -> **ROSbotTutorial9**. Simulation job will be sent to RoboMaker. Wait until **Your simulation job was created.** message appears in console.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img16.png" width="900px"/>
-</center></div>
+![Simulation terminal](/docs/assets/img/aws-tutorials/aws_tutorial_img27.png)
 
-<p>17.  Click “Create bucket” button, in field “Bucket name” type DNS style name like "yourusername-bucket-robomaker" (it must be unique accross all names in Amazon S3, do not use "_" and "." in the name), from “Region dropdown” menu choose entry appropriate to your localization.</p>
+6. Go to RoboMaker and open “Simulation jobs” menu.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img17.png" width="900px"/>
-</center></div>
+![Simulation jobs menu](/docs/assets/img/aws-tutorials/aws_tutorial_img28.png)
 
-<p>18. Proceed through creator, do not modify default values.</p>
+7. Open simulation by clicking its name.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img18.png" width="900px"/>
-</center></div>
 
-<p>19. When you create bucket, open it, by clicking its name, it should be empty now. Note the bucket name, you will need it later.</p>
+![Simulation view](/docs/assets/img/aws-tutorials/aws_tutorial_img29.png)
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img19.png" width="900px"/>
-</center></div>
+8. When it starts, you can open Gazebo view to watch as simulation proceeds.
 
-<p>20. Open “AWS Console”, in filter type “RoboMaker” and open “AWSRoboMaker” module.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img20.png" width="900px"/>
-</center></div>
-
-<p>21. Open “Development environments” tab.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img21.png" width="900px"/>
-</center></div>
-
-<p>22. Click “Create environment”, in field “Name” type “robomaker_env” and as “instance type” choose “c3.2xlarge”.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img22.png" width="900px"/>
-</center></div>
-
-<p>23. Click "Create". You will be redirected to IDE.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23.png" width="900px"/>
-</center></div>
-
-<p>24. Download <a href="https://files.husarion.com/ROSbotTutorial.tar.gz">ROSbotTutorial.tar.gz</a> and unpack it.</p>  
-
-<p>25. Open the environment, from menu “File” choose “Upload local files…” -> “Select folder” and upload the folder “ROSbotTutorial”. Wait until upload is done.</p>
-
-<p>26. In editor open file “RoboMakerSettings.json” from folder “ROSbotTutorial”. Find all instances of "robomaker-bucket" and replace it with the name of your own bucket you've created in point <em>17</em>.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23a.png" width="900px"/>
-</center></div>
-
-<p>27. In the same file find element "iamRole" and change its value to "Role ARN" entry you've saved in pont <em>14.</em> </p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img23b.png" />
-</center></div>
-<p>28.  Choose menu “Run” -> “Add or Edit Configurations”. </p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img24.png" width="900px"/>
-</center></div>
-
-<p>29. Click button “Switch config”.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img25.png" width="900px"/>
-</center></div>
-
-<p>30. Choose “RoboMakerSettings.json” from folder “ROSbotTutorial” and click “OK” button and then "Save" button.</p>
-
-<p>31. Choose menu “Run” -> “Workflow” -> “ROSbotTutorial - Build and Bundle All”.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img26.png" width="900px"/>
-</center></div>
-
-<p>32. Package build process will start, when it is done, choose menu “Run” -> “Launch Simulation” -> “ROSbotTutorial”. Simulation job will be sent to RoboMaker. Wait until "Your simulation job was created." message appears in console.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img27.png" width="900px"/>
-</center></div>
-
-<p>33. Go to RoboMaker and open “Simulation jobs” menu.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img28.png" width="900px"/>
-</center></div>
-
-<p>34. Open simulation by clicking its name</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img29.png" width="900px"/>
-</center></div>
-
-<p>35. When it starts, you can open Gazebo view to watch as simulation proceeds.</p>
-
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img30.png" width="900px"/>
-</center></div>
+![Gazebo view](/docs/assets/img/aws-tutorials/aws_tutorial_img30.png)
 
 **Congratulations!**
 
-You’ve just run Gazebo version of [Tutorial 9](https://husarion.com/tutorials/ros-tutorials/9-object-search/) on AWS RoboMaker cloud computing platform. More tutorials can be launched by editing “RoboMakerSettings.json” and launch files found in:
-
-```bash
-    ./ROSbotTutorial/simulation_ws/install/tutorial_pkg/share/tutorial_pkg/launch
-```
-
-We will provide instruction on how to do it soon.
+You’ve just run Gazebo version of [Tutorial 9](https://husarion.com/tutorials/ros-tutorials/9-object-search/) on AWS RoboMaker cloud computing platform. Other tutorials can be launched by selecting appropriate entry in **Run** -> **Launch Simulation** menu.
 
 ## Summary
 
