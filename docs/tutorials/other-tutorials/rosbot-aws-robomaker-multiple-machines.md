@@ -41,7 +41,7 @@ After a few brief minutes, the stack will be created. When the status has change
 
 ## Setup Husarnet account
 
-For establishing secure and fast connection among devices, we will use [Husarnet](https://husarnet.com/). Log in or create account if you do not have it (free plan will be sufficient for this tutorial). Later we will explain, how to register devices to Husarnet. 
+ROS software can be distributed among different devices as long as they are in the same LAN network. Your robot, AWS virtual machine and laptop are in different networks, so we will setup a VPN connection beetwen them. For establishing secure and low-latency connection, we will use Husarnet VPN. You can log in or create an account [here](https://husarnet.com/)  (free plan will be sufficient for this tutorial). Later we will explain, how to register devices in Husarnet.
 
 ## ROSbot setup in RoboMaker
 
