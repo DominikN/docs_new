@@ -273,7 +273,7 @@ You can see an example map being created on the screenshot below.
 
 ## Summary
 
-After completing this tutorial you will know how to connect  ROSbot, EC2 cloud compute instance and RoboMaker IDE in single VPN network using Husarnet.
+After completing this tutorial you will know how to connect  ROSbot, EC2 cloud compute instance, RoboMaker IDE and your laptop in single VPN network using Husarnet.
 
 Also, you will know how to configure ROSbot and EC2 instance to cooperate as consistent robotic system. Above example shows how to outsource map building and path planning processes to cloud environment, by following this method, you can outsource any computation demanding task.
 
