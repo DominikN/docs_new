@@ -1,5 +1,5 @@
 ---
-title: ROSbot + AWS Robomaker - Run on multiple machines tutorial
+title: Run ROS on multiple machines with AWS RoboMaker
 sidebar_label: 6. Run ROS on multiple machines with AWS RoboMaker
 id: rosbot-aws-robomaker-multiple-machines
 ---
