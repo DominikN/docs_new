@@ -151,14 +151,14 @@ class Index extends React.Component {
             content: 'Learn how to incorporate Robot Operating System into your projects.',
             image: `${baseUrl}img/feature_ros.png`,
             imageAlign: 'top',
-            imageLink: `${baseUrl}tutorials/ros-tutorials/1-ros-introduction`,
+            imageLink: `${baseUrl}docs/tutorials/ros-tutorials/1-ros-introduction`,
             title: 'ROS Tutorials',
           },
           {
             content: 'Learn how to use Husarion products like CORE2 and ROSbot.',
             image: `${baseUrl}img/feature_manuals.png`,
             imageAlign: 'top',
-            imageLink: `${baseUrl}manuals`,
+            imageLink: `${baseUrl}docs/manuals`,
             title: 'Hardware Manuals',
           },
           {
