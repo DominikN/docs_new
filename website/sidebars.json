@@ -29,6 +29,13 @@
           "tutorials/ros-tutorials/9-object-search"
         ]
       },
+      {
+        "type": "subcategory",
+        "label": "ROS Projects",
+        "ids": [
+          "tutorials/ros-projects/security-guard-robot"
+        ]
+      },
 	  {
         "type": "subcategory",
         "label": "ROSbot 2.0 + ROSDS LIVE-Class",
