@@ -10,6 +10,13 @@ id: 7-path-planning
 > - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
 > - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
 
+We have prepared ready to go virtual environment with end effect of following this tutorial. It is available on ROSDS:
+
+<div><center>
+<a href="http://www.rosject.io/l/b968f74/">
+<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+</center></div>
+
 ## Introduction
 
 Task of path planning for mobile robot is to determine sequence of

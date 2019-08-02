@@ -21,6 +21,13 @@ be explored and marked as free or occupied and frontiers are moved into
 an unknown territory. Process is repeated until all frontiers are
 investigated, this means free area must be surrounded by occupied cells.
 
+We have prepared ready to go virtual environment with end effect of following this tutorial. It is available on ROSDS:
+
+<div><center>
+<a href="http://www.rosject.io/l/b97ec47/">
+<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+</center></div>
+
 ## Environment exploration in ROS
 
 In ROS it is possible to explore environment with use of occupancy grid
