@@ -31,7 +31,7 @@ cd <ros_ws>/src
 
 `$ git clone https://github.com/husarion/tutorial_pkg.git`
 
-We have to also clone rosbot description to do so use this command:
+We have to also clone rosbot description to do, so use this command:
 
 `$ git clone https://github.com/husarion/rosbot_description.git`
 
@@ -63,7 +63,7 @@ $ sudo /etc/init.d/postfix reload
 3. CNN we will be using darknet ros (install this in ~/ros_workspace/src) [darknet install](https://github.com/leggedrobotics/darknet_ros)
 
 To make it download you have to follow this instruction:
-1. Setup your ssh key follow this instruction to do so - [setup ssh key](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html) 
+1. Setup your ssh key follow this instruction to do, so - [setup ssh key](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html) 
 2. `$ git clone --recursive git@github.com:leggedrobotics/darknet_ros.git`
 2. `$ cd ../`
 3. `$ catkin_make -DCMAKE_BUILD_TYPE=Release`
@@ -113,7 +113,7 @@ $ touch model.world
 ```
 Then you have to copy whole data inside of the file from repository, in directory named worlds there is file named model.world copy that and paste to your model.world file.
 
-[model world](https://github.com/adamkrawczyk/rosbot_patrol_simulation/tree/master/worlds) - enought is just copy whole file and paste in your repository
+[model world](https://github.com/adamkrawczyk/rosbot_patrol_simulation/tree/master/worlds) - enough is just copy whole file and paste in your repository
 
 In case you have never made any of ros_tutorials from husarion website here is whole package - just clone it to your workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg) 
 
@@ -773,13 +773,13 @@ To file package.xml paste following code:
 
 ## Create room points 
 We have to create points to where robot have to drive when motion sensor detect movement.
-The construct have very nice method to have this points so follow him with this tuturial.
+The construct have very nice method to have these points so follow him with this tuturial.
 
 [how to get goal points](https://www.youtube.com/watch?v=p-ZG6E-PZVA&t=7s) start at 30:00. 
 
 ![how_to_get_points](https://user-images.githubusercontent.com/29305346/62054606-35062600-b21a-11e9-9665-750dd296388d.png)
 
-So in our case to got this point we can start gmapping and drive robot to desired point
+So in our case to get this point we can start gmapping and drive robot to desired point
 
 `$ roslaunch rosbot_patrol_simulation simulation_gmapping.launch`
 
@@ -902,7 +902,7 @@ wait_key_delay: 1
 enable_console_output: true
 ```
 
-And that's all - we don't have to change nothing more, now we need to create launch file for oure network. In launch directory create new file called darknet_yolo_simulation_only.launch
+And that's all - we don't have to change nothing more, now we need to create launch file for our network. In launch directory create new file called darknet_yolo_simulation_only.launch
 ```
 $ roscd rosbot_patrol_simulation
 $ cd launch 
@@ -977,7 +977,7 @@ To start robot running in desired point just publish to the topic robot is liste
 $ rostopic pub /motion_trigger rosbot_patrol_simulation/EspTrigger "id: 1
 move: 1" 
 ``` 
-with appropirate id numer. 
+with appropriate id number. 
 
 ![rosbot_patrol_final](https://user-images.githubusercontent.com/29305346/62055868-b5c62180-b21c-11e9-8cba-ab023da25fe0.png)
 
@@ -995,11 +995,11 @@ Let's create our package if you haven't done that before.
 $ catkin_create_pkg rosbot_patrol roscpp
 ```
 
-We use whole algorithm from simulation but we add some more cool features, current version of rosbot has not enough computing power so we have to outsource image processing, for this case we have to implement compressed image transport, also 
+We use whole algorithm from simulation, but we add some more cool features, current version of rosbot has not enough computing power, so we have to outsource image processing, for this case we have to implement compressed image transport, also 
 
 ## Main code
 
-We need to create files for our patrol task to do so we have to create directory src and include.
+We need to create files for our patrol task to do, so we have to create directory src and include.
 ```
 $ roscd rosbot_patrol
 $ mkdir src
@@ -1631,7 +1631,7 @@ $ cd ~/ros_workspace/src
 $ git clone --single-branch --branch ipv6-husarnet https://github.com/adamkrawczyk/rosserial.git
 ```
 
-Next thing is to make our custom message to do so we have to make directory called msg and inside there make new file called EspTrigger.msg
+Next thing is to make our custom message to do, so we have to make directory called msg and inside there make new file called EspTrigger.msg
 
 ```
 $ roscd rosbot_patrol
@@ -1919,7 +1919,7 @@ delay(500);
 
 ```
 
-At the end we have to create launch for esp enabling us to read data it sends, to do so follow this instruction:
+At the end we have to create launch for esp enabling us to read data it sends, to do, so follow this instruction:
 
 ```bash
 $ roscd rosbot_patrol
@@ -2053,7 +2053,7 @@ $ touch rosbot_patrol.launch
 $ touch rosbot_patrol_pc.launch
 ```
 
-First launch will be running on rosbot but second is made for pc this is because rosbot has not enought power to process image.
+First launch will be running on rosbot but second is made for pc this is because rosbot has not enough power to process image.
 
 In rosbot_patrol.launch paste this code:
 
@@ -2118,7 +2118,7 @@ To launch this I advise you to have the same code in robot and on your computer.
 
 On your computer you should see window with bounding boxes around things that our neural network recognized.
 
-If one of your sensor detects movement robot will go to point assigned to this sensor and look for people, once it detect you should receive mail.
+If one of your sensor detect movement robot will go to point assigned to this sensor and look for people, once it detects you should receive mail.
 
 In case you have no motion sensor just publish to the topic robot is listening for move `$ rostopic pub /motion_trigger simulation/EspTrigger "id: 1 move: 1" ` with appropriate id number. 
 
