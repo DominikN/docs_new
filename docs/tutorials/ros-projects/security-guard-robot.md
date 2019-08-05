@@ -1,9 +1,8 @@
 ---
-sidebar_label: 1. Security guard robot 
+sidebar_label: 1. Security guard robot
 id: security-guard-robot
 title: Security guard robot using YOLO and Wi-Fi sensor network
 ---
-
 
 <!-- # Patrol area -->
 
@@ -16,31 +15,32 @@ Patrol area is a task for robot defined in 4 points.
 3. Classifying threads
 4. Informing owner when it's real threat
 
-This project is focused on maintaining your house/office secure when no one is inside and provide that by following rosbot project.
+This project is focused on maintaining your house/office secure when no one is inside and provide that by following rosbot task.
 We will use rosbot platform with astra camera, ESP-32 microchips with motion sensor(RPI HC-SR501) and external computer taking care of image processing.
 
-Because project covers many fields I will show you and explain how to configure everything properly. We also devide project for simulation part and real robot part, this should give clear view about whole project.
+Because project covers many fields it will be shown and explained how to configure everything properly. Project was also devided into simulation part and real robot part, this should give a clear view about whole project.
 
 ![rosbot_start_pic](https://user-images.githubusercontent.com/29305346/62448126-565d9980-b767-11e9-8437-6deaf8836d9d.png)
 
 ## Preparation
-1. I'm assuming that you have ros already installed - because rosbot currently works on ros kinetic it's necessary to have it installed, in case you don't have that check official docs : [ROS kinetic installation](http://wiki.ros.org/kinetic/Installation) .
-2. I also assume that you have your ros workspace configured with tutorial_pkg cloned to your workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg) because we will use some of the files from this repository. In case you don't just go to :
 
-cd <ros_ws>/src
+1. It is assumed that you have ros already installed - because rosbot currently works on ros kinetic it's necessary to have this version, in case you don't have that check official docs : [ROS kinetic installation](http://wiki.ros.org/kinetic/Installation) .
+2. It is also assumed that you have your ros workspace configured with tutorial_pkg cloned to your workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg) because some files from this repository will be used. In case you don't just go to :
 
-`$ git clone https://github.com/husarion/tutorial_pkg.git`
+cd <ros_workspace>/src
 
-We have to also clone rosbot description to do, so use this command:
+`git clone https://github.com/husarion/tutorial_pkg.git`
 
-`$ git clone https://github.com/husarion/rosbot_description.git`
+It is also necessary to have cloned rosbot description to do, so use this command:
 
-3. For image processing my advice is to use nvidia card with CUDA enabled (I won't show you how to do that because it's not the point).
-4. You can download whole package from github
+`git clone https://github.com/husarion/rosbot_description.git`
 
-a)simulation `$ git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
+3. For image processing advice is to use nvidia card with CUDA enabled (It won't be shown how to do that because it's not the point).
+4. You can download complete package from github
 
-b)real_robot `$ git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
+a)simulation `git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
+
+b)real_robot `git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
 
 see my repositories - [github-adam-krawczyk](https://github.com/adamkrawczyk)
 
@@ -49,34 +49,37 @@ see my repositories - [github-adam-krawczyk](https://github.com/adamkrawczyk)
 ### What to install
 
 1. Mailbox (setup this on robot also):
-..- chose internet setup set remaining parts as default during installation and setup
+   ..- chose internet setup set remaining parts as default during installation and setup
 
 ```
-$ sudo apt install mailutils 
-$ sudo apt-get install sendmail 
-$ sudo dpkg-reconfigure postfix
-$ sudo /etc/init.d/postfix reload 
+sudo apt install mailutils
+sudo apt-get install sendmail
+sudo dpkg-reconfigure postfix
+sudo /etc/init.d/postfix reload
 ```
+
 2. yaml parser
-[yaml parser install](https://github.com/jbeder/yaml-cpp) 
+   [yaml parser install](https://github.com/jbeder/yaml-cpp)
 
-3. CNN we will be using darknet ros (install this in ~/ros_workspace/src) [darknet install](https://github.com/leggedrobotics/darknet_ros)
+3. CNN (convolutional neural network) for image processing darknet ros will be used (install this in ~/ros_workspace/src) [darknet install](https://github.com/leggedrobotics/darknet_ros)
 
 To make it download you have to follow this instruction:
-1. Setup your ssh key follow this instruction to do, so - [setup ssh key](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html) 
-2. `$ git clone --recursive git@github.com:leggedrobotics/darknet_ros.git`
-2. `$ cd ../`
-3. `$ catkin_make -DCMAKE_BUILD_TYPE=Release`
+
+1. Setup your ssh key follow this instruction to do, so - [setup ssh key](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html)
+2. `git clone --recursive git@github.com:leggedrobotics/darknet_ros.git`
+3. `cd ../`
+4. `catkin_make -DCMAKE_BUILD_TYPE=Release`
 
 After installing run following command to build that:
 
-`$ catkin_make -DCMAKE_BUILD_TYPE=Release`
+`catkin_make -DCMAKE_BUILD_TYPE=Release`
 
 ### Create your packages
+
 Go to your workspace it should be something like:
 
 ```
-$ cd ~/ros_workspace/src
+cd ~/ros_workspace/src
 ```
 
 Now create pkgs
@@ -84,208 +87,219 @@ Now create pkgs
 For simulation:
 
 ```
-$ catkin_create_pkg rosbot_patrol_simulation roscpp
+catkin_create_pkg rosbot_patrol_simulation roscpp
 ```
 
 For real robot:
 
 ```
-$ catkin_create_pkg rosbot_patrol roscpp
+catkin_create_pkg rosbot_patrol roscpp
 ```
 
-I highly recommend to use this names because you wouldn't be forced to change names in almost every following file.
+It is highly recommended to use this names because it will not be necessary to change names in almost every following file.
 
 ## Simulation part
 
-For the first we will make whole simulation, test our algorithm and then implement that to real robot.
-Go to your pkg 
+For the first make whole simulation then test guard algorithm and finally implement that to real robot. Let's get this project rolling!
+
+Go to your pkg
 
 ```
-$ cd rosbot_patrol_simulation
+cd rosbot_patrol_simulation
 ```
 
-I've done world model for you so you have to download that.
+World model is already prepared, so you have to download that. Let's prepare file for that.
 
 ```
-$ mkdir worlds
-$ cd worlds
-$ touch model.world
+mkdir worlds
+cd worlds
+touch model.world
 ```
-Then you have to copy whole data inside of the file from repository, in directory named worlds there is file named model.world copy that and paste to your model.world file.
+
+Then copy whole data inside this file from repository file, in directory named worlds there is file named model.world copy that and paste to model.world file.
 
 [model world](https://github.com/adamkrawczyk/rosbot_patrol_simulation/tree/master/worlds) - enough is just copy whole file and paste in your repository
 
-In case you have never made any of ros_tutorials from husarion website here is whole package - just clone it to your workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg) 
+In case you have never made any of ros_tutorials from husarion website here is whole package - just clone it to workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg)
 
-After that we can create our first launch file for our robot this will be gmapping.
+After that first launch file for our robot - gmapping can be created.
 
 ```
-$ roscd rosbot_patrol_simulation
-$ mkdir launch
-$ cd launch
-$ touch gmapping_only.launch
+roscd rosbot_patrol_simulation
+mkdir launch
+cd launch
+touch gmapping_only.launch
 ```
 
 Then open that file with your favorite editor and paste following code:
+
 ```xml
 <launch>
 
-<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-<remap from="/base_scan" to="/scan"/>
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+        <remap from="/base_scan" to="/scan"/>
 
-<param name="base_frame" value="base_link"/>
-<param name="map_frame" value="map"/>
-<param name="odom_frame" value="odom"/>
-
-<param name="map_update_interval" value="5.0"/>
-<param name="maxUrange" value="16.0"/>
-<param name="sigma" value="0.05"/>
-<param name="kernelSize" value="1"/>
-<param name="lstep" value="0.05"/>
-<param name="astep" value="0.05"/>
-<param name="iterations" value="5"/>
-<param name="lsigma" value="0.075"/>
-<param name="ogain" value="3.0"/>
-<param name="lskip" value="0"/>
-<param name="srr" value="0.1"/>
-<param name="srt" value="0.2"/>
-<param name="str" value="0.1"/>
-<param name="stt" value="0.2"/>
-<param name="linearUpdate" value="0.05"/>
-<param name="angularUpdate" value="0.05"/>
-<param name="temporalUpdate" value="0.5"/>
-<param name="resampleThreshold" value="0.5"/>
-<param name="particles" value="30"/>
-<param name="xmin" value="-50.0"/>
-<param name="ymin" value="-50.0"/>
-<param name="xmax" value="50.0"/>
-<param name="ymax" value="50.0"/>
-<param name="delta" value="0.05"/>
-<param name="llsamplerange" value="0.01"/>
-<param name="llsamplestep" value="0.01"/>
-<param name="lasamplerange" value="0.005"/>
-<param name="lasamplestep" value="0.005"/>
-</node>
+        <param name="base_frame" value="base_link"/>
+        <param name="map_frame" value="map"/>
+        <param name="odom_frame" value="odom"/>
+        <param name="map_update_interval" value="5.0"/>
+        <param name="maxUrange" value="16.0"/>
+        <param name="sigma" value="0.05"/>
+        <param name="kernelSize" value="1"/>
+        <param name="lstep" value="0.05"/>
+        <param name="astep" value="0.05"/>
+        <param name="iterations" value="5"/>
+        <param name="lsigma" value="0.075"/>
+        <param name="ogain" value="3.0"/>
+        <param name="lskip" value="0"/>
+        <param name="srr" value="0.1"/>
+        <param name="srt" value="0.2"/>
+        <param name="str" value="0.1"/>
+        <param name="stt" value="0.2"/>
+        <param name="linearUpdate" value="0.05"/>
+        <param name="angularUpdate" value="0.05"/>
+        <param name="temporalUpdate" value="0.5"/>
+        <param name="resampleThreshold" value="0.5"/>
+        <param name="particles" value="30"/>
+        <param name="xmin" value="-50.0"/>
+        <param name="ymin" value="-50.0"/>
+        <param name="xmax" value="50.0"/>
+        <param name="ymax" value="50.0"/>
+        <param name="delta" value="0.05"/>
+        <param name="llsamplerange" value="0.01"/>
+        <param name="llsamplestep" value="0.01"/>
+        <param name="lasamplerange" value="0.005"/>
+        <param name="lasamplestep" value="0.005"/>
+    </node>
 
 </launch>
 ```
-Make move_base launch so type in console:
+
+Make move_base launch, so type in console:
 
 ```
-$ touch move_base_only.launch
+touch move_base_only.launch
 ```
 
 Open this file and paste following code:
+
 ```xml
 <launch>
 
-<node pkg="move_base" type="move_base" name="move_base" output="log">
-<param name="controller_frequency" value="25.0"/>
-<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-<rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-<rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
-<rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
-</node>
+    <node pkg="move_base" type="move_base" name="move_base" output="log">
+        <param name="controller_frequency" value="25.0"/>
+    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+    </node>
 
 </launch>
 ```
-We need to make all of this files, they are in tutorial_pkg so you can copy them from tutorial_pkg 
+
+It is no need to make all of this files, they are in tutorial_pkg so you can copy them from tutorial_pkg or preferred way - have this pkg cloned to workspace. [tutorial_pkg](https://github.com/husarion/tutorial_pkg)
 
 ```
-$ roscd rosbot_patrol_simulation
-$ mkdir config
-$ cd config
+roscd rosbot_patrol_simulation
+mkdir config
+cd config
 ```
 
 Here paste those files.
 
-Then make simulation for our robot 
+Then make simulation for robot
 
 ```
-$ touch simulation_gmapping.launch
+touch simulation_gmapping.launch
 ```
 
 Then open that file with your favorite editor and paste following code:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<launch>
-<param name="use_sim_time" value="true"/>
-<arg name="world" default="empty"/>
-<arg name="paused" default="false"/>
-<arg name="use_sim_time" default="true"/>
-<arg name="gui" default="true"/>
-<arg name="headless" default="false"/>
-<arg name="debug" default="false"/>
+    <launch>
+        <param name="use_sim_time" value="true"/>
+        <arg name="world" default="empty"/>
+        <arg name="paused" default="false"/>
+        <arg name="use_sim_time" default="true"/>
+        <arg name="gui" default="true"/>
+        <arg name="headless" default="false"/>
+        <arg name="debug" default="false"/>
 
-<include file="$(find gazebo_ros)/launch/empty_world.launch">
-<arg name="world_name" value="$(find rosbot_patrol_simulation)/worlds/model.world"/> 
-</include>
-<include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
-<include file="$(find rosbot_patrol_simulation)/launch/gmapping_only.launch" /> 
-<include file="$(find rosbot_patrol_simulation)/launch/move_base_only.launch" /> 
+    <include file="find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="find rosbot_patrol_simulation)/worlds/model.world"/>
+    </include>
+    <include file="find rosbot_description)/launch/rosbot_gazebo.launch"/>
+    <include file="find rosbot_patrol_simulation)/launch/gmapping_only.launch" />
+    <include file="find rosbot_patrol_simulation)/launch/move_base_only.launch" />
 
-<node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
-<node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/> 
+    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 </launch>
 ```
-This will enable us to explore this world. To do that use following command
+
+This launch gives ability to explore this world. To do that use following command
 
 ```
-$ roslaunch rosbot_patrol_simulation simulation_gmapping.launch
+roslaunch rosbot_patrol_simulation simulation_gmapping.launch
 ```
 
 If only everything is configured properly there should be simulation of house-like world model.
-You should be able to control rosbot from keyboard or from rviz setting goals.
-Next step is to map whole world so drive rosbot to every room and check on rviz if everything is done correctly after that save map.
+Robot should be able controllable from keyboard or from rviz setting goals.
+Next step is to map whole world, so drive rosbot to every room and check on rviz if everything is done correctly after that save map.
 
-### Save map 
+### Save map
+
 Open another terminal and go to our project then in simulation make directory for maps.
-```
-$ mkdir maps
-$ cd maps
-```
-There we should save our map - do that with following command:
 
 ```
-$ rosrun map_server map_saver -f rosbot_map
+mkdir maps
+cd maps
+```
+
+There map should be saved - do that with following command:
+
+```
+rosrun map_server map_saver -f rosbot_map
 ```
 
 After that there should be map in folder maps
 
 ### Amcl
-Once we have our map already saved we need to create launch for amcl to make our robot find it's location on already made map.
+
+Once the map is already saved we need to create launch for amcl to make the robot find it's location on that map.
 In launch directory make new file called amcl_only.launch
 
 ```
-$ roscd rosbot_patrol_simulation
-$ cd launch 
-$ touch amcl_only.launch
+roscd rosbot_patrol_simulation
+cd launch
+touch amcl_only.launch
 ```
 
-Inside of this file we have to paste following code, it's also in tutorial pkg :
+Inside of this file paste following code, it's also in tutorial pkg :
 
 ```xml
 <launch>
-<node pkg="amcl" type="amcl" name="amcl" output="screen">
-<remap from="scan" to="/scan"/>
-<param name="odom_frame_id" value="odom"/>
-<param name="odom_model_type" value="diff-corrected"/>
-<param name="base_frame_id" value="base_link"/>
-<param name="update_min_d" value="0.5"/>
-<param name="update_min_a" value="1.0"/>
-</node> 
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+        <remap from="scan" to="/scan"/>
+        <param name="odom_frame_id" value="odom"/>
+        <param name="odom_model_type" value="diff-corrected"/>
+        <param name="base_frame_id" value="base_link"/>
+        <param name="update_min_d" value="0.5"/>
+        <param name="update_min_a" value="1.0"/>
+    </node>
 </launch>
 ```
 
 ## Final launch for world
+
 In launch directory create launch for whole world with map.
 
 ```bash
-$ roscd simulation
-$ cd launch 
-$ touch simulation_world.launch
+roscd simulation
+cd launch
+touch simulation_world.launch
 ```
 
 Inside of this file paste following code:
@@ -293,26 +307,27 @@ Inside of this file paste following code:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-<param name="use_sim_time" value="true"/>
-<arg name="world" default="empty"/>
-<arg name="paused" default="false"/>
-<arg name="use_sim_time" default="true"/>
-<arg name="gui" default="true"/>
-<arg name="headless" default="false"/>
-<arg name="debug" default="false"/>
+    <param name="use_sim_time" value="true"/>
+    <arg name="world" default="empty"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
 
-<include file="$(find gazebo_ros)/launch/empty_world.launch">
-<arg name="world_name" value="$(find rosbot_patrol_simulation)/worlds/model.world"/> 
-</include>
-<include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
-<include file="$(find rosbot_patrol_simulation)/launch/move_base_only.launch" /> 
-<include file="$(find rosbot_patrol_simulation)/launch/amcl_only.launch"/> 
+    <include file="find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="find rosbot_patrol_simulation)/worlds/model.world"/>
+    </include>
+    <include file="find rosbot_description)/launch/rosbot_gazebo.launch"/>
+    <include file="find rosbot_patrol_simulation)/launch/move_base_only.launch" />
+    <include file="find rosbot_patrol_simulation)/launch/amcl_only.launch"/>
 
-<node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
-<node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
-<!--map server with simul map-->
-<arg name="map_file" default="$(find rosbot_patrol_simulation)/maps/rosbot_map.yaml"/>
-<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="false" />
+    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+                    
+                    <!--map server with simul map-->
+    <arg name="map_file" default="find rosbot_patrol_simulation)/maps/rosbot_map.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="arg map_file)" respawn="false" />
 
 </launch>
 ```
@@ -320,40 +335,48 @@ Inside of this file paste following code:
 ## Main code
 
 ### Our custom message for esp
-We need to define our type of message for motion sensor - we won't be using real microcontrollers in simulation but message will be the same.
+
+It is needed to define new type of message for motion sensor - real microcontrollers won't be used in simulation, but message will be the same as in real robot part.
 Create folder called msg and inside make file called EspTrigger.msg
+
 ```
-$ roscd rosbot_patrol_simulation
-$ mkdir msg
-$ cd msg
-$ touch EspTrigger.msg
+roscd rosbot_patrol_simulation
+mkdir msg
+cd msg
+touch EspTrigger.msg
 ```
 
 Inside of this file there will be only two lines:
+
 ```cpp
 uint8 id
 bool move
-``` 
+```
+
 id - numer of room where sensor is placed
 
 move - value informing if there is move detected
 
 ### Class files
+
 In simulation directory create folder called src and include
 
 ```
-$ roscd rosbot_patrol_simulation
-$ mkdir src
-$ mkdir include
+roscd rosbot_patrol_simulation
+mkdir src
+mkdir include
 ```
+
 In include folder create file called PatrolManager.h
+
 ```
-$ cd include
-$ touch PatrolManager.h
+cd include
+touch PatrolManager.h
 ```
 
 In this file put following code:
-``` cpp
+
+```cpp
 #include <iostream>
 #include <ros/ros.h>
 #include <string.h>
@@ -372,184 +395,194 @@ using namespace std;
 class PatrolManager
 {
 public:
-PatrolManager(ros::NodeHandle &nh);
-~PatrolManager();
-bool moveToGoal(std::string name, float x, float y ,float theta);
-bool makeSpin(double radians, bool clockwise = 1);
+    PatrolManager(ros::NodeHandle &nh);
+    ~PatrolManager();
+    bool moveToGoal(std::string name, float x, float y, float theta);
+    bool makeSpin(double radians, bool clockwise = 1);
 
 private:
-std::vector<double> quaternion_from_euler(double yaw, double pitch,double roll);
-std::vector<double> quaternion;
-ros::NodeHandle nh_; //The node handle we'll be using
-ros::Publisher cmd_vel_pub_; //We will be publishing to the "cmd_vel" topic to issue commands
-tf::TransformListener listener_; //We will be listening to TF transforms 
+    std::vector<double> quaternion_from_euler(double yaw, double pitch, double roll);
+    std::vector<double> quaternion;
+    ros::NodeHandle nh_;             //The node handle we'll be using
+    ros::Publisher cmd_vel_pub_;     //We will be publishing to the "cmd_vel" topic to issue commands
+    tf::TransformListener listener_; //We will be listening to TF transforms
 };
 ```
 
-Our class has many libraries included it's because we will be sending goals to action server. 
+This class has many libraries included it's because we will be sending goals to action server.
 
-Inicializer takes one argument - pointer for node handle, this is because our method for making spins require publishing to cmd_vel topic.
+Inicializer takes one argument - pointer for node handle, this is because method for making spins require publishing to cmd_vel topic.
 
-Other public methods are made for driving to destination described in yaml file and making spin as "scanning". 
+Other public methods are made for driving to destination described in yaml file and making spin as "scanning".
 
-Once we have our .h file go create our cpp file, change folder to src and inside it make new file.
+Once .h file is created let's go create .cpp file, change folder to src and inside it make new file.
 
 ```
-$ cd .. && cd src
-$ touch PatrolManager.cpp
+cd .. && cd src
+touch PatrolManager.cpp
 ```
 
 Inside paste this code:
 
-``` cpp
+```cpp
 #include <PatrolManager.h>
 
 using namespace std;
 
-PatrolManager::PatrolManager(ros::NodeHandle &nh) {
-nh_ = nh;
-cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+PatrolManager::PatrolManager(ros::NodeHandle &nh)
+{
+    nh_ = nh;
+    cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
 }
-
 
 PatrolManager::~PatrolManager() {}
 
+bool PatrolManager::makeSpin(double radians, bool clockwise)
+{
 
+    while (radians < 0)
+        radians += 2 * M_PI;
+    while (radians > 2 * M_PI)
+        radians -= 2 * M_PI;
 
+    listener_.waitForTransform(
+        "/base_link", "/odom", ros::Time(0),
+        ros::Duration(1.0)); // wait for the listener to get the first message
 
-bool PatrolManager::makeSpin(double radians, bool clockwise) {
+    tf::StampedTransform start_transform;
+    tf::StampedTransform current_transform;
+    listener_.lookupTransform("/base_link", "/odom", ros::Time(0), start_transform);
 
-while (radians < 0)
-radians += 2 * M_PI; 
-while (radians > 2 * M_PI)
-radians -= 2 * M_PI;
+    geometry_msgs::Twist base_cmd;
+    base_cmd.linear.x = base_cmd.linear.y = 0.0;
+    base_cmd.angular.z = 0.75; // set apropirate velocity for robot
+    if (clockwise)
+        base_cmd.angular.z = -base_cmd.angular.z;
 
-listener_.waitForTransform(
-"/base_link", "/odom", ros::Time(0),
-ros::Duration(1.0)); // wait for the listener to get the first message
+    tf::Vector3 desired_turn_axis(0, 0, 1); // the axis we want to be rotating by
+    if (!clockwise)
+        desired_turn_axis = -desired_turn_axis;
 
-tf::StampedTransform start_transform;
-tf::StampedTransform current_transform;
-listener_.lookupTransform("/base_link", "/odom", ros::Time(0), start_transform);
+    ros::Rate rate(5.0);
+    bool done = false;
 
-geometry_msgs::Twist base_cmd;
-base_cmd.linear.x = base_cmd.linear.y = 0.0;
-base_cmd.angular.z = 0.75; // set apropirate velocity for robot
-if (clockwise)
-base_cmd.angular.z = -base_cmd.angular.z;
+    while (!done && nh_.ok())
+    {
+        cmd_vel_pub_.publish(base_cmd);
+        rate.sleep();
 
-tf::Vector3 desired_turn_axis(0, 0, 1); // the axis we want to be rotating by
-if (!clockwise)
-desired_turn_axis = -desired_turn_axis;
+        try
+        {
+            listener_.lookupTransform("/base_link", "/odom", ros::Time(0),
+                                      current_transform);
+        }
+        catch (tf::TransformException ex)
+        {
+            ROS_ERROR("%s", ex.what());
+            break;
+        }
+        // see how far we've traveled
+        tf::Transform relative_transform =
+            start_transform.inverse() * current_transform;
+        tf::Vector3 actual_turn_axis = relative_transform.getRotation().getAxis();
+        double angle_turned = relative_transform.getRotation().getAngle();
+        if (fabs(angle_turned) < 1.0e-2) //to make less computation if there is not much rotation made
+        {
+            continue;
+        }
 
-ros::Rate rate(5.0);
-bool done = false;
-
-while (!done && nh_.ok()) {
-cmd_vel_pub_.publish(base_cmd);
-rate.sleep();
-
-try {
-listener_.lookupTransform("/base_link", "/odom", ros::Time(0),
-current_transform);
-} catch (tf::TransformException ex) {
-ROS_ERROR("%s", ex.what());
-break;
+        if (actual_turn_axis.dot(desired_turn_axis) < 0)
+        {
+            angle_turned = 2 * M_PI - angle_turned;
+        }
+        if (angle_turned > radians)
+        {
+            done = true;
+        }
+    }
+    if (done)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
-// see how far we've traveled
-tf::Transform relative_transform =
-start_transform.inverse() * current_transform;
-tf::Vector3 actual_turn_axis = relative_transform.getRotation().getAxis();
-double angle_turned = relative_transform.getRotation().getAngle();
-if (fabs(angle_turned) < 1.0e-2) //to make less computation if there is not much rotation made
-{ 
-continue;
-}
-
-if (actual_turn_axis.dot(desired_turn_axis) < 0) {
-angle_turned = 2 * M_PI - angle_turned;
-}
-if (angle_turned > radians) {
-done = true;
-}
-}
-if (done) {
-return true;
-} else {
-return false;
-}
-}
-
-
 
 bool PatrolManager::moveToGoal(std::string the_name, float the_x, float the_y,
-float the_theta) {
-actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base",
-true);
+                               float the_theta)
+{
+    actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base",
+                                                                     true);
 
-while (!ac.waitForServer(ros::Duration(5.0))) {
-ROS_INFO("Waiting for the move_base action server to come up");
-}
+    while (!ac.waitForServer(ros::Duration(5.0)))
+    {
+        ROS_INFO("Waiting for the move_base action server to come up");
+    }
 
-move_base_msgs::MoveBaseGoal goal;
+    move_base_msgs::MoveBaseGoal goal;
 
-goal.target_pose.header.frame_id = "map";
-goal.target_pose.header.stamp = ros::Time::now();
-goal.target_pose.pose.position.x = the_x;
-goal.target_pose.pose.position.y = the_y;
-quaternion = quaternion_from_euler(0.0, 0.0, the_theta);
-goal.target_pose.pose.orientation.x = quaternion[0];
-goal.target_pose.pose.orientation.y = quaternion[1];
-goal.target_pose.pose.orientation.z = quaternion[2];
-goal.target_pose.pose.orientation.w = quaternion[3];
+    goal.target_pose.header.frame_id = "map";
+    goal.target_pose.header.stamp = ros::Time::now();
+    goal.target_pose.pose.position.x = the_x;
+    goal.target_pose.pose.position.y = the_y;
+    quaternion = quaternion_from_euler(0.0, 0.0, the_theta);
+    goal.target_pose.pose.orientation.x = quaternion[0];
+    goal.target_pose.pose.orientation.y = quaternion[1];
+    goal.target_pose.pose.orientation.z = quaternion[2];
+    goal.target_pose.pose.orientation.w = quaternion[3];
 
-ROS_INFO("Sending goal location :");
-printf("x: %f ,y: %f ,th: %f ", the_x,the_y,the_theta);
-ac.sendGoal(goal);
-ac.waitForResult(); //wait until the result is given
+    ROS_INFO("Sending goal location :");
+    printf("x: %f ,y: %f ,th: %f ", the_x, the_y, the_theta);
+    ac.sendGoal(goal);
+    ac.waitForResult(); //wait until the result is given
 
-if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-ROS_INFO("Robot reached it's destination and started scanning area");
-return true;
-} else {
-ROS_INFO("The robot failed to reach the destination check that");
-return false;
-}
+    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    {
+        ROS_INFO("Robot reached it's destination and started scanning area");
+        return true;
+    }
+    else
+    {
+        ROS_INFO("The robot failed to reach the destination check that");
+        return false;
+    }
 }
 
 std::vector<double>
 PatrolManager::quaternion_from_euler(double roll, double pitch, double yaw) //method just to convert quaternion from euler - to give user clearance
 {
 
-std::vector<double> quat;
+    std::vector<double> quat;
 
-// Abbreviations for the various angular functions
-double cy = cos(yaw * 0.5);
-double sy = sin(yaw * 0.5);
-double cp = cos(pitch * 0.5);
-double sp = sin(pitch * 0.5);
-double cr = cos(roll * 0.5);
-double sr = sin(roll * 0.5);
+    // Abbreviations for the various angular functions
+    double cy = cos(yaw * 0.5);
+    double sy = sin(yaw * 0.5);
+    double cp = cos(pitch * 0.5);
+    double sp = sin(pitch * 0.5);
+    double cr = cos(roll * 0.5);
+    double sr = sin(roll * 0.5);
 
-quat.push_back(cy * cp * sr - sy * sp * cr); // x
-quat.push_back(sy * cp * sr + cy * sp * cr); // y
-quat.push_back(sy * cp * cr - cy * sp * sr); // z
-quat.push_back(cy * cp * cr + sy * sp * sr); // w
+    quat.push_back(cy * cp * sr - sy * sp * cr); // x
+    quat.push_back(sy * cp * sr + cy * sp * cr); // y
+    quat.push_back(sy * cp * cr - cy * sp * sr); // z
+    quat.push_back(cy * cp * cr + sy * sp * sr); // w
 
-return quat;
+    return quat;
 }
 ```
 
-
-
 ### main file
+
 In src directory create another file called patrol_robot_simulation.cpp
 
 ```
-$ touch patrol_robot_simulation.cpp
+touch patrol_robot_simulation.cpp
 ```
 
 In this file paste following code:
+
 ```cpp
 #include <PatrolManager.h>
 #include <darknet_ros_msgs/BoundingBoxes.h>
@@ -575,115 +608,132 @@ vector<double> y_coordinates{};
 vector<double> th_coordinates{};
 
 void sendMail(const char *to, const char *from, const char *subject,
-const char *message) {
-ROS_INFO("Sending mail!!!");
-// int retval = -1;
-FILE *mailpipe = popen("/usr/lib/sendmail -t", "w");
-if (mailpipe != NULL) {
-fprintf(mailpipe, "To: %s\n", to);
-fprintf(mailpipe, "From: %s\n", from);
-fprintf(mailpipe, "Subject: %s\n\n", subject);
-fwrite(message, 1, strlen(message), mailpipe);
-fwrite(".\n", 1, 2, mailpipe);
-pclose(mailpipe);
-// retval = 0;
-} else {
-perror("Failed to invoke sendmail");
-}
-// return retval;
-}
-
-void saveConfigFiles(string path) {
-ROS_INFO("path is : %s",path.c_str());
-YAML::Node conf_file = YAML::LoadFile(path.c_str());
-for (int i = 0; i < conf_file["rooms_num"].as<int>(); i++) {
-x_coordinates.push_back(
-conf_file["rooms"]["room" + to_string(i)]["x"].as<double>());
-y_coordinates.push_back(
-conf_file["rooms"]["room" + to_string(i)]["y"].as<double>());
-th_coordinates.push_back(
-conf_file["rooms"]["room" + to_string(i)]["angle"].as<double>());
-room_names.push_back(
-conf_file["rooms"]["room" + to_string(i)]["name"].as<std::string>());
-}
+              const char *message)
+{
+    ROS_INFO("Sending mail!!!");
+    // int retval = -1;
+    FILE *mailpipe = popen("/usr/lib/sendmail -t", "w");
+    if (mailpipe != NULL)
+    {
+        fprintf(mailpipe, "To: %s\n", to);
+        fprintf(mailpipe, "From: %s\n", from);
+        fprintf(mailpipe, "Subject: %s\n\n", subject);
+        fwrite(message, 1, strlen(message), mailpipe);
+        fwrite(".\n", 1, 2, mailpipe);
+        pclose(mailpipe);
+        // retval = 0;
+    }
+    else
+    {
+        perror("Failed to invoke sendmail");
+    }
+    // return retval;
 }
 
-void darknetCallback(const darknet_ros_msgs::BoundingBoxes &bb_msg) {
-
-int size =
-bb_msg.bounding_boxes.size(); // ros msgs are mapped onto std::vector
-for (int i = 0; i < size; i++) {
-// ROS_INFO("checking for obj");
-if ((bb_msg.bounding_boxes[i].Class == "fire hydrant") or
-(bb_msg.bounding_boxes[i].Class == "person")) {
-ROS_INFO("Found fire hydrant or person/people");
-
-ros::Time time_now = ros::Time::now();
-if (time_now - last_email_sent >= ros::Duration(10)) {
-sendMail(email_to.c_str(), email_from.c_str(), "rosbot patrol node","I have found something strange it could be invader");
-last_email_sent = time_now;
-}
-}
-}
+void saveConfigFiles(string path)
+{
+    ROS_INFO("path is : %s", path.c_str());
+    YAML::Node conf_file = YAML::LoadFile(path.c_str());
+    for (int i = 0; i < conf_file["rooms_num"].as<int>(); i++)
+    {
+        x_coordinates.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["x"].as<double>());
+        y_coordinates.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["y"].as<double>());
+        th_coordinates.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["angle"].as<double>());
+        room_names.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["name"].as<std::string>());
+    }
 }
 
-void espCallback(const rosbot_patrol_simulation::EspTrigger &trigger_msg) {
-bool spin_made;
+void darknetCallback(const darknet_ros_msgs::BoundingBoxes &bb_msg)
+{
 
-if (trigger_msg.move == 1) {
-int esp_id = trigger_msg.id;
-PatrolManager pn(*nh_ptr);
+    int size =
+        bb_msg.bounding_boxes.size(); // ros msgs are mapped onto std::vector
+    for (int i = 0; i < size; i++)
+    {
+        // ROS_INFO("checking for obj");
+        if ((bb_msg.bounding_boxes[i].Class == "fire hydrant") or
+            (bb_msg.bounding_boxes[i].Class == "person"))
+        {
+            ROS_INFO("Found fire hydrant or person/people");
 
-room_reached = pn.moveToGoal(room_names[esp_id], x_coordinates[esp_id],
-y_coordinates[esp_id], th_coordinates[esp_id]);
-if (room_reached) {
-ROS_INFO("I've reached destination");
+            ros::Time time_now = ros::Time::now();
+            if (time_now - last_email_sent >= ros::Duration(10))
+            {
+                sendMail(email_to.c_str(), email_from.c_str(), "rosbot patrol node", "I have found something strange it could be invader");
+                last_email_sent = time_now;
+            }
+        }
+    }
 }
 
-spin_made = pn.makeSpin(360 * NUM_OF_SPINS, 0);
-if (spin_made) {
-ROS_INFO("I've just scanned room");
+void espCallback(const rosbot_patrol_simulation::EspTrigger &trigger_msg)
+{
+    bool spin_made;
+
+    if (trigger_msg.move == 1)
+    {
+        int esp_id = trigger_msg.id;
+        PatrolManager pn(*nh_ptr);
+
+        room_reached = pn.moveToGoal(room_names[esp_id], x_coordinates[esp_id],
+                                     y_coordinates[esp_id], th_coordinates[esp_id]);
+        if (room_reached)
+        {
+            ROS_INFO("I've reached destination");
+        }
+
+        spin_made = pn.makeSpin(360 * NUM_OF_SPINS, 0);
+        if (spin_made)
+        {
+            ROS_INFO("I've just scanned room");
+        }
+
+        starting_poit_reached = pn.moveToGoal(room_names[0], x_coordinates[0],
+                                              y_coordinates[0], th_coordinates[0]);
+        if (starting_poit_reached)
+        {
+            ROS_INFO("I've reached starting_poit_reached");
+        }
+    }
 }
 
-starting_poit_reached = pn.moveToGoal(room_names[0], x_coordinates[0],
-y_coordinates[0], th_coordinates[0]);
-if (starting_poit_reached) {
-ROS_INFO("I've reached starting_poit_reached");
-}
-}
-}
+int main(int argc, char *argv[])
+{
+    ros::init(argc, argv, "patrol_robot_simulation");
+    ros::NodeHandle nh("~");
+    nh_ptr = &nh;
+    nh.getParam("path_to_params", params_path);
+    nh.getParam("email_to", email_to);
+    nh.getParam("email_from", email_from);
+    printf("path : %s", params_path.c_str());
+    saveConfigFiles(params_path);
 
-int main(int argc, char *argv[]) {
-ros::init(argc, argv, "patrol_robot_simulation");
-ros::NodeHandle nh("~");
-nh_ptr = &nh;
-nh.getParam("path_to_params", params_path);
-nh.getParam("email_to", email_to);
-nh.getParam("email_from", email_from);
-printf("path : %s",params_path.c_str());
-saveConfigFiles(params_path);
+    ros::Subscriber sub_esp = nh.subscribe("/motion_trigger", 1, espCallback);
+    ros::Subscriber sub_darknet =
+        nh.subscribe("/darknet_ros/bounding_boxes", 100, darknetCallback);
 
-ros::Subscriber sub_esp = nh.subscribe("/motion_trigger", 1, espCallback);
-ros::Subscriber sub_darknet =
-nh.subscribe("/darknet_ros/bounding_boxes", 100, darknetCallback);
+    ros::Rate loop_rate(50);
+    last_email_sent = ros::Time::now();
+    while (ros::ok)
+    {
 
-ros::Rate loop_rate(50);
-last_email_sent = ros::Time::now();
-while (ros::ok) {
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
 
-ros::spinOnce();
-loop_rate.sleep();
-}
-
-return 0;
+    return 0;
 }
 ```
 
 remember to change permission for file by running following command:
 
 ```bash
-$ chmod +x patrol_robot_simulation.cpp
-$ chmod +x PatrolManager.cpp
+chmod +x patrol_robot_simulation.cpp
+chmod +x PatrolManager.cpp
 ```
 
 ## CMakeLists and package
@@ -724,21 +774,21 @@ message_runtime
 )
 
 include_directories(
-include ${catkin_INCLUDE_DIRS}
-${catkin_INCLUDE_DIRS}
-${OpenCV_INCLUDE_DIRS}
+include catkin_INCLUDE_DIRS}
+catkin_INCLUDE_DIRS}
+OpenCV_INCLUDE_DIRS}
 )
 
 add_executable(patrol_robot_simulation src/patrol_robot_simulation.cpp src/PatrolManager.cpp)
-add_dependencies(patrol_robot_simulation ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(patrol_robot_simulation PROJECT_NAME}_EXPORTED_TARGETS} catkin_EXPORTED_TARGETS})
 target_link_libraries(patrol_robot_simulation
-${catkin_LIBRARIES} yaml-cpp
+catkin_LIBRARIES} yaml-cpp
 )
 ```
 
 To file package.xml paste following code:
 
-```c
+```xml
 <?xml version="1.0"?>
 <package format="2">
 <name>rosbot_patrol_simulation</name>
@@ -771,97 +821,120 @@ To file package.xml paste following code:
 </package>
 ```
 
-## Create room points 
-We have to create points to where robot have to drive when motion sensor detect movement.
+## Create room points
+
+Next step is to create points to where robot must drive when motion sensor detect movement.
 The construct have very nice method to have these points so follow him with this tuturial.
 
-[how to get goal points](https://www.youtube.com/watch?v=p-ZG6E-PZVA&t=7s) start at 30:00. 
+[how to get goal points](https://www.youtube.com/watch?v=p-ZG6E-PZVA&t=7s) start at 30:00.
 
 ![how_to_get_points](https://user-images.githubusercontent.com/29305346/62054606-35062600-b21a-11e9-9665-750dd296388d.png)
 
-So in our case to get this point we can start gmapping and drive robot to desired point
+So in this case to get this points it is recomended to start gmapping, drive robot to desired point and get coordinates of this point from Rviz.
 
-`$ roslaunch rosbot_patrol_simulation simulation_gmapping.launch`
+`roslaunch rosbot_patrol_simulation simulation_gmapping.launch`
 
 On the other terminal launch rviz:
 
-`$ rviz`
+`rviz`
 
-Once we have points lets create yaml file with those points.
+Once points are known lets create yaml file with those points.
 In rosbot_patrol_simulation pkg create new folder called params
 
 ```
-$ cd ..
-$ mkdir params
-$ cd params && touch room_points.yaml
+cd ..
+mkdir params
+cd params && touch room_points.yaml
 ```
 
-In room_points.yaml file place your points with following convention:
+In room_points.yaml file place found points with following convention:
+
 ```yaml
-#name rooms must be numerated consequently as room<num> 
+#name rooms must be numerated consequently as room<num>  
 
-rooms_num: 8 #remember that is enumerated from 0
+rooms_num: 11   #remember that is enumerated from 0
 rooms:
-room0:
-name: "base/return point" #if it's set to 0,0,0 robot will go back to start point 
-x: 0
-y: 0
-angle: 0
+  room0:
+    name: "base/return point" #if it's set to 0,0,0 robot will go back to start point 
+    x:      0
+    y:      0
+    angle:  0
 
-room1:
-name: "room1-name"
-x: 2.819
-y: -0.175
-angle: 30
+  room1:
+    name: "room1-name"
+    x:      2.819
+    y:      -0.175
+    angle:  0
 
-room2:
-name: "room2-name"
-x: -3.489
-y: 0.306
-angle: 45 
+  room2:
+    name: "room2-name"
+    x:      -3.489
+    y:      0.306
+    angle:  0   
 
-room3:
-name: "room3-name"
-x: -4.786
-y: 3.412
-angle: 236
+  room3:
+    name: "room3-name"
+    x:      -4.786
+    y:      3.412
+    angle:  0
 
-room4:
-name: "room4-name"
-x: -3.848
-y: 6.496
-angle: 359
+  room4:
+    name: "room4-name"
+    x:      -3.848
+    y:      6.496
+    angle:  0
 
-room5:
-name: "room5-name"
-x: 2.682
-y: 7.352
-angle: 0 
+  room5:
+    name: "room5-name"
+    x:      2.682
+    y:      7.352
+    angle:  0   
 
-room6:
-name: "room6-name"
-x: 5.651
-y: 12.038
-angle: 0
+  room6:
+    name: "room6-name"
+    x:      5.651
+    y:      12.038
+    angle:  0
 
-room7:
-name: "room7-name"
-x: 14.750
-y: 11.480
-angle: 0
+  room7:
+    name: "room7-name"
+    x:      14.750
+    y:      11.480
+    angle:  0
 
-``` 
+  room8:
+    name: "room8 - name"
+    x:      0.21
+    y:      0.5942
+    angle:  0
+
+
+  room9:
+    name: "room8 - name"
+    x:      -0.01
+    y:      0.542
+    angle:  45
+
+
+  room10:
+    name: "room8 - name"
+    x:      -0.21
+    y:      -0.42
+    angle:  180
+```
+
 ![rosbot_room_plan](https://user-images.githubusercontent.com/29305346/62054987-fde44480-b21a-11e9-9eb6-30d4f4706570.png)
 
 This are points for model.world world remember to set point0 to all zeroes - it's point to where robot will be coming back after patrolling room.
 
 ## Yolo setup
-Next we need to setup our neural network - for that we will use pre-trained model. In config directory we create for this purpose config file.
+
+Next we need to setup neural network - for that we will use pre-trained model. In config directory we create for this purpose config file.
 
 ```
-$ roscd rosbot_patrol_simulation
-$ cd config
-$ touch darknet_config_simulation.yaml
+roscd rosbot_patrol_simulation
+cd config
+touch darknet_config_simulation.yaml
 ```
 
 In darknet_config_simulation.yaml:
@@ -869,44 +942,45 @@ In darknet_config_simulation.yaml:
 ```yaml
 subscribers:
 
-camera_reading:
-topic: /camera/rgb/image_raw
-queue_size: 1
+  camera_reading:
+    topic: /camera/rgb/image_raw
+    queue_size: 1
 
 actions:
 
-camera_reading:
-name: /darknet_ros/check_for_objects
+  camera_reading:
+    name: /darknet_ros/check_for_objects
 
 publishers:
 
-object_detector:
-topic: /darknet_ros/found_object
-queue_size: 1
-latch: false
+  object_detector:
+    topic: /darknet_ros/found_object
+    queue_size: 1
+    latch: false
 
-bounding_boxes:
-topic: /darknet_ros/bounding_boxes
-queue_size: 1
-latch: false
+  bounding_boxes:
+    topic: /darknet_ros/bounding_boxes
+    queue_size: 1
+    latch: false
 
-detection_image:
-topic: /darknet_ros/detection_image
-queue_size: 1
-latch: true
+  detection_image:
+    topic: /darknet_ros/detection_image
+    queue_size: 1
+    latch: true
 
 image_view:
 
-enable_opencv: true
-wait_key_delay: 1
-enable_console_output: true
+  enable_opencv: true
+  wait_key_delay: 1
+  enable_console_output: true
 ```
 
-And that's all - we don't have to change nothing more, now we need to create launch file for our network. In launch directory create new file called darknet_yolo_simulation_only.launch
+And that's all - it isn't necessary to change anything else, now create launch file for neural network. In launch directory create new file called darknet_yolo_simulation_only.launch
+
 ```
-$ roscd rosbot_patrol_simulation
-$ cd launch 
-$ touch darknet_yolo_simulation_only.launch
+roscd rosbot_patrol_simulation
+cd launch
+touch darknet_yolo_simulation_only.launch
 ```
 
 Inside paste following code:
@@ -918,21 +992,21 @@ Inside paste following code:
 <arg name="launch_prefix" default=""/>
 
 <!-- Config and weights folder. -->
-<arg name="yolo_weights_path" default="$(find darknet_ros)/yolo_network_config/weights"/>
-<arg name="yolo_config_path" default="$(find darknet_ros)/yolo_network_config/cfg"/>
+<arg name="yolo_weights_path" default="find darknet_ros)/yolo_network_config/weights"/>
+<arg name="yolo_config_path" default="find darknet_ros)/yolo_network_config/cfg"/>
 
 <!-- ROS and network parameter files -->
-<arg name="ros_param_file" default="$(find rosbot_patrol_simulation)/config/darknet_config_simulation.yaml"/>
-<arg name="network_param_file" default="$(find darknet_ros)/config/yolov2-tiny.yaml"/>
+<arg name="ros_param_file" default="find rosbot_patrol_simulation)/config/darknet_config_simulation.yaml"/>
+<arg name="network_param_file" default="find darknet_ros)/config/yolov2-tiny.yaml"/>
 
 <!-- Load parameters -->
-<rosparam command="load" ns="darknet_ros" file="$(arg ros_param_file)"/>
-<rosparam command="load" ns="darknet_ros" file="$(arg network_param_file)"/>
+<rosparam command="load" ns="darknet_ros" file="arg ros_param_file)"/>
+<rosparam command="load" ns="darknet_ros" file="arg network_param_file)"/>
 
 <!-- Start darknet and ros wrapper -->
-<node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
-<param name="weights_path" value="$(arg yolo_weights_path)" />
-<param name="config_path" value="$(arg yolo_config_path)" />
+<node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="arg launch_prefix)">
+<param name="weights_path" value="arg yolo_weights_path)" />
+<param name="config_path" value="arg yolo_config_path)" />
 </node>
 
 </launch>
@@ -940,8 +1014,8 @@ Inside paste following code:
 
 At the end we have to wrap whole things to one launch file, create rosbot_patrol.launch
 
-``` 
-$ touch rosbot_patrol.launch
+```
+touch rosbot_patrol.launch
 ```
 
 And paste following launch file:
@@ -950,15 +1024,15 @@ And paste following launch file:
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-<include file="$(find rosbot_patrol_simulation)/launch/darknet_yolo_simulation_only.launch"/> 
+<include file="find rosbot_patrol_simulation)/launch/darknet_yolo_simulation_only.launch"/>
 
-<include file="$(find rosbot_patrol_simulation)/launch/simulation_world.launch"/> 
+<include file="find rosbot_patrol_simulation)/launch/simulation_world.launch"/>
 
 <!-- patrol node -->
 <node pkg="rosbot_patrol_simulation" type="patrol_robot_simulation" name="patrolling_node" output="screen" respawn="true">
 
-<!-- path to file with params of points --> 
-<param name="path_to_params" type="string" value="$(find rosbot_patrol_simulation)/params/room_points.yaml" />
+<!-- path to file with params of points -->
+<param name="path_to_params" type="string" value="find rosbot_patrol_simulation)/params/room_points.yaml" />
 <param name="email_to" type="string" value="*****@****.***" /> <!-- setup first mailbox on your device!!!!!! -->
 <param name="email_from" type="string" value="*****@****.***" />
 </node>
@@ -967,52 +1041,60 @@ And paste following launch file:
 ```
 
 ## Test this algorithm
+
 To make it run simply paste in your terminal this command:
 
 ```
-$ roslaunch rosbot_patrol_simulation rosbot_patrol.launch
+roslaunch rosbot_patrol_simulation rosbot_patrol.launch
 ```
+
 To start robot running in desired point just publish to the topic robot is listening for move:
+
 ```
-$ rostopic pub /motion_trigger rosbot_patrol_simulation/EspTrigger "id: 1
-move: 1" 
-``` 
-with appropriate id number. 
+rostopic pub /motion_trigger rosbot_patrol_simulation/EspTrigger "id: 1
+move: 1"
+```
+
+with appropriate id number.
 
 ![rosbot_patrol_final](https://user-images.githubusercontent.com/29305346/62055868-b5c62180-b21c-11e9-8cba-ab023da25fe0.png)
 
 # Real robot part
 
-Once we made simulation and our algorithm works now we can implement that to real rosbot 
+Once simulation is made and our algorithm works now we can implement it to real rosbot
 
 ## Introduction
-On robot we also have to install all packages form introduction so in case you haven't just install that on your rosbot. 
-There are currently new firmware for rosbot under heavy development so in hardware launch is option to chose which version you have.
+
+On robot we also have to install all packages form introduction so in case you haven't just install that on your rosbot.
+There are currently new firmware for rosbot because of that in hardware launch is option to chose which version you have.
 
 Let's create our package if you haven't done that before.
 
 ```
-$ catkin_create_pkg rosbot_patrol roscpp
+catkin_create_pkg rosbot_patrol roscpp
 ```
 
-We use whole algorithm from simulation, but we add some more cool features, current version of rosbot has not enough computing power, so we have to outsource image processing, for this case we have to implement compressed image transport, also 
+In real part whole algorithm from simulation will be used, but with some more cool features like esp32 sensors or neural network and this is problem, because current version of rosbot has not enough computing power, so it is necessary to outsource image processing, and this require to implement compressed image transport.
 
 ## Main code
 
-We need to create files for our patrol task to do, so we have to create directory src and include.
+It's needed to create files for our patrol task to do, that create directory src and include.
+
 ```
-$ roscd rosbot_patrol
-$ mkdir src
-$ mkdir include
+roscd rosbot_patrol
+mkdir src
+mkdir include
 ```
 
 ### Include
+
 In this directory create new file called PatrolManager.h
 
 ```
-$ cd include
-$ touch PatrolManager.h
+cd include
+touch PatrolManager.h
 ```
+
 Paste there following code:
 
 ```cpp
@@ -1034,28 +1116,29 @@ using namespace std;
 class PatrolManager
 {
 public:
-PatrolManager(ros::NodeHandle &nh);
-~PatrolManager();
-bool moveToGoal(std::string name, float x, float y ,float theta);
-bool makeSpin(double radians, bool clockwise = 1);
+    PatrolManager(ros::NodeHandle &nh);
+    ~PatrolManager();
+    bool moveToGoal(std::string name, float x, float y, float theta);
+    bool makeSpin(double radians, bool clockwise = 1);
 
 private:
-std::vector<double> quaternion_from_euler(double yaw, double pitch,double roll);
-std::vector<double> quaternion;
-ros::NodeHandle nh_; //The node handle we'll be using
-ros::Publisher cmd_vel_pub_; //We will be publishing to the "cmd_vel" topic to issue commands
-tf::TransformListener listener_; //We will be listening to TF transforms 
+    std::vector<double> quaternion_from_euler(double yaw, double pitch, double roll);
+    std::vector<double> quaternion;
+    ros::NodeHandle nh_;             //The node handle we'll be using
+    ros::Publisher cmd_vel_pub_;     //We will be publishing to the "cmd_vel" topic to issue commands
+    tf::TransformListener listener_; //We will be listening to TF transforms
 };
 ```
+
 ### Src
 
 Now we should create two files in src directory PatrolManager.cpp and patrol_robot.cpp .
 
 ```
-$ roscd rosbot_patrol 
-$ cd src
-$ touch PatrolManager.cpp
-$ touch patrol_robot.cpp
+roscd rosbot_patrol
+cd src
+touch PatrolManager.cpp
+touch patrol_robot.cpp
 ```
 
 In PatrolManager.cpp paste following code:
@@ -1065,136 +1148,148 @@ In PatrolManager.cpp paste following code:
 
 using namespace std;
 
-PatrolManager::PatrolManager(ros::NodeHandle &nh) {
-nh_ = nh;
-cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+PatrolManager::PatrolManager(ros::NodeHandle &nh)
+{
+    nh_ = nh;
+    cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
 }
-
 
 PatrolManager::~PatrolManager() {}
 
+bool PatrolManager::makeSpin(double radians, bool clockwise)
+{
 
+    while (radians < 0)
+        radians += 2 * M_PI; // to perform rotation for more than 360 /-360
+    while (radians > 2 * M_PI)
+        radians -= 2 * M_PI;
 
+    listener_.waitForTransform(
+        "/base_link", "/odom", ros::Time(0),
+        ros::Duration(1.0)); // wait for the listener to get the first message
 
-bool PatrolManager::makeSpin(double radians, bool clockwise) {
+    tf::StampedTransform start_transform;
+    tf::StampedTransform current_transform;
+    listener_.lookupTransform("/base_link", "/odom", ros::Time(0), start_transform);
 
-while (radians < 0)
-radians += 2 * M_PI; // to perform rotation for more than 360 /-360
-while (radians > 2 * M_PI)
-radians -= 2 * M_PI;
+    geometry_msgs::Twist base_cmd;
+    base_cmd.linear.x = base_cmd.linear.y = 0.0;
+    base_cmd.angular.z = 0.75; // set apropirate velocity for robot
+    if (clockwise)
+        base_cmd.angular.z = -base_cmd.angular.z;
 
-listener_.waitForTransform(
-"/base_link", "/odom", ros::Time(0),
-ros::Duration(1.0)); // wait for the listener to get the first message
+    tf::Vector3 desired_turn_axis(0, 0, 1); // the axis we want to be rotating by
+    if (!clockwise)
+        desired_turn_axis = -desired_turn_axis;
 
-tf::StampedTransform start_transform;
-tf::StampedTransform current_transform;
-listener_.lookupTransform("/base_link", "/odom", ros::Time(0), start_transform);
+    ros::Rate rate(5.0);
+    bool done = false;
+    // bool spin_done = false;
 
-geometry_msgs::Twist base_cmd;
-base_cmd.linear.x = base_cmd.linear.y = 0.0;
-base_cmd.angular.z = 0.75; // set apropirate velocity for robot
-if (clockwise)
-base_cmd.angular.z = -base_cmd.angular.z;
+    while (!done && nh_.ok())
+    {
+        cmd_vel_pub_.publish(base_cmd);
+        rate.sleep();
 
-tf::Vector3 desired_turn_axis(0, 0, 1); // the axis we want to be rotating by
-if (!clockwise)
-desired_turn_axis = -desired_turn_axis;
+        try
+        {
+            listener_.lookupTransform("/base_link", "/odom", ros::Time(0),
+                                      current_transform);
+        }
+        catch (tf::TransformException ex)
+        {
+            ROS_ERROR("%s", ex.what());
+            break;
+        }
+        // see how far we've traveled
+        tf::Transform relative_transform =
+            start_transform.inverse() * current_transform;
+        tf::Vector3 actual_turn_axis = relative_transform.getRotation().getAxis();
+        double angle_turned = relative_transform.getRotation().getAngle();
+        if (fabs(angle_turned) < 1.0e-2)
+        {
+            continue;
+        }
 
-ros::Rate rate(5.0);
-bool done = false;
-// bool spin_done = false;
-
-while (!done && nh_.ok()) {
-cmd_vel_pub_.publish(base_cmd);
-rate.sleep();
-
-try {
-listener_.lookupTransform("/base_link", "/odom", ros::Time(0),
-current_transform);
-} catch (tf::TransformException ex) {
-ROS_ERROR("%s", ex.what());
-break;
+        if (actual_turn_axis.dot(desired_turn_axis) < 0)
+        {
+            angle_turned = 2 * M_PI - angle_turned;
+        }
+        if (angle_turned > radians)
+        {
+            done = true;
+        }
+    }
+    if (done)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
-// see how far we've traveled
-tf::Transform relative_transform =
-start_transform.inverse() * current_transform;
-tf::Vector3 actual_turn_axis = relative_transform.getRotation().getAxis();
-double angle_turned = relative_transform.getRotation().getAngle();
-if (fabs(angle_turned) < 1.0e-2) {
-continue;
-}
-
-if (actual_turn_axis.dot(desired_turn_axis) < 0) {
-angle_turned = 2 * M_PI - angle_turned;
-}
-if (angle_turned > radians) {
-done = true;
-}
-}
-if (done) {
-return true;
-} else {
-return false;
-}
-}
-
-
 
 bool PatrolManager::moveToGoal(std::string the_name, float the_x, float the_y,
-float the_theta) {
-actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base",
-true);
+                               float the_theta)
+{
+    actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base",
+                                                                     true);
 
-while (!ac.waitForServer(ros::Duration(5.0))) {
-ROS_INFO("Waiting for the move_base action server to come up");
-}
+    while (!ac.waitForServer(ros::Duration(5.0)))
+    {
+        ROS_INFO("Waiting for the move_base action server to come up");
+    }
 
-move_base_msgs::MoveBaseGoal goal;
+    move_base_msgs::MoveBaseGoal goal;
 
-goal.target_pose.header.frame_id = "map";
-goal.target_pose.header.stamp = ros::Time::now();
-goal.target_pose.pose.position.x = the_x;
-goal.target_pose.pose.position.y = the_y;
-quaternion = quaternion_from_euler(0.0, 0.0, the_theta);
-goal.target_pose.pose.orientation.x = quaternion[0];
-goal.target_pose.pose.orientation.y = quaternion[1];
-goal.target_pose.pose.orientation.z = quaternion[2];
-goal.target_pose.pose.orientation.w = quaternion[3];
+    goal.target_pose.header.frame_id = "map";
+    goal.target_pose.header.stamp = ros::Time::now();
+    goal.target_pose.pose.position.x = the_x;
+    goal.target_pose.pose.position.y = the_y;
+    quaternion = quaternion_from_euler(0.0, 0.0, the_theta);
+    goal.target_pose.pose.orientation.x = quaternion[0];
+    goal.target_pose.pose.orientation.y = quaternion[1];
+    goal.target_pose.pose.orientation.z = quaternion[2];
+    goal.target_pose.pose.orientation.w = quaternion[3];
 
-ROS_INFO("Sending goal location :");
-printf("x: %f ,y: %f ,th: %f ", the_x,the_y,the_theta);
-ac.sendGoal(goal);
-ac.waitForResult();
+    ROS_INFO("Sending goal location :");
+    printf("x: %f ,y: %f ,th: %f ", the_x, the_y, the_theta);
+    ac.sendGoal(goal);
+    ac.waitForResult();
 
-if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
-ROS_INFO("Robot reached it's destination and started scanning area");
-return true;
-} else {
-ROS_INFO("The robot failed to reach the destination check that");
-return false;
-}
+    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    {
+        ROS_INFO("Robot reached it's destination and started scanning area");
+        return true;
+    }
+    else
+    {
+        ROS_INFO("The robot failed to reach the destination check that");
+        return false;
+    }
 }
 
 std::vector<double>
-PatrolManager::quaternion_from_euler(double roll, double pitch, double yaw) {
+PatrolManager::quaternion_from_euler(double roll, double pitch, double yaw)
+{
 
-std::vector<double> quat;
+    std::vector<double> quat;
 
-// Abbreviations for the various angular functions
-double cy = cos(yaw * 0.5);
-double sy = sin(yaw * 0.5);
-double cp = cos(pitch * 0.5);
-double sp = sin(pitch * 0.5);
-double cr = cos(roll * 0.5);
-double sr = sin(roll * 0.5);
+    // Abbreviations for the various angular functions
+    double cy = cos(yaw * 0.5);
+    double sy = sin(yaw * 0.5);
+    double cp = cos(pitch * 0.5);
+    double sp = sin(pitch * 0.5);
+    double cr = cos(roll * 0.5);
+    double sr = sin(roll * 0.5);
 
-quat.push_back(cy * cp * sr - sy * sp * cr); // x
-quat.push_back(sy * cp * sr + cy * sp * cr); // y
-quat.push_back(sy * cp * cr - cy * sp * sr); // z
-quat.push_back(cy * cp * cr + sy * sp * sr); // w
+    quat.push_back(cy * cp * sr - sy * sp * cr); // x
+    quat.push_back(sy * cp * sr + cy * sp * cr); // y
+    quat.push_back(sy * cp * cr - cy * sp * sr); // z
+    quat.push_back(cy * cp * cr + sy * sp * sr); // w
 
-return quat;
+    return quat;
 }
 ```
 
@@ -1218,7 +1313,7 @@ bool starting_poit_reached = {0};
 ros::Time last_email_sent;
 ros::NodeHandle *nh_ptr;
 const double NUM_OF_SPINS =
-1.5; // number of spins which robot perform for room scanning
+    1.5; // number of spins which robot perform for room scanning
 
 vector<string> room_names{};
 vector<double> x_coordinates{};
@@ -1226,126 +1321,143 @@ vector<double> y_coordinates{};
 vector<double> th_coordinates{};
 
 void sendMail(const char *to, const char *from, const char *subject,
-const char *message) {
-// int retval = -1;
-FILE *mailpipe = popen("/usr/lib/sendmail -t", "w");
-if (mailpipe != NULL) {
-fprintf(mailpipe, "To: %s\n", to);
-fprintf(mailpipe, "From: %s\n", from);
-fprintf(mailpipe, "Subject: %s\n\n", subject);
-fwrite(message, 1, strlen(message), mailpipe);
-fwrite(".\n", 1, 2, mailpipe);
-pclose(mailpipe);
-// retval = 0;
-} else {
-perror("Failed to invoke sendmail");
-}
-// return retval;
-}
-
-void saveConfigFiles(string path) {
-ROS_INFO("path is : %s",path.c_str());
-YAML::Node conf_file = YAML::LoadFile(path.c_str());
-for (int i = 0; i < conf_file["rooms_num"].as<int>(); i++) {
-x_coordinates.push_back(
-conf_file["rooms"]["room" + to_string(i)]["x"].as<double>());
-y_coordinates.push_back(
-conf_file["rooms"]["room" + to_string(i)]["y"].as<double>());
-th_coordinates.push_back(
-conf_file["rooms"]["room" + to_string(i)]["angle"].as<double>());
-room_names.push_back(
-conf_file["rooms"]["room" + to_string(i)]["name"].as<std::string>());
-}
+              const char *message)
+{
+    // int retval = -1;
+    FILE *mailpipe = popen("/usr/lib/sendmail -t", "w");
+    if (mailpipe != NULL)
+    {
+        fprintf(mailpipe, "To: %s\n", to);
+        fprintf(mailpipe, "From: %s\n", from);
+        fprintf(mailpipe, "Subject: %s\n\n", subject);
+        fwrite(message, 1, strlen(message), mailpipe);
+        fwrite(".\n", 1, 2, mailpipe);
+        pclose(mailpipe);
+        // retval = 0;
+    }
+    else
+    {
+        perror("Failed to invoke sendmail");
+    }
+    // return retval;
 }
 
-void darknetCallback(const darknet_ros_msgs::BoundingBoxes &bb_msg) {
-
-int size =
-bb_msg.bounding_boxes.size(); // ros msgs are mapped onto std::vector
-for (int i = 0; i < size; i++) {
-// ROS_INFO("checking for obj");
-if ((bb_msg.bounding_boxes[i].Class == "fire hydrant") or
-(bb_msg.bounding_boxes[i].Class == "person")) {
-ROS_INFO("Found fire hydrant or person/people");
-
-ros::Time time_now = ros::Time::now();
-if (time_now - last_email_sent >= ros::Duration (10)) {
-sendMail(email_to.c_str(), email_from.c_str(), "rosbot patrol node",
-"I have found something strange it could be invader");
-last_email_sent = time_now;
-}
-}
-}
+void saveConfigFiles(string path)
+{
+    ROS_INFO("path is : %s", path.c_str());
+    YAML::Node conf_file = YAML::LoadFile(path.c_str());
+    for (int i = 0; i < conf_file["rooms_num"].as<int>(); i++)
+    {
+        x_coordinates.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["x"].as<double>());
+        y_coordinates.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["y"].as<double>());
+        th_coordinates.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["angle"].as<double>());
+        room_names.push_back(
+            conf_file["rooms"]["room" + to_string(i)]["name"].as<std::string>());
+    }
 }
 
-void espCallback(const rosbot_patrol::EspTrigger &trigger_msg) {
-bool spin_made;
+void darknetCallback(const darknet_ros_msgs::BoundingBoxes &bb_msg)
+{
 
-// const char[] command = "mail -s \"test\" " + email_addr + " <<< \"im in
-// espCallback\" ";
-// auto response = system("mail -s \"test\" " + email_addr + " <<< \"im in
-// espCallback\" ") ; // <--- place all this to darknetCb
-// ROS_INFO("im in espCallback");
+    int size =
+        bb_msg.bounding_boxes.size(); // ros msgs are mapped onto std::vector
+    for (int i = 0; i < size; i++)
+    {
+        // ROS_INFO("checking for obj");
+        if ((bb_msg.bounding_boxes[i].Class == "fire hydrant") or
+            (bb_msg.bounding_boxes[i].Class == "person"))
+        {
+            ROS_INFO("Found fire hydrant or person/people");
 
-if (trigger_msg.move == 1) {
-int esp_id = trigger_msg.id;
-PatrolManager pn(*nh_ptr);
-
-room_reached = pn.moveToGoal(room_names[esp_id], x_coordinates[esp_id],
-y_coordinates[esp_id], th_coordinates[esp_id]);
-if (room_reached) {
-ROS_INFO("I've reached destination");
+            ros::Time time_now = ros::Time::now();
+            if (time_now - last_email_sent >= ros::Duration(10))
+            {
+                sendMail(email_to.c_str(), email_from.c_str(), "rosbot patrol node",
+                         "I have found something strange it could be invader");
+                last_email_sent = time_now;
+            }
+        }
+    }
 }
 
-spin_made = pn.makeSpin(360 * NUM_OF_SPINS, 0);
-if (spin_made) {
-ROS_INFO("I've just scanned room");
+void espCallback(const rosbot_patrol::EspTrigger &trigger_msg)
+{
+    bool spin_made;
+
+    // const char[] command = "mail -s \"test\" " + email_addr + " <<< \"im in
+    // espCallback\" ";
+    // auto response = system("mail -s \"test\" " + email_addr + " <<< \"im in
+    // espCallback\" ") ; // <--- place all this to darknetCb
+    // ROS_INFO("im in espCallback");
+
+    if (trigger_msg.move == 1)
+    {
+        int esp_id = trigger_msg.id;
+        PatrolManager pn(*nh_ptr);
+
+        room_reached = pn.moveToGoal(room_names[esp_id], x_coordinates[esp_id],
+                                     y_coordinates[esp_id], th_coordinates[esp_id]);
+        if (room_reached)
+        {
+            ROS_INFO("I've reached destination");
+        }
+
+        spin_made = pn.makeSpin(360 * NUM_OF_SPINS, 0);
+        if (spin_made)
+        {
+            ROS_INFO("I've just scanned room");
+        }
+
+        starting_poit_reached = pn.moveToGoal(room_names[0], x_coordinates[0],
+                                              y_coordinates[0], th_coordinates[0]);
+        if (starting_poit_reached)
+        {
+            ROS_INFO("I've reached starting_poit_reached");
+        }
+    }
 }
 
-starting_poit_reached = pn.moveToGoal(room_names[0], x_coordinates[0],
-y_coordinates[0], th_coordinates[0]);
-if (starting_poit_reached) {
-ROS_INFO("I've reached starting_poit_reached");
-}
-}
-}
+int main(int argc, char *argv[])
+{
+    ros::init(argc, argv, "patrol_robot_node");
+    ros::NodeHandle nh("~");
+    nh_ptr = &nh;
+    nh.getParam("path_to_params", params_path);
+    nh.getParam("email_to", email_to);
+    nh.getParam("email_from", email_from);
+    printf("path : %s", params_path.c_str());
+    saveConfigFiles(params_path);
 
-int main(int argc, char *argv[]) {
-ros::init(argc, argv, "patrol_robot_node");
-ros::NodeHandle nh("~");
-nh_ptr = &nh;
-nh.getParam("path_to_params", params_path);
-nh.getParam("email_to", email_to);
-nh.getParam("email_from", email_from);
-printf("path : %s",params_path.c_str());
-saveConfigFiles(params_path);
+    ros::Subscriber sub_esp = nh.subscribe("/motion_trigger", 1, espCallback);
+    ros::Subscriber sub_darknet =
+        nh.subscribe("/darknet_ros/bounding_boxes", 100, darknetCallback);
 
-ros::Subscriber sub_esp = nh.subscribe("/motion_trigger", 1, espCallback);
-ros::Subscriber sub_darknet =
-nh.subscribe("/darknet_ros/bounding_boxes", 100, darknetCallback);
+    ros::Rate loop_rate(50);
+    last_email_sent = ros::Time::now();
+    while (ros::ok)
+    {
 
-ros::Rate loop_rate(50);
-last_email_sent = ros::Time::now();
-while (ros::ok) {
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
 
-ros::spinOnce();
-loop_rate.sleep();
-}
-
-return 0;
+    return 0;
 }
 ```
 
 remember to change permission for file by running following command:
 
 ```bash
-$ chmod +x patrol_robot.cpp
-$ chmod +x PatrolManager.cpp
+chmod +x patrol_robot.cpp
+chmod +x PatrolManager.cpp
 ```
 
 ## Hardware launches
 
-For this task we need to launch some things, we will create single launches for everything and wrap this all at the end as rosbot_all_hardware.launch
+For this task is required to launch some things, all of them should be wrapped up as rosbot_all_hardware.launch  In here there is option to change launch varing of rosbot firmware version. 
 
 1. camera
 2. connection to core2 - controller for motors
@@ -1355,9 +1467,9 @@ For this task we need to launch some things, we will create single launches for 
 Create in launch directory file called rosbot_all_hardware.launch
 
 ```
-$ roscd rosbot_patrol
-$ mkdir launch
-$ cd launch && touch rosbot_all_hardware.launch
+roscd rosbot_patrol
+mkdir launch
+cd launch && touch rosbot_all_hardware.launch
 ```
 
 In this new file paste following code:
@@ -1367,11 +1479,11 @@ In this new file paste following code:
 <launch>
 
 <arg name="rosbot_pro" default="false"/>
-<arg name="rosbot_version" default="$(optenv ROSBOT_VER)"/>
+<arg name="rosbot_version" default="optenv ROSBOT_VER)"/>
 
-<include file="$(find astra_launch)/launch/astra.launch"/>
+<include file="find astra_launch)/launch/astra.launch"/>
 
-<include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+<include file="find rplidar_ros)/launch/rplidar.launch"/>
 
 <node pkg="tf" type="static_transform_publisher" name="laser_publisher" args="0 0 0.058 3.14159 0 0 base_link laser 100" />
 
@@ -1382,21 +1494,23 @@ In this new file paste following code:
 <!-- here you have to chose appropriate launch depending on your rosbot firmware - I'm strongly recommend to install new firmware it has some utilities including Extended Kalman Filter -->
 
 <!-- NEW FIRMWARE
-<include file="$(find rosbot)/launch/all.launch"/>
+<include file="find rosbot)/launch/all.launch"/>
 -->
 <!-- OLD FIRMWARE -->
 <!-- -->
 
-<node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/> 
-<node pkg="tutorial_pkg" type="serial_bridge.sh" name="serial_bridge" /> 
+<node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
+<node pkg="tutorial_pkg" type="serial_bridge.sh" name="serial_bridge" />
 
 </launch>
 ```
+
 You have to specify which rosbot firmware are you using - since new version is only available at github it's very likely that you're using old version
 
 You can upgrade it using this instruction [rosbot new firmware](https://github.com/husarion/rosbot-firmware-new)
 
 ## Now we need to focus about algorithm.
+
 We need launches for:
 
 1. move base
@@ -1404,21 +1518,23 @@ We need launches for:
 3. amcl
 
 ### Move base
+
 In launch folder create new file called move_base_only.launch and paste following code inside.
 
 ```
-$ touch move_base_only.launch
+touch move_base_only.launch
 ```
+
 ```xml
 <launch>
 
 <node pkg="move_base" type="move_base" name="move_base" output="log">
-<param name="controller_frequency" value="10.0"/>
-<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-<rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-<rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
-<rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+    <param name="controller_frequency" value="10.0"/>
+    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
 </node>
 
 </launch>
@@ -1428,8 +1544,8 @@ $ touch move_base_only.launch
 
 In launch folder create new file called amcl_only.launch
 
-``` 
-$ touch amcl_only.launch
+```
+touch amcl_only.launch
 ```
 
 Paste there following code:
@@ -1437,15 +1553,15 @@ Paste there following code:
 ```xml
 <launch>
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
-<remap from="scan" to="/scan"/>
-<param name="odom_frame_id" value="odom"/>
-<param name="odom_model_type" value="diff-corrected"/>
-<param name="base_frame_id" value="base_link"/>
-<param name="update_min_d" value="0.1"/>
-<param name="update_min_a" value="0.2"/>
-<param name="min_particles" value="500"/>
-<param name="global_frame_id" value="map"/>
-<param name="tf_broadcast" value="true" />
+    <remap from="scan" to="/scan"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="base_link"/>
+    <param name="update_min_d" value="0.1"/>
+    <param name="update_min_a" value="0.2"/>
+    <param name="min_particles" value="500"/>
+    <param name="global_frame_id" value="map"/>
+    <param name="tf_broadcast" value="true" />
 
 </node>
 </launch>
@@ -1454,48 +1570,49 @@ Paste there following code:
 ### Gmapping
 
 ```
-$ touch gmapping_only.launch
+touch gmapping_only.launch
 ```
+
 Paste this code inside:
 
 ```xml
 <launch>
 
 <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-<remap from="/base_scan" to="/scan"/>
+    <remap from="/base_scan" to="/scan"/>
 
-<param name="base_frame" value="base_link"/>
-<param name="map_frame" value="map"/>
-<param name="odom_frame" value="odom"/>
+    <param name="base_frame" value="base_link"/>
+    <param name="map_frame" value="map"/>
+    <param name="odom_frame" value="odom"/>
 
-<param name="map_update_interval" value="5.0"/>
-<param name="maxUrange" value="16.0"/>
-<param name="sigma" value="0.05"/>
-<param name="kernelSize" value="1"/>
-<param name="lstep" value="0.05"/>
-<param name="astep" value="0.05"/>
-<param name="iterations" value="5"/>
-<param name="lsigma" value="0.075"/>
-<param name="ogain" value="3.0"/>
-<param name="lskip" value="0"/>
-<param name="srr" value="0.1"/>
-<param name="srt" value="0.2"/>
-<param name="str" value="0.1"/>
-<param name="stt" value="0.2"/>
-<param name="linearUpdate" value="0.05"/>
-<param name="angularUpdate" value="0.05"/>
-<param name="temporalUpdate" value="0.5"/>
-<param name="resampleThreshold" value="0.5"/>
-<param name="particles" value="30"/>
-<param name="xmin" value="-50.0"/>
-<param name="ymin" value="-50.0"/>
-<param name="xmax" value="50.0"/>
-<param name="ymax" value="50.0"/>
-<param name="delta" value="0.05"/>
-<param name="llsamplerange" value="0.01"/>
-<param name="llsamplestep" value="0.01"/>
-<param name="lasamplerange" value="0.005"/>
-<param name="lasamplestep" value="0.005"/>
+    <param name="map_update_interval" value="5.0"/>
+    <param name="maxUrange" value="16.0"/>
+    <param name="sigma" value="0.05"/>
+    <param name="kernelSize" value="1"/>
+    <param name="lstep" value="0.05"/>
+    <param name="astep" value="0.05"/>
+    <param name="iterations" value="5"/>
+    <param name="lsigma" value="0.075"/>
+    <param name="ogain" value="3.0"/>
+    <param name="lskip" value="0"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
+    <param name="linearUpdate" value="0.05"/>
+    <param name="angularUpdate" value="0.05"/>
+    <param name="temporalUpdate" value="0.5"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <param name="particles" value="30"/>
+    <param name="xmin" value="-50.0"/>
+    <param name="ymin" value="-50.0"/>
+    <param name="xmax" value="50.0"/>
+    <param name="ymax" value="50.0"/>
+    <param name="delta" value="0.05"/>
+    <param name="llsamplerange" value="0.01"/>
+    <param name="llsamplestep" value="0.01"/>
+    <param name="lasamplerange" value="0.005"/>
+    <param name="lasamplestep" value="0.005"/>
 </node>
 
 </launch>
@@ -1506,145 +1623,150 @@ Now create launch for maping.
 In launch directory create file rosbot_gmapping.launch and paste following code:
 
 ```
-$ touch rosbot_gmapping.launch
+touch rosbot_gmapping.launch
 ```
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-<include file="$(find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
-<include file="$(find rosbot_patrol)/launch/move_base_only.launch"/>
+<include file="find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
+<include file="find rosbot_patrol)/launch/move_base_only.launch"/>
 <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
-<include file="$(find rosbot_patrol)/launch/gmapping_only.launch" /> 
+<include file="find rosbot_patrol)/launch/gmapping_only.launch" />
 
 </launch>
 ```
 
 To start mapping run following command:
 
-`$ catkin_make`
-`$ roslaunch rosbot_patrol rosbot_gmapping.launch`
+`catkin_make`
+`roslaunch rosbot_patrol rosbot_gmapping.launch`
 
 Then in different terminal launch:
 
-`$ rviz`
+`rviz`
 
 You should be able to see how robot is mapping.
 After that open another terminal and save map:
 
 ```
-$ roscd rosbot_patrol 
-$ mkdir maps && cd maps
-$ rosrun map_server map_saver -f rosbot_map.yaml
+roscd rosbot_patrol
+mkdir maps && cd maps
+rosrun map_server map_saver -f rosbot_map.yaml
 ```
 
 ### find coordinates for move sensor
+
 If we already are able to drive on this map we have to find coordinates to where robot should drive. There is still the same method as during simulation so use Ricardo's method :
 
-[how to get goal points](https://www.youtube.com/watch?v=p-ZG6E-PZVA&t=7s) start at 30:00. 
+[how to get goal points](https://www.youtube.com/watch?v=p-ZG6E-PZVA&t=7s) start at 30:00.
 
 ![how_to_get_points](https://user-images.githubusercontent.com/29305346/62054606-35062600-b21a-11e9-9665-750dd296388d.png)
 
 Once we have points lets create yaml file with those points.
 In rosbot_patrol pkg create new folder called params
-`$ cd ..`
-`$ mkdir params`
-`$ cd params && touch room_points.yaml`
+`cd ..`
+`mkdir params`
+`cd params && touch room_points.yaml`
 
-Put appropriate data, if you have less sensors just remove unnecessary room names if you have more rooms simply add more and change rooms_num to appropriate for your new room number. 
+Put appropriate data, if you have less sensors just remove unnecessary room names if you have more rooms simply add more and change rooms_num to appropriate for your new room number.
 In room_points.yaml file place your points with following convention:
 
 ```yaml
-#name rooms must be numerated consequently as room<num> 
+#name rooms must be numerated consequently as room<num>  
 
-rooms_num: 8 #remember that is enumerated from 0 you have to set it manually 
+rooms_num: 8   #remember that is enumerated from 0
 rooms:
-room0:
-name: "base/return point" #if it's set to 0,0,0 robot will go back to start point 
-x: 0
-y: 0
-angle: 0
+  room0:
+    name: "base/return point" #if it's set to 0,0,0 robot will go back to start point 
+    x:    0
+    y:    0
+    angle: 0
 
-room1:
-name: "room1-name"
-x: 2.819
-y: -0.175
-angle: 30
+  room1:
+    name: "room1-name"
+    x:    2.819
+    y:    -0.175
+    angle: 0
 
-room2:
-name: "room2-name"
-x: -3.489
-y: 0.306
-angle: 45 
+  room2:
+    name: "room2-name"
+    x:    -3.489
+    y:    0.306
+    angle: 0   
 
-room3:
-name: "room3-name"
-x: -4.786
-y: 3.412
-angle: 236
+  room3:
+    name: "room3-name"
+    x:    -4.786
+    y:    3.412
+    angle: 0
 
-room4:
-name: "room4-name"
-x: -3.848
-y: 6.496
-angle: 359
+  room4:
+    name: "room4-name"
+    x:    -3.848
+    y:    6.496
+    angle: 0
 
-room5:
-name: "room5-name"
-x: 2.682
-y: 7.352
-angle: 0 
+  room5:
+    name: "room5-name"
+    x:    2.682
+    y:    7.352
+    angle: 0   
 
-room6:
-name: "room6-name"
-x: 5.651
-y: 12.038
-angle: 0
+  room6:
+    name: "room6-name"
+    x:    5.651
+    y:    12.038
+    angle: 0
 
-room7:
-name: "room7-name"
-x: 14.750
-y: 11.480
-angle: 0
+  room7:
+    name: "room7-name"
+    x:    14.750
+    y:    11.480
+    angle: 0
+```
 
-``` 
 This are points for model.world world remember to set point0 to all zeroes - it's point to where robot will be coming back after patrolling room.
 
 ## Setup ESP32
-To make ESP32 work we need to make some steps first of them is to proper setup environment, I will not be explaining because here is link to my project showing how to make that properly it is also basic usage:
+
+To make ESP32 work it's needed to make some steps. First of them is to proper setup environment, I will not be explaining because here is link to my project showing how to make that properly it is also basic usage:
 
 Remember to set it up on your computer!
 
-[setup esp32](https://www.hackster.io/khasreto/run-rosserial-over-the-internet-with-esp32-0615f5) 
+[setup esp32](https://www.hackster.io/khasreto/run-rosserial-over-the-internet-with-esp32-0615f5)
 
-Once we have it working we need to setup rosserial to works with husarnet - this will enable us to use ESP32 microcontrollers for sending information about potential movement.
-To make it works we need to remove current version and install the one made for husarnet
+Once it is working working we need to setup rosserial to works with husarnet - this will give ability to use ESP32 microcontrollers for sending information about potential movement.
+To make it works it's needed to remove current version of rosserial and install the one made for husarnet
 
 ```
-$ sudo apt-get remove ros-kinetic-rosserial*
+sudo apt-get remove ros-kinetic-rosserial*
 ```
+
 Then go to my github and clone to workspace repository from `ipv6-husarnet branch` [ipv6-husarnet](https://github.com/adamkrawczyk/rosserial/tree/ipv6-husarnet) or use following command:
 
 ```bash
-$ cd ~/ros_workspace/src
-$ git clone --single-branch --branch ipv6-husarnet https://github.com/adamkrawczyk/rosserial.git
+cd ~/ros_workspace/src
+git clone --single-branch --branch ipv6-husarnet https://github.com/adamkrawczyk/rosserial.git
 ```
 
-Next thing is to make our custom message to do, so we have to make directory called msg and inside there make new file called EspTrigger.msg
+Next thing is to make custom message to do, so it is required to make directory called msg and inside there create new file called EspTrigger.msg
 
 ```
-$ roscd rosbot_patrol
-$ mkdir msg
-$ cd msg
-$ touch EspTrigger.msg
+roscd rosbot_patrol
+mkdir msg
+cd msg
+touch EspTrigger.msg
 ```
 
 Inside of this file there will be only two lines:
+
 ```cpp
 uint8 id
 bool move
-``` 
+```
+
 id - numer of room where sensor is placed
 
 move - value informing if there is move detected
@@ -1689,17 +1811,16 @@ message_runtime
 )
 
 include_directories(
-include ${catkin_INCLUDE_DIRS}
-${catkin_INCLUDE_DIRS}
-${OpenCV_INCLUDE_DIRS}
+include catkin_INCLUDE_DIRS}
+catkin_INCLUDE_DIRS}
+OpenCV_INCLUDE_DIRS}
 )
 
 add_executable(patrol_robot src/patrol_robot.cpp src/PatrolManager.cpp)
-add_dependencies(patrol_robot ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(patrol_robot PROJECT_NAME}_EXPORTED_TARGETS} catkin_EXPORTED_TARGETS})
 target_link_libraries(patrol_robot
-${catkin_LIBRARIES} yaml-cpp
+catkin_LIBRARIES} yaml-cpp
 )
-
 ```
 
 In package.xml paste:
@@ -1737,11 +1858,7 @@ In package.xml paste:
 </package>
 ```
 
-Build this with `$ catkin_make install` . This should work so now we are able to setup arduino IDE to do that follow official instructions:
-
-Connect motion sensor to ESP32:
-
-![motion_sensor_esp](https://user-images.githubusercontent.com/29305346/62054012-0b98ca80-b219-11e9-9731-3729d16baeb1.png)
+Build this with `catkin_make install` . After that it is possible to setup arduino IDE, to do that follow official instructions:
 
 !! Start at point 2.2 [setup arduino IDE](http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup)
 
@@ -1764,7 +1881,7 @@ If we have husarnet set up we can create new sketch for our arduino project:
 
 uint16_t port = 11411; //this must be set the same as tcp_port in launch file (esp_connect.launch)
 
-const int motionSensor = 27; // pin number for motion sensor 
+const int motionSensor = 27; // pin number for motion sensor
 
 // Timer: Auxiliary variables
 unsigned long now = millis();
@@ -1848,14 +1965,14 @@ Serial.println("MOTION DETECTED!!!");
 
 void taskWifi( void * parameter );
 
-void setup() { 
+void setup() {
 for (int i = 0; i < NUM_NETWORKS; i++) {
 String ssid = ssidTab[i];
 String pass = passwordTab[i];
 wifiMulti.addAP(ssid.c_str(), pass.c_str());
 
 Serial.printf("WiFi %d: SSID: \"%s\" ; PASS: \"%s\"\r\n", i, ssid.c_str(), pass.c_str());
-} 
+}
 
 xTaskCreate(
 taskWifi, /* Task function. */
@@ -1916,16 +2033,19 @@ delay(500);
 }
 }
 }
-
 ```
+At the end connect motion sensor to ESP32:
+
+![motion_sensor_esp](https://user-images.githubusercontent.com/29305346/62054012-0b98ca80-b219-11e9-9731-3729d16baeb1.png)
 
 At the end we have to create launch for esp enabling us to read data it sends, to do, so follow this instruction:
 
 ```bash
-$ roscd rosbot_patrol
-$ cd launch
-$ touch esp_connector.launch
+roscd rosbot_patrol
+cd launch
+touch esp_connector.launch
 ```
+
 In this file paste following launch:
 Only what you have to take care of is to set appropriate port for each device I suggest to use 11411, 11412 and so on remember to it the same as in esp code.
 
@@ -1933,18 +2053,18 @@ Only what you have to take care of is to set appropriate port for each device I 
 <launch >
 
 <node pkg="rosserial_python" type="serial_node.py" name="esp_client1" respawn="true">
-<param name="port" value="tcp"/>
-<param name="tcp_port" value="11411"/>
+    <param name="port" value="tcp"/>
+    <param name="tcp_port" value="11411"/>
 </node>
 
 <node pkg="rosserial_python" type="serial_node.py" name="esp_client2" respawn="true">
-<param name="port" value="tcp"/>
-<param name="tcp_port" value="11412"/>
+    <param name="port" value="tcp"/>
+    <param name="tcp_port" value="11412"/>
 </node>
 
 <node pkg="rosserial_python" type="serial_node.py" name="esp_client3" respawn="true">
-<param name="port" value="tcp"/>
-<param name="tcp_port" value="11413"/>
+    <param name="port" value="tcp"/>
+    <param name="tcp_port" value="11413"/>
 </node>
 
 </launch>
@@ -1952,15 +2072,16 @@ Only what you have to take care of is to set appropriate port for each device I 
 
 If you need more clients just add it if less you should remove unused or comment it.
 
-## Darknet YOLO 
+## Darknet YOLO
+
 We only will be launching image processing on computer but if you want to clone whole repository to your robot you can so don't be afraid of that.
 
 I'm assuming that you already have in your workspace darknet_ros package next thing is to create our config file and launch file for darknet:
 
 ```bash
-$ roscd rosbot patrol
-$ cd launch 
-$ touch darknet_yolo_only.launch
+roscd rosbot patrol
+cd launch
+touch darknet_yolo_only.launch
 ```
 
 In this file paste following code:
@@ -1972,21 +2093,21 @@ In this file paste following code:
 <arg name="launch_prefix" default=""/>
 
 <!-- Config and weights folder -->
-<arg name="yolo_weights_path" default="$(find darknet_ros)/yolo_network_config/weights"/>
-<arg name="yolo_config_path" default="$(find darknet_ros)/yolo_network_config/cfg"/>
+<arg name="yolo_weights_path" default="find darknet_ros)/yolo_network_config/weights"/>
+<arg name="yolo_config_path" default="find darknet_ros)/yolo_network_config/cfg"/>
 
 <!-- ROS and network parameter files -->
-<arg name="ros_param_file" default="$(find rosbot_patrol)/config/darknet_config.yaml"/>
-<arg name="network_param_file" default="$(find darknet_ros)/config/yolov2-tiny.yaml"/>
+<arg name="ros_param_file" default="find rosbot_patrol)/config/darknet_config.yaml"/>
+<arg name="network_param_file" default="find darknet_ros)/config/yolov2-tiny.yaml"/>
 
 <!-- Load parameters -->
-<rosparam command="load" ns="darknet_ros" file="$(arg ros_param_file)"/>
-<rosparam command="load" ns="darknet_ros" file="$(arg network_param_file)"/>
+<rosparam command="load" ns="darknet_ros" file="arg ros_param_file)"/>
+<rosparam command="load" ns="darknet_ros" file="arg network_param_file)"/>
 
 <!-- Start darknet and ros wrapper -->
-<node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
-<param name="weights_path" value="$(arg yolo_weights_path)" />
-<param name="config_path" value="$(arg yolo_config_path)" />
+<node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="arg launch_prefix)">
+<param name="weights_path" value="arg yolo_weights_path)" />
+<param name="config_path" value="arg yolo_config_path)" />
 </node>
 
 </launch>
@@ -1995,10 +2116,10 @@ In this file paste following code:
 Next we need to setup our neural network - for that we will use pre-trained model. In config directory we create for this purpose config file.
 
 ```
-$ roscd rosbot_patrol
-$ mkdir config
-$ cd config
-$ touch darknet_config.yaml
+roscd rosbot_patrol
+mkdir config
+cd config
+touch darknet_config.yaml
 ```
 
 In darknet_config.yaml:
@@ -2006,51 +2127,52 @@ In darknet_config.yaml:
 ```yaml
 subscribers:
 
-camera_reading:
-topic: /rgb_raw
-queue_size: 1
+  camera_reading:
+    topic: /rgb_raw
+    queue_size: 1
 
 actions:
 
-camera_reading:
-name: /darknet_ros/check_for_objects
+  camera_reading:
+    name: /darknet_ros/check_for_objects
 
 publishers:
 
-object_detector:
-topic: /darknet_ros/found_object
-queue_size: 1
-latch: false
+  object_detector:
+    topic: /darknet_ros/found_object
+    queue_size: 1
+    latch: false
 
-bounding_boxes:
-topic: /darknet_ros/bounding_boxes
-queue_size: 1
-latch: false
+  bounding_boxes:
+    topic: /darknet_ros/bounding_boxes
+    queue_size: 1
+    latch: false
 
-detection_image:
-topic: /darknet_ros/detection_image
-queue_size: 1
-latch: true
+  detection_image:
+    topic: /darknet_ros/detection_image
+    queue_size: 1
+    latch: true
 
 image_view:
 
-enable_opencv: true
-wait_key_delay: 1
-enable_console_output: true
+  enable_opencv: true
+  wait_key_delay: 1
+  enable_console_output: true
 ```
 
-And that's all - we don't have to change nothing more, now we need to create launch file for our network. In launch directory create new file called darknet_yolo_simulation_only.launch
+And that's all - there is no need to change anything else, now create launch file for our network. In launch directory create new file called darknet_yolo_simulation_only.launch
 
 ## Final launch files
-So if we have map and every algorithm configured we now can start our robot to move on map. It's almost end don't give up :)
 
-In launch file create files rosbot_patrol.launch , rosbot_patrol_pc.launch
+So if the map is in our workspace and every algorithm configured we now can start our robot to move on map. It's almost end don't give up :)
+
+In launch file create files rosbot_patrol.launch and rosbot_patrol_pc.launch
 
 ```BASH
-$ roscd rosbot_patrol 
-$ cd launch
-$ touch rosbot_patrol.launch
-$ touch rosbot_patrol_pc.launch
+roscd rosbot_patrol
+cd launch
+touch rosbot_patrol.launch
+touch rosbot_patrol_pc.launch
 ```
 
 First launch will be running on rosbot but second is made for pc this is because rosbot has not enough power to process image.
@@ -2066,23 +2188,23 @@ In rosbot_patrol.launch paste this code:
 <param name="compressed/mode" value="color"/>
 </node>
 
-<include file="$(find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
-<include file="$(find rosbot_patrol)/launch/rosbot_all_algorithms.launch"/> 
-<arg name="map_file" default="$(find rosbot_patrol)/maps/testv2.yaml"/> <!-- map arg -->
-<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
+<include file="find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
+<include file="find rosbot_patrol)/launch/rosbot_all_algorithms.launch"/>
+<arg name="map_file" default="find rosbot_patrol)/maps/testv2.yaml"/> <!-- map arg -->
+<node name="map_server" pkg="map_server" type="map_server" args="arg map_file)" respawn="true" />
 
 <!-- patrol node -->
 <node pkg="rosbot_patrol" type="patrol_robot" name="patrolling_node" output="screen" respawn="true">
-<!-- path to file with params of points --> 
-<param name="path_to_params" type="string" value="$(find rosbot_patrol)/params/room_points_biuro.yaml" />
+<!-- path to file with params of points -->
+<param name="path_to_params" type="string" value="find rosbot_patrol)/params/room_points_biuro.yaml" />
 <param name="email_to" type="string" value="*****@**.**" />
-<param name="email_from" type="string" value="*****@****.***" /> 
+<param name="email_from" type="string" value="*****@****.***" />
 </node>
 
 </launch>
 ```
 
-File rosbot_patrol_pc.launch is made for being launched form your personal computer this is because of the fact that current version of rosbot don't have enough compute power to handle CNN - you can paste this file to simulation pkg also and run this with appropriate launch command, paste this code to launch file:
+File rosbot_patrol_pc.launch is made for being launched form your personal computer this is because of the fact that current version of rosbot don't have enough compute power to handle CNN (convolutional neural network) - you can paste this file to simulation pkg also and run this with appropriate launch command, paste this code to launch file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2094,40 +2216,42 @@ File rosbot_patrol_pc.launch is made for being launched form your personal compu
 <param name="compressed/mode" value="color"/>
 </node>
 
-<include file="$(find rosbot_patrol)/launch/darknet_yolo_only.launch"/>
+<include file="find rosbot_patrol)/launch/darknet_yolo_only.launch"/>
 
-<include if="$(arg use_esp)" file="$(find rosbot_patrol)/launch/esp_connector.launch"/>
+<include if="arg use_esp)" file="find rosbot_patrol)/launch/esp_connector.launch"/>
 
 </launch>
 ```
-### Complete code
-a)simulation `$ git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
 
-b)real_robot `$ git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
+### Complete code
+
+a)simulation `git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
+
+b)real_robot `git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
 
 see my repositories - [github-adam-krawczyk](https://github.com/adamkrawczyk)
 
 ## Finishing
 
-To launch this I advise you to have the same code in robot and on your computer. 
+To launch this I advise you to have the same code in robot and on your computer.
 
 1. Add every device to husarnet to the same network
 2. Set rosmaster to robot - less latency
-3. Launch robot using `$ roslaunch rosbot_patrol rosbot_patrol.launch`
-4. On computer launch file `$ roslaunch rosbot_patrol rosbot_patrol_pc.launch`
+3. Launch robot using `roslaunch rosbot_patrol rosbot_patrol.launch`
+4. On computer launch file `roslaunch rosbot_patrol rosbot_patrol_pc.launch`
 
 On your computer you should see window with bounding boxes around things that our neural network recognized.
 
 If one of your sensor detect movement robot will go to point assigned to this sensor and look for people, once it detects you should receive mail.
 
-In case you have no motion sensor just publish to the topic robot is listening for move `$ rostopic pub /motion_trigger simulation/EspTrigger "id: 1 move: 1" ` with appropriate id number. 
+In case you have no motion sensor just publish to the topic robot is listening for move `rostopic pub /motion_trigger simulation/EspTrigger "id: 1 move: 1"` with appropriate id number.
 
 At the end you should see on your computer something similar to this:
 
 ![rosbot_final_result](https://user-images.githubusercontent.com/29305346/62448609-8d807a80-b768-11e9-964b-d8553c636900.png)
 
----------
+---
 
-*by Adam Krawczyk, Husarion*
+_by Adam Krawczyk, Husarion_
 
-*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
