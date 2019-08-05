@@ -20,7 +20,7 @@ We will use rosbot platform with astra camera, ESP-32 microchips with motion sen
 
 Because project covers many fields it will be shown and explained how to configure everything properly. Project was also devided into simulation part and real robot part, this should give a clear view about whole project.
 
-![rosbot_how_it_works](https://user-images.githubusercontent.com/29305346/62465514-58d3e980-b78f-11e9-869a-c63bf92020d3.png)
+![rosbot_how_it_works_v2](https://user-images.githubusercontent.com/29305346/62467724-b454a600-b794-11e9-9923-efb211826750.png)
 
 ## Preparation
 
