@@ -25,9 +25,7 @@ Because project covers many fields it will be shown and explained how to configu
 ## Preparation
 
 1. It is assumed that you have ros already installed - because rosbot currently works on ros kinetic it's necessary to have this version, in case you don't have that check official docs : [ROS kinetic installation](http://wiki.ros.org/kinetic/Installation) .
-2. It is also assumed that you have your ros workspace configured with tutorial_pkg cloned to your workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg) because some files from this repository will be used. In case you don't just go to :
-
-cd <ros_workspace>/src
+2. It is also assumed that you have your ros workspace configured with tutorial_pkg cloned to your workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg) because some files from this repository will be used. In case you don't just go to your workspace this should be something like this cd <ros_workspace>/src , next step is to clone whole pkg:
 
 `git clone https://github.com/husarion/tutorial_pkg.git`
 
@@ -1068,7 +1066,7 @@ with appropriate id number.
 
 ![rosbot_patrol_final](https://user-images.githubusercontent.com/29305346/62055868-b5c62180-b21c-11e9-8cba-ab023da25fe0.png)
 
-# Real robot part
+## Real robot part
 
 Once simulation is made and our algorithm works now we can implement it to real rosbot
 
