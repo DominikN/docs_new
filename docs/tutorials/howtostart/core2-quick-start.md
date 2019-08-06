@@ -1,7 +1,7 @@
 ---
-title: Run your first program
-sidebar_label: 1. Run your first program
-id: run-your-first-program
+title: CORE2 - quick start
+sidebar_label: 1. CORE2 - quick start
+id: core2-quick-start
 ---
 
 ## Preparing hardware ##
