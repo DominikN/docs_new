@@ -49,9 +49,11 @@ see my repositories - [github-adam-krawczyk](https://github.com/adamkrawczyk)
 ### What to install
 
 1. Mailbox (setup this on robot also):
-   ..- chose internet setup set remaining parts as default during installation and setup
+   - chose internet setup set remaining parts as default during installation and setup
 
 ```
+sudo apt install postfix
+sudo service postfix reload 
 sudo apt install mailutils
 sudo apt-get install sendmail
 sudo dpkg-reconfigure postfix
@@ -59,20 +61,31 @@ sudo /etc/init.d/postfix reload
 ```
 
 2. yaml parser
-   [yaml parser install](https://github.com/jbeder/yaml-cpp)
+    This can be installed anywhere eg. <Downloads/> or in <ros_ws/src>
+    
+    ```
+    In desired directory:
+    git clone https://github.com/jbeder/yaml-cpp.git
+    cd yaml-cpp
+    mkdir build
+    cd build
+    cmake ..
+    ```
 
-3. CNN (convolutional neural network) for image processing darknet ros will be used (install this in ~/ros_workspace/src) [darknet install](https://github.com/leggedrobotics/darknet_ros)
+    [yaml parser install](https://github.com/jbeder/yaml-cpp)
 
-To make it download you have to follow this instruction:
 
-1. Setup your ssh key follow this instruction to do, so - [setup ssh key](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html)
-2. `git clone --recursive git@github.com:leggedrobotics/darknet_ros.git`
-3. `cd ../`
-4. `catkin_make -DCMAKE_BUILD_TYPE=Release`
+3. CNN (convolutional neural network) for image processing _darknet ros_ will be used (install this in ~/ros_workspace/src) 
 
-After installing run following command to build that:
+    To make it download you have to follow this instruction:
 
-`catkin_make -DCMAKE_BUILD_TYPE=Release`
+    1. Setup your ssh key follow this instruction to do, so - [setup ssh key](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html)
+    2. `git clone --recursive git@github.com:leggedrobotics/darknet_ros.git`
+    3. `cd ../`
+    4. `catkin_make -DCMAKE_BUILD_TYPE=Release`
+
+    [darknet ros github](https://github.com/leggedrobotics/darknet_ros)
+
 
 ### Create your packages
 
@@ -136,41 +149,42 @@ Then open that file with your favorite editor and paste following code:
 ```xml
 <launch>
 
-    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-        <remap from="/base_scan" to="/scan"/>
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <remap from="/base_scan" to="/scan"/>
 
-        <param name="base_frame" value="base_link"/>
-        <param name="map_frame" value="map"/>
-        <param name="odom_frame" value="odom"/>
-        <param name="map_update_interval" value="5.0"/>
-        <param name="maxUrange" value="16.0"/>
-        <param name="sigma" value="0.05"/>
-        <param name="kernelSize" value="1"/>
-        <param name="lstep" value="0.05"/>
-        <param name="astep" value="0.05"/>
-        <param name="iterations" value="5"/>
-        <param name="lsigma" value="0.075"/>
-        <param name="ogain" value="3.0"/>
-        <param name="lskip" value="0"/>
-        <param name="srr" value="0.1"/>
-        <param name="srt" value="0.2"/>
-        <param name="str" value="0.1"/>
-        <param name="stt" value="0.2"/>
-        <param name="linearUpdate" value="0.05"/>
-        <param name="angularUpdate" value="0.05"/>
-        <param name="temporalUpdate" value="0.5"/>
-        <param name="resampleThreshold" value="0.5"/>
-        <param name="particles" value="30"/>
-        <param name="xmin" value="-50.0"/>
-        <param name="ymin" value="-50.0"/>
-        <param name="xmax" value="50.0"/>
-        <param name="ymax" value="50.0"/>
-        <param name="delta" value="0.05"/>
-        <param name="llsamplerange" value="0.01"/>
-        <param name="llsamplestep" value="0.01"/>
-        <param name="lasamplerange" value="0.005"/>
-        <param name="lasamplestep" value="0.005"/>
-    </node>
+    <param name="base_frame" value="base_link"/>
+    <param name="map_frame" value="map"/>
+    <param name="odom_frame" value="odom"/>
+
+    <param name="map_update_interval" value="5.0"/>
+    <param name="maxUrange" value="16.0"/>
+    <param name="sigma" value="0.05"/>
+    <param name="kernelSize" value="1"/>
+    <param name="lstep" value="0.05"/>
+    <param name="astep" value="0.05"/>
+    <param name="iterations" value="5"/>
+    <param name="lsigma" value="0.075"/>
+    <param name="ogain" value="3.0"/>
+    <param name="lskip" value="0"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
+    <param name="linearUpdate" value="0.05"/>
+    <param name="angularUpdate" value="0.05"/>
+    <param name="temporalUpdate" value="0.5"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <param name="particles" value="30"/>
+    <param name="xmin" value="-50.0"/>
+    <param name="ymin" value="-50.0"/>
+    <param name="xmax" value="50.0"/>
+    <param name="ymax" value="50.0"/>
+    <param name="delta" value="0.05"/>
+    <param name="llsamplerange" value="0.01"/>
+    <param name="llsamplestep" value="0.01"/>
+    <param name="lasamplerange" value="0.005"/>
+    <param name="lasamplestep" value="0.005"/>
+  </node>
 
 </launch>
 ```
@@ -187,12 +201,12 @@ Open this file and paste following code:
 <launch>
 
     <node pkg="move_base" type="move_base" name="move_base" output="log">
-        <param name="controller_frequency" value="25.0"/>
-    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-    <rosparam file="find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
-    <rosparam file="find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+      <param name="controller_frequency" value="25.0"/>
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
     </node>
 
 </launch>
@@ -218,24 +232,25 @@ Then open that file with your favorite editor and paste following code:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-    <launch>
-        <param name="use_sim_time" value="true"/>
-        <arg name="world" default="empty"/>
-        <arg name="paused" default="false"/>
-        <arg name="use_sim_time" default="true"/>
-        <arg name="gui" default="true"/>
-        <arg name="headless" default="false"/>
-        <arg name="debug" default="false"/>
+<launch>
+    <param name="use_sim_time" value="true"/>
+    <arg name="world" default="empty"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
 
-    <include file="find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="find rosbot_patrol_simulation)/worlds/model.world"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find rosbot_patrol_simulation)/worlds/model.world"/>  
     </include>
-    <include file="find rosbot_description)/launch/rosbot_gazebo.launch"/>
-    <include file="find rosbot_patrol_simulation)/launch/gmapping_only.launch" />
-    <include file="find rosbot_patrol_simulation)/launch/move_base_only.launch" />
+    <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+    <include file="$(find rosbot_patrol_simulation)/launch/gmapping_only.launch" />  
+    <include file="$(find rosbot_patrol_simulation)/launch/move_base_only.launch" />    
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
-    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>  
+    
 </launch>
 ```
 
@@ -282,13 +297,14 @@ Inside of this file paste following code, it's also in tutorial pkg :
 ```xml
 <launch>
     <node pkg="amcl" type="amcl" name="amcl" output="screen">
-        <remap from="scan" to="/scan"/>
-        <param name="odom_frame_id" value="odom"/>
-        <param name="odom_model_type" value="diff-corrected"/>
-        <param name="base_frame_id" value="base_link"/>
-        <param name="update_min_d" value="0.5"/>
-        <param name="update_min_a" value="1.0"/>
-    </node>
+    <remap from="scan" to="/scan"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="base_link"/>
+    <param name="update_min_d" value="0.5"/>
+    <param name="update_min_a" value="1.0"/>
+    </node>   
+   
 </launch>
 ```
 
@@ -315,19 +331,19 @@ Inside of this file paste following code:
     <arg name="headless" default="false"/>
     <arg name="debug" default="false"/>
 
-    <include file="find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="find rosbot_patrol_simulation)/worlds/model.world"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find rosbot_patrol_simulation)/worlds/model.world"/>  
     </include>
-    <include file="find rosbot_description)/launch/rosbot_gazebo.launch"/>
-    <include file="find rosbot_patrol_simulation)/launch/move_base_only.launch" />
-    <include file="find rosbot_patrol_simulation)/launch/amcl_only.launch"/>
+    <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+    <include file="$(find rosbot_patrol_simulation)/launch/move_base_only.launch" />    
+    <include file="$(find rosbot_patrol_simulation)/launch/amcl_only.launch"/> 
 
-    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
+    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster"   args="0 0 0 3.14 0 0 base_link laser_frame 100" />
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
-                    
-                    <!--map server with simul map-->
-    <arg name="map_file" default="find rosbot_patrol_simulation)/maps/rosbot_map.yaml"/>
-    <node name="map_server" pkg="map_server" type="map_server" args="arg map_file)" respawn="false" />
+    
+    <!--map server with simul map-->
+    <arg name="map_file" default="$(find rosbot_patrol_simulation)/maps/rosbot_map.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="false" />
 
 </launch>
 ```
@@ -359,17 +375,10 @@ move - value informing if there is move detected
 
 ### Class files
 
-In simulation directory create folder called src and include
-
-```
-roscd rosbot_patrol_simulation
-mkdir src
-mkdir include
-```
-
 In include folder create file called PatrolManager.h
 
 ```
+roscd rosbot_patrol_simulation
 cd include
 touch PatrolManager.h
 ```
@@ -747,42 +756,42 @@ project(rosbot_patrol_simulation)
 add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
-message_generation
-frontier_exploration
-geometry_msgs
-gmapping
-move_base
-roscpp
-rospy
-tf
-darknet_ros
+  message_generation
+  frontier_exploration
+  geometry_msgs
+  gmapping
+  move_base
+  roscpp
+  rospy
+  tf
+  darknet_ros
 )
 
 find_package( OpenCV REQUIRED )
 
 add_message_files(FILES
-EspTrigger.msg
+  EspTrigger.msg
 )
 
 generate_messages(DEPENDENCIES
-std_msgs
+  std_msgs
 )
 
 catkin_package(
-CATKIN_DEPENDS
-message_runtime
+  CATKIN_DEPENDS
+  message_runtime
 )
 
 include_directories(
-include catkin_INCLUDE_DIRS}
-catkin_INCLUDE_DIRS}
-OpenCV_INCLUDE_DIRS}
+  include ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 add_executable(patrol_robot_simulation src/patrol_robot_simulation.cpp src/PatrolManager.cpp)
-add_dependencies(patrol_robot_simulation PROJECT_NAME}_EXPORTED_TARGETS} catkin_EXPORTED_TARGETS})
+add_dependencies(patrol_robot_simulation ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(patrol_robot_simulation
-catkin_LIBRARIES} yaml-cpp
+  ${catkin_LIBRARIES} yaml-cpp
 )
 ```
 
@@ -791,27 +800,27 @@ To file package.xml paste following code:
 ```xml
 <?xml version="1.0"?>
 <package format="2">
-<name>rosbot_patrol_simulation</name>
-<version>0.0.0</version>
-<description>The rosbot_patrol_simulation package</description>
+  <name>rosbot_patrol_simulation</name>
+  <version>0.0.0</version>
+  <description>The rosbot_patrol_simulation package</description>
 
-<maintainer email="adam-krawczyk@outlook.com">adam</maintainer>
+  <maintainer email="adam-krawczyk@outlook.com">adam</maintainer>
 
-<license>TODO</license>
+  <license>TODO</license>
 
-<buildtool_depend>catkin</buildtool_depend>
-<build_depend>roscpp</build_depend>
-<build_depend>rospy</build_depend>
-<build_export_depend>roscpp</build_export_depend>
-<build_export_depend>rospy</build_export_depend>
-<exec_depend>roscpp</exec_depend>
-<exec_depend>rospy</exec_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
 
-<!-- The export tag contains other, unspecified, tags -->
-<export>
-<!-- Other tools can request additional information be placed here -->
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
 
-</export>
+  </export>
 <build_depend>message_generation</build_depend>
 <build_export_depend>message_generation</build_export_depend>
 <exec_depend>message_runtime</exec_depend>
@@ -988,26 +997,26 @@ Inside paste following code:
 ```xml
 <launch>
 
-<!-- Console launch prefix -->
-<arg name="launch_prefix" default=""/>
+  <!-- Console launch prefix -->
+  <arg name="launch_prefix" default=""/>
 
-<!-- Config and weights folder. -->
-<arg name="yolo_weights_path" default="find darknet_ros)/yolo_network_config/weights"/>
-<arg name="yolo_config_path" default="find darknet_ros)/yolo_network_config/cfg"/>
+  <!-- Config and weights folder. -->
+  <arg name="yolo_weights_path"          default="$(find darknet_ros)/yolo_network_config/weights"/>
+  <arg name="yolo_config_path"           default="$(find darknet_ros)/yolo_network_config/cfg"/>
 
-<!-- ROS and network parameter files -->
-<arg name="ros_param_file" default="find rosbot_patrol_simulation)/config/darknet_config_simulation.yaml"/>
-<arg name="network_param_file" default="find darknet_ros)/config/yolov2-tiny.yaml"/>
+  <!-- ROS and network parameter files -->
+  <arg name="ros_param_file"             default="$(find rosbot_patrol_simulation)/config/darknet_config_simulation.yaml"/>
+  <arg name="network_param_file"         default="$(find darknet_ros)/config/yolov2-tiny.yaml"/>
 
-<!-- Load parameters -->
-<rosparam command="load" ns="darknet_ros" file="arg ros_param_file)"/>
-<rosparam command="load" ns="darknet_ros" file="arg network_param_file)"/>
+  <!-- Load parameters -->
+  <rosparam command="load" ns="darknet_ros" file="$(arg ros_param_file)"/>
+  <rosparam command="load" ns="darknet_ros" file="$(arg network_param_file)"/>
 
-<!-- Start darknet and ros wrapper -->
-<node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="arg launch_prefix)">
-<param name="weights_path" value="arg yolo_weights_path)" />
-<param name="config_path" value="arg yolo_config_path)" />
-</node>
+  <!-- Start darknet and ros wrapper -->
+  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
+    <param name="weights_path"          value="$(arg yolo_weights_path)" />
+    <param name="config_path"           value="$(arg yolo_config_path)" />
+  </node>
 
 </launch>
 ```
@@ -1024,18 +1033,18 @@ And paste following launch file:
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-<include file="find rosbot_patrol_simulation)/launch/darknet_yolo_simulation_only.launch"/>
+    <include file="$(find rosbot_patrol_simulation)/launch/darknet_yolo_simulation_only.launch"/> 
 
-<include file="find rosbot_patrol_simulation)/launch/simulation_world.launch"/>
+    <include file="$(find rosbot_patrol_simulation)/launch/simulation_world.launch"/> 
 
-<!-- patrol node -->
-<node pkg="rosbot_patrol_simulation" type="patrol_robot_simulation" name="patrolling_node" output="screen" respawn="true">
+                        <!-- patrol node -->
+    <node pkg="rosbot_patrol_simulation" type="patrol_robot_simulation" name="patrolling_node" output="screen" respawn="true">
 
-<!-- path to file with params of points -->
-<param name="path_to_params" type="string" value="find rosbot_patrol_simulation)/params/room_points.yaml" />
-<param name="email_to" type="string" value="*****@****.***" /> <!-- setup first mailbox on your device!!!!!! -->
-<param name="email_from" type="string" value="*****@****.***" />
-</node>
+                        <!-- path to file  with  params of points --> 
+    <param name="path_to_params" type="string" value="$(find rosbot_patrol_simulation)/params/room_points.yaml" />
+    <param name="email_to" type="string" value="*****@****.***" />  <!-- setup first mailbox on your device!!!!!! -->
+    <param name="email_from" type="string" value="*****@****.***" />
+    </node>
 
 </launch>
 ```
@@ -1074,16 +1083,14 @@ Let's create our package if you haven't done that before.
 catkin_create_pkg rosbot_patrol roscpp
 ```
 
-In real part whole algorithm from simulation will be used, but with some more cool features like esp32 sensors or neural network and this is problem, because current version of rosbot has not enough computing power, so it is necessary to outsource image processing, and this require to implement compressed image transport.
+In real robot part some cool features will be needed, like information about move, image processing, path planning. Because current version of rosbot has not enough computing power (nether rosbot 2.0 nor rosbot PRO), so it is necessary to outsource image processing, and this require to implement compressed image transport what will be done. There are many things to do so hold on and stick to instructions. 
 
 ## Main code
 
-It's needed to create files for our patrol task to do, that create directory src and include.
+Let's get this rolling!
 
 ```
 roscd rosbot_patrol
-mkdir src
-mkdir include
 ```
 
 ### Include
@@ -1474,33 +1481,35 @@ cd launch && touch rosbot_all_hardware.launch
 
 In this new file paste following code:
 
+REMEMBER TO SET CORRECT PART FOR YOUR FIRMWARE AND ROSBOT VERSION!!!
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-<arg name="rosbot_pro" default="false"/>
-<arg name="rosbot_version" default="optenv ROSBOT_VER)"/>
+    <arg name="rosbot_version" default="$(optenv ROSBOT_VER)"/>
 
-<include file="find astra_launch)/launch/astra.launch"/>
+    <include file="$(find astra_launch)/launch/astra.launch"/>
 
-<include file="find rplidar_ros)/launch/rplidar.launch"/>
+    <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
 
-<node pkg="tf" type="static_transform_publisher" name="laser_publisher" args="0 0 0.058 3.14159 0 0 base_link laser 100" />
+    <node pkg="tf" type="static_transform_publisher" name="laser_publisher" args="0 0 0.058 3.14159 0 0 base_link laser 100" />
 
-<node pkg="tf" type="static_transform_publisher" name="imu_publisher" args="0 0 0.02 0 0 0 base_link imu_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="imu_publisher" args="0 0 0.02 0 0 0 base_link imu_link 100" />
 
-<node pkg="tf" type="static_transform_publisher" name="camera_publisher" args="-0.03 0 0.18 0 0 0 base_link camera_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="camera_publisher" args="-0.03 0 0.18 0 0 0 base_link camera_link 100" />
 
-<!-- here you have to chose appropriate launch depending on your rosbot firmware - I'm strongly recommend to install new firmware it has some utilities including Extended Kalman Filter -->
+<!-- here you have to chose appropirate launch depending on your rosbot firmware - I'm strongly recommend to install new firmware it has some utilites including Extended Kalman Filter -->
 
-<!-- NEW FIRMWARE
-<include file="find rosbot)/launch/all.launch"/>
--->
-<!-- OLD FIRMWARE -->
-<!-- -->
-
-<node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
-<node pkg="tutorial_pkg" type="serial_bridge.sh" name="serial_bridge" />
+    
+    <!-- NEW FIRMWARE -->
+    <include file="$(find rosbot)/launch/all.launch"/>
+ 
+    <!-- OLD FIRMWARE -->
+   <!--  
+    <node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/> 
+    <node pkg="tutorial_pkg" type="serial_bridge.sh" name="serial_bridge"   /> 
+    -->
 
 </launch>
 ```
@@ -1528,14 +1537,14 @@ touch move_base_only.launch
 ```xml
 <launch>
 
-<node pkg="move_base" type="move_base" name="move_base" output="log">
-    <param name="controller_frequency" value="10.0"/>
-    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-    <rosparam file="find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
-    <rosparam file="find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
-</node>
+    <node pkg="move_base" type="move_base" name="move_base" output="log">
+        <param name="controller_frequency" value="10.0"/>
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+    </node>
 
 </launch>
 ```
@@ -1552,18 +1561,20 @@ Paste there following code:
 
 ```xml
 <launch>
-<node pkg="amcl" type="amcl" name="amcl" output="screen">
-    <remap from="scan" to="/scan"/>
-    <param name="odom_frame_id" value="odom"/>
-    <param name="odom_model_type" value="diff-corrected"/>
-    <param name="base_frame_id" value="base_link"/>
-    <param name="update_min_d" value="0.1"/>
-    <param name="update_min_a" value="0.2"/>
-    <param name="min_particles" value="500"/>
-    <param name="global_frame_id" value="map"/>
-    <param name="tf_broadcast" value="true" />
+    
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+        <remap from="scan" to="/scan"/>
+        <param name="odom_frame_id" value="odom"/>
+        <param name="odom_model_type" value="diff-corrected"/>
+        <param name="base_frame_id" value="base_link"/>
+        <param name="update_min_d" value="0.1"/>
+        <param name="update_min_a" value="0.2"/>
+        <param name="min_particles" value="500"/>
+        <param name="global_frame_id" value="map"/>
+        <param name="tf_broadcast" value="true" />
 
-</node>
+    </node>
+   
 </launch>
 ```
 
@@ -1578,7 +1589,7 @@ Paste this code inside:
 ```xml
 <launch>
 
-<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <remap from="/base_scan" to="/scan"/>
 
     <param name="base_frame" value="base_link"/>
@@ -1613,7 +1624,7 @@ Paste this code inside:
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-</node>
+  </node>
 
 </launch>
 ```
@@ -1627,13 +1638,14 @@ touch rosbot_gmapping.launch
 ```
 
 ```xml
+
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-<include file="find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
-<include file="find rosbot_patrol)/launch/move_base_only.launch"/>
-<node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
-<include file="find rosbot_patrol)/launch/gmapping_only.launch" />
+    <include file="$(find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
+    <include file="$(find rosbot_patrol)/launch/move_base_only.launch"/>
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
+    <include file="$(find rosbot_patrol)/launch/gmapping_only.launch" />        
 
 </launch>
 ```
@@ -1784,42 +1796,46 @@ project(rosbot_patrol)
 add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
-message_generation
-frontier_exploration
-geometry_msgs
-gmapping
-move_base
-roscpp
-rospy
-tf
-darknet_ros
+  message_generation
+  frontier_exploration
+  geometry_msgs
+  gmapping
+  move_base
+  roscpp
+  rospy
+  tf
+  darknet_ros
 )
 
 find_package( OpenCV REQUIRED )
 
+
 add_message_files(FILES
-EspTrigger.msg
+  EspTrigger.msg
 )
 
+
 generate_messages(DEPENDENCIES
-std_msgs
+  std_msgs
 )
 
 catkin_package(
-CATKIN_DEPENDS
-message_runtime
+  CATKIN_DEPENDS
+  message_runtime
 )
+
 
 include_directories(
-include catkin_INCLUDE_DIRS}
-catkin_INCLUDE_DIRS}
-OpenCV_INCLUDE_DIRS}
+  include ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
+
 add_executable(patrol_robot src/patrol_robot.cpp src/PatrolManager.cpp)
-add_dependencies(patrol_robot PROJECT_NAME}_EXPORTED_TARGETS} catkin_EXPORTED_TARGETS})
+add_dependencies(patrol_robot ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(patrol_robot
-catkin_LIBRARIES} yaml-cpp
+  ${catkin_LIBRARIES} yaml-cpp
 )
 ```
 
@@ -1828,27 +1844,28 @@ In package.xml paste:
 ```xml
 <?xml version="1.0"?>
 <package format="2">
-<name>rosbot_patrol</name>
-<version>0.0.0</version>
-<description>The rosbot_patrol package</description>
+  <name>rosbot_patrol</name>
+  <version>0.0.0</version>
+  <description>The rosbot_patrol package</description>
 
-<maintainer email="adam-krawczyk@outlook.com">adam</maintainer>
+  <maintainer email="adam-krawczyk@outlook.com">adam</maintainer>
 
-<license>TODO</license>
+  <license>TODO</license>
 
-<buildtool_depend>catkin</buildtool_depend>
-<build_depend>roscpp</build_depend>
-<build_depend>rospy</build_depend>
-<build_export_depend>roscpp</build_export_depend>
-<build_export_depend>rospy</build_export_depend>
-<exec_depend>roscpp</exec_depend>
-<exec_depend>rospy</exec_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
 
-<!-- The export tag contains other, unspecified, tags -->
-<export>
-<!-- Other tools can request additional information be placed here -->
 
-</export>
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
 <build_depend>message_generation</build_depend>
 <build_export_depend>message_generation</build_export_depend>
 <exec_depend>message_runtime</exec_depend>
@@ -1877,7 +1894,7 @@ If we have husarnet set up we can create new sketch for our arduino project:
 #include <WiFiMulti.h>
 
 #define PUB_FREQ 2 // frequency of publishing data - it don't have to be large num
-#define ID 2 // number of device - pair this with number of your room
+#define ID 2       // number of device - pair this with number of your room
 
 uint16_t port = 11411; //this must be set the same as tcp_port in launch file (esp_connect.launch)
 
@@ -1888,8 +1905,8 @@ unsigned long now = millis();
 unsigned long lastTrigger = 0;
 
 // Husarnet credentials
-const char* hostName0 = "******"; //this will be the name of the 1st ESP32 device at https://app.husarnet.com
-const char* hostName1 = "********"; //this will be the name of the host/rosmaster device at https://app.husarnet.com
+const char *hostName0 = "******";   //this will be the name of the 1st ESP32 device at https://app.husarnet.com
+const char *hostName1 = "********"; //this will be the name of the host/rosmaster device at https://app.husarnet.com
 
 /* to get your join code go to https://app.husarnet.com
 -> select network
@@ -1897,58 +1914,64 @@ const char* hostName1 = "********"; //this will be the name of the host/rosmaste
 -> select "join code" tab
 Keep it secret!
 */
-const char* husarnetJoinCode = "**********";
+const char *husarnetJoinCode = "**********";
 
 // WiFi credentials
 #define NUM_NETWORKS 2 //number of Wi-Fi network credentials saved
 
-const char* ssidTab[NUM_NETWORKS] = {
-"****",
-"***",
+const char *ssidTab[NUM_NETWORKS] = {
+    "****",
+    "***",
 };
 
-const char* passwordTab[NUM_NETWORKS] = {
-"******",
-"********",
+const char *passwordTab[NUM_NETWORKS] = {
+    "******",
+    "********",
 };
 
 WiFiMulti wifiMulti;
 HusarnetClient client;
 
-
-class WiFiHardware {
+class WiFiHardware
+{
 
 public:
-WiFiHardware() {};
+    WiFiHardware(){};
 
-void init() {
-// do your initialization here. this probably includes TCP server/client setup
-Serial.printf("WiFiHardware: init, hostname = %s, port = %d\r\n", hostName1, port);
-while (! client.connect(hostName1, port)) {
-Serial.printf("Waiting for connection\r\n");
-delay(500);
-}
-}
+    void init()
+    {
+        // do your initialization here. this probably includes TCP server/client setup
+        Serial.printf("WiFiHardware: init, hostname = %s, port = %d\r\n", hostName1, port);
+        while (!client.connect(hostName1, port))
+        {
+            Serial.printf("Waiting for connection\r\n");
+            delay(500);
+        }
+    }
 
-// read a byte from the serial port. -1 = failure
-int read() {
-// implement this method so that it reads a byte from the TCP connection and returns it
-// you may return -1 is there is an error; for example if the TCP connection is not open
-return client.read(); //will return -1 when it will works
-}
+    // read a byte from the serial port. -1 = failure
+    int read()
+    {
+        // implement this method so that it reads a byte from the TCP connection and returns it
+        // you may return -1 is there is an error; for example if the TCP connection is not open
+        return client.read(); //will return -1 when it will works
+    }
 
-// write data to the connection to ROS
-void write(uint8_t* data, int length) {
-// implement this so that it takes the arguments and writes or prints them to the TCP connection
-for (int i = 0; i < length; i++) {
-client.write(data[i]);
-}
-}
+    // write data to the connection to ROS
+    void write(uint8_t *data, int length)
+    {
+        // implement this so that it takes the arguments and writes or prints them to the TCP connection
+        for (int i = 0; i < length; i++)
+        {
+            client.write(data[i]);
+        }
+    }
 
-// returns milliseconds since start of program
-unsigned long time() {
-return millis(); // easy; did this one for you
-}
+    // returns milliseconds since start of program
+    unsigned long time()
+    {
+        return millis(); // easy; did this one for you
+    }
 };
 
 ros::NodeHandle_<WiFiHardware> nh;
@@ -1958,82 +1981,96 @@ rosbot_patrol::EspTrigger esp_msg;
 ros::Publisher motion_trigger("motion_trigger", &esp_msg);
 volatile bool move = 0;
 
-void IRAM_ATTR detectsMovement() {
-Serial.println("MOTION DETECTED!!!");
-::move = 1;
+void IRAM_ATTR detectsMovement()
+{
+    Serial.println("MOTION DETECTED!!!");
+    ::move = 1;
 }
 
-void taskWifi( void * parameter );
+void taskWifi(void *parameter);
 
-void setup() {
-for (int i = 0; i < NUM_NETWORKS; i++) {
-String ssid = ssidTab[i];
-String pass = passwordTab[i];
-wifiMulti.addAP(ssid.c_str(), pass.c_str());
+void setup()
+{
+    for (int i = 0; i < NUM_NETWORKS; i++)
+    {
+        String ssid = ssidTab[i];
+        String pass = passwordTab[i];
+        wifiMulti.addAP(ssid.c_str(), pass.c_str());
 
-Serial.printf("WiFi %d: SSID: \"%s\" ; PASS: \"%s\"\r\n", i, ssid.c_str(), pass.c_str());
+        Serial.printf("WiFi %d: SSID: \"%s\" ; PASS: \"%s\"\r\n", i, ssid.c_str(), pass.c_str());
+    }
+
+    xTaskCreate(
+        taskWifi,   /* Task function. */
+        "taskWifi", /* String with name of task. */
+        10000,      /* Stack size in bytes. */
+        NULL,       /* Parameter passed as input of the task */
+        1,          /* Priority of the task. */
+        NULL);      /* Task handle. */
+
+    Serial.begin(115200);
+    nh.initNode();
+    nh.advertise(motion_trigger);
+
+    pinMode(motionSensor, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
 }
 
-xTaskCreate(
-taskWifi, /* Task function. */
-"taskWifi", /* String with name of task. */
-10000, /* Stack size in bytes. */
-NULL, /* Parameter passed as input of the task */
-1, /* Priority of the task. */
-NULL); /* Task handle. */
-
-Serial.begin(115200);
-nh.initNode();
-nh.advertise(motion_trigger);
-
-pinMode(motionSensor, INPUT_PULLUP);
-attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
+void loop()
+{
+    now = millis();
+    if ((now - lastTrigger) > (1000 / PUB_FREQ))
+    {
+        if (client.connected())
+        {
+            Serial.println("Looking for move!!!");
+            esp_msg.move = ::move;
+            esp_msg.id = ID;
+            motion_trigger.publish(&esp_msg);
+            ::move = 0;
+            lastTrigger = millis();
+            nh.spinOnce();
+        }
+        else
+        {
+            while (!client.connect(hostName1, port))
+            {
+                Serial.printf("Waiting for connection\r\n");
+                delay(500);
+            }
+        }
+    }
 }
 
-void loop() {
-now = millis();
-if ((now - lastTrigger) > (1000 / PUB_FREQ)) {
-if (client.connected()) {
-Serial.println("Looking for move!!!");
-esp_msg.move = ::move;
-esp_msg.id = ID;
-motion_trigger.publish( &esp_msg );
-::move = 0;
-lastTrigger = millis();
-nh.spinOnce();
-}
-else {
-while (! client.connect(hostName1, port)) {
-Serial.printf("Waiting for connection\r\n");
-delay(500);
-}
-}
+void taskWifi(void *parameter)
+{
+    while (1)
+    {
+        uint8_t stat = wifiMulti.run();
+        if (stat == WL_CONNECTED)
+        {
+            Serial.println("");
+            Serial.println("WiFi connected");
+            Serial.println("IP address: ");
+            Serial.println(WiFi.localIP());
 
-}
-}
+            Husarnet.join(husarnetJoinCode, hostName0);
+            Husarnet.start();
 
-void taskWifi( void * parameter ) {
-while (1) {
-uint8_t stat = wifiMulti.run();
-if (stat == WL_CONNECTED) {
-Serial.println("");
-Serial.println("WiFi connected");
-Serial.println("IP address: ");
-Serial.println(WiFi.localIP());
-
-Husarnet.join(husarnetJoinCode, hostName0);
-Husarnet.start();
-
-while (WiFi.status() == WL_CONNECTED) {
-delay(500);
-}
-} else {
-Serial.printf("WiFi error: %d\r\n", (int)stat);
-delay(500);
-}
-}
+            while (WiFi.status() == WL_CONNECTED)
+            {
+                delay(500);
+            }
+        }
+        else
+        {
+            Serial.printf("WiFi error: %d\r\n", (int)stat);
+            delay(500);
+        }
+    }
 }
 ```
+
 At the end connect motion sensor to ESP32:
 
 ![motion_sensor_esp](https://user-images.githubusercontent.com/29305346/62054012-0b98ca80-b219-11e9-9731-3729d16baeb1.png)
@@ -2052,19 +2089,19 @@ Only what you have to take care of is to set appropriate port for each device I 
 ```xml
 <launch >
 
-<node pkg="rosserial_python" type="serial_node.py" name="esp_client1" respawn="true">
-    <param name="port" value="tcp"/>
-    <param name="tcp_port" value="11411"/>
+<node pkg="rosserial_python" type="serial_node.py" name="esp_client1"  respawn="true">
+<param name="port" value="tcp"/>
+<param name="tcp_port" value="11411"/>
 </node>
 
-<node pkg="rosserial_python" type="serial_node.py" name="esp_client2" respawn="true">
-    <param name="port" value="tcp"/>
-    <param name="tcp_port" value="11412"/>
+<node pkg="rosserial_python" type="serial_node.py" name="esp_client2"  respawn="true">
+<param name="port" value="tcp"/>
+<param name="tcp_port" value="11412"/>
 </node>
 
-<node pkg="rosserial_python" type="serial_node.py" name="esp_client3" respawn="true">
-    <param name="port" value="tcp"/>
-    <param name="tcp_port" value="11413"/>
+<node pkg="rosserial_python" type="serial_node.py" name="esp_client3"  respawn="true">
+<param name="port" value="tcp"/>
+<param name="tcp_port" value="11413"/>
 </node>
 
 </launch>
@@ -2089,26 +2126,26 @@ In this file paste following code:
 ```xml
 <launch>
 
-<!-- Console launch prefix -->
-<arg name="launch_prefix" default=""/>
+  <!-- Console launch prefix -->
+  <arg name="launch_prefix" default=""/>
 
-<!-- Config and weights folder -->
-<arg name="yolo_weights_path" default="find darknet_ros)/yolo_network_config/weights"/>
-<arg name="yolo_config_path" default="find darknet_ros)/yolo_network_config/cfg"/>
+  <!-- Config and weights folder -->
+  <arg name="yolo_weights_path"          default="$(find darknet_ros)/yolo_network_config/weights"/>
+  <arg name="yolo_config_path"           default="$(find darknet_ros)/yolo_network_config/cfg"/>
 
-<!-- ROS and network parameter files -->
-<arg name="ros_param_file" default="find rosbot_patrol)/config/darknet_config.yaml"/>
-<arg name="network_param_file" default="find darknet_ros)/config/yolov2-tiny.yaml"/>
+  <!-- ROS and network parameter files -->
+  <arg name="ros_param_file"             default="$(find rosbot_patrol)/config/darknet_config.yaml"/>
+  <arg name="network_param_file"         default="$(find darknet_ros)/config/yolov2-tiny.yaml"/>
 
-<!-- Load parameters -->
-<rosparam command="load" ns="darknet_ros" file="arg ros_param_file)"/>
-<rosparam command="load" ns="darknet_ros" file="arg network_param_file)"/>
+  <!-- Load parameters -->
+  <rosparam command="load" ns="darknet_ros" file="$(arg ros_param_file)"/>
+  <rosparam command="load" ns="darknet_ros" file="$(arg network_param_file)"/>
 
-<!-- Start darknet and ros wrapper -->
-<node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="arg launch_prefix)">
-<param name="weights_path" value="arg yolo_weights_path)" />
-<param name="config_path" value="arg yolo_config_path)" />
-</node>
+  <!-- Start darknet and ros wrapper -->
+  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
+    <param name="weights_path"          value="$(arg yolo_weights_path)" />
+    <param name="config_path"           value="$(arg yolo_config_path)" />
+  </node>
 
 </launch>
 ```
@@ -2182,24 +2219,25 @@ In rosbot_patrol.launch paste this code:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+                                <!-- Image compression -->
+    <node pkg="image_transport" type="republish" name="rgb_compress" args="raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish">
+        <param name="compressed/mode" value="color"/>
+    </node>
 
-<!-- Image compression -->
-<node pkg="image_transport" type="republish" name="rgb_compress" args="raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish">
-<param name="compressed/mode" value="color"/>
-</node>
+    <include file="$(find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
+    <include file="$(find rosbot_patrol)/launch/rosbot_all_algorithms.launch"/> 
+    
+    <arg name="map_file" default="$(find rosbot_patrol)/maps/testv2.yaml"/>       <!-- map arg -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
 
-<include file="find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
-<include file="find rosbot_patrol)/launch/rosbot_all_algorithms.launch"/>
-<arg name="map_file" default="find rosbot_patrol)/maps/testv2.yaml"/> <!-- map arg -->
-<node name="map_server" pkg="map_server" type="map_server" args="arg map_file)" respawn="true" />
-
-<!-- patrol node -->
+  <!-- patrol node -->
 <node pkg="rosbot_patrol" type="patrol_robot" name="patrolling_node" output="screen" respawn="true">
-<!-- path to file with params of points -->
-<param name="path_to_params" type="string" value="find rosbot_patrol)/params/room_points_biuro.yaml" />
+        <!-- path to file  with  params of points --> 
+<param name="path_to_params" type="string" value="$(find rosbot_patrol)/params/room_points.yaml" />
 <param name="email_to" type="string" value="*****@**.**" />
-<param name="email_from" type="string" value="*****@****.***" />
+<param name="email_from" type="string" value="*****@****.***" /> 
 </node>
+
 
 </launch>
 ```
@@ -2210,16 +2248,16 @@ File rosbot_patrol_pc.launch is made for being launched form your personal compu
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-<arg name="use_esp" default="true"/>
+    <arg name="use_esp" default="true"/>
 
-<node pkg="image_transport" type="republish" name="rgb_decompress" args=" compressed in:=/rgb_republish raw out:=/rgb_raw" respawn="true">
-<param name="compressed/mode" value="color"/>
-</node>
+    <node pkg="image_transport" type="republish" name="rgb_decompress" args=" compressed in:=/rgb_republish raw out:=/rgb_raw" respawn="true">
+        <param name="compressed/mode" value="color"/>
+    </node>
 
-<include file="find rosbot_patrol)/launch/darknet_yolo_only.launch"/>
+    <include file="$(find rosbot_patrol)/launch/darknet_yolo_only.launch"/>
 
-<include if="arg use_esp)" file="find rosbot_patrol)/launch/esp_connector.launch"/>
-
+     <include if="$(arg use_esp)" file="$(find rosbot_patrol)/launch/esp_connector.launch"/>
+     
 </launch>
 ```
 
@@ -2254,4 +2292,4 @@ At the end you should see on your computer something similar to this:
 
 _by Adam Krawczyk, Husarion_
 
-_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
+_Do you need any support with completing this project or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
