@@ -580,7 +580,7 @@ PatrolManager::quaternion_from_euler(double roll, double pitch, double yaw) //me
 }
 ```
 
-### main file
+### Main file
 
 In src directory create another file called patrol_robot_simulation.cpp
 
@@ -1666,7 +1666,7 @@ mkdir maps && cd maps
 rosrun map_server map_saver -f rosbot_map.yaml
 ```
 
-### find coordinates for move sensor
+### Find coordinates for move sensor
 
 If we already are able to drive on this map we have to find coordinates to where robot should drive. There is still the same method as during simulation so use Ricardo's method :
 
@@ -1676,9 +1676,11 @@ If we already are able to drive on this map we have to find coordinates to where
 
 Once we have points lets create yaml file with those points.
 In rosbot_patrol pkg create new folder called params
-`cd ..`
-`mkdir params`
-`cd params && touch room_points.yaml`
+
+```cd ..
+mkdir params
+cd params && touch room_points.yaml
+```
 
 Put appropriate data, if you have less sensors just remove unnecessary room names if you have more rooms simply add more and change rooms_num to appropriate for your new room number.
 In room_points.yaml file place your points with following convention:
