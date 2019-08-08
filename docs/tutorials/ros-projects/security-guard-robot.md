@@ -34,11 +34,11 @@ It is also necessary to have cloned rosbot description to do, so use this comman
 `git clone https://github.com/husarion/rosbot_description.git`
 
 3. For image processing advice is to use nvidia card with CUDA enabled (It won't be shown how to do that because it's not the point).
-4. You can download complete package from github
+4. You can download complete package from github:
 
-a)simulation `git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
+a) simulation `git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
 
-b)real_robot `git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
+b) real_robot `git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
 
 see my repositories - [github-adam-krawczyk](https://github.com/adamkrawczyk)
 
@@ -59,10 +59,9 @@ sudo /etc/init.d/postfix reload
 ```
 
 2. yaml parser
-    This can be installed anywhere eg. <Downloads/> or in <ros_ws/src>
-    
+    This can be installed anywhere eg. <Downloads/> or in <ros_ws/src>. Go to desired directory and paste:    
+   
     ```
-    In desired directory:
     git clone https://github.com/jbeder/yaml-cpp.git
     cd yaml-cpp
     mkdir build
@@ -2288,9 +2287,9 @@ File rosbot_patrol_pc.launch is made for being launched form your personal compu
 
 ### Complete code
 
-a)simulation `git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
+a) simulation `git clone https://github.com/adamkrawczyk/rosbot_patrol_simulation.git`
 
-b)real_robot `git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
+b) real_robot `git clone https://github.com/adamkrawczyk/rosbot_patrol.git`
 
 see my repositories - [github-adam-krawczyk](https://github.com/adamkrawczyk)
 
