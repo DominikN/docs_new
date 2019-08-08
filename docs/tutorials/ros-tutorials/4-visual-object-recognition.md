@@ -10,6 +10,13 @@ id: 4-visual-object-recognition
 > - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
 > - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
 
+We have prepared ready to go virtual environment with end effect of following this tutorial. It is available on ROSDS:
+
+<div><center>
+<a href="http://www.rosject.io/l/babdec5/">
+<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+</center></div>
+
 ## Introduction
 
 Objects can be recognized by a robot with use of a vision system. It is
