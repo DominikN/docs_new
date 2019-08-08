@@ -203,14 +203,40 @@ Open this file and paste following code:
         <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-        <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
         <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+
+        <rosparam file="$(find rosbot_patrol_simulation)/config/global_costmap_params.yaml" command="load" />
     </node>
 
 </launch>
 ```
+Notice that one file should be in rosbot_patrol_simulation pkg - it's required to create that file because slightly different params will be used.
 
-It is no need to make all of this files, they are in tutorial_pkg so you can copy them from tutorial_pkg or preferred way - have this pkg cloned to workspace. [tutorial_pkg](https://github.com/husarion/tutorial_pkg)
+To create this file follow instruction:
+
+```
+roscd rosbot_patrol_simulation
+cd config
+touch global_costmap_params.yaml
+```
+
+In this file paste following code:
+
+```yaml
+global_costmap:
+  update_frequency: 0.5
+  publish_frequency: 0.5
+  transform_tolerance: 0.5
+  width: 35
+  height: 35
+  static_map: false
+  rolling_window: true
+  inflation_radius: 2.5
+  resolution: 0.01
+```
+
+
+It is no need to make rest of this files, they are in tutorial_pkg so you can copy them from tutorial_pkg or preferred way - have this pkg cloned to workspace. [tutorial_pkg](https://github.com/husarion/tutorial_pkg)
 
 ```
 roscd rosbot_patrol_simulation
@@ -279,7 +305,7 @@ rosrun map_server map_saver -f rosbot_map
 
 After that there should be map in folder maps
 
-### Amcl
+### AMCL
 
 Once the map is already saved we need to create launch for amcl to make the robot find it's location on that map.
 In launch directory make new file called amcl_only.launch
@@ -607,7 +633,6 @@ bool room_reached = {0};
 bool starting_poit_reached = {0};
 ros::Time last_email_sent;
 ros::NodeHandle *nh_ptr;
-const double NUM_OF_SPINS = 1.5; // number of spins which robot perform for room scanning
 
 vector<string> room_names{}; //initialization of vectors for our destination points
 vector<double> x_coordinates{};
@@ -693,7 +718,8 @@ void espCallback(const rosbot_patrol_simulation::EspTrigger &trigger_msg)
             ROS_INFO("I've reached destination");
         }
 
-        spin_made = pn.makeSpin(360 * NUM_OF_SPINS, 0);
+        spin_made = pn.makeSpin(M_PI , 0);
+        spin_made = pn.makeSpin(M_PI , 0);
         if (spin_made)
         {
             ROS_INFO("I've just scanned room");
@@ -721,7 +747,7 @@ int main(int argc, char *argv[])
 
     ros::Subscriber sub_esp = nh.subscribe("/motion_trigger", 1, espCallback);
     ros::Subscriber sub_darknet =
-        nh.subscribe("/darknet_ros/bounding_boxes", 100, darknetCallback);
+        nh.subscribe("/darknet_ros/bounding_boxes", 10, darknetCallback);
 
     ros::Rate loop_rate(50);
     last_email_sent = ros::Time::now();
@@ -1317,8 +1343,6 @@ bool room_reached = {0};
 bool starting_poit_reached = {0};
 ros::Time last_email_sent;
 ros::NodeHandle *nh_ptr;
-const double NUM_OF_SPINS =
-    1.5; // number of spins which robot perform for room scanning
 
 vector<string> room_names{};
 vector<double> x_coordinates{};
@@ -1410,7 +1434,8 @@ void espCallback(const rosbot_patrol::EspTrigger &trigger_msg)
             ROS_INFO("I've reached destination");
         }
 
-        spin_made = pn.makeSpin(360 * NUM_OF_SPINS, 0);
+        spin_made = pn.makeSpin(M_PI , 0);
+        spin_made = pn.makeSpin(M_PI , 0);
         if (spin_made)
         {
             ROS_INFO("I've just scanned room");
@@ -1522,7 +1547,7 @@ We need launches for:
 
 1. move base
 2. gmapping
-3. amcl
+3. AMCL
 
 ### Move base
 
