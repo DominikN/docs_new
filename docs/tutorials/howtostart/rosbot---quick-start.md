@@ -216,7 +216,7 @@ Also you can check how it works in gazebo simulation:
 
 `roslaunch rosbot_webui demo_gazebo.launch`
 
-<div><center><img src="https://raw.githubusercontent.com/husarion/static_docs/master/src/assets/img/howToStart/ROSbot_webUI.png"/><center></div>
+<div><center><img src="https://user-images.githubusercontent.com/29305346/62871739-5425ad00-bd1c-11e9-9e6c-b52262e2282a.png"/><center></div>
 
 What can you see and how to use it:
 
