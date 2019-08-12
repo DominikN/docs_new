@@ -212,7 +212,19 @@ If you use ROSbot 2.0 PRO:
 * Launch web browser and type the local IP of your ROSbot (the one you noted before)
 * You should see interface as below, use it to test and control your ROSbot.
 
-<div><center><img src="https://raw.githubusercontent.com/husarion/static_docs/master/src/assets/img/howToStart/ROSbot_UI.png"
-/></center></div>
+Also you can check how it works in gazebo simulation:
 
+`roslaunch rosbot_webui demo_gazebo.launch`
+
+<div><center><img src="https://raw.githubusercontent.com/husarion/static_docs/master/src/assets/img/howToStart/ROSbot_webUI.png"/><center></div>
+
+What can you see and how to use it:
+
+* In the upper part you can see two red rectangles, the right one is for changing map zoom, the left one is for changing clipping distance - distance from where image will be set to black.
+* In the corners of camera reading image you can see distance sensors reading.
+* In the left lower part of page you can see navigation panel here you can controll your rosbot using virtual joystick. 
+* In the right lower part of page you can see rosbot status - battery, position, orientation.
+* To create exploration task (rosbot will try to map whole area) just press _EXPLORE_ button.
+* If you want to use portrait orientation of web page you can click and slide to left/rigth side, this will change displayed section.
+  
 > Note: if you experience any issues, make sure batteries are fully charged ([LED L1 is blinking](https://husarion.com/manuals/rosbot-manual/#rear-panel-description) if battery level is low). Charging manual is [here](https://husarion.com/manuals/rosbot-manual/#charging-rosbot).
