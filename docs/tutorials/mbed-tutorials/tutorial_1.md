@@ -6,6 +6,7 @@ title: Using CORE2 with Mbed OS
 
 ## Introduction
 
+> **Updated**: 13th of August 2019
 
 **Mbed OS** is free, open-source platform and embedded operating system designed for IoT devices based on Arm Cortex-M family of microcontrollers. It is developed as collaborative project by *Arm*, its partners and growing community of individual devs from across the world. Mbed OS is distributed under the [Apache-2.0 License](https://en.wikipedia.org/wiki/Apache_License) and it's available on project's [GitHub page](https://github.com/ARMmbed/mbed-os).
 
@@ -18,7 +19,7 @@ Besides support for variety of boards from different manufacturers the framework
 
 <div>
 <center>
-<img src="/docs/assets/img/mbed-tutorials/logo.png" width="400px" alt="Mbed OS logo"/>
+<img src="/docs/assets/img/mbed-tutorials/mbed_logo.png" width="400px" alt="Mbed OS logo"/>
 </center></div>
 
 * [Official Webpage](https://www.mbed.com/en/platform/mbed-os/)
@@ -42,7 +43,7 @@ In this tutorial we will show you how to build, compile and run mbed application
 * CORE2-ROS (with SBC) or CORE2 and computer running Linux with ROS Kinetic,   
 * *ST-LINK V2 programmer* to flash CORE2 with mbed firmware,
 
-#### Software
+#### Software prerequisites:
 
 Before we start make sure you have following tools installed on your system:
 
@@ -50,30 +51,35 @@ Before we start make sure you have following tools installed on your system:
 * [GNU Arm Embedded version 6 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
 * [STM32 ST-LINK Utility](https://www.st.com/en/development-tools/stsw-link004.html) (Windows only)
 * [stlink flasher](https://github.com/texane/stlink/blob/master/README.md) (Mac or Linux)
+* [Mbed CLI](https://os.mbed.com/docs/mbed-os/v5.12/tools/installation-and-setup.html)
 
-You can check our tutorial: [2. Offline development tools](https://husarion.com/core2/tutorials/other-tutorials/offline-development-tools) to find information on stlink flasher and VS Code IDE installation and configuration. 
+You can check our tutorial: [2. Offline development tools](https://husarion.com/core2/tutorials/other-tutorials/offline-development-tools) to find information on stlink flasher and VS Code IDE installation.
 
-Everything up and ready? Proceed to the next step then.
+#### Required Visual Studio Code extensions:
+* [Microsoft C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) (`ms-vscode.cpptools`)
+* [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug) (`marus25.cortex-debug`)
 
-### mbed-cli installation
+Everything up and ready? Proceed to the next steps then.
+
+### Mbed CLI installation
 
 `mbed-cli` is a package name of **Arm Mbed CLI**, a command-line tool that enables use of Mbed build system, GIT/Mercurial-based version control, dependencies management and more. Check [Mbed CLI GitHub page](https://github.com/ARMmbed/mbed-cli) or [Mbed documentation](https://os.mbed.com/docs/v5.10/tools/developing-mbed-cli.html) for details about the tool.  
 
-To install `mbed-cli` follow [this](https://os.mbed.com/docs/v5.10/tools/installation-and-setup.html) tutorial from the Mbed documentation. 
+To install `mbed-cli` follow [this](https://os.mbed.com/docs/mbed-os/v5.13/tools/installation-and-setup.html) tutorial from the Mbed documentation. 
 
-Installers for both Windows and macOS are provided. Linux users have to install tool manually. In case you are user of the latter system check if you have both Git and Mercurial installed before you start. See [Requirements](https://os.mbed.com/docs/v5.10/tools/requirements.html) page for more details.
+Installers for both Windows and macOS are provided. Linux users have to install tool manually. In case you are user of the latter system check if you have both Git and Mercurial installed before you start. See [Instructions for Linux](https://os.mbed.com/docs/mbed-os/v5.13/tools/manual-installation.html#instructions-for-linux) page for more details.
 
-To check if installation was successful open terminal and run:
+Check if the installation was successful by running following command in the terminal:
 
 ```bash
     $ mbed --version
-    1.8.3
+    1.10.0
 ```
 
 After installation you have to inform Mbed CLI about location of compiler (in our case GCC Arm Embedded Compiler) binaries. We will use global setting. Run:
 
 ```bash
-    $ mbed config -G GCC_ARM_PATH <path to compiler>
+    $ mbed config -G GCC_ARM_PATH <path to the compiler>
 ```
 
 Linux example:
@@ -97,12 +103,13 @@ You can check current configuration by running:
 
 ### Preparing a workspace
 
-Create a new folder `core2-mbed-workspace`. It will serve as workspace for your mbed projects. Run:
+Create a new folder `core2-mbed-workspace`. It will serve as a workspace for your mbed projects. Run:
 
 ```bash
     $ mkdir core2-mbed-workspace && cd core2-mbed-workspace
 ```
-Next step is to import `mbed-os` library. It will be used by all your projects. In your workspace folder run:
+
+Next step is to import `mbed-os` library. It will be used by all your projects. In your workspace's folder run:
 
 ```bash
     $ mbed import mbed-os
@@ -126,7 +133,7 @@ Example:
     [mbed] E:\mbed_projects\core2-mbed-workspace\mbed-os now set as global MBED_OS_DIR
 ```
 
-#### Adding .mbedignore
+#### Adding a `.mbedignore` file
 
 In order to add support for CORE2 target and speed-up building of your projects we will exclude certain folders of `mbed-os` library from compilation. For this purpose Mbed build system provides `.mbedignore` files. They have similar structure to `.gitignore` files used by GIT.
 
@@ -136,22 +143,18 @@ In your local `mbed-os` library directory create a new file and name it `.mbedig
 features/cellular/*
 features/cryptocell/*
 features/deprecated_warnings/*
-features/device_key/*
 features/lorawan/*
 features/lwipstack/*
 features/nanostack/*
 features/netsocket/*
 features/nfc/*
 features/unsupported/*
-features/storage/*
 components/wifi/*
 components/802.15.4_RF/*
-components/storage/*
 targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/STM32F407XG.ld
 targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/startup_stm32f407xx.S
+usb/*
 ```
-
-Only two last entries are necessary. You can learn more about ignoring files [here](https://os.mbed.com/docs/v5.10/tools/ignoring-files-from-mbed-build.html).
 
 ### Template Project
 
@@ -171,65 +174,99 @@ You can also clone the repository using GIT:
     $ git clone https://github.com/husarion/core2-mbed-template.git
 ```
 
-Open the directory in Visual Studio Code. In file `setting.json` from directory `.vscode` change the value of `C_cpp.default.compilerPath` to match location of `arm-none-eabi-gcc` on your system:
+Open the template project in Visual Studio Code. In file `setting.json` from the directory `.vscode` in your template, change the value of `C_cpp.default.compilerPath` to match location of `arm-none-eabi-gcc` on your system:
+
+Windows:
+```json
+{
+    "C_Cpp.default.compilerPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/6 2017-q2-update/bin/arm-none-eabi-g++"
+}
+```
+
+Linux:
+```json
+{
+    "C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-g++"
+}
+```
+
+> The paths may differ on your system.
+
+This will enable more accurate IntelliSense and remove some error notifications.
+
+#### Template Project's files
+
+Open the template project's directory and select `src/main.cpp`. You should see:
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img2.png" width="800px" alt=""/></center>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img1.png" width="800px" alt=""/></center>
 </div> 
 
-This setting enables more accurate IntelliSense feature in editor.
-
-#### Template files
-
-Open the template directory and select `src/main.cpp`. You should see:
-
-<div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img1.png" width="800px" alt=""/></center>
-</div> 
-
-As you no doubt have guessed this simple code just lights up three on-board LEDs in particular sequence. We instantiate `BusOut` object that allows to control multiple digital pins at the same time regardless of ports they're assigned to. On-board LEDs blink in order described by `leds_mask` array at the interval introduced by function `ThisThread::sleep_for(1000)`.    
+The sample code is very simple. It instantiates a `BusOut` object that controls multiple GPIOs regardless of ports they belong to. On-board LEDs blink in order described by `leds_mask` array at the interval introduced by function `ThisThread::sleep_for(1000)`.    
 
 In directory's root folder find `custom_targets.json` file:
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img3.png" width="800px" alt=""/></center>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img2.png" width="800px" alt=""/></center>
 </div> 
 
-Mbed OS Configuration system uses this file to add user's custom targets making it possible to run system on boards that aren't officially supported. We use `custom_targets.json` and files from `TARGET_CORE2` to define CORE2 target. You can learn more about configuration system [here](https://os.mbed.com/docs/v5.10/reference/configuration.html).
+Mbed OS Configuration system uses this file to describe user's custom boards. It allows using Mbed OS with boards that aren't officially supported. We use `custom_targets.json` and files from `TARGET_CORE2` to define `CORE2` target. You can learn more about configuration system [here](https://os.mbed.com/docs/v5.13/reference/configuration.html).
 
-In folder `TARGET_CORE2` you can find files `PinNames.h` and `PeripheralPins.c`. First one defines pin names of mcu and the latter defines peripherals that can be used on each pin.
+In the directory `TARGET_CORE2` you can find files `PinNames.h` and `PeripheralPins.c`. First one defines pin names of mcu and the latter defines peripherals that can be used on each pin.
 
 Another file that is used by Mbed OS configuration system is `mbed_app.json`. Open it.
 
 <div>
-<center><img src="../../../docs/assets/img/mbed-tutorials/mbed-tutorial-img4.png" width="800px" alt=""/></center>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img3.png" width="800px" alt=""/></center>
 </div> 
 
-In this file you can override default settings for application, define new configuration entries and create custom macros. In presented configuration :
-* line `10` enables spawning a new thread for shared event queue, 
-* lines `11` and `12` set default baudrate to 115200,
-* line `13` shifts the start of firmware in flash so it doesn't override bootloader.   
+This file is used to configure your application. It allows to override the default configuration of mbed libraries (or your own) for specific targets (tag `"target_overrides"`). You can also define your own macros that will have global visibility (tag `"macros"`) and create configuration entries (tag `"config"`).
 
-You can learn details of each settings from documentation.
+You can learn details of your configuration by running following command in the root directory of the template project:
 
-The last file we will check is `task.json` from `.vscode` directory. It defines tasks that are recognized by Visual Studio Code IDE. They can be accessed by pressing `CTRL + SHIFT + P` and typing `Task: Run Task` in Command Pallete.
+```bash
+    $ mbed compile --config --source . --source ../mbed-os/ -v
+```
+
+The last file we will check is `task.json` from `.vscode` directory. It defines tasks that are recognized by Visual Studio Code IDE. The tasks can be accessed by pressing `CTRL + SHIFT + P` and typing `Task: Run Task` in Command Pallete.
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img5.png" width="800px" alt=""/></center>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img4.png" width="800px" alt=""/></center>
 </div> 
 
-#### Building and flashing firmware
+Here is the list of available tasks: 
+* `BUILD (RELEASE)`
+* `BUILD (DEBUG)`
+* `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`*
+* `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)`  *
+* `FLASH FIRMWARE NO BOOTLOADER (RELEASE)`  *
+* `FLASH FIRMWARE NO BOOTLOADER (DEBUG)`    *
+* `CREATE STATIC MBED-OS LIB (RELEASE)`
+* `CREATE STATIC MBED-OS LIB (DEBUG)`
+* `BUILD FROM STATIC LIB (RELEASE)`
+* `BUILD FROM STATIC LIB (DEBUG)`
+* `CLEAN DEBUG`
+* `CLEAN RELEASE`
 
-Press `CTRL + SHIFT + B`. It will run `CLEAN BUILD (RELEASE)` task. Wait until compilation finishes.
+`*` *require ST-LINK programmer*
+
+### Building and flashing firmware
+
+> **Important!**
+>
+> At this point I assume you still have the core2 bootloader. We will cover using firmware without bootloader too. 
+
+
+Press `CTRL + SHIFT + B`. It will run `BUILD (RELEASE)` task. Wait until compilation finishes.
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img6.png" width="800px" alt=""/></center>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img5.png" width="800px" alt=""/></center>
 </div> 
 
-Connect your ST-LINK programmer to debug pins of CORE2 and make sure it's connected to your computer. Press `CTRL + SHIFT + P` and in Command Pallete type `Task: Run Task`. Select `FLASH FIRMWARE (RELEASE)`. The firmware flashing procedure should start:
+Connect your ST-LINK programmer to debug pins of CORE2 and make sure it's connected to your computer. Press `CTRL + SHIFT + P` and in Command Pallete type `Task: Run Task`. Select `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`. The firmware flashing procedure should start:
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img7.png" width="800px" alt=""/></center>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img6.png" width="800px" alt=""/></center>
 </div> 
 
 If LEDs start blinking like on the animation below then congratulations! You've just successfully built and flashed your first Mbed application for CORE2!
@@ -238,7 +275,90 @@ If LEDs start blinking like on the animation below then congratulations! You've 
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-animation.gif" alt="result"/></center>
 </div> 
 
-#### Tasks
+### Building firmware without bootloader
+
+The software bootloader is necessary if you use Husarion Cloud IDE and hFramework. It is not required if we want to use offline tools and Mbed OS. To upload firmware over the Internet we will connect to SBC directly and use `stm32loader` tool.
+
+Please remove following lines from `mbed_app.json` in template project:
+```json
+    "target.mbed_app_start":"0x08010000",
+    "target.mbed_rom_start":"0x08000000",
+    "target.mbed_rom_size":"0x100000"
+```
+They're responsible for shifting the firmware so it can "fit" in the flash memory alongside the bootloader.
+
+Press `CTRL + SHIFT + P` and select `BUILD (RELEASE)` task. Wait until compilation finishes. Now the firmware starts at the beginning of the memory.
+
+### stm32loader installation
+
+Please log into your SBC and follow this step by step tutorial on how to install and configure this tool.
+
+<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your device. These processes are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need the direct access to them. Run:
+
+```bash
+    $ sudo systemctl disable husarnet-configurator
+    $ sudo systemctl stop husarnet-configurator
+    $ sudo systemctl disable husarion-shield
+    $ sudo reboot
+```
+
+<strong>2.</strong> Install necessary support libraries for your device:
+
+**RPi:**
+```
+pip install RPi.GPIO
+```
+
+**Upboard:**
+```bash
+$ cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
+$ cd ~/python-periphery && sudo python setup.py install --record files.txt
+```
+**Asus Tinker board:**
+```bash
+$ cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
+$ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
+```
+
+Restart the terminal after the installation.
+
+<strong>3.</strong> Install `stm32loader`:
+```bash
+$ cd ~/ && git clone https://github.com/byq77/stm32loader.git
+$ cd ~/stm32loader && sudo python setup.py install --record files.txt
+```
+
+### stm32loader usage
+
+Printing help:
+```bash
+$ stm32loader --help
+```
+
+To remove bootloader run:
+```bash
+$ sudo stm32loader -c <your-sbc> -W
+$ sudo stm32loader -c <your-sbc> -e
+```
+
+where `<your-sbc>` is:
+* `tinker` for Asus Tinker Board
+* `upboard` for Upboard
+* `rpi` for Raspberry Pi
+
+To upload the `firmware.bin` directly from SBC copy the firmware from your template project's `BUILD/RELEASE/` directory to SBC using `scp`. Following code will copy `firmware.bin` file to remote user's home directory.
+
+```bash
+$ scp firmware.bin user@address:~/
+```
+
+To flash new firmware log into your SBC and in the directory which contain the firmware run:
+
+```bash 
+$ sudo stm32loader -c <your_sbc> -e -w -v firmware.bin
+```
+
+### Tasks
 - Modify existing application so as the on-board leds blink in Gray code. 
 - Add [Serial](https://os.mbed.com/docs/v5.10/apis/serial.html) to print current sequence to the stdout (micro-usb port on CORE2) at the same time. 
 - In configuration files change baudrate to 9600. 
@@ -273,8 +393,6 @@ After that copy content of template project except `.git` directory to your newl
 >   $ rm -rf ./core2-mbed-template/.git/
 > ```
 > You can add it latter by running `git init .` in root dir of your project.   
-> 
-
 
 Open `example-publisher` directory in Visual Studio Code. In the program press `CTRL + ~` to open built-in terminal. In the terminal type:
 
@@ -288,7 +406,7 @@ This will add `rosserial-mbed` library to your project and download all library'
 * `mbed remove <library-name>` - removes library from project.
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img8.png" width="800px" alt=""/></center>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img7.png" width="800px" alt=""/></center>
 </div> 
 
 #### The code
@@ -394,13 +512,23 @@ Your `mbed_app.json` file should look like this:
 ```json
 {
     "config": {},
-    "macros": [],
+    "macros": [
+        "ENCODER_1=TIM2",
+        "ENCODER_2=TIM8",
+        "ENCODER_3=TIM3",
+        "ENCODER_4=TIM4",
+        "UPPER_RESISTOR=5.6e4",
+        "LOWER_RESISTOR=1.0e4",
+        "VIN_MEAS_CORRECTION=0.986"
+    ],
     "target_overrides": {
         "CORE2": {
             "events.shared-dispatch-from-application": 0,
-            "platform.default-serial-baud-rate": 115200,
-            "platform.stdio-baud-rate": 115200,
-            "target.mbed_app_start": "0x08010000",
+            "events.shared-eventsize": 512,
+            "events.shared-stacksize": 2048,
+            "platform.default-serial-baud-rate": 230400,
+            "platform.stdio-baud-rate": 230400,
+            "platform.all-stats-enabled": false,
             "rosserial-mbed.tx_pin": "RPI_SERIAL_TX",
             "rosserial-mbed.rx_pin": "RPI_SERIAL_RX",
             "rosserial-mbed.baudrate": "115200"
@@ -408,9 +536,9 @@ Your `mbed_app.json` file should look like this:
     }
 }
 ```
-Now you can compile the project and flash it to your board. To view communication on your SBC you must disable Husarion Cloud, which is not currently supported by our mbed template firmware. You can enable it at any moment.
+Now you can compile the project and flash it to your board. To view communication on your SBC you must disable Husarion Cloud.
 
-In terminal type:
+If you haven't already disabled `husarnet-configurator` service please run:
 ```bash
     $ systemctl disable husarnet-configurator
     $ sudo shutdown -r now # it will reboot your SBC
@@ -428,6 +556,11 @@ After reboot open terminal and in first tab run `roscore`. Press `CTRL + SHIFT +
     $ rosrun rosserial_python serial_node.py _port:=/dev/ttyS1 _baud:=115200
 ```
 
+* Upboard
+```bash
+    $ rosrun rosserial_python serial_node.py _port:=/dev/ttyS4 _baud:=115200
+```
+
 This will forward your MBED messages to rest of ROS. 
 
 To view communication on "mbed_device" topic open new termina and run:
@@ -436,7 +569,7 @@ To view communication on "mbed_device" topic open new termina and run:
 ```
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img11.png" width="800px" alt=""/></center> 
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img8.png" width="800px" alt=""/></center> 
 </div> 
  
 ### Example subscriber
@@ -582,12 +715,12 @@ To publish new message to "input_raw" topic open a new tab and run:
 ```
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-img12.png" width="800px" alt=""/></center> 
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img9.png" width="800px" alt=""/></center> 
 </div>
 
 If you want to learn more - check official [rosserial mbed tutorials](http://wiki.ros.org/rosserial_mbed/Tutorials) from **ros.org**. 
 
-#### Tasks
+### Tasks
 * Create an application that monitors the on-board button and publish the number of pushes to topic "button" every time the button's state changes. Use [InterruptIn](https://os.mbed.com/docs/v5.10/apis/interruptin.html) object. 
 * Create an application that lights up on-board leds accordingly to the mask value received on "led_mask" topic. Use `std_msgs::Uint8` type for ROS communication.
 
