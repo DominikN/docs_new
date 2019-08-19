@@ -34,7 +34,7 @@ const siteConfig = {
 
   //!!!!!!!!!! DO NOT COMMENT FOR PRODUCTION !!!!!!!!!!!!!!!!!!!
   // To see pictures in local compilation comment line below:
-  docsUrl: '', // remove /docs/ from URL'
+//   docsUrl: '', // remove /docs/ from URL'
 
   // Used for publishing and more
   projectName: 'husarion-docs',
