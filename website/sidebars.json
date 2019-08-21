@@ -76,7 +76,8 @@
   "docs-software":
   {
     "Software":[
-      "software/hframework"
+      "software/hframework",
+      "software/route-admin-panel"
     ]
     }
 }
