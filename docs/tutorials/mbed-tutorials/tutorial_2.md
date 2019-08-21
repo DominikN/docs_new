@@ -184,11 +184,70 @@ Measure the distance between each strip to prepare enough cable and install the 
 </div>
 </div>
 
-## Using new functionality
+## Using the new functionality
+
+
+
+### Required ROS packages
+
+### Animation ROS interface 
+
+<table class="text_table">
+<tbody>
+    <tr>
+	    <th>Behavior</th>
+        <th>Description</th>
+        <th>GoalStatus ID</th>
+        <th>Command</th>
+    </tr>
+    <tr>
+        <td align="center">No animation</td>
+        <td>WS2812B interface is off</td>
+        <td></td>
+        <td><code>SANI -1</code></td>
+    </tr>
+    <tr>
+        <td align="center">No animation</td>
+        <td>WS2812B interface is in standby</td>
+        <td align="center"><code>PENDING</code></td>
+        <td><code>SANI 0</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_blue.gif" width="200" /></td>
+        <td>fading in fading out animation (blue)</td>
+        <td align="center"><code>ACTIVE</code></td>
+        <td><code>SANI 1</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_yellow.gif" width="200" /></td>
+        <td>fading in fading out animation (yellow)</td>
+        <td align="center"><code>PREEMPTED</code></td>
+        <td><code>SANI 2</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_green.gif" width="200" /></td>
+        <td>fading in fading out animation (green)</td>
+        <td align="center"><code>SUCCEEDED</code></td>
+        <td><code>SANI 3</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_red.gif" width="200" /></td>
+        <td>front and rear blinks alternately (red)</td>
+        <td align="center"><code>ABORTED</code></td>
+        <td><code>SANI 4</code></td>
+    </tr>
+</tbody>
+</table>
+
+### `cmd_vel` example
+
+### `move_base` example
 
 <a data-fancybox href="#feature-sample">
     <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-still-frame.png" width="480px" class="hover-shadow"/>
 </a>
+
+### Creating your own animations
 
 <video width="640" height="320" controls id="feature-sample" style="display:none;">
     <source src="/docs/assets/video/mbed-tutorials/feature_sample.webm" type="video/webm">
