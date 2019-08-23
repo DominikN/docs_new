@@ -186,11 +186,79 @@ Measure the distance between each strip to prepare enough cable and install the 
 
 ## Using the new functionality
 
-
-
 ### Required ROS packages
 
-### Animation ROS interface 
+Before we start make sure you have the `rosbot` package installed on your device. The package contains the EKF and custom messages used by the new firmware. It is required for the new firmware to work correctly. The package also contains example nodes used further in this tutorial.
+
+The package is located [HERE](https://github.com/adamkrawczyk/rosbot). Clone the package to your ROSbot's `ros_ws/src` directory.
+
+Following dependencies are also required. On your device please run:
+
+```bash
+$ sudo apt-get install ros-kinetic-robot-localization
+```
+
+Now you can compile the `rosbot` package. In your `ros_ws` directory run `catkin_make`.
+
+### Using `rosbot` package
+
+To start the rosserial communication and EKF run:
+```bash
+$ roslaunch rosbot all.launch
+```
+
+For PRO version add parameter:
+
+```bash
+$ roslaunch rosbot all.launch rosbot_pro:=true
+```
+
+You can also include this launch in your custom launch files using:
+
+```xml
+<include file="$(find rosbot)/launch/all.launch"/>
+```
+
+For PRO version it will look like that:
+
+```xml
+<include file="$(find rosbot)/launch/all.launch">
+    <arg name="rosbot_pro" value="true"/>
+</include>
+```
+### WS2812B animations interface in ROS
+
+The new firmware provides a service server `/config` with the custom message type `rosbot/Configuration`. 
+
+```bash
+$ rossrv show rosbot/Configuration 
+string command
+string data
+---
+uint8 SUCCESS=0
+uint8 FAILURE=1
+uint8 COMMAND_NOT_FOUND=2
+string data
+uint8 result
+```
+
+The WS2812B animations are accessible via `SANI` command. For most commands there are two arguments. First is the animation letter and second is the color of animation. Here is an example for setting a red fading animation:  
+
+```bash
+$ rosservice call /config "command: `SANI`
+>data: 'F #aa0000'"
+```
+
+Available commands:
+* `O` - OFF
+* `S <hex color code>` - SOLID COLOR 
+* `F <hex color code>` - FADE IN FADE OUT ANIMATION
+* `B <hex color code>` - BLINK FRONT/REAR ANIMATION
+* `R` - RAINBOW ANIMATION
+
+### `cmd_vel` example
+
+### `move_base` example
 
 <table class="text_table">
 <tbody>
@@ -239,9 +307,6 @@ Measure the distance between each strip to prepare enough cable and install the 
 </tbody>
 </table>
 
-### `cmd_vel` example
-
-### `move_base` example
 
 <a data-fancybox href="#feature-sample">
     <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-still-frame.png" width="480px" class="hover-shadow"/>
