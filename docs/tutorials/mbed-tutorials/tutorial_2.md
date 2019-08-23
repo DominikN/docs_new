@@ -96,8 +96,8 @@ If you don't want to go through the procedures above, we prepared for you `.bin`
 Use `stm32loader` to upload the firmware. Please follow the guide from [previous tutorial](docs/tutorials/mbed-tutorials/using-core2-with-mbed-os#stm32loader-usage).
 
 Downloads:
-* [`ROSbot 2.0 fw v0.6.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.6.0.bin)
-* [`ROSbot 2.0 Pro fw v0.6.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.6.0.bin)
+* [`ROSbot 2.0 fw v0.7.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.7.0.bin)
+* [`ROSbot 2.0 Pro fw v0.7.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.7.0.bin)
 
 <!-- TODO: prepare the firmware files on ownCloud -->
 
@@ -190,7 +190,7 @@ Measure the distance between each strip to prepare enough cable and install the 
 
 Before we start make sure you have the `rosbot` package installed on your device. The package contains the EKF and custom messages used by the new firmware. It is required for the new firmware to work correctly. The package also contains example nodes used further in this tutorial.
 
-The package is located [HERE](https://github.com/adamkrawczyk/rosbot). Clone the package to your ROSbot's `ros_ws/src` directory.
+The package is located [HERE](https://github.com/byq77/rosbot). Clone the package to your ROSbot's `ros_ws/src` directory.
 
 Following dependencies are also required. On your device please run:
 
@@ -257,6 +257,17 @@ Available commands:
 * `R` - RAINBOW ANIMATION
 
 ### `cmd_vel` example
+
+<table class="text_table">
+<tbody>
+    <tr>
+	    <th>Behavior</th>
+        <th>Description</th>
+        <th>GoalStatus ID</th>
+        <th>Command</th>
+    </tr>
+</tbody>
+</table>
 
 ### `move_base` example
 
