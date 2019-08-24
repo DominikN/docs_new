@@ -258,76 +258,106 @@ Available commands:
 
 ### `cmd_vel` example
 
-<table class="text_table">
-<tbody>
-    <tr>
-	    <th>Behavior</th>
-        <th>Description</th>
-        <th>GoalStatus ID</th>
-        <th>Command</th>
-    </tr>
-</tbody>
-</table>
+In this example we will use the ws2812b leds to achieve a different ROSbot illumination depending on the robot's speed. The result is really cool. Check it out:
+
+<a data-fancybox href="#feature-sample_3">
+    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-still-frame2.png" width="480px" class="hover-shadow"/>
+</a>
+
+<video width="640" height="320" controls id="feature-sample_3" style="display:none;">
+    <source src="/docs/assets/video/mbed-tutorials/feature_sample_3.webm" type="video/webm">
+    Your browser doesn't support HTML5 video tag.
+</video>
+
+To access the effect, firstly launch a `rosbot all.launch`:
+
+```bash
+$ roslaunch rosbot all.launch
+```
+
+After that you need to run the example node:
+
+```bash
+$ rosrun rosbot cmd_vel_ws2812b_example
+```
+
+This node listens to messages on `cmd_vel` topic and changes leds color to green whenever the new, non zero speed target appears. When there is no new commands or target speed is zero then the illumination is red.
+
+You can use a keyboard teleoperation node to check how it works:
+
+```bash
+$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+```
 
 ### `move_base` example
 
-<table class="text_table">
-<tbody>
-    <tr>
-	    <th>Behavior</th>
-        <th>Description</th>
-        <th>GoalStatus ID</th>
-        <th>Command</th>
-    </tr>
-    <tr>
-        <td align="center">No animation</td>
-        <td>WS2812B interface is off</td>
-        <td></td>
-        <td><code>SANI -1</code></td>
-    </tr>
-    <tr>
-        <td align="center">No animation</td>
-        <td>WS2812B interface is in standby</td>
-        <td align="center"><code>PENDING</code></td>
-        <td><code>SANI 0</code></td>
-    </tr>
-    <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_blue.gif" width="200" /></td>
-        <td>fading in fading out animation (blue)</td>
-        <td align="center"><code>ACTIVE</code></td>
-        <td><code>SANI 1</code></td>
-    </tr>
-    <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_yellow.gif" width="200" /></td>
-        <td>fading in fading out animation (yellow)</td>
-        <td align="center"><code>PREEMPTED</code></td>
-        <td><code>SANI 2</code></td>
-    </tr>
-    <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_green.gif" width="200" /></td>
-        <td>fading in fading out animation (green)</td>
-        <td align="center"><code>SUCCEEDED</code></td>
-        <td><code>SANI 3</code></td>
-    </tr>
-    <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_red.gif" width="200" /></td>
-        <td>front and rear blinks alternately (red)</td>
-        <td align="center"><code>ABORTED</code></td>
-        <td><code>SANI 4</code></td>
-    </tr>
-</tbody>
-</table>
-
+In this example we will provide a distinct animation for each `move_base/status` ID in autonomous navigation. The visual differentiation between robot's states can be helpful in debugging ros autonomous applications and it also looks awesome. Check it out:
 
 <a data-fancybox href="#feature-sample">
     <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-still-frame.png" width="480px" class="hover-shadow"/>
 </a>
-
-### Creating your own animations
 
 <video width="640" height="320" controls id="feature-sample" style="display:none;">
     <source src="/docs/assets/video/mbed-tutorials/feature_sample.webm" type="video/webm">
     Your browser doesn't support HTML5 video tag.
 </video>
 
+Here are the states that will be visualized:
+<table class="text_table">
+<tbody>
+    <tr>
+	    <th>Behavior</th>
+        <th>GoalStatus ID</th>
+        <th>Command</th>
+    </tr>
+    <tr>
+        <td align="center">LEDs off</td>
+        <td align="center"><code>PENDING</code></td>
+        <td><code>SANI S #000000</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_blue.gif" width="200" /></td>
+        <td align="center"><code>ACTIVE</code></td>
+        <td><code>SANI F #0038ff</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_yellow.gif" width="200" /></td>
+        <td align="center"><code>PREEMPTED</code></td>
+        <td><code>SANI F #fda600</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_green.gif" width="200" /></td>
+        <td align="center"><code>SUCCEEDED</code></td>
+        <td><code>SANI F #32ae00</code></td>
+    </tr>
+    <tr>
+        <td><img src="/docs/assets/img/mbed-tutorials/anim_red.gif" width="200" /></td>
+        <td align="center"><code>ABORTED</code></td>
+        <td><code>SANI B #c90000</code></td>
+    </tr>
+</tbody>
+</table>
+
+To use the feature, firstly launch a `rosbot all.launch`:
+
+```bash
+$ roslaunch rosbot all.launch
+```
+
+After that run the example node:
+
+```bash
+$ rosrun rosbot actionlib_ws2812b_example
+```
+
+Now you can use any ros application that uses `move_base` package like [`rosbot webui`](https://github.com/husarion/rosbot_webui).
+
 ## Summary
+
+After completing this tutorial you should know how to use the WS2812B leds with the ROSbot. The presented samples are only examples and you can easily find more interesting usecases for this leds. You can also implement your own animations by editing the ROSbot source code. Check the new firmware [GitHub page](https://github.com/husarion/rosbot-firmware-new).
+
+---------
+
+*by Szymon Szantula, Husarion*
+
+*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
