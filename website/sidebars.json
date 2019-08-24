@@ -44,7 +44,8 @@
         "type": "subcategory",
         "label": "Mbed tutorials",
         "ids": [
-          "tutorials/mbed-tutorials/using-core2-with-mbed-os"
+          "tutorials/mbed-tutorials/using-core2-with-mbed-os",
+          "tutorials/mbed-tutorials/rosbot-and-ws2812b-led-signalization"
         ]
       },
       {
