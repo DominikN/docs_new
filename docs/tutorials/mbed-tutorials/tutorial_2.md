@@ -4,7 +4,7 @@ sidebar_label: 2. ROSbot with WS2812B LEDs signalization
 title: ROSbot with WS2812B LEDs signalization
 ---
 
-> This tutorial requires a new, Mbed OS version of the ROSbot firmware!
+> This tutorial requires [the Mbed OS version of ROSbot firmware](https://github.com/husarion/rosbot-firmware-new)!
 
 ## Introduction
 
@@ -12,13 +12,13 @@ title: ROSbot with WS2812B LEDs signalization
     <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img1-small.jpg" alt="ROSbot status illumination" class="hover-shadow"/>
 </a>
 
-The ROSbot by default has three LEDs that can be used by user's applications to indicate status and battery condition. However, their location at the rear panel and the fact that they have only single color can limit possible use cases. In more demanding applications where there are many distinct robot's states we need more clear, visible and robust solution.  
+By default ROSbot has three LEDs that can be used by user's applications to indicate status and battery condition. However, their location at the rear panel and the fact that they have only single color can limit possible use cases. In more demanding applications where there are many distinct robot's states we need more clear, visible and robust solution.  
 
 <p align="center">
 <img alt="WS2812B chip" src="/docs/assets/img/mbed-tutorials/ws2812b-chip.jpg" title="WS2812B chip" />
 </p>
 
-In this tutorial we will present you with elegant and easy approach to this problem. We will use a popular and cheap ws2812b RGB LED strip. Each LED pixel is individually addressed and it is capable of displaying 256 levels of brightness for each color giving overall 16 millions of colors depth.
+In this tutorial we will present you with elegant and easy approach to this problem. We will use a popular and cheap ws2812b RGB LED strip. Each LED pixel is individually addressed and it is capable of displaying 256 levels of brightness for each color giving overall 16 millions of color depth.
 The ws2812b IC utilizes the NZR protocol with 800Kbit/s speed which allows high refresh rates. Using these LEDs we can achieve a clear ROSbot's visual state indication.
 
 ## Prerequisites
@@ -27,7 +27,7 @@ The ws2812b IC utilizes the NZR protocol with 800Kbit/s speed which allows high 
 
 Additionally to ROSbot, basic soldering skills and soldering equipment you will need following items and tools:
 
-* **WS2812b LED strip 1m 30leds/pixels/m** - we will use only 16 pixels, but you can use more. However, these leds are quite power hungry and they can significantly reduce the ROSbot's operation time if used in large quantities (they consume 52.5 mA max per pixel).
+* **WS2812b LED strip 1m 30leds/pixels/m** - we will use only 16 pixels, but you can use more. However, these leds are quite power hungry and they can significantly reduce ROSbot's operation time if used in large quantities (they consume 52.5 mA max per pixel).
 
 <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img2.jpg" data-fancybox="images" data-caption="WS2812b">
     <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img2-small.jpg" alt="WS2812b" class="hover-shadow"/>
@@ -164,7 +164,7 @@ Here is the connection diagram:
     <img src="/docs/assets/img/mbed-tutorials/ws2812b-connection-diagram.png" alt="double sided tape installation" class="hover-shadow" width="640"/>
 </a>
 
-Measure the distance between each strip to prepare enough cable and install the heat shrinking sleeves before soldering. Remember to connect the DOUT port of one strip with the DIN port of an another strip, otherwise they won't work. After you have the whole installation prepared you can attach it to the ROSbot using provided adhesive or the double sided tape.
+Measure the distance between each strip to prepare enough cable and install the heat shrinking sleeves before soldering. Remember to connect the DOUT port of one strip with the DIN port of an another strip, otherwise they won't work. After you have the whole installation prepared you can attach it to ROSbot using provided adhesive or the double sided tape.
 
 <div class="clearfix">
 <div class="img-container w3">
@@ -188,9 +188,9 @@ Measure the distance between each strip to prepare enough cable and install the 
 
 ### Required ROS packages
 
-Before we start make sure you have the `rosbot` package installed on your device. The package contains the EKF and custom messages used by the new firmware. It is required for the new firmware to work correctly. The package also contains example nodes used further in this tutorial.
+Before we start make sure you have the `rosbot_ekf` package installed on your device. The package contains the EKF and custom messages used by the new firmware. It is required for the new firmware to work correctly. The package also contains example nodes used further in this tutorial.
 
-The package is located [HERE](https://github.com/byq77/rosbot). Clone the package to your ROSbot's `ros_ws/src` directory.
+The package is located [HERE](https://github.com/byq77/rosbot_ekf). Clone the package to your ROSbot's `ros_ws/src` directory.
 
 Following dependencies are also required. On your device please run:
 
@@ -198,40 +198,40 @@ Following dependencies are also required. On your device please run:
 $ sudo apt-get install ros-kinetic-robot-localization
 ```
 
-Now you can compile the `rosbot` package. In your `ros_ws` directory run `catkin_make`.
+Now you can compile the `rosbot_ekf` package. In your `ros_ws` directory run `catkin_make`.
 
-### Using `rosbot` package
+### Using `rosbot_ekf` package
 
 To start the rosserial communication and EKF run:
 ```bash
-$ roslaunch rosbot all.launch
+$ roslaunch rosbot_ekf all.launch
 ```
 
 For PRO version add parameter:
 
 ```bash
-$ roslaunch rosbot all.launch rosbot_pro:=true
+$ roslaunch rosbot_ekf all.launch rosbot_pro:=true
 ```
 
 You can also include this launch in your custom launch files using:
 
 ```xml
-<include file="$(find rosbot)/launch/all.launch"/>
+<include file="$(find rosbot_ekf)/launch/all.launch"/>
 ```
 
 For PRO version it will look like that:
 
 ```xml
-<include file="$(find rosbot)/launch/all.launch">
+<include file="$(find rosbot_ekf)/launch/all.launch">
     <arg name="rosbot_pro" value="true"/>
 </include>
 ```
 ### WS2812B animations interface in ROS
 
-The new firmware provides a service server `/config` with the custom message type `rosbot/Configuration`. 
+The new firmware provides a service server `/config` with the custom message type `rosbot_ekf/Configuration`. 
 
 ```bash
-$ rossrv show rosbot/Configuration 
+$ rossrv show rosbot_ekf/Configuration 
 string command
 string data
 ---
@@ -269,16 +269,22 @@ In this example we will use the ws2812b leds to achieve a different ROSbot illum
     Your browser doesn't support HTML5 video tag.
 </video>
 
-To access the effect, firstly launch a `rosbot all.launch`:
+To access the effect, firstly launch a `rosbot_ekf all.launch`:
 
 ```bash
-$ roslaunch rosbot all.launch
+$ roslaunch rosbot_ekf all.launch
+```
+
+PRO:
+
+```bash
+$ roslaunch rosbot_ekf all.launch rosbot_pro=true
 ```
 
 After that you need to run the example node:
 
 ```bash
-$ rosrun rosbot cmd_vel_ws2812b_example
+$ rosrun rosbot_ekf cmd_vel_ws2812b_example
 ```
 
 This node listens to messages on `cmd_vel` topic and changes leds color to green whenever the new, non zero speed target appears. When there is no new commands or target speed is zero then the illumination is red.
@@ -338,23 +344,62 @@ Here are the states that will be visualized:
 </tbody>
 </table>
 
-To use the feature, firstly launch a `rosbot all.launch`:
+To use the feature, first launch a `rosbot_ekf all.launch`:
 
 ```bash
-$ roslaunch rosbot all.launch
+$ roslaunch rosbot_ekf all.launch
+```
+
+PRO:
+
+```bash
+$ roslaunch rosbot_ekf all.launch rosbot_pro=true
 ```
 
 After that run the example node:
 
 ```bash
-$ rosrun rosbot actionlib_ws2812b_example
+$ rosrun rosbot_ekf move_base_ws2812b_example
 ```
 
-Now you can use any ros application that uses `move_base` package like [`rosbot webui`](https://github.com/husarion/rosbot_webui).
+Now you can use any ros application that uses `move_base` package like `Route admin panel`.
+
+### `Route admin panel`
+
+The **Route admin panel** is a web user interface that allows you to navigate ROSbot autonomously between set of destination points. It is excellent application to test our leds.
+
+To install it on you robot please follow this manual :[`Route admin panel installation`](https://husarion.com/software/route-admin-panel/).
+
+After that you can launch it using:
+
+```bash
+$ roslaunch route_admin_panel roslaunch route_admin_panel demo_rosbot_mbed_fw.launch 
+```
+
+PRO:
+
+```bash
+$ roslaunch route_admin_panel roslaunch route_admin_panel demo_rosbot_pro_mbed_fw.launch 
+```
+
+There is no need of running `roslaunch rosbot_ekf all.launch` in this case, since it is already included.
+
+After that run the example node:
+```
+$ rosrun rosbot move_base_ws2812b_example
+```
+
+Once all nodes are running, go to web browser and type in address bar:
+
+```
+ROSBOT_IP_ADDRESS:3000
+```
+
+Set destination points and run autonomous navigation. You should observe ROSbot changing its led's animation accordingly to the navigation state.
 
 ## Summary
 
-After completing this tutorial you should know how to use the WS2812B leds with the ROSbot. The presented samples are only examples and you can easily find more interesting usecases for this leds. You can also implement your own animations by editing the ROSbot source code. Check the new firmware [GitHub page](https://github.com/husarion/rosbot-firmware-new).
+This tutorial should give you the idea about using ws2812b rgb leds with ROSbot and employing them in your ROS applications. You can use the presented examples as starting point of your own signalization system. The example nodes used in this tutorial are located  in `rosbot` package. If you want to create custom animations, check out the new [rosbot firmware source code]((https://github.com/husarion/rosbot-firmware-new).
 
 ---------
 
