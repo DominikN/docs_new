@@ -52,7 +52,7 @@ Additionally to ROSbot, basic soldering skills and soldering equipment you will 
 
 This tutorial uses the new firmware for ROSbot, based on Mbed OS system. To learn more about the new firmware please get familiar with the firmware's [GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
-We recommend you to check our [Using CORE2 with Mbed OS tutorial](/docs/tutorials/mbed-tutorials/using-core2-with-mbed-os). It will introduce you to the Mbed OS environment and tools.
+We recommend you to check our [Using CORE2 with Mbed OS tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os). It will introduce you to the Mbed OS environment and tools.
 
 #### Building from source
 
@@ -82,7 +82,7 @@ where `x` is the number of leds you want to use.
     <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img4.png" alt="mbed_app.json" width="600" class="hover-shadow" />
 </a>
 
-Build firmware using `BUILD (RELEASE)` task. The `firmware.bin` file should appear in the directory `BUILD/RELEASE`. To upload the firmware using `stm32loader` please follow the guide from [previous tutorial](/docs/tutorials/mbed-tutorials/using-core2-with-mbed-os#stm32loader-usage).
+Build firmware using `BUILD (RELEASE)` task. The `firmware.bin` file should appear in the directory `BUILD/RELEASE`. To upload the firmware using `stm32loader` please follow the guide from [previous tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/#stm32loader-usage).
 
 #### Ready to use firmware packages
 
@@ -93,7 +93,7 @@ If you don't want to go through the procedures above, we prepared for you `.bin`
     * `500000` for ROSbot 2.0
     * `230400` for ROSbot 2.0 Pro
 
-Use `stm32loader` to upload the firmware. Please follow the guide from [previous tutorial](docs/tutorials/mbed-tutorials/using-core2-with-mbed-os#stm32loader-usage).
+Use `stm32loader` to upload the firmware. Please follow the guide from [previous tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/#stm32loader-usage).
 
 Downloads:
 * [`ROSbot 2.0 fw v0.7.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.7.1.bin)
