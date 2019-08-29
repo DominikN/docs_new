@@ -22,6 +22,16 @@ Because project covers many fields it will be shown and explained how to configu
 
 ![rosbot_how_it_works_v2](https://user-images.githubusercontent.com/29305346/62467724-b454a600-b794-11e9-9923-efb211826750.png)
 
+
+## Run on virtual environment
+
+NOTE: You can run the following project in a virtual environment and get all the code and documentation by clicking on the ROSDS button
+
+<div><center>
+<a href="http://www.rosject.io/l/c104eda/">
+<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+</center></div>
+
 ## Preparation
 
 1. It is assumed that you have ros already installed - because rosbot currently works on ros kinetic it's necessary to have this version, in case you don't have that check official docs : [ROS kinetic installation](http://wiki.ros.org/kinetic/Installation) .
@@ -955,7 +965,7 @@ rooms:
     angle:  180
 ```
 
-![rosbot_room_plan](https://user-images.githubusercontent.com/29305346/62054987-fde44480-b21a-11e9-9eb6-30d4f4706570.png)
+![rosbot_room_plan](https://user-images.githubusercontent.com/29305346/63917589-3efa8f00-ca3b-11e9-851a-6d9a68739b1a.png)
 
 This are points for model.world world remember to set point0 to all zeroes - it's point to where robot will be coming back after patrolling room.
 
