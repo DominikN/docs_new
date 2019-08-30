@@ -39,11 +39,106 @@ To charge the batteries, follow this <a href="https://files.husarion.com/docs2/C
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-## Connecting to the cloud ##
+## Low level firmware installation
 
-There are three ways to connect ROSbot to Husarion cloud: ethernet connection, mouse + keyboard or mobile app. Choose the most comfortable for you.
+In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating pid regulator output or talking to distance sensors. The high level computation is handled by the SBC (single board computer). 
 
-### Option 1: using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+In order to start your journey with ROSbot platform you have to flash ROSbot's CORE2 board with low level firmware. We provide two options for you to choose from. 
+
+### mbed firmware (recommended)
+
+This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
+
+<!-- TODO add link -->
+Before we start complete following steps:
+1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
+2. Turn on the robot and wait until it boots.
+3. Connect the robot to the Wi-Fi network.
+
+#### stm32loader installation
+
+We will use `stm32loader` tool to upload the firmare to ROSbot. To check if you have this tool already installed on your robot open the terminal and run:
+
+```bash
+$ sudo stm32loader --help
+```
+
+If you get `command not found` you will need to finish all the steps below. Otherwise you just need to complete step one. 
+
+<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your device. These processes are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need the direct access to them. Run:
+
+```bash
+    $ sudo systemctl disable husarnet-configurator
+    $ sudo systemctl stop husarnet-configurator
+    $ sudo systemctl disable husarion-shield
+    $ sudo reboot
+```
+
+<strong>2.</strong> Install necessary support libraries for your device:
+
+**ROSbot 2.0:**
+```bash
+$ cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
+$ cd ~/python-periphery && sudo python setup.py install --record files.txt
+```
+**ROSbot 2.0 PRO:**
+```bash
+$ cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
+$ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
+```
+
+Restart the terminal after the installation.
+
+<strong>3.</strong> Install `stm32loader`:
+```bash
+$ cd ~/ && git clone https://github.com/byq77/stm32loader.git
+$ cd ~/stm32loader && sudo python setup.py install --record files.txt
+```
+
+After installation we can proceed to the next section.
+
+#### Programming the firmware (using stm32loader)
+
+We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have following settings: 
+* ws2812b driver is enabled by default (check [ROSbot with WS2812B LEDs signalization](https://husarion.com/tutorials/mbed-tutorials/rosbot-and-ws2812b-led-signalization/))
+* rosserial baudrate is set to:
+    * `500000` for ROSbot 2.0
+    * `230400` for ROSbot 2.0 Pro
+  
+Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
+* [`ROSbot 2.0 fw v0.7.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.7.1.bin)
+* [`ROSbot 2.0 Pro fw v0.7.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.7.1.bin)
+
+
+Before uploading the firmware using `stm32loader` make sure you have the `husarnet-configurator` service disabled. 
+
+> The following steps remove the software bootloader used by Husarion Cloud. You can flash it again in any moment in case you want to return to hFramework firmware.
+
+To upload the firmware run:
+
+```bash
+$ sudo stm32loader -c tinker -u -W
+```
+
+```bash
+$ sudo stm32loader -c tinker -e -w -v rosbot-2.0-***.bin
+```
+
+PRO:
+
+```bash
+$ sudo stm32loader -c upboard -u -W
+```
+
+```bash
+$ sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
+```
+
+### Husarion Cloud + hFramework firmware (deprecated)
+
+First you have to connect ROSbot to Husarion cloud. There are three ways to do that: ethernet connection, mouse + keyboard or mobile app. Choose the most comfortable for you.
+
+#### Option 1: using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
 ROSbot is basically a computer running Ubuntu, so let's configure it like a standard PC computer.
 
 1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
@@ -58,7 +153,7 @@ ROSbot is basically a computer running Ubuntu, so let's configure it like a stan
 `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
 * after a few seconds you should see your device online at https://cloud.husarion.com
 
-### Option 2: using Ethernet adapter (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+#### Option 2: using Ethernet adapter (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
 In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 
 1. Turn on the robot and wait until it boots.
@@ -77,7 +172,7 @@ In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
 * after a few seconds you should see your device online at https://cloud.husarion.com
 
-### Option 3: using hConfig app (only for ROSbot 2.0) ###
+#### Option 3: using hConfig app (only for ROSbot 2.0) ###
 That's a deprecated option, so previously mentioned instructions are prefferred.
 
 * Press and hold the hCfg button on ROSbots rear panel.
@@ -85,8 +180,7 @@ That's a deprecated option, so previously mentioned instructions are prefferred.
 * When blue and yellow LEDs starts blinking, release the hCfg button.
 * Connect your mobile device to Husarion Wi-Fi and open hConfig app (<a href="https://itunes.apple.com/us/app/hconfig/id1283536270?mt=8">hConfig in AppStore</a> or <a href="https://play.google.com/store/apps/details?id=com.husarion.configtool2">hConfig in Google Play</a>) to connect ROSbot to the Wi-Fi network and your user account at <a href="https://cloud.husarion.com">cloud.husarion.com</a> (<a href="https://husarion.com/core2/tutorials/howtostart/run-your-first-program/#run-your-first-program-connecting-to-the-cloud">how to do this</a>).
 
-
-## Programming ##
+#### Programming the firmware (using Husarion Cloud)
 
 First you will program the low-level firmware running on STM32F4 microcontroller (part of CORE2-ROS controller):
 
@@ -97,6 +191,8 @@ First you will program the low-level firmware running on STM32F4 microcontroller
 * Go back to main panel of https://cloud.husarion.com
 
 Next you will proceed to ROS part of software running on a single board computer (ASUS Tinker Board):
+
+## Remote connection 
 
 ### On Linux ###
 
