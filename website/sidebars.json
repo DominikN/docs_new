@@ -30,7 +30,8 @@
         "type": "subcategory",
         "label": "ROS Projects",
         "ids": [
-          "tutorials/ros-projects/security-guard-robot"
+          "tutorials/ros-projects/security-guard-robot",
+          "tutorials/ros-projects/control-virtual-robot-from-your-PC"
         ]
       },
 	  {
