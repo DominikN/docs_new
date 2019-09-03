@@ -1535,7 +1535,7 @@ REMEMBER TO SET CORRECT PART FOR YOUR FIRMWARE AND ROSBOT VERSION!!!
 
     
     <!-- NEW FIRMWARE -->
-    <include file="$(find rosbot)/launch/all.launch"/>
+    <include file="$(find rosbot_ekf)/launch/all.launch"/>
  
     <!-- OLD FIRMWARE -->
    <!--  
@@ -1546,7 +1546,9 @@ REMEMBER TO SET CORRECT PART FOR YOUR FIRMWARE AND ROSBOT VERSION!!!
 </launch>
 ```
 
-You have to specify which rosbot firmware are you using - since new version is only available at github it's very likely that you're using old version
+You have to specify which rosbot firmware are you using - since new version is fresh it's very likely that you're using old version
+
+NOTE: Remember about [rosbot_ekf](https://github.com/byq77/rosbot_ekf) package. 
 
 You can upgrade it using this instruction [rosbot new firmware](https://github.com/husarion/rosbot-firmware-new)
 
