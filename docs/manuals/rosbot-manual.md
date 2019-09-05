@@ -68,7 +68,7 @@ In ROSbot 2.0 PRO:
 </div> 
 </div>
 
-You can use your ROSbot offline however we recommend connecting to Husarion Cloud as it gives you access to a lot of additional functionalities like remote management and firmware updates.
+<!-- You can use your ROSbot offline however we recommend connecting to Husarion Cloud as it gives you access to a lot of additional functionalities like remote management and firmware updates. -->
 
 If you do not own ROSbot yet, you can purchase it <a href="https://store.husarion.com/">here</a>.
 
@@ -436,7 +436,6 @@ In order to start your journey with ROSbot platform you have to flash ROSbot's C
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
-<!-- TODO add link -->
 Before we start complete following steps:
 1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
 2. Turn on the robot and wait until it boots.
@@ -452,7 +451,7 @@ $ sudo stm32loader --help
 
 If you get `command not found` you will need to finish all the steps below. Otherwise you just need to complete step one. 
 
-<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your device. These processes are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need the direct access to them. Run:
+<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your ROSbot. These services are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need a direct access to them. Run:
 
 ```bash
     $ sudo systemctl disable husarnet-configurator
@@ -461,7 +460,7 @@ If you get `command not found` you will need to finish all the steps below. Othe
     $ sudo reboot
 ```
 
-<strong>2.</strong> Install necessary support libraries for your device:
+<strong>2.</strong> Install necessary support libraries on your robot. In the terminal run:
 
 **ROSbot 2.0:**
 ```bash
@@ -476,7 +475,7 @@ $ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
 
 Restart the terminal after the installation.
 
-<strong>3.</strong> Install `stm32loader`:
+<strong>3.</strong> Install `stm32loader` on your robot:
 ```bash
 $ cd ~/ && git clone https://github.com/byq77/stm32loader.git
 $ cd ~/stm32loader && sudo python setup.py install --record files.txt

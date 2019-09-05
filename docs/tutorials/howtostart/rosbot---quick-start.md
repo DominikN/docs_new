@@ -39,17 +39,10 @@ To charge the batteries, follow this <a href="https://files.husarion.com/docs2/C
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-## Low level firmware installation
-
-In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating pid regulator output or talking to distance sensors. The high level computation is handled by the SBC (single board computer). 
-
-In order to start your journey with ROSbot platform you have to flash ROSbot's CORE2 board with low level firmware. We provide two options for you to choose from. 
-
 ### mbed firmware (recommended)
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
-<!-- TODO add link -->
 Before we start complete following steps:
 1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
 2. Turn on the robot and wait until it boots.
@@ -65,7 +58,7 @@ $ sudo stm32loader --help
 
 If you get `command not found` you will need to finish all the steps below. Otherwise you just need to complete step one. 
 
-<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your device. These processes are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need the direct access to them. Run:
+<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your ROSbot. These services are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need a direct access to them. Run:
 
 ```bash
     $ sudo systemctl disable husarnet-configurator
@@ -74,7 +67,7 @@ If you get `command not found` you will need to finish all the steps below. Othe
     $ sudo reboot
 ```
 
-<strong>2.</strong> Install necessary support libraries for your device:
+<strong>2.</strong> Install necessary support libraries on your robot. In the terminal run:
 
 **ROSbot 2.0:**
 ```bash
@@ -89,7 +82,7 @@ $ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
 
 Restart the terminal after the installation.
 
-<strong>3.</strong> Install `stm32loader`:
+<strong>3.</strong> Install `stm32loader` on your robot:
 ```bash
 $ cd ~/ && git clone https://github.com/byq77/stm32loader.git
 $ cd ~/stm32loader && sudo python setup.py install --record files.txt
