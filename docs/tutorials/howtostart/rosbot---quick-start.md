@@ -39,7 +39,13 @@ To charge the batteries, follow this <a href="https://files.husarion.com/docs2/C
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-### mbed firmware (recommended)
+## Low level firmware installation
+
+In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating pid regulator output or talking to distance sensors. The high level computation is handled by the SBC (single board computer). 
+
+In order to start your journey with ROSbot platform you have to flash ROSbot's CORE2 board with low level firmware. We provide two firmware options for you to choose from. 
+
+### I. mbed firmware (recommended)
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
@@ -50,7 +56,7 @@ Before we start complete following steps:
 
 #### stm32loader installation
 
-We will use `stm32loader` tool to upload the firmare to ROSbot. To check if you have this tool already installed on your robot open the terminal and run:
+We will use `stm32loader` tool to upload the firmare to ROSbot. To check if you have this tool already installed on your robot, open the terminal and run:
 
 ```bash
 $ sudo stm32loader --help
@@ -83,12 +89,23 @@ $ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
 Restart the terminal after the installation.
 
 <strong>3.</strong> Install `stm32loader` on your robot:
+
 ```bash
 $ cd ~/ && git clone https://github.com/byq77/stm32loader.git
 $ cd ~/stm32loader && sudo python setup.py install --record files.txt
 ```
 
-After installation we can proceed to the next section.
+You can check if tool works by running following commands:
+
+**ROSbot 2.0:**
+```bash
+$ sudo stm32loader -c tinker -f F4
+```
+
+**ROSbot 2.0 PRO:**
+```bash
+$ sudo stm32loader -c upboard -f F4
+```
 
 #### Programming the firmware (using stm32loader)
 
@@ -127,11 +144,13 @@ $ sudo stm32loader -c upboard -u -W
 $ sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
 ```
 
-### Husarion Cloud + hFramework firmware (deprecated)
+Wait until firmware is uploaded.
+
+### II. Husarion Cloud + hFramework firmware (deprecated)
 
 First you have to connect ROSbot to Husarion cloud. There are three ways to do that: ethernet connection, mouse + keyboard or mobile app. Choose the most comfortable for you.
 
-#### Option 1: using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+#### 1: Using display, mouse and keyboard (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
 ROSbot is basically a computer running Ubuntu, so let's configure it like a standard PC computer.
 
 1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
@@ -146,7 +165,7 @@ ROSbot is basically a computer running Ubuntu, so let's configure it like a stan
 `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
 * after a few seconds you should see your device online at https://cloud.husarion.com
 
-#### Option 2: using Ethernet adapter (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
+#### 2: Using Ethernet adapter (works for ROSbot 2.0 and for ROSbot 2.0 PRO) ###
 In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 
 1. Turn on the robot and wait until it boots.
@@ -165,7 +184,7 @@ In the ROSbot 2.0 set there is a USB-Ethernet card. Use it for the first setup.
 `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
 * after a few seconds you should see your device online at https://cloud.husarion.com
 
-#### Option 3: using hConfig app (only for ROSbot 2.0) ###
+#### 3: Using hConfig app (only for ROSbot 2.0) ###
 That's a deprecated option, so previously mentioned instructions are prefferred.
 
 * Press and hold the hCfg button on ROSbots rear panel.
@@ -241,6 +260,14 @@ Clone repository containing rosbot webui:
 Clone `husarion_ros` repository:
 
 `git clone https://github.com/husarion/husarion_ros.git`
+
+If you use Mbed version of the ROSbot firmware you also need to clone the `rosbot_ekf` repository:
+
+`git clone https://github.com/byq77/rosbot_ekf.git`
+
+Install dependencies required by `rosbot_ekf` package:
+
+`$ sudo apt-get install ros-kinetic-robot-localization`
 
 Change directory and build code using catkin_make: 
 
