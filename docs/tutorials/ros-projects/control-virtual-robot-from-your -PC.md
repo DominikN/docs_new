@@ -15,6 +15,8 @@ title: ROSDS Virtual robot controlled from your local PC
 
 In this ROSject we will show you how to control a virtual robot operating in the ROS Development Studio environmet from a level of your laptop running ROS.
 
+![theme](https://user-images.githubusercontent.com/29305346/64530720-224d3980-d30e-11e9-9901-ee5ecbd58776.png)
+
 To control a robot the [Route Admin Planner](https://husarion.com/software/route-admin-panel/) provided by Husarion is used.
 The Route Admin Panel is a web user interface for managing routes of ROS based mobile robots.
 
