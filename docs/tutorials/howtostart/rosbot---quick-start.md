@@ -67,7 +67,7 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 
 6. type `ifconfig` to find your IP address. Save it for later.
 
-### Connecting over Wi-Fi (LAN network)
+### Connecting over LAN network
 
 The most convenient way to work with ROSbot on daily basis is to do that over Wi-Fi. Connect your laptop to the same Wi-Fi network as ROSbot and type in the terminal:
 
