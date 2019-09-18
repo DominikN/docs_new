@@ -39,11 +39,11 @@ To charge the batteries, follow this <a href="https://files.husarion.com/docs2/C
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-## Get access to the Linux terminal in ROSbot
+## Connect ROSbot to your Wi-Fi network
 
-In order to do the following steps you need to open the Linux terminal in ROSbot and connect it to your Wi-Fi network. Two options are recommended to do that the first time:
+At first ROSbot need to be connected to your Wi-Fi network.
 
-### 1: Connect to Wi-Fi using display, mouse and keyboard
+### Option 1: Using display, mouse and keyboard
 
 ROSbot is basically a computer running Ubuntu, so let's open it like a standard PC computer.
 
@@ -52,7 +52,7 @@ ROSbot is basically a computer running Ubuntu, so let's open it like a standard 
 3. Connect to a Wi-Fi network using Ubuntu GUI
 4. Open Linux terminal and type `ifconfig` to find your IP address. Save it for later.
 
-### 2: Connect to Wi-Fi using Ethernet adapter
+### Option 2: Using Ethernet adapter
 
 In the ROSbot 2.0 set there is one USB-Ethernet card.
 
@@ -66,6 +66,8 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 - type `nmcli c modify rosbot20wifi wifi-sec.key-mgmt wpa-psk wifi-sec.psk <WiFi-PASSWORD>` and press Enter to obtain an IP address and connect to the Wi-Fi network
 
 6. type `ifconfig` to find your IP address. Save it for later.
+
+## Access ROSbot terminal using wireless connection
 
 ### Connecting over LAN network
 
