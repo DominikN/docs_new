@@ -215,9 +215,11 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 
 ![RoboMaker robot created](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_3.png)
 
-- Choose **Download** button next to **Download and store your Core's security resources**.
+- Choose **Download** button next to **Download and store your Core's security resources**, you will get `ROSbot-setup.zip` file.
 
-- You will get `ROSbot-setup.zip` file, it needs to be uploaded to ROSbot. The upload process will vary, depending on your host operating system.
+- From **Download the current AWS Greengrass Core software** choose file for architecture **ARMv71**, you will get `greengrass-linux-armv7l-1.9.2.tar.gz` file.
+
+- Both files need to be uploaded to ROSbot. The upload process will vary, depending on your host operating system.
 
 ### On Linux
 
@@ -227,10 +229,11 @@ Navigate to directory where the file is downloaded, by default it should be `~/D
 cd ~/Downloads
 ```
 
-- Copy the file to your ROSbot, you will need to substitute `ROSBOT_IP` with device address you noted earlier:
+- Copy both files to your ROSbot, you will need to substitute `ROSBOT_IP` with device address you noted earlier:
 
 ```
 scp ROSbot-setup.zip husarion@ROSBOT_IP:ROSbot-setup.zip
+scp greengrass-linux-armv7l-1.9.2.tar.gz husarion@ROSBOT_IP:greengrass-linux-armv7l-1.9.2.tar.gz
 ```
 
 ### On Windows
@@ -253,7 +256,7 @@ When all fields are filled up, click `Login` button to connect, you will see fil
 
 In the left tab navigate to directory where you downloaded the ROSbot-setup.zip file. In the right tab navigate to `/home/husarion` directory.
 
-Drag and drop the `ROSbot-setup.zip` to the right tab.
+Drag and drop the `ROSbot-setup.zip` and `greengrass-linux-armv7l-1.9.2.tar.gz` to the right tab.
 
 When the transfer is finished, close the window.
 
