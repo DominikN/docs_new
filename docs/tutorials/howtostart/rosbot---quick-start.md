@@ -311,7 +311,7 @@ and:
 
 `python -m pip install --user tornado==4.5.3 python-wifi ifparser`
 
-Create a new work space (you can skip this if you have build `rosbot_ekf` package):
+Create a new work space (you can skip next two lines if you have build `rosbot_ekf` package):
 
 `mkdir ~/ros_workspace`
 

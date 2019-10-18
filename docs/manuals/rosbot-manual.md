@@ -68,8 +68,6 @@ In ROSbot 2.0 PRO:
 </div> 
 </div>
 
-<!-- You can use your ROSbot offline however we recommend connecting to Husarion Cloud as it gives you access to a lot of additional functionalities like remote management and firmware updates. -->
-
 If you do not own ROSbot yet, you can purchase it <a href="https://store.husarion.com/">here</a>.
 
 You can also test the performance of ROSbot using our simulation model in Gazebo environment. It is available here, at our <a href="https://github.com/husarion/rosbot_description">GitHub page</a>.

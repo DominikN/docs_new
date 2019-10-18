@@ -156,9 +156,7 @@ According to the method of your choice, proceed to section **Connecting to ROSbo
 
 Before you start working with ROS on ROSbot 2.0 platform, you need to connect to
 your device first. You can establish connection in two ways: using `ssh` or via
-remote desktop. For both methods you need an IP address of your CORE2-
-it could be found on cloud.husarion.com after clicking “more” button
-next to robot name.
+remote desktop. For both methods you need an IP address of your robot. You can check it using one of methods described in [ROSbot - quick start tutorial](https://husarion.com/tutorials/howtostart/rosbot---quick-start/). 
 
 To connect by ssh type in terminal:
 
