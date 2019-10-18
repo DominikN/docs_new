@@ -499,6 +499,7 @@ In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family 
 In order to use ROSbot you have to flash ROSbot's CORE2 board with low level firmware. There are two firmware options for you to choose from.
 
 ### I. Mbed firmware (recommended)
+> **WARNING**: When mbed firmware is uploaded to internal STM32F4 microcontroller, https://cloud.husarion.com is no available for your ROSbot.
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
@@ -602,6 +603,50 @@ $ sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
 ```
 
 Wait until firmware is uploaded.
+
+#### Required ROS packages - `rosbot_ekf`
+
+In order to use mbed firmware the `rosbot_ekf` package have to be installed in your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the imu and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. To install the package please follow the steps below.
+
+Create new work space and change directory:
+```
+mkdir ~/ros_workspace
+mkdir ~/ros_workspace/src
+cd ~/ros_workspace/src
+```
+Clone rosbot_ekf repository:
+```
+git clone https://github.com/byq77/rosbot_ekf.git
+```
+Install dependencies required by rosbot_ekf package:
+```
+sudo apt-get install ros-kinetic-robot-localization
+```
+Change directory and build code using catkin_make:
+```
+cd ~/ros_workspace
+catkin_make
+```
+To set it up permanently, open .bashrc file in text editor:
+```
+nano ~/.bashrc
+```
+Go to the end of file and add line:
+```
+. /home/husarion/ros_workspace/devel/setup.sh
+```
+
+To launch rosserial communication and Kalman filter for mbed firmware run:
+
+```
+roslaunch rosbot_ekf all.launch
+```
+
+For PRO version add parameter:
+
+```
+roslaunch rosbot_ekf all.launch rosbot_pro:=true
+```
 
 ### II. Husarion Cloud + hFramework firmware (deprecated)
 

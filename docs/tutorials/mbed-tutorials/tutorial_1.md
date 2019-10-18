@@ -4,6 +4,8 @@ sidebar_label: 1. Using CORE2 with Mbed OS
 title: Using CORE2 with Mbed OS
 ---
 
+> **WARNING**: When mbed firmware is uploaded to internal STM32F4 microcontroller, https://cloud.husarion.com is no available for your device.
+
 ## Introduction
 
 > **Updated**: 13th of August 2019
