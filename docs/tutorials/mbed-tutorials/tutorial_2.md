@@ -192,12 +192,12 @@ Measure the distance between each strip to prepare enough cable and install the 
 
 Before we start make sure you have the `rosbot_ekf` package installed on your device. The package contains the EKF and custom messages used by the new firmware. It is required for the new firmware to work correctly. The package also contains example nodes used further in this tutorial.
 
-The package is located [HERE](https://github.com/byq77/rosbot_ekf). Clone the package to your ROSbot's `ros_ws/src` directory.
+The package is located [HERE](https://github.com/husarion/rosbot_ekf). Clone the package to your ROSbot's `ros_ws/src` directory.
 
 Following dependencies are also required. On your device please run:
 
 ```bash
-$ sudo apt-get install ros-kinetic-robot-localization
+sudo apt-get install ros-kinetic-robot-localization
 ```
 
 Now you can compile the `rosbot_ekf` package. In your `ros_ws` directory run `catkin_make`.
@@ -206,13 +206,13 @@ Now you can compile the `rosbot_ekf` package. In your `ros_ws` directory run `ca
 
 To start the rosserial communication and EKF run:
 ```bash
-$ roslaunch rosbot_ekf all.launch
+roslaunch rosbot_ekf all.launch
 ```
 
 For PRO version add parameter:
 
 ```bash
-$ roslaunch rosbot_ekf all.launch rosbot_pro:=true
+roslaunch rosbot_ekf all.launch rosbot_pro:=true
 ```
 
 You can also include this launch in your custom launch files using:
@@ -233,7 +233,7 @@ For PRO version it will look like that:
 The new firmware provides a service server `/config` with the custom message type `rosbot_ekf/Configuration`. 
 
 ```bash
-$ rossrv show rosbot_ekf/Configuration 
+rossrv show rosbot_ekf/Configuration 
 string command
 string data
 ---
@@ -247,7 +247,7 @@ uint8 result
 The WS2812B animations are accessible via `SANI` command. For most commands there are two arguments. First is the animation letter and second is the color of animation. Here is an example for setting a red fading animation:  
 
 ```bash
-$ rosservice call /config "command: `SANI`
+rosservice call /config "command: `SANI`
 >data: 'F #aa0000'"
 ```
 
@@ -274,19 +274,19 @@ In this example we will use the ws2812b leds to achieve a different ROSbot illum
 To access the effect, firstly launch a `rosbot_ekf all.launch`:
 
 ```bash
-$ roslaunch rosbot_ekf all.launch
+roslaunch rosbot_ekf all.launch
 ```
 
 PRO:
 
 ```bash
-$ roslaunch rosbot_ekf all.launch rosbot_pro=true
+roslaunch rosbot_ekf all.launch rosbot_pro=true
 ```
 
 After that you need to run the example node:
 
 ```bash
-$ rosrun rosbot_ekf cmd_vel_ws2812b_example
+rosrun rosbot_ekf cmd_vel_ws2812b_example
 ```
 
 This node listens to messages on `cmd_vel` topic and changes leds color to green whenever the new, non zero speed target appears. When there is no new commands or target speed is zero then the illumination is red.
@@ -294,7 +294,7 @@ This node listens to messages on `cmd_vel` topic and changes leds color to green
 You can use a keyboard teleoperation node to check how it works:
 
 ```bash
-$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 ```
 
 ### `move_base` example
@@ -349,19 +349,19 @@ Here are the states that will be visualized:
 To use the feature, first launch a `rosbot_ekf all.launch`:
 
 ```bash
-$ roslaunch rosbot_ekf all.launch
+roslaunch rosbot_ekf all.launch
 ```
 
 PRO:
 
 ```bash
-$ roslaunch rosbot_ekf all.launch rosbot_pro=true
+roslaunch rosbot_ekf all.launch rosbot_pro=true
 ```
 
 After that run the example node:
 
 ```bash
-$ rosrun rosbot_ekf move_base_ws2812b_example
+rosrun rosbot_ekf move_base_ws2812b_example
 ```
 
 Now you can use any ros application that uses `move_base` package like `Route admin panel`.
@@ -375,20 +375,20 @@ To install it on you robot please follow this manual :[`Route admin panel instal
 After that you can launch it using:
 
 ```bash
-$ roslaunch route_admin_panel roslaunch route_admin_panel demo_rosbot_mbed_fw.launch 
+roslaunch route_admin_panel roslaunch route_admin_panel demo_rosbot_mbed_fw.launch 
 ```
 
 PRO:
 
 ```bash
-$ roslaunch route_admin_panel roslaunch route_admin_panel demo_rosbot_pro_mbed_fw.launch 
+roslaunch route_admin_panel roslaunch route_admin_panel demo_rosbot_pro_mbed_fw.launch 
 ```
 
 There is no need of running `roslaunch rosbot_ekf all.launch` in this case, since it is already included.
 
 After that run the example node:
 ```
-$ rosrun rosbot move_base_ws2812b_example
+rosrun rosbot move_base_ws2812b_example
 ```
 
 Once all nodes are running, go to web browser and type in address bar:

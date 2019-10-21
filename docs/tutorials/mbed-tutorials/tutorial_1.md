@@ -74,33 +74,33 @@ Installers for both Windows and macOS are provided. Linux users have to install 
 Check if the installation was successful by running following command in the terminal:
 
 ```bash
-    $ mbed --version
-    1.10.0
+mbed --version
+1.10.0
 ```
 
 After installation you have to inform Mbed CLI about location of compiler (in our case GCC Arm Embedded Compiler) binaries. We will use global setting. Run:
 
 ```bash
-    $ mbed config -G GCC_ARM_PATH <path to the compiler>
+mbed config -G GCC_ARM_PATH <path to the compiler>
 ```
 
 Linux example:
 
 ```bash
-    $ mbed config -G GCC_ARM_PATH /home/szysza/opt/gcc-arm-none-eabi-6-2017-q2-update/bin
+mbed config -G GCC_ARM_PATH /home/szysza/opt/gcc-arm-none-eabi-6-2017-q2-update/bin
 ```
 
 Windows example:
 
 ```bash
-    $ where arm-none-eabi-gcc # prints path to arm-none-eabi-gcc.exe if in PATH
-    $ mbed config -G GCC_ARM_PATH "C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
+where arm-none-eabi-gcc # prints path to arm-none-eabi-gcc.exe if in PATH
+mbed config -G GCC_ARM_PATH "C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
 ```
 
 You can check current configuration by running:
 
 ```bash
-    $ mbed config --list
+mbed config --list
 ```
 
 ### Preparing a workspace
@@ -108,31 +108,31 @@ You can check current configuration by running:
 Create a new folder `core2-mbed-workspace`. It will serve as a workspace for your mbed projects. Run:
 
 ```bash
-    $ mkdir core2-mbed-workspace && cd core2-mbed-workspace
+mkdir core2-mbed-workspace && cd core2-mbed-workspace
 ```
 
 Next step is to import `mbed-os` library. It will be used by all your projects. In your workspace's folder run:
 
 ```bash
-    $ mbed import mbed-os
-    [mbed] Working path "E:\mbed_projects\core2-mbed-workspace" (directory)
-    [mbed] Program path "E:\mbed_projects\core2-mbed-workspace"
-    [mbed] Importing program "mbed-os" from "https://github.com/ARMmbed/mbed-os" at latest revision in the current branch
+mbed import mbed-os
+[mbed] Working path "E:\mbed_projects\core2-mbed-workspace" (directory)
+[mbed] Program path "E:\mbed_projects\core2-mbed-workspace"
+[mbed] Importing program "mbed-os" from "https://github.com/ARMmbed/mbed-os" at latest revision in the current branch
 ```
 
 Mbed CLI needs to know the path to `mbed-os` directory. This way all your projects can use one instance of library (default configuration is to have separate instance of library for each project). Run:
 
 ```bash
-    $ mbed config -G MBED_OS_DIR <path to mbed-os>
+mbed config -G MBED_OS_DIR <path to mbed-os>
 ```
 
 Example:
 
 ```bash
-    $ mbed config -G MBED_OS_DIR "E:\mbed_projects\core2-mbed-workspace\mbed-os"
-    [mbed] Working path "E:\mbed_projects\core2-mbed-workspace" (directory)
-    [mbed] Program path "E:\mbed_projects\core2-mbed-workspace"
-    [mbed] E:\mbed_projects\core2-mbed-workspace\mbed-os now set as global MBED_OS_DIR
+mbed config -G MBED_OS_DIR "E:\mbed_projects\core2-mbed-workspace\mbed-os"
+[mbed] Working path "E:\mbed_projects\core2-mbed-workspace" (directory)
+[mbed] Program path "E:\mbed_projects\core2-mbed-workspace"
+[mbed] E:\mbed_projects\core2-mbed-workspace\mbed-os now set as global MBED_OS_DIR
 ```
 
 #### Adding a `.mbedignore` file
@@ -167,13 +167,13 @@ Just download the zip : https://github.com/husarion/core2-mbed-template/archive/
 On Linux:
 
 ```bash
-    $ wget https://github.com/husarion/core2-mbed-template/archive/master.zip && unzip master.zip
+wget https://github.com/husarion/core2-mbed-template/archive/master.zip && unzip master.zip
 ```
 
 You can also clone the repository using GIT:
 
 ```bash
-    $ git clone https://github.com/husarion/core2-mbed-template.git
+git clone https://github.com/husarion/core2-mbed-template.git
 ```
 
 Open the template project in Visual Studio Code. In file `setting.json` from the directory `.vscode` in your template, change the value of `C_cpp.default.compilerPath` to match location of `arm-none-eabi-gcc` on your system:
@@ -181,14 +181,14 @@ Open the template project in Visual Studio Code. In file `setting.json` from the
 Windows:
 ```json
 {
-    "C_Cpp.default.compilerPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/6 2017-q2-update/bin/arm-none-eabi-g++"
+"C_Cpp.default.compilerPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/6 2017-q2-update/bin/arm-none-eabi-g++"
 }
 ```
 
 Linux:
 ```json
 {
-    "C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-g++"
+"C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-g++"
 }
 ```
 
@@ -227,7 +227,7 @@ This file is used to configure your application. It allows to override the defau
 You can learn details of your configuration by running following command in the root directory of the template project:
 
 ```bash
-    $ mbed compile --config --source . --source ../mbed-os/ -v
+mbed compile --config --source . --source ../mbed-os/ -v
 ```
 
 The last file we will check is `task.json` from `.vscode` directory. It defines tasks that are recognized by Visual Studio Code IDE. The tasks can be accessed by pressing `CTRL + SHIFT + P` and typing `Task: Run Task` in Command Pallete.
@@ -283,9 +283,9 @@ The software bootloader is necessary if you use Husarion Cloud IDE and hFramewor
 
 Please remove following lines from `mbed_app.json` in template project:
 ```json
-    "target.mbed_app_start":"0x08010000",
-    "target.mbed_rom_start":"0x08000000",
-    "target.mbed_rom_size":"0x100000"
+"target.mbed_app_start":"0x08010000",
+"target.mbed_rom_start":"0x08000000",
+"target.mbed_rom_size":"0x100000"
 ```
 They're responsible for shifting the firmware so it can "fit" in the flash memory alongside the bootloader.
 
@@ -298,10 +298,10 @@ Please log into your SBC and follow this step by step tutorial on how to install
 <strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your device. These processes are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need the direct access to them. Run:
 
 ```bash
-    $ sudo systemctl disable husarnet-configurator
-    $ sudo systemctl stop husarnet-configurator
-    $ sudo systemctl disable husarion-shield
-    $ sudo reboot
+sudo systemctl disable husarnet-configurator
+sudo systemctl stop husarnet-configurator
+sudo systemctl disable husarion-shield
+sudo reboot
 ```
 
 <strong>2.</strong> Install necessary support libraries for your device:
@@ -313,34 +313,34 @@ pip install RPi.GPIO
 
 **Upboard:**
 ```bash
-$ cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
-$ cd ~/python-periphery && sudo python setup.py install --record files.txt
+cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
+cd ~/python-periphery && sudo python setup.py install --record files.txt
 ```
 **Asus Tinker board:**
 ```bash
-$ cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
-$ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
+cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
+cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
 ```
 
 Restart the terminal after the installation.
 
 <strong>3.</strong> Install `stm32loader`:
 ```bash
-$ cd ~/ && git clone https://github.com/byq77/stm32loader.git
-$ cd ~/stm32loader && sudo python setup.py install --record files.txt
+cd ~/ && git clone https://github.com/husarion/stm32loader.git
+cd ~/stm32loader && sudo python setup.py install --record files.txt
 ```
 
 ### stm32loader usage
 
 Printing help:
 ```bash
-$ stm32loader --help
+stm32loader --help
 ```
 
 To remove bootloader run:
 ```bash
-$ sudo stm32loader -c <your-sbc> -W
-$ sudo stm32loader -c <your-sbc> -e
+sudo stm32loader -c <your-sbc> -W
+sudo stm32loader -c <your-sbc> -e
 ```
 
 where `<your-sbc>` is:
@@ -351,13 +351,13 @@ where `<your-sbc>` is:
 To upload the `firmware.bin` directly from SBC copy the firmware from your template project's `BUILD/RELEASE/` directory to SBC using `scp`. Following code will copy `firmware.bin` file to remote user's home directory.
 
 ```bash
-$ scp firmware.bin user@address:~/
+scp firmware.bin user@address:~/
 ```
 
 To flash new firmware log into your SBC and in the directory which contain the firmware run:
 
 ```bash 
-$ sudo stm32loader -c <your_sbc> -e -w -v firmware.bin
+sudo stm32loader -c <your_sbc> -e -w -v firmware.bin
 ```
 
 ### Tasks
@@ -379,12 +379,12 @@ If you made it this far you must be really into this stuff! Let's do something m
 First we will create a new project directory. Just simply duplicate template project and name it `example-publisher`:
 
 ```bash
-    $ cp -rf core2-mbed-template example-publisher
+cp -rf core2-mbed-template example-publisher
 ```
 
 Another way is to create empty mbed project using Mbed CLI. Just type:
 ```bash
-  $ mbed new <project-name> --program
+mbed new <project-name> --program
 ```
 After that copy content of template project except `.git` directory to your newly created program directory.
 
@@ -392,15 +392,15 @@ After that copy content of template project except `.git` directory to your newl
 >
 > If you cloned your template project from online repository and you don't want to have version control in it just delete `.git` directory:
 > ```bash
->   $ rm -rf ./core2-mbed-template/.git/
+> rm -rf ./core2-mbed-template/.git/
 > ```
 > You can add it latter by running `git init .` in root dir of your project.   
 
 Open `example-publisher` directory in Visual Studio Code. In the program press `CTRL + ~` to open built-in terminal. In the terminal type:
 
 ```bash
-    $ cd lib 
-    $ mbed add https://github.com/byq77/rosserial-mbed
+cd lib 
+mbed add https://github.com/husarion/rosserial-mbed
 ```
 
 This will add `rosserial-mbed` library to your project and download all library's dependencies. Managing libraries this way is simple:
@@ -542,32 +542,32 @@ Now you can compile the project and flash it to your board. To view communicatio
 
 If you haven't already disabled `husarnet-configurator` service please run:
 ```bash
-    $ systemctl disable husarnet-configurator
-    $ sudo shutdown -r now # it will reboot your SBC
+systemctl disable husarnet-configurator
+sudo shutdown -r now # it will reboot your SBC
 ```
 
 After reboot open terminal and in first tab run `roscore`. Press `CTRL + SHIFT + T` and in second tab run:
 
 * Raspberry PI
 ```bash
-    $ rosrun rosserial_python serial_node.py _port:=/dev/serial0 _baud:=115200
+rosrun rosserial_python serial_node.py _port:=/dev/serial0 _baud:=115200
 ```
 
 * Asus Tinker Board
 ```bash
-    $ rosrun rosserial_python serial_node.py _port:=/dev/ttyS1 _baud:=115200
+rosrun rosserial_python serial_node.py _port:=/dev/ttyS1 _baud:=115200
 ```
 
 * Upboard
 ```bash
-    $ rosrun rosserial_python serial_node.py _port:=/dev/ttyS4 _baud:=115200
+rosrun rosserial_python serial_node.py _port:=/dev/ttyS4 _baud:=115200
 ```
 
 This will forward your MBED messages to rest of ROS. 
 
 To view communication on "mbed_device" topic open new termina and run:
 ```bash
-    $ rostopic echo mbed_device
+rostopic echo mbed_device
 ```
 
 <div>
@@ -707,13 +707,13 @@ On your SBC open a terminal and in separate tabs start `roscore` and `rosrun ros
 
 To receive encrypted messages, in a new tab run:
 ```bash
-    $ rostopic echo output_encrypted
+rostopic echo output_encrypted
 ```
 
 To publish new message to "input_raw" topic open a new tab and run:
 
 ```bash
-    $ rostopic pub input_raw std_msgs/String "Hello World!" --once
+rostopic pub input_raw std_msgs/String "Hello World!" --once
 ```
 
 <div>

@@ -508,7 +508,7 @@ SSH to ROSbot over LAN network or VPN to get access to it's Linux terminal.
 We will use `stm32loader` tool to upload the firmware to ROSbot. To check if you have this tool already installed on your robot, open the terminal and run:
 
 ```bash
-$ sudo stm32loader --help
+sudo stm32loader --help
 ```
 
 If you get `command not found` you will need to finish all the steps below. Otherwise, you just need to complete step one.
@@ -516,10 +516,10 @@ If you get `command not found` you will need to finish all the steps below. Othe
 <strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your ROSbot. These services are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need direct access to them. Run:
 
 ```bash
-    $ sudo systemctl disable husarnet-configurator
-    $ sudo systemctl stop husarnet-configurator
-    $ sudo systemctl disable husarion-shield
-    $ sudo reboot
+sudo systemctl disable husarnet-configurator
+sudo systemctl stop husarnet-configurator
+sudo systemctl disable husarion-shield
+sudo reboot
 ```
 
 <strong>2.</strong> Install necessary support libraries on your robot. In the terminal run:
@@ -527,15 +527,15 @@ If you get `command not found` you will need to finish all the steps below. Othe
 **ROSbot 2.0:**
 
 ```bash
-$ cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
-$ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
+cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
+cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
 ```
 
 **ROSbot 2.0 PRO:**
 
 ```bash
-$ cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
-$ cd ~/python-periphery && sudo python setup.py install --record files.txt
+cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
+cd ~/python-periphery && sudo python setup.py install --record files.txt
 ```
 
 Restart the terminal after the installation.
@@ -543,8 +543,8 @@ Restart the terminal after the installation.
 <strong>3.</strong> Install `stm32loader` on your robot:
 
 ```bash
-$ cd ~/ && git clone https://github.com/byq77/stm32loader.git
-$ cd ~/stm32loader && sudo python setup.py install --record files.txt
+cd ~/ && git clone https://github.com/husarion/stm32loader.git
+cd ~/stm32loader && sudo python setup.py install --record files.txt
 ```
 
 You can check if tool works by running following commands:
@@ -552,13 +552,13 @@ You can check if tool works by running following commands:
 **ROSbot 2.0:**
 
 ```bash
-$ sudo stm32loader -c tinker -f F4
+sudo stm32loader -c tinker -f F4
 ```
 
 **ROSbot 2.0 PRO:**
 
 ```bash
-$ sudo stm32loader -c upboard -f F4
+sudo stm32loader -c upboard -f F4
 ```
 
 #### Programming the firmware (using stm32loader)
@@ -583,21 +583,21 @@ Before uploading the firmware using `stm32loader` make sure you have the `husarn
 To upload the firmware run:
 
 ```bash
-$ sudo stm32loader -c tinker -u -W
+sudo stm32loader -c tinker -u -W
 ```
 
 ```bash
-$ sudo stm32loader -c tinker -e -w -v rosbot-2.0-***.bin
+sudo stm32loader -c tinker -e -w -v rosbot-2.0-***.bin
 ```
 
 PRO:
 
 ```bash
-$ sudo stm32loader -c upboard -u -W
+sudo stm32loader -c upboard -u -W
 ```
 
 ```bash
-$ sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
+sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
 ```
 
 Wait until firmware is uploaded.
@@ -614,7 +614,7 @@ cd ~/ros_workspace/src
 ```
 Clone rosbot_ekf repository:
 ```
-git clone https://github.com/byq77/rosbot_ekf.git
+git clone https://github.com/husarion/rosbot_ekf.git
 ```
 Install dependencies required by rosbot_ekf package:
 ```
