@@ -185,7 +185,7 @@ We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have 
 - rosserial baudrate is set to:
 
   - `500000` for ROSbot 2.0
-  - `230400` for ROSbot 2.0 Pro
+  - `460800` for ROSbot 2.0 Pro
 
 Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
 

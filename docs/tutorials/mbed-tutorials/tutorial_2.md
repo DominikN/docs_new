@@ -93,7 +93,7 @@ If you don't want to go through the procedures above, we prepared for you `.bin`
 * number of led pixels is set to 16
 * rosserial baudrate is set to:
     * `500000` for ROSbot 2.0
-    * `230400` for ROSbot 2.0 Pro
+    * `460800` for ROSbot 2.0 Pro
 
 Use `stm32loader` to upload the firmware. Please follow the guide from [previous tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/#stm32loader-usage).
 
