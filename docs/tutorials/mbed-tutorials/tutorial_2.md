@@ -98,8 +98,8 @@ If you don't want to go through the procedures above, we prepared for you `.bin`
 Use `stm32loader` to upload the firmware. Please follow the guide from [previous tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/#stm32loader-usage).
 
 Downloads:
-* [`ROSbot 2.0 fw v0.7.2`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.7.2.bin)
-* [`ROSbot 2.0 Pro fw v0.7.2`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.7.2.bin)
+- [`ROSbot 2.0 fw v0.8.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.8.0s.bin)
+- [`ROSbot 2.0 Pro fw v0.8.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.8.0s.bin)
 
 <!-- TODO: prepare the firmware files on ownCloud -->
 
