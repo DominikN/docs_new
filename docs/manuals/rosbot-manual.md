@@ -573,8 +573,8 @@ We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have 
 
 Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
 
-- [`ROSbot 2.0 fw v0.7.2`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.7.2.bin)
-- [`ROSbot 2.0 Pro fw v0.7.2`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.7.2.bin)
+- [`ROSbot 2.0 fw v0.8.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.8.0.bin)
+- [`ROSbot 2.0 Pro fw v0.8.0`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.8.0.bin)
 
 Before uploading the firmware using `stm32loader` make sure you have the `husarnet-configurator` service disabled.
 
