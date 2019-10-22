@@ -31,7 +31,7 @@ Description:
 * W<sub>RR</sub> - rear right wheel
 * W<sub>L</sub> - virtual left wheel
 * W<sub>R</sub> - virtual right wheel
-* l<sub>1</sub> - distance between robot centre and front/rear wheels
+* l<sub>1</sub> - distance between robot center and front/rear wheels
 * l<sub>2</sub> - distance between robot left and right wheels
 
 Our mobile robot has constraints. It can only move in `x-y` plane and it has 3 DOF (degrees of freedom). However not all of DOFs are controllable which means robot cannot move in every direction of its local axes (e.g. it cannot move sideways). Such drive system is called **non-holonomic**. When amount of controllable DOFs is equal to total DOFs then a robot can be called **holonomic**. To achieve that some mobile robots are built using Omni or Mecanum wheels and thanks to vectoring movement they can change position without changing their heading (orientation).
@@ -108,257 +108,43 @@ need `joy_node` node from [`joy`](http://wiki.ros.org/joy) package and
 
 ### Converting motion command to motor drive signal
 
-In this section you will create a node for interfacing motors. Your node
-will subscribe to topic with `geometry_msgs/Twist` messages, drive the
-motors, read encoders and publish their state to appropriate topic. To
-create this node you will use Husarion Cloud. Create new project and
-paste following:
+In this section you will see part of default firmware for interfacing motors. Your node will subscribe to topic with `geometry_msgs/Twist` messages, drive the
+motors, read encoders and publish their state to appropriate topic. Below you can see a fragment of the code that calculates the kinematics of the robot:
 
 ```cpp
-#include "hFramework.h"
-#include "hCloudClient.h"
-#include "ros.h"
-#include "geometry_msgs/Twist.h"
-#include "sensor_msgs/BatteryState.h"
-#include "std_msgs/Bool.h"
-#include "ROSbot.h"
 
-using namespace hFramework;
-
-// Uncomment one of these lines, accordingly to range sensor type of your ROSbot
-// If you have version with infrared sensor:
-// static const SensorType sensor_type = SENSOR_INFRARED;
-// If you have version with laser sensor:
-static const SensorType sensor_type = SENSOR_LASER;
-// If you want to use your own sensor:
-// static const SensorType sensor_type = NO_DISTANCE_SENSOR;
-
-// Uncomment one of these lines, accordingly to IMU sensor type of your device
-// If you have version with MPU9250:
-static const ImuType imu_type = MPU9250;
-// If you want to use your own sensor:
-// static const ImuType imu_type = NO_IMU;
-
-// Uncomment one of these lines, accordingly version of your device
-uint32_t baudrate = 500000; // for ROSbot 2.0
-// uint32_t baudrate = 230400; // for ROSbot 2.0 PRO
-
-ros::NodeHandle nh;
-sensor_msgs::BatteryState battery;
-ros::Publisher *battery_pub;
-
-int publish_counter = 0;
-
-void twistCallback(const geometry_msgs::Twist &twist)
+void updateRosbotOdometry(RosbotDrive *drive, RosbotOdometry_t *odom, float dtime)
 {
-   rosbot.setSpeed(twist.linear.x, twist.angular.z);
-}
-
-void initCmdVelSubscriber()
-{
-   ros::Subscriber<geometry_msgs::Twist> *cmd_sub = new ros::Subscriber<geometry_msgs::Twist>("/cmd_vel", &twistCallback);
-   nh.subscribe(*cmd_sub);
-}
-
-void resetCallback(const std_msgs::Bool &msg)
-{
-   if (msg.data == true)
-   {
-      rosbot.reset_odometry();
-   }
-}
-
-void initResetOdomSubscriber()
-{
-   ros::Subscriber<std_msgs::Bool> *odom_reset_sub = new ros::Subscriber<std_msgs::Bool>("/reset_odom", &resetCallback);
-   nh.subscribe(*odom_reset_sub);
-}
-
-void initBatteryPublisher()
-{
-   battery_pub = new ros::Publisher("/battery", &battery);
-   nh.advertise(*battery_pub);
-}
-
-void hMain()
-{
-   rosbot.initROSbot(sensor_type, imu_type);
-   RPi.init(baudrate);
-   platform.begin(&RPi);
-   nh.getHardware()->initWithDevice(&platform.LocalSerial);
-   nh.initNode();
-
-   initBatteryPublisher();
-   initCmdVelSubscriber();
-   initResetOdomSubscriber();
-
-   while (true)
-   {
-      nh.spinOnce();
-      publish_counter++;
-      if (publish_counter > 10)
-      {
-         // get battery voltage
-         battery.voltage = rosbot.getBatteryLevel();
-         // publish battery voltage
-         battery_pub->publish(&battery);
-         publish_counter = 0;
-      }
-      sys.delay(10);
-   }
+    double curr_wheel_R_ang_pos;
+    double curr_wheel_L_ang_pos;
+    odom->wheel_FR_ang_pos = drive->getAngularPos(MOTOR_FR);
+    odom->wheel_FL_ang_pos = drive->getAngularPos(MOTOR_FL);
+    odom->wheel_RR_ang_pos = drive->getAngularPos(MOTOR_RR);
+    odom->wheel_RL_ang_pos = drive->getAngularPos(MOTOR_RL);
+    if (drive->getRosbotDriveType() == 4)
+    {
+        curr_wheel_R_ang_pos = (odom->wheel_FR_ang_pos + odom->wheel_RR_ang_pos) / (2 * TYRE_DEFLATION);
+        curr_wheel_L_ang_pos = (odom->wheel_FL_ang_pos + odom->wheel_RL_ang_pos) / (2 * TYRE_DEFLATION);
+    }
+    else
+    {
+        curr_wheel_R_ang_pos = odom->wheel_FR_ang_pos;
+        curr_wheel_L_ang_pos = odom->wheel_FL_ang_pos;
+    }
+    odom->wheel_L_ang_vel = (curr_wheel_L_ang_pos - odom->wheel_L_ang_pos) / (dtime);
+    odom->wheel_R_ang_vel = (curr_wheel_R_ang_pos - odom->wheel_R_ang_pos) / (dtime);
+    odom->wheel_L_ang_pos = curr_wheel_L_ang_pos;
+    odom->wheel_R_ang_pos = curr_wheel_R_ang_pos;
+    odom->robot_angular_vel = (((odom->wheel_R_ang_pos - odom->wheel_L_ang_pos) * WHEEL_RADIUS / (ROBOT_WIDTH * DIAMETER_MODIFICATOR)) - odom->robot_angular_pos) / dtime;
+    odom->robot_angular_pos = (odom->wheel_R_ang_pos - odom->wheel_L_ang_pos) * WHEEL_RADIUS / (ROBOT_WIDTH * DIAMETER_MODIFICATOR);
+    odom->robot_x_vel = (odom->wheel_L_ang_vel * WHEEL_RADIUS + odom->robot_angular_vel * ROBOT_WIDTH_HALF) * cos(odom->robot_angular_pos);
+    odom->robot_y_vel = (odom->wheel_L_ang_vel * WHEEL_RADIUS + odom->robot_angular_vel * ROBOT_WIDTH_HALF) * sin(odom->robot_angular_pos);
+    odom->robot_x_pos = odom->robot_x_pos + odom->robot_x_vel * dtime;
+    odom->robot_y_pos = odom->robot_y_pos + odom->robot_y_vel * dtime;
 }
 ```
 
-Below is explanation for code line by line.
-
-Include required headers:
-
-```cpp
-#include "hFramework.h"
-#include "hCloudClient.h"
-#include "ros.h"
-#include "geometry_msgs/Twist.h"
-#include "sensor_msgs/BatteryState.h"
-#include "std_msgs/Bool.h"
-#include "ROSbot.h"
-```
-
-Load namespace for Husarion functions:
-
-```cpp
-using namespace hFramework;
-```
-
-Define which type of distance sensor you are using in your robot:
-
-```cpp
-// Uncomment one of these lines, accordingly to range sensor type of your ROSbot
-// If you have version with infrared sensor:
-// static const SensorType sensor_type = SENSOR_INFRARED;
-// If you have version with laser sensor:
-static const SensorType sensor_type = SENSOR_LASER;
-// If you want to use your own sensor:
-// static const SensorType sensor_type = NO_DISTANCE_SENSOR;
-```
-
-Define which type of IMU you are using in your robot:
-
-```cpp
-// Uncomment one of these lines, accordingly to IMU sensor type of your device
-// If you have version with MPU9250:
-static const ImuType imu_type = MPU9250;
-// If you want to use your own sensor:
-// static const ImuType imu_type = NO_IMU;
-```
-
-Define baudrate for serial communication, ROSbot 2.0 and ROSbot 2.0 PRO needs different serial port speed:
-
-```cpp
-// Uncomment one of these lines, accordingly version of your device
-uint32_t baudrate = 500000; // for ROSbot 2.0
-// uint32_t baudrate = 230400; // for ROSbot 2.0 PRO
-```
-
-Create handle for node:
-
-```cpp
-ros::NodeHandle nh;
-```
-
-Define type of message and publisher for a battery:
-
-```cpp
-sensor_msgs::BatteryState battery;
-ros::Publisher *battery_pub;
-```
-
-Function for handling incoming messages:
-
-```cpp
-void twistCallback(const geometry_msgs::Twist &twist)
-{
-   rosbot.setSpeed(twist.linear.x, twist.angular.z);
-}
-```
-
-Function for initialization of velocity command subscriber:
-
-```cpp
-void initCmdVelSubscriber()
-{
-   ros::Subscriber<geometry_msgs::Twist> *cmd_sub = new ros::Subscriber<geometry_msgs::Twist>("/cmd_vel", &twistCallback);
-   nh.subscribe(*cmd_sub);
-}
-```
-
-Function for initialization of battery state publisher:
-
-```cpp
-void initBatteryPublisher()
-{
-   battery_pub = new ros::Publisher("/battery", &battery);
-   nh.advertise(*battery_pub);
-}
-```
-
-Function for handling incoming requests of robot odometry reset:
-
-```cpp
-void resetCallback(const std_msgs::Bool &msg)
-{
-   if (msg.data == true)
-   {
-      rosbot.reset_odometry();
-   }
-}
-```
-
-Function for initialization of odometry reset requests subscriber:
-
-```cpp
-void initResetOdomSubscriber()
-{
-   ros::Subscriber<std_msgs::Bool> *odom_reset_sub = new ros::Subscriber<std_msgs::Bool>("/reset_odom", &resetCallback);
-   nh.subscribe(*odom_reset_sub);
-}
-```
-
-Main function, device and messages initialization:
-
-```cpp
-void hMain()
-{
-   rosbot.initROSbot(sensor_type, imu_type);
-   RPi.init(baudrate);
-   platform.begin(&RPi);
-   nh.getHardware()->initWithDevice(&platform.LocalSerial);
-   nh.initNode();
-
-   initBatteryPublisher();
-   initCmdVelSubscriber();
-   initResetOdomSubscriber();
-```
-
-Infinite loop, waiting for incoming messages:
-
-```cpp
-while (true)
-{
-   nh.spinOnce();
-   publish_counter++;
-   if (publish_counter > 10)
-   {
-      // get battery voltage
-      battery.voltage = rosbot.getBatteryLevel();
-      // publish battery voltage
-      battery_pub->publish(&battery);
-      publish_counter = 0;
-   }
-   sys.delay(10);
-}
-```
-
-Build your project and upload it to device.
+As we can see function updateRosbotOdometry does exactly the same calculation that we described in the theoretical introduction.
 
 ### Running motor controller step by step ###
 
@@ -369,8 +155,15 @@ keyboard. You will need `teleop_twist_keyboard` node from
 Log in to your CORE2 device through remote desktop and run terminal. In
 first terminal window run `$ roscore`, in second run:
 
-```bash
-/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2
+For ROSbot 2.0:
+```
+roslaunch rosbot_ekf all.launch
+```
+
+For PRO version add parameter:
+
+```
+roslaunch rosbot_ekf all.launch rosbot_pro:=true
 ```
 
 This program is responsible for bridging your CORE2 to ROS network. When you are working with simulator, then above bridge is not necessary. Gazebo will subscribe appropriate topics automatically.
@@ -403,28 +196,7 @@ You should get similar view in `rqt_graph`:
 
 ### Running motor controller with `roslaunch`
 
-To enable control of ROSbot with single launch file we need to prepare script which calls `ros-core2-client`.
-In `tutorial_pkg` direcotry create `scripts` sudirectory:
-
-``` bash
-cd ~/ros_workspace/src/tutorial_pkg
-mkdir scripts
-```
-
-Inside the `scripts` directory create file `serial_bridge.sh` and set it to executable:
-
-```bash
-cd ~/ros_workspace/src/tutorial_pkg/scripts
-touch serial_bridge.sh
-chmod a+x serial_bridge.sh
-```
-
-Open the file and paste into it:
-
-```bash
-#!/bin/bash
-/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2
-```
+To enable control of ROSbot with single launch file we need to prepare it or use launch from tutorial_pkg. 
 
 Inside the `~/ros_workspace/src/tutorial_pkg/launch` create `tutorial_3.launch` with below content:
 
@@ -435,337 +207,14 @@ Inside the `~/ros_workspace/src/tutorial_pkg/launch` create `tutorial_3.launch` 
     <arg name="use_gazebo" default="false"/>
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>    
+    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
 
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 
 </launch>
 ```
 
-We do not need to create separate launch files for `serial_bridge.sh` or `teleop_twist_keyboard` as these nodes can be configured with only one line.
-
-### Determining robot position ###
-
-This section is required only for ROSbot. Gazebo has already implemented it's own plugin to publish robot position.
-Now we will perform forward kinematics task- we will use encoders that
-are attached to every motor and process their measurements with
-equations shown in section **Forward kinematics task**.
-
-Open Husarion WebIDE and open project that you created in section **Converting motion command to motor drive signal**.
-
-Add header file:
-
-```cpp
-#include "geometry_msgs/PoseStamped.h"
-#include "tf/tf.h"
-#include "tf/transform_broadcaster.h"
-#include "sensor_msgs/JointState.h"
-```
-
-Define message type and publisher for robot position:
-
-```cpp
-geometry_msgs::PoseStamped pose;
-ros::Publisher *pose_pub;
-```
-
-Define message type and publisher for `/tf` frame:
-
-```cpp
-geometry_msgs::TransformStamped robot_tf;
-tf::TransformBroadcaster broadcaster;
-```
-
-Define message type and publisher for wheel angular position:
-
-```cpp
-sensor_msgs::JointState joint_states;
-ros::Publisher *joint_state_pub;
-char *name[] = {"front_left_wheel_hinge", "front_right_wheel_hinge", "rear_left_wheel_hinge", "rear_right_wheel_hinge"};
-float pos[] = {0, 0, 0, 0};
-float vel[] = {0, 0, 0, 0};
-float eff[] = {0, 0, 0, 0};
-```
-
-Create a data structure for robot pose:
-
-```cpp
-std::vector<float> rosbot_pose;
-```
-
-Create data structure for wheel positions:
-
-```cpp
-wheelsState ws;
-```
-
-Initialization of robot position publisher as `geometry_msgs::PoseStamped` message type: 
-
-```cpp
-void initPosePublisher()
-{
-   pose.header.frame_id = "odom";
-   pose.pose.orientation = tf::createQuaternionFromYaw(0);
-   pose_pub = new ros::Publisher("/pose", &pose);
-   nh.advertise(*pose_pub);
-}
-```
-
-Initialization of robot position publisher in `/tf` tree:
-
-```cpp
-void initTfPublisher()
-{
-   robot_tf.header.frame_id = "odom";
-   robot_tf.child_frame_id = "base_link";
-   robot_tf.transform.translation.x = 0.0;
-   robot_tf.transform.translation.y = 0.0;
-   robot_tf.transform.translation.z = 0.0;
-   robot_tf.transform.rotation.x = 0.0;
-   robot_tf.transform.rotation.y = 0.0;
-   robot_tf.transform.rotation.z = 0.0;
-   robot_tf.transform.rotation.w = 1.0;
-   broadcaster.init(nh);
-}
-```
-
-Initialization of wheel angular position publisher:
-
-```cpp
-void initJointStatePublisher()
-{
-   joint_state_pub = new ros::Publisher("/joint_states", &joint_states);
-   nh.advertise(*joint_state_pub);
-}
-```
-
-In main function, call initializers:
-
-```cpp
-initPosePublisher();
-initJointStatePublisher();
-initTfPublisher();
-```
-Put values to messages and publish them:
-
-```cpp
-// get ROSbot pose
-rosbot_pose = rosbot.getPose();
-pose.pose.position.x = rosbot_pose[0];
-pose.pose.position.y = rosbot_pose[1];
-pose.pose.orientation = tf::createQuaternionFromYaw(rosbot_pose[2]);
-// publish pose
-pose_pub->publish(&pose);
-
-// get ROSbot tf
-robot_tf.header.stamp = nh.now();
-robot_tf.transform.translation.x = pose.pose.position.x;
-robot_tf.transform.translation.y = pose.pose.position.y;
-robot_tf.transform.rotation.x = pose.pose.orientation.x;
-robot_tf.transform.rotation.y = pose.pose.orientation.y;
-robot_tf.transform.rotation.z = pose.pose.orientation.z;
-robot_tf.transform.rotation.w = pose.pose.orientation.w;
-// publish tf
-broadcaster.sendTransform(robot_tf);
-
-ws = rosbot.getWheelsState();
-pos[0] = ws.FL;
-pos[1] = ws.FR;
-pos[2] = ws.RL;
-pos[3] = ws.RR;
-joint_states.position = pos;
-joint_states.header.stamp = nh.now();
-joint_state_pub->publish(&joint_states);
-```
-
-Your final code should look like this:
-
-```cpp
-#include "hFramework.h"
-#include "hCloudClient.h"
-#include "ros.h"
-#include "geometry_msgs/Twist.h"
-#include "sensor_msgs/BatteryState.h"
-#include "std_msgs/Bool.h"
-#include "sensor_msgs/JointState.h"
-#include "geometry_msgs/PoseStamped.h"
-#include "tf/tf.h"
-#include "tf/transform_broadcaster.h"
-#include "ROSbot.h"
-
-using namespace hFramework;
-
-// Uncomment one of these lines, accordingly to range sensor type of your ROSbot
-// If you have version with infrared sensor:
-// static const SensorType sensor_type = SENSOR_INFRARED;
-// If you have version with laser sensor:
-static const SensorType sensor_type = SENSOR_LASER;
-// If you want to use your own sensor:
-// static const SensorType sensor_type = NO_DISTANCE_SENSOR;
-
-// Uncomment one of these lines, accordingly to IMU sensor type of your device
-// If you have version with MPU9250:
-static const ImuType imu_type = MPU9250;
-// If you want to use your own sensor:
-// static const ImuType imu_type = NO_IMU;
-
-// Uncomment one of these lines, accordingly version of your device
-uint32_t baudrate = 500000; // for ROSbot 2.0
-// uint32_t baudrate = 230400; // for ROSbot 2.0 PRO
-
-ros::NodeHandle nh;
-sensor_msgs::BatteryState battery;
-ros::Publisher *battery_pub;
-sensor_msgs::JointState joint_states;
-ros::Publisher *joint_state_pub;
-//arrays for the message
-char *name[] = {"front_left_wheel_hinge", "front_right_wheel_hinge", "rear_left_wheel_hinge", "rear_right_wheel_hinge"};
-float pos[] = {0, 0, 0, 0};
-float vel[] = {0, 0, 0, 0};
-float eff[] = {0, 0, 0, 0};
-
-geometry_msgs::PoseStamped pose;
-ros::Publisher *pose_pub;
-
-std::vector<float> rosbot_pose;
-
-wheelsState ws;
-
-geometry_msgs::TransformStamped robot_tf;
-tf::TransformBroadcaster broadcaster;
-
-int publish_counter = 0;
-
-void twistCallback(const geometry_msgs::Twist &twist)
-{
-   rosbot.setSpeed(twist.linear.x, twist.angular.z);
-}
-
-void initCmdVelSubscriber()
-{
-   ros::Subscriber<geometry_msgs::Twist> *cmd_sub = new ros::Subscriber<geometry_msgs::Twist>("/cmd_vel", &twistCallback);
-   nh.subscribe(*cmd_sub);
-}
-
-void resetCallback(const std_msgs::Bool &msg)
-{
-   if (msg.data == true)
-   {
-      rosbot.reset_odometry();
-   }
-}
-
-void initResetOdomSubscriber()
-{
-   ros::Subscriber<std_msgs::Bool> *odom_reset_sub = new ros::Subscriber<std_msgs::Bool>("/reset_odom", &resetCallback);
-   nh.subscribe(*odom_reset_sub);
-}
-
-void initBatteryPublisher()
-{
-   battery_pub = new ros::Publisher("/battery", &battery);
-   nh.advertise(*battery_pub);
-}
-
-void initPosePublisher()
-{
-   pose.header.frame_id = "odom";
-   pose.pose.orientation = tf::createQuaternionFromYaw(0);
-   pose_pub = new ros::Publisher("/pose", &pose);
-   nh.advertise(*pose_pub);
-}
-
-void initTfPublisher()
-{
-   robot_tf.header.frame_id = "odom";
-   robot_tf.child_frame_id = "base_link";
-   robot_tf.transform.translation.x = 0.0;
-   robot_tf.transform.translation.y = 0.0;
-   robot_tf.transform.translation.z = 0.0;
-   robot_tf.transform.rotation.x = 0.0;
-   robot_tf.transform.rotation.y = 0.0;
-   robot_tf.transform.rotation.z = 0.0;
-   robot_tf.transform.rotation.w = 1.0;
-   broadcaster.init(nh);
-}
-
-void initJointStatePublisher()
-{
-   joint_state_pub = new ros::Publisher("/joint_states", &joint_states);
-   nh.advertise(*joint_state_pub);
-   joint_states.header.frame_id = "base_link";
-   //assigning the arrays to the message
-   joint_states.name = name;
-   joint_states.position = pos;
-   joint_states.velocity = vel;
-   joint_states.effort = eff;
-   //setting the length
-   joint_states.name_length = 4;
-   joint_states.position_length = 4;
-   joint_states.velocity_length = 4;
-   joint_states.effort_length = 4;
-}
-
-void hMain()
-{
-   rosbot.initROSbot(sensor_type);
-   RPi.init(baudrate);
-   platform.begin(&RPi);
-   nh.getHardware()->initWithDevice(&platform.LocalSerial);
-   nh.initNode();
-
-   initBatteryPublisher();
-   initCmdVelSubscriber();
-   initResetOdomSubscriber();
-   initPosePublisher();
-   initJointStatePublisher();
-   initTfPublisher();
-
-   while (true)
-   {
-      nh.spinOnce();
-      publish_counter++;
-      if (publish_counter > 10)
-      {
-         // get ROSbot pose
-         rosbot_pose = rosbot.getPose();
-         pose.pose.position.x = rosbot_pose[0];
-         pose.pose.position.y = rosbot_pose[1];
-         pose.pose.orientation = tf::createQuaternionFromYaw(rosbot_pose[2]);
-         // publish pose
-         pose_pub->publish(&pose);
-
-         // get ROSbot tf
-         robot_tf.header.stamp = nh.now();
-         robot_tf.transform.translation.x = pose.pose.position.x;
-         robot_tf.transform.translation.y = pose.pose.position.y;
-         robot_tf.transform.rotation.x = pose.pose.orientation.x;
-         robot_tf.transform.rotation.y = pose.pose.orientation.y;
-         robot_tf.transform.rotation.z = pose.pose.orientation.z;
-         robot_tf.transform.rotation.w = pose.pose.orientation.w;
-         // publish tf
-         broadcaster.sendTransform(robot_tf);
-
-         ws = rosbot.getWheelsState();
-         pos[0] = ws.FL;
-         pos[1] = ws.FR;
-         pos[2] = ws.RL;
-         pos[3] = ws.RR;
-         joint_states.position = pos;
-         joint_states.header.stamp = nh.now();
-         joint_state_pub->publish(&joint_states);
-
-         // get battery voltage
-         battery.voltage = rosbot.getBatteryLevel();
-         // publish battery voltage
-         battery_pub->publish(&battery);
-         publish_counter = 0;
-      }
-      sys.delay(10);
-   }
-}
-```
-
-Build your project and upload it to the device.
+We can use this launch files each time we want to start communication between SBC and CORE2.
 
 ### Running motor controller with forward kinematics task
 
@@ -779,7 +228,7 @@ rostopic echo /pose
 ```
 
 If you are working with Gazebo:
-Start Gazebo as prevoiusly. In another terminal window run:
+Start Gazebo as previously. In another terminal window run:
 
 ```bash
 rostopic echo /odom
@@ -846,6 +295,7 @@ You can also start all nodes with single `.launch` file:
     <arg name="use_gazebo" default="false"/>
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
+    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_3.rviz"/>
 
