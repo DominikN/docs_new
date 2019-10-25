@@ -26,7 +26,7 @@ Press [Ctrl]+[Shift]+[P] and type `Git: Clone`, then type `https://github.com/hu
 
 Next you have to open this repository by clicking `File -> Open Folder...` and chose for example `C:\Husarion\hFramework`. 
 
-Then press [Ctrl]+[Shift]+[P] and type `Git: Checkout to...`, choose `origin/devel`. The access to master branch is limited but you can work with devel branch.
+Then press [Ctrl]+[Shift]+[P] and type `Git: Checkout to...`, choose `origin/master`. The access to master branch is limited but you can work with devel branch.
 
 ## hFramework sourcecode compilation ##
 
