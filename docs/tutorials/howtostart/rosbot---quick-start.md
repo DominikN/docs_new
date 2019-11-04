@@ -151,7 +151,8 @@ cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
 
 ```bash
 cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
-cd ~/python-periphery && sudo python setup.py install --record files.txt
+cd ~/python-periphery && git checkout v1.1.2
+sudo python setup.py install --record files.txt
 ```
 
 Restart the terminal after the installation.
