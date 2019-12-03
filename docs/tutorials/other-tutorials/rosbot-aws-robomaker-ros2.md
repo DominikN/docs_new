@@ -72,6 +72,24 @@ To attach the antenna, screw it to the antenna connector on the ROSbot rear pane
 
 ![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_antenna.png)
 
+
+## Flashing image with ROS2 support
+
+ROSbots are shipped with ROS1 support. In order to enable working with ROS2 support, it is necessary to flash image with ROS2.
+
+1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, then pull it out. You can find SD card slot on ROSbot right side.
+ ![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
+2. Download image for Tinkerboard from [here](https://husarion-robomaker-downloads.s3-eu-west-1.amazonaws.com/ros2-2019-12-03.tar.gz) .
+3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
+4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
+ - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
+ - Download [Etcher](https://www.balena.io/etcher/) and install it.
+ - Connect an SD card reader with the SD card inside.
+ - Open Etcher and select from your hard drive .img file that you extracted.
+ - Select the SD card you wish to write your image to.
+ - Review your selections and click 'Flash!' to begin writing data to the SD card.
+5. Insert SD card back to ROSbot
+
 ## Connecting to Wi-Fi network
 
 ROSbot is basically a computer running Ubuntu, so let's configure it like a standard PC computer.
