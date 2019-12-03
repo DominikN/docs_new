@@ -306,6 +306,104 @@ When the script is done with its job, you can observe the deployment process:
 - When new deployment will appear, open it by clicking its name.
 - Wait until deployment status changes to **Succeed** - ROSbot will start to spin in place.
 
+
+### Running the Cloud Watch sample application
+
+We are basing on [Cloud Watch sample application](https://github.com/aws-robotics/aws-robomaker-sample-application-cloudwatch) with some modifications for running on ROSbot.
+
+Before you start with application deployment, first you need to set access permissions for ROSbot to enable it with Cloud Watch metrics uploads.
+
+Open [IAM console](https://console.aws.amazon.com/iam/home) and in the left panel choose **Access management** -> **Users**, then choose button **Add user**.
+
+![IAM add user step 1](/docs/assets/img/aws-tutorials/ros2/cloudwatch_1.png)
+
+In **User name** field provide 'ROSbotLoggerUser', mark **Programmatic access** checkbox and proceed with button **Next: Premissions**
+
+![IAM add user step 2](/docs/assets/img/aws-tutorials/ros2/cloudwatch_2.png)
+
+Choose **Attach existing policies directly** and check policies:
+- `AWSRoboMakerFullAccess`
+- `CloudWatchFullAccess`
+- `AWSGreengrassFullAccess`
+
+You may use filter to find required policies, proceed with **Next: Tags** and **Next: Review**. Verify that you have `AWS access type` set to `Programmatic access - with an access key` and in **Permissions summary** table you have three policies.
+
+![IAM add user step 3](/docs/assets/img/aws-tutorials/ros2/cloudwatch_4.png)
+
+Proceed with **Create user** button.
+
+![IAM add user step 4](/docs/assets/img/aws-tutorials/ros2/cloudwatch_5.png)
+
+In confirmation window, you receive **Access key ID** and hidden **Secret access key**, click `Show` to view it. Note both keys, they will be required in next step. You can close dialog window with **Close** button.
+
+Connect with ROSbot and open terminal, you will create AWS access configuration for ROSbot.
+
+- Create directory for storing configuration and credentials:
+    ```
+    sudo -u ggc_user mkdir /home/ggc_user/.aws
+    ```
+
+- Create configuration file:
+    ```
+    sudo -H -u ggc_user nano config 
+    ```
+
+    In file paste following content, adjust value of `region` depending on your zone.
+
+    ```
+    [default]
+    region=********
+    ```
+- Create credentials file:
+    ```
+    sudo -H -u ggc_user nano credentials
+    ```
+
+    In file paste following content, adjust values accordingly to keys that you created in previous step:
+    ```
+    [default]
+    aws_access_key_id=************
+    aws_secret_access_key=*****************
+    region=********
+    ```
+
+ROSbot is ready for publishing Cloud Watch metrics, start `Greengrass` daemon and `MicroXRCEAgent` if they are not running already.
+
+To deploy application, you will use RoboMaker environment created in previous step:
+
+- Go to AWS RoboMaker home [console](https://console.aws.amazon.com/robomaker/home).
+
+- On the left, expand **Development**, choose **Development environments**, and then choose `rosbot_env`.
+
+- Open the development environment with **Open environment** button.
+
+![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
+
+- In the IDE, go to bash tab and clone the Cloud Watch sample application repository in `~/environment/` directory:
+
+```
+cd ~/environment/
+git clone https://github.com/lukaszmitka/aws-robomaker-sample-application-cloudwatch.git
+```
+
+- Start the configuration script. You need to provide the S3 bucket name and the ARN of the IAM role that was created by CloudFormation earlier. The parameters to the script should be set to the corresponding values provided in the output of your CloudFormation stack:
+
+```
+cd ~/environment/aws-robomaker-sample-application-helloworld/rosbot_deploy/
+./start_deployment_job.bash <S3BucketName> <ROSbotDeploymentRole>
+```
+
+The script will install all dependencies, configure project, build and set the deployment job.
+
+When the script is done with its job, you can observe the deployment process:
+
+- Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/).
+- In the left navigation pane, choose **Fleet Management** and then choose **Deployments**.
+- When new deployment will appear, open it by clicking its name.
+- Wait until deployment status changes to **Succeed** - ROSbot will publish metrics into Cloud Watch.
+
+To view metrics, go to [Cloud Watch console](https://console.aws.amazon.com/cloudwatch/home), then choose **Metrics** in left panel. Choose **AWSRoboMakerFleetManagement** -> **RobotName, category, robot_id**. You can mark chosen statistics to plot them on a graph, you can inspect memory usage, cpu usage or system uptime.
+
 ---
 
 _by Łukasz Mitka, Husarion_
