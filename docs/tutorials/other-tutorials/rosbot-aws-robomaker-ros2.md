@@ -269,7 +269,7 @@ Application will be built using the RoboMaker environment. To create the IDE:
 
 Below section will guide you through running [sample applications](https://docs.aws.amazon.com/robomaker/latest/dg/sample-applications.html) provided by AWS RoboMaker.
 
-### Running the Hello World application
+### Running the Hello World sample application
 
 We are basing on [Hello World saple application](https://github.com/aws-robotics/aws-robomaker-sample-application-helloworld) with some modifications for running on ROSbot.
 
