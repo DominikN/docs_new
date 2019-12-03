@@ -87,7 +87,7 @@ ROSbots are shipped with ROS1 support. In order to enable working with ROS2 supp
  - Connect an SD card reader with the SD card inside.
  - Open Etcher and select from your hard drive .img file that you extracted.
  - Select the SD card you wish to write your image to.
- - Review your selections and click 'Flash!' to begin writing data to the SD card.
+ - Review your selections and click *Flash!* to begin writing data to the SD card.
 5. Insert SD card back to ROSbot
 
 ## Connecting to Wi-Fi network
