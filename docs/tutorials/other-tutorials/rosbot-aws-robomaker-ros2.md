@@ -265,7 +265,13 @@ Application will be built using the RoboMaker environment. To create the IDE:
 
 ![RoboMaker IDE ready](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
 
-## Deploying the Hello World application
+## Running RoboMaker sample applications on ROSbot
+
+Below section will guide you through running [sample applications](https://docs.aws.amazon.com/robomaker/latest/dg/sample-applications.html) provided by AWS RoboMaker.
+
+### Running the Hello World application
+
+We are basing on [Hello World saple application](https://github.com/aws-robotics/aws-robomaker-sample-application-helloworld) with some modifications for running on ROSbot.
 
 To deploy application, you will use RoboMaker environment created in previous step:
 
@@ -277,7 +283,7 @@ To deploy application, you will use RoboMaker environment created in previous st
 
 ![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
 
-- In the IDE, go to bash tab and clone the "Hello World" sample addplication repository in `~/environment/` directory:
+- In the IDE, go to bash tab and clone the "Hello World" sample application repository in `~/environment/` directory:
 
 ```
 cd ~/environment/
