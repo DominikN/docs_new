@@ -743,6 +743,7 @@ All helpful documents and links in one place:
 
 * [ROSbot Safety Instructions](https://files.husarion.com/docs2/ROSbot_safety_instructions_1.0.pdf "ROSbot Safety Instructions") - important!
 * [Charging manual for ROSbot](https://files.husarion.com/docs2/Charging%20manual%20for%20ROSbot.pdf)
+* [ROSbot drawing](https://files.husarion.com/docs2/ROSbot_2.0-Drawing.pdf)
 * [ROS tutorials for ROSbot](/tutorials/ros-tutorials/1-ros-introduction)
 * [ROSbot on ROS webpage](https://robots.ros.org/rosbot-2.0/)
 * [ROSbot on ROS Wiki](http://wiki.ros.org/Robots/ROSbot-2.0)
