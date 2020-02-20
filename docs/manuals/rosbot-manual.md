@@ -368,8 +368,10 @@ If you need more information about charging, please read the [Charging manual fo
 ## Software ##
 
 Software for ROSbot can be divided into 2 parts:
- * A firmware that works on the real-time controller (CORE2) and can be developed and uploaded from [Husarion Cloud](https://cloud.husarion.com/) with WebIDE. It can also be developed offline using [Visual Studio Code IDE](/tutorials/other-tutorials/offline-development-tools).
- * OS based on Ubuntu 16.04, which runs on the SBC (ASUS Tinker Board) and contains all components needed to start working with ROS immediately. The microSD card with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
+ * A [low-level firmware](https://github.com/husarion/rosbot-firmware-new) that works on the real-time controller (CORE2). It can be developed using [Visual Studio Code IDE](/tutorials/mbed-tutorials/using-core2-with-mbed-os/).
+ * OS based on Ubuntu 16.04, which runs on the SBC (ASUS Tinker Board or UpBoard) and contains all components needed to start working with ROS immediately. The microSD card with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
+
+
 
  ### System reinstallation ###
  
@@ -394,7 +396,7 @@ This process will differ depending on ROSbot version that you have.
  - Select the SD card you wish to write your image to.
  - Review your selections and click 'Flash!' to begin writing data to the SD card.
 5. Insert SD card back to ROSbot
-6. Proceed to [Connecting to Husarion cloud](#connecting-to-husarion-cloud) section.
+6. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
 
 #### ROSbot 2.0 PRO ####
 
@@ -422,7 +424,7 @@ Before you begin, you will need:
 12. Change file permissions: `sudo chmod 777 upboard.sh`
 13. Run file: `sudo ./upboard.sh` (remember to chose option "NO" when you will see a dialog window with question about abandon kernel removal).
 14. After finish, reboot device.
-15. Proceed to [Connecting to Husarion cloud](#connecting-to-husarion-cloud) section.
+15. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
 
 ## Connect ROSbot to your Wi-Fi network
 
