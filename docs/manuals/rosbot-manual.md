@@ -372,6 +372,121 @@ Software for ROSbot can be divided into 2 parts:
  * OS based on Ubuntu 16.04, which runs on the SBC (ASUS Tinker Board or UpBoard) and contains all components needed to start working with ROS immediately. The microSD card with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
 
 
+### ROS API ###
+
+Below are topics and services available in ROSbot:
+
+| Topic | Message type | Direction | Node |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+| --- | --- | --- | --- | --- |
+| `/mpu9250` | `rosbot_ekf/Imu` | publisher | `/serial_node` | Raw IMU data in custom message type |
+| `/range/fl`| `sensor_msgs/Range` | publisher | `/serial_node` | Front left range sensor raw data |
+| `/range/fr`|`sensor_msgs/Range` | publisher | `/serial_node` | Front right range sensor raw data |
+| `/range/rl`| `sensor_msgs/Range` | publisher | `/serial_node` | Rear left range sensor raw data |
+| `/range/rr`| `sensor_msgs/Range` | publisher | `/serial_node` | Rear right range sensor raw data |
+| `/joint_states`| `sensor_msgs/JointState` | publisher | `/serial_node` | Wheels rotation angle |
+| `/battery` | `sensor_msgs/BatteryState` | publisher | `/serial_node` | Battery voltage |
+| `/buttons` | `std_msgs/UInt8` | publisher | `/serial_node` | User buttons state, details in [User buttons](#user-buttons) section |
+| `/pose` | `geometry_msgs/PoseStamped` | publisher | `/serial_node` | Position based on encoders |
+| `/odom/wheel` | `nav_msgs/Odometry` | publisher | `/msgs_conversion` | Odometry based on wheel encoders |
+| `/velocity` | `geometry_msgs/Twist` | publisher | `/serial_node` | Odometry based on encoders |
+| `/imu` | `sensor_msgs/Imu` | publisher | `/msgs_conversion` | IMU data wrapped in standard ROS message type |
+| `/odom` | `nav_msgs/Odometry` | publisher | `/rosbot_ekf` | Odometry based on sensor fusion |
+| `/tf` | `tf2_msgs/TFMessage` | publisher | `/rosbot_ekf` | ROSbot position based on sensor fusion |
+| `/set_pose` | `geometry_msgs/` `PoseWithCovarianceStamped` | subscriber | `/rosbot_ekf` | Allow to set custom state of EKF |
+| `/cmd_vel` | `geometry_msgs/Twist` | subscriber | `/serial_node` | Velocity commands |
+| `/config` | `rosbot_ekf/Configuration` | service server | `/serial_node` | Allow to control behaviour of CORE2 board, detaild in [CORE2 config](#core2-config) section |
+
+#### External documentation ####
+
+ - Orbbec Astra camera API is documented in [driver repository](https://github.com/orbbec/ros_astra_camera)
+
+ - Slamtec RpLidar scanner API is documented in [driver repository](https://github.com/Slamtec/rplidar_ros)
+
+
+#### User buttons ####
+
+User button message is published only once when button is pushed. In case when both buttons are presse at the same time, two messages will be pubilshed.
+Possible values are:
+ - `1` - button 1 pressed
+ - `2` - button 2 pressed
+
+#### CORE2 config ####
+
+Config message definition `rosbot_ekf/Configuration`:
+```
+string command
+string data
+---
+uint8 SUCCESS=0
+uint8 FAILURE=1
+uint8 COMMAND_NOT_FOUND=2
+string data
+uint8 result
+```
+Available commands:
+
+- SLED - Set LED state, data structure is `LED_NUMBER LED_STATE`, where:
+    
+    `LED_NUMBER` is number of LED, could be `1`, `2` or `3`
+    
+    `LED_STATE` is desired LED state, could be `0` to set LED off and `1` to set LED on
+
+- EIMU - Enable/disable IMU, possible values:
+  
+    `'1'` - enable
+  
+    `'0'` - disable
+
+- RIMU - Reset IMU (for Kalman related odometry)
+
+    To reset IMU MPU9250 call with empty `data` field.
+
+- EJSM - Enable/disable joint state message publication, possible values
+
+    `'1'` - enable
+
+    `'0'` - disable
+
+- RODOM - Reset odometry
+
+    To reset odometry call with empty `data` field.
+
+- CALI - Odometry valibration (update coefficients), data structure is: `X Y`, where
+
+    `X` - diameter_modificator value
+
+    `Y` - tyre_deflation value
+
+- EMOT - Enable/disable motors, possible values:
+
+    `'0'` - disconnect motors
+
+    `'1'` - connect motors
+
+- SANI - Set WS2812B LEDs animation
+    This functionality is not default for ROSbots. It requires WS2812B LED stripe connected to servo 1 output on ROSbot back panel and rebuilding firmware with custom configuration.
+    To enable the WS2812B interface open the mbed_app.json file and change the line:
+    ```
+    "enable-ws2812b-signalization": 0
+    ```
+    to
+    ```
+    "enable-ws2812b-signalization": 1
+    ```
+
+    Possible values:
+        
+    `O` - OFF
+    
+    `S <hex color code>` - SOLID COLOR
+    
+    `F <hex color code>` - FADE IN FADE OUT ANIMATION
+    
+    `B <hex color code>` - BLINK FRONT/REAR ANIMATION
+    
+    `R` - RAINBOW ANIMATION
+
+
 
  ### System reinstallation ###
  
