@@ -210,6 +210,31 @@ You should also find and uncomment line:
 # add_executable(${PROJECT_NAME}_node src/tutorial_pkg_node.cpp)
 ```
 
+Final `CMakeLists.txt` should look like this:
+
+```
+cmake_minimum_required(VERSION 2.8.3)
+project(tutorial_pkg)
+
+add_compile_options(-std=c++11)
+
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+)
+
+catkin_package(
+  CATKIN_DEPENDS
+)
+
+include_directories(${catkin_INCLUDE_DIRS})
+
+add_executable(${PROJECT_NAME}_node src/tutorial_pkg_node.cpp)
+
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+)
+```
+
 This will let the compiler know that it should create executable 
 file from defined source. Created executable
 will be your node. Variable `PROJECT_NAME` is defined by line `project(tutorial_pkg)`.
