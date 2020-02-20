@@ -37,6 +37,22 @@ e.g. created by `slam_gmapping` and publishes goal position to
 `/move_base/goal` topic subscribed by path planner e.g. `move_base`
 node.
 
+### Clone frontier exploration package
+
+First of all we have to install `frontier_exploration` package - we will build it from source. 
+
+- Remove previous version if it's installed 
+  `sudo apt remove ros-kinetic-frontier-exploration`
+
+- Go to ros_workspace/src
+  `cd ~/ros_workspace/src`
+
+- Clone repository
+  `git clone https://github.com/paulbovbel/frontier_exploration.git`
+
+- Compile 
+  `cd ~/ros_workspace && catkin_make`
+
 ### Requirements regarding robot
 
 Before continuing with `explore_server` node certain requirements must
@@ -157,14 +173,11 @@ with nodes from path planning configuration.
 To remind, you will need to run following nodes:
 
 - `CORE2` bridge node -
-  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
+  `roslaunch rosbot_ekf all.launch` - publishes tf, connect to CORE2 and run extended Kalman filter for odometry.
 
 - `rplidarNode` - driver for rpLidar laser scanner
 
-- `drive_controller_node` - `tf` publisher for transformation of robot
-  relative to starting point
-
-Or instead ot these three, `Gazebo`:
+Or instead ot these, `Gazebo`:
 
 - `roslaunch rosbot_gazebo maze_world.launch`
 
@@ -217,7 +230,7 @@ You can use below `launch` file:
         <!--<param name="serial_baudrate" type="int" value="256000"/>--><!-- model A3 (ROSbot 2.0 PRO) -->
     </node>
 
-    <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
+    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
 
