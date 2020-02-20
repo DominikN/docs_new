@@ -392,20 +392,17 @@ parameters to your robot and area that you want to explore.
 
 To test above configuration you will need to run `move_base` node with
 nodes from SLAM configuration, you will not need only
-`teleop_twist_keyboard` as commands now will be isuued by trajectory
+`teleop_twist_keyboard` as commands now will be issued by trajectory
 planner.
 
 To sum up, you will need to run following nodes:
 
 - `CORE2` bridge node -
-  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
-
-- `drive_controller_node` - `tf` publisher for transformation of robot
-  relative to starting point
+  `roslaunch rosbot_ekf all.launch` - publishes tf, connect to CORE2 and run extended Kalman filter for odometry.
 
 - `rplidarNode` - driver for rpLidar laser scanner
 
-Or instead ot these three, `Gazebo`:
+Or instead of these, `Gazebo`:
 
 - `roslaunch rosbot_gazebo maze_world.launch`
 
@@ -475,7 +472,7 @@ You can use below `launch` file:
         <!--<param name="serial_baudrate" type="int" value="256000"/>--><!-- model A3 (ROSbot 2.0 PRO) -->
     </node>
 
-    <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
+    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
 
     <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
 

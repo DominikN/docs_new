@@ -273,7 +273,9 @@ You can visualize all transformations that are published in the system.
 To test it run:
 
 - `CORE2` bridge node -
-  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
+  `roslaunch rosbot_ekf rosserial_bridge.launch` 
+  
+  Rosbot PRO - `roslaunch rosbot_ekf rosserial_bridge.launch serial_port:=/dev/ttyS4 serial_baudrate:=460800`
 
 - `drive_controller_node` - publisher that you just created
 
@@ -338,7 +340,9 @@ resemble shape of obstacles surrounding your robot.
 Shut down `rplidarNode` and run it again, but with some other nodes:
 
 - `CORE2` bridge node -
-  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
+  `roslaunch rosbot_ekf rosserial_bridge.launch` 
+  
+  Rosbot PRO - `roslaunch rosbot_ekf rosserial_bridge.launch serial_port:=/dev/ttyS4 serial_baudrate:=460800`
 
 - `rplidarNode` - driver for rpLidar laser scanner
 
@@ -364,15 +368,14 @@ You can use below `launch` file:
 
     <arg name="use_rosbot" default="true"/>
     <arg name="use_gazebo" default="false"/>
+    
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
 
-    <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
-        <param name="angle_compensate" type="bool" value="true"/>
-        <param name="serial_baudrate" type="int" value="115200"/><!--model A2 (ROSbot 2.0) -->
-        <!--<param name="serial_baudrate" type="int" value="256000"/>--><!-- model A3 (ROSbot 2.0 PRO) -->
-    </node>
+    <include file="$(find rplidar_ros)/launch/rplidar.launch"/> <!-- Rosbot 2.0-->
+
+    <!-- <include file="$(find rplidar_ros)/launch/rplidar_a3.launch"/> --> <!-- Rosbot PRO-->
 
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 
@@ -419,14 +422,15 @@ You can use below `launch` file:
 <launch>
 
     <arg name="use_rosbot" default="true"/>
+    <arg name="rosbot_pro" default="false"/>
     <arg name="use_gazebo" default="false"/>
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
 
-    <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
-        <param name="angle_compensate" type="bool" value="true"/>
-    </node>
+    <include if="$(arg use_rosbot)" file="$(find rplidar_ros)/launch/rplidar.launch"/> 
+
+    <include if="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar_a3.launch"/> 
 
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 
