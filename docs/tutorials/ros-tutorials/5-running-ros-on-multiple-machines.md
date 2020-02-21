@@ -79,7 +79,7 @@ Options for configuration are:
    X.X.X.X     computer-master 
    X.X.X.X     robot
    ```
-One benefit of using husarnet is that it manages hostnames so you don't have to worry about it.
+One benefit of using Husarnet is that it manages hostnames so you don't have to worry about it.
 
 
 TIP! If you do changes in .bashrc file always source it with `. ~/.bashrc` or reopen terminal
@@ -93,25 +93,25 @@ As a remember:
 -  rqt_graph - `rosrun rqt_graph rqt_graph`
 -  image_view - `rosrun image_view image_view image:=/camera/rgb/image_raw`
 
-Set configuration for working on multiple machines on two devices.
-On the device named **master** launch `roscore`. First check if connection works simple with `rostopic list` command on second device - if you are unable to see topics then reconfigure your network communication.
-On the second device run `astra.launch` and
-`image_view` nodes. Now run `rqt_graph` on both of them, you should see
-the same graph.
+1.  Set configuration for working on multiple machines on two devices.
+    On the device named **master** launch `roscore`. First check if connection works simple with `rostopic list` command on second device - if you are unable to see topics then reconfigure your network communication.
+    On the second device run `astra.launch` and
+    `image_view` nodes. Now run `rqt_graph` on both of them, you should see
+    the same graph.
 
-Next run `image_view` node on machine with `roscore`. You should see
-the image from camera mounted on the device with `astra.launch` running.
-Again use `rqt_graph` to examine what changed in the system.
+2.  Next run `image_view` node on machine with `roscore`. You should see
+    the image from camera mounted on the device with `astra.launch` running.
+    Again use `rqt_graph` to examine what changed in the system.
 
-In case of using gazebo:
+In case of using `gazebo`:
 
-Configure connection the same way ether with husarnet or manually by yourself. Next launch `roscore` on the device named **master**,
-launch gazebo simulation `roslaunch tutorial_pkg tutorial_4.launch use_rosbot:=false use_gazebo:=true teach:=true recognize:=false` and `image_view` nodes. Examine connection with `rqt_graph`. 
+1.  Configure connection the same way as with Husarnet or manually by yourself. Next launch `roscore` on the device named **master**,
+    launch gazebo simulation `roslaunch tutorial_pkg tutorial_4.launch use_rosbot:=false use_gazebo:=true teach:=true recognize:=false` and `image_view` nodes. Examine connection with `rqt_graph`. 
 
 
-Now let's use second machine. First check if connection works simple with `rostopic list` command on second device - if you are unable to see topics then reconfigure your network communication. Next run `image_view` node on the second machine. You should see
-the image from camera running inside gazebo running.
-Again use `rqt_graph` to examine what changed in the system.
+2.  Now let's use second machine. First check if connection works simple with `rostopic list` command on second device - if you are unable to see topics then reconfigure your network communication. Next run `image_view` node on the second machine. You should see
+    the image from camera running inside gazebo.
+    Again use `rqt_graph` to examine what changed in the system.
 
 
 ## Performing a task with multiple machines
@@ -133,25 +133,7 @@ of paper with something drawn on it would be enough for this tutorial.
 
 2. On ROSbot you should run `astra.launch` `image transport` and `bridge to CORE2`.
 
-   For connection to CORE2 we will use package `rosbot_ekf` if you haven't done `ROSbot - quick start` follow this instruction:
-
-   Go to your workspace source directory
-   ```
-   cd ~/ros_workspace/src
-   ```
-   Clone rosbot_ekf repository:
-   ```
-   git clone https://github.com/husarion/rosbot_ekf.git
-   ```
-   Install dependencies required by rosbot_ekf package:
-   ```
-   sudo apt-get install ros-kinetic-robot-localization
-   ```
-   Change directory and build code using catkin_make:
-   ```
-   cd ~/ros_workspace
-   catkin_make
-   ```
+   For connection to CORE2 we will use package `rosbot_ekf`  
 
    To launch rosserial communication and Kalman filter for mbed firmware run:
 
@@ -167,9 +149,9 @@ of paper with something drawn on it would be enough for this tutorial.
 
 3. On computer (master) we will launch also `image transport` and `find_object_2d` node. 
 
-Image transport node provides compressed image delivery from one device to another, on sending machine you have to run this node for compression and on reciving machine you have to decompress image. Before we used `image view` without any compression which is enough just for see if it's working, but if only you want to implement some real time image processing it's necessary to compress image. 
+Image transport node provides compressed image delivery from one device to another, on sending machine you have to run this node for compression and on receiving machine you have to decompress image. Before we used `image view` without any compression which is enough just for see if it's working, but if only you want to implement some real time image processing it's necessary to compress image. 
 
-## Launch 
+## Running the nodes on ROSbots 
 
 Create launch file under `tutorial_pkg/launch` and name it as `tutorial_5_rosbot.launch`:
 
