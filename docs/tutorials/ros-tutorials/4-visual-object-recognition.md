@@ -463,8 +463,7 @@ You can use below `launch` file:
       <arg name="rosbot_pro" value="true" />
     </include> -->
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
-
+    <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 
     <node pkg="find_object_2d" type="find_object_2d" name="find_object_2d">
@@ -476,6 +475,7 @@ You can use below `launch` file:
     <node pkg="tutorial_pkg" type="action_controller_node" name="action_controller" output="screen"/>
 
 </launch>
+
 ```
 
 ## Getting position of recognized object
