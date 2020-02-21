@@ -1322,14 +1322,11 @@ Now you can build your workspace with `catkin_make`.
 To remind, you will need to run following nodes:
 
 - `CORE2` bridge node -
-  `/opt/husarion/tools/rpi-linux/ros-core2-client /dev/ttyCORE2`
+  `roslaunch rosbot_ekf all.launch` - publishes tf, connect to CORE2 and run extended Kalman filter for odometry.
 
 - `rplidarNode` - driver for rpLidar laser scanner
 
 - `astra_camera` - driver for Orbbec Astra RGB-D camera
-
-- `drive_controller_node` - `tf` publisher for transformation of robot
-  relative to starting point
 
 - `republish` nodes for managing image streaming
 
@@ -1469,7 +1466,13 @@ When running search task on ROSbot, you will need two `launch` files, first to b
         <param name="compressedDepth/png_level" value="1"/>
     </node>
 
-    <node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
+      <!-- ROSbot 2.0 -->
+    <include file="$(find rosbot_ekf)/launch/all.launch"/>
+
+      <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
 
     <node pkg="tf" type="static_transform_publisher" name="ROSbot2_laser" args="0.019 0 0 3.14 0 0 base_link laser 100" />
 

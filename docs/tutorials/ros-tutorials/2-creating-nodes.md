@@ -226,6 +226,31 @@ After that find and uncomment lines:
 This will cause compiler to link libraries required by your node. Save
 the changes and close editor.
 
+Final `CMakeLists.txt` should look like this:
+
+```
+cmake_minimum_required(VERSION 2.8.3)
+project(tutorial_pkg)
+
+add_compile_options(-std=c++11)
+
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+)
+
+catkin_package(
+  CATKIN_DEPENDS
+)
+
+include_directories(${catkin_INCLUDE_DIRS})
+
+add_executable(${PROJECT_NAME}_node src/tutorial_pkg_node.cpp)
+
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+)
+```
+
 Open terminal, move to workspace main directory and build your project
 with command `catkin_make`:
 
