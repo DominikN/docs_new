@@ -1466,7 +1466,13 @@ When running search task on ROSbot, you will need two `launch` files, first to b
         <param name="compressedDepth/png_level" value="1"/>
     </node>
 
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+      <!-- ROSbot 2.0 -->
+    <include file="$(find rosbot_ekf)/launch/all.launch"/>
+
+      <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
 
     <node pkg="tf" type="static_transform_publisher" name="ROSbot2_laser" args="0.019 0 0 3.14 0 0 base_link laser 100" />
 

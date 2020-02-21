@@ -64,7 +64,14 @@ You can use below `launch` file:
     <arg if="$(arg recognize)" name="chosen_world" value="rosbot_world_recognition"/>
 
     <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
+         <!-- ROSbot 2.0 -->
     <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+
+        <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
+
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
 
@@ -448,7 +455,13 @@ You can use below `launch` file:
     <arg if="$(arg recognize)" name="chosen_world" value="rosbot_world_recognition"/>
 
     <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
+             <!-- ROSbot 2.0 -->
     <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+
+        <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
 

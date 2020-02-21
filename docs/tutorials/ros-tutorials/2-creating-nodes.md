@@ -210,6 +210,22 @@ You should also find and uncomment line:
 # add_executable(${PROJECT_NAME}_node src/tutorial_pkg_node.cpp)
 ```
 
+This will let the compiler know that it should create executable 
+file from defined source. Created executable
+will be your node. Variable `PROJECT_NAME` is defined by line `project(tutorial_pkg)`.
+This results in `tutorial_pkg_node` as the name of the executable. You can adjust it to your needs.
+
+After that find and uncomment lines:
+
+```
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
+```
+
+This will cause compiler to link libraries required by your node. Save
+the changes and close editor.
+
 Final `CMakeLists.txt` should look like this:
 
 ```
@@ -234,22 +250,6 @@ target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
 )
 ```
-
-This will let the compiler know that it should create executable 
-file from defined source. Created executable
-will be your node. Variable `PROJECT_NAME` is defined by line `project(tutorial_pkg)`.
-This results in `tutorial_pkg_node` as the name of the executable. You can adjust it to your needs.
-
-After that find and uncomment lines:
-
-```
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
-```
-
-This will cause compiler to link libraries required by your node. Save
-the changes and close editor.
 
 Open terminal, move to workspace main directory and build your project
 with command `catkin_make`:

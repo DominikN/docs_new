@@ -230,7 +230,13 @@ You can use below `launch` file:
         <!--<param name="serial_baudrate" type="int" value="256000"/>--><!-- model A3 (ROSbot 2.0 PRO) -->
     </node>
 
+    <!-- ROSbot 2.0 -->
     <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+
+    <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
 

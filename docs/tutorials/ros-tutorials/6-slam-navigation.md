@@ -379,6 +379,17 @@ You can use below `launch` file:
 
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 
+    <!--  ROSbot 2.0 -->
+    <include if="$(arg rosbot)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch" /> 
+
+    <!-- ROSbot 2.0 PRO -->
+    <!-- 
+    <include file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
+        <arg name="serial_port" value="/dev/ttyS4"/>
+        <arg name="serial_baudrate" value="460800"/>
+    </include> 
+    -->
+
     <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
@@ -433,6 +444,13 @@ You can use below `launch` file:
     <include if="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar_a3.launch"/> 
 
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
+
+    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
+    
+    <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
+        <arg name="serial_port" value="/dev/ttyS4"/>
+        <arg name="serial_baudrate" value="460800"/>
+    </include>
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
 

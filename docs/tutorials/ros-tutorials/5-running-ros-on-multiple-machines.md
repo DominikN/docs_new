@@ -180,7 +180,14 @@ Create launch file under `tutorial_pkg/launch` and name it as `tutorial_5_rosbot
     <arg name="recognize" default="false"/>
 
     <include file="$(find astra_launch)/launch/astra.launch"/>
+    
+        <!-- ROSbot 2.0 -->
     <include file="$(find rosbot_ekf)/launch/all.launch"/>
+
+        <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
 
     <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
 
