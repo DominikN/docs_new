@@ -18,7 +18,7 @@ robot and computer or two computers (gazebo version), which perform task of sear
 
 In this manual you will need computer and robot with the same equipment as in the previous manual.
 
-In case you are working on **Gazebo** simulator, it is possible to setup system to work on multiple computers, to do it you can have two computers with ROS or virtual machine running with ROS.
+In case you are working on **Gazebo** simulator, it is possible to setup system to work on multiple computers, to do it you can have two computers with ROS.
 
 ## Network setup
 
