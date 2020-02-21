@@ -207,7 +207,14 @@ Inside the `~/ros_workspace/src/tutorial_pkg/launch` create `tutorial_3.launch` 
     <arg name="use_gazebo" default="false"/>
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>    
+        
+        <!-- ROSbot 2.0 -->
     <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+
+        <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
 
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 
@@ -295,7 +302,13 @@ You can also start all nodes with single `.launch` file:
     <arg name="use_gazebo" default="false"/>
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
+            <!-- ROSbot 2.0 -->
     <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+
+        <!-- ROSbot 2.0 PRO -->
+    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
+      <arg name="rosbot_pro" value="true" />
+    </include> -->
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_3.rviz"/>
 

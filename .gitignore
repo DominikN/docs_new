@@ -10,3 +10,7 @@ website/build/
 website/yarn.lock
 website/node_modules
 website/i18n/*
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+
+website/package-lock.json
