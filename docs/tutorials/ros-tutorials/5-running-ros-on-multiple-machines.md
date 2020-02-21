@@ -237,7 +237,7 @@ At one machine use following launch file and save it as `tutorial_5_gazebo_1.lau
 
     <include  file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
  
-    <node name="rosbot_spawn_first" pkg="gazebo_ros" type="spawn_model" output="log" args="-urdf -param robot_description -model rosbot_s -y 0" />
+    <node name="rosbot_spawn" pkg="gazebo_ros" type="spawn_model" output="log" args="-urdf -param robot_description -model rosbot_s -y 0" />
 
     <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
 
