@@ -1,6 +1,6 @@
 ---
 title: Using CORE2 to publish ROS topics through USB
-sidebar_label: 7. Using CORE2 to publish ROS topics through USB
+sidebar_label: 8. Using CORE2 to publish ROS topics through USB
 id: using-core2-to-publish-ros-topics-through-usb
 ---
 
