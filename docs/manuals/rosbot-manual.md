@@ -80,7 +80,11 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 
 ## Specification ##
 
-![ROSbot dimention](/docs/assets/img/ROSbot_manual/ROSbot-dim-bold.jpg "ROSbot dimention")
+<div class="img-container w1">
+    <a href="/docs/assets/img/ROSbot_manual/ROSbot-dim-bold.jpg" data-fancybox="gallery" data-caption="ROSbot dimension">
+    <img src="/docs/assets/img/ROSbot_manual/ROSbot-dim-bold.jpg" alt="ROSbot dimension" class="hover-shadow"/>
+    </a>
+</div>
 
 <table class="text_table">
     <tr>
