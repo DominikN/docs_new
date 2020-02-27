@@ -37,22 +37,6 @@ e.g. created by `slam_gmapping` and publishes goal position to
 `/move_base/goal` topic subscribed by path planner e.g. `move_base`
 node.
 
-### Clone frontier exploration package
-
-First of all we have to install `frontier_exploration` package - we will build it from source. 
-
-- Remove previous version if it's installed 
-  `sudo apt remove ros-kinetic-frontier-exploration`
-
-- Go to ros_workspace/src
-  `cd ~/ros_workspace/src`
-
-- Clone repository
-  `git clone https://github.com/paulbovbel/frontier_exploration.git`
-
-- Compile 
-  `cd ~/ros_workspace && catkin_make`
-
 ### Requirements regarding robot
 
 Before continuing with `explore_server` node certain requirements must
