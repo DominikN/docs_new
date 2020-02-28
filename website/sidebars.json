@@ -61,7 +61,8 @@
           "tutorials/other-tutorials/rosbot-aws-robomaker-quick-start",
           "tutorials/other-tutorials/rosbot-aws-robomaker-multiple-machines",
           "tutorials/other-tutorials/using-core2-to-publish-ros-topics-through-usb",
-          "tutorials/other-tutorials/rosbot-rosds-quick-start"
+          "tutorials/other-tutorials/rosbot-rosds-quick-start",
+          "tutorials/other-tutorials/husarnet-cyclone-dds"
         ]
       }
     ]
