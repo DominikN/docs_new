@@ -35,7 +35,7 @@ More information at: [Husarnet](https://docs.husarnet.com/)
 
 ## Install Cyclone DDS middleware: 
 
-Default DDS implementation used in ROS2 Dashing is RMW FastRTPS. We will replace that by Eclopse Cyclone DDS, by executing the following commands in the terminal:
+Default DDS implementation used in ROS2 Dashing is RMW FastRTPS. We will replace that by Eclipse Cyclone DDS, by executing the following commands in the terminal:
 
 ```
 cd ros2_ws/src
@@ -119,7 +119,6 @@ Add changes to .bashrc file to use that configuration every time you boot your s
 `echo "export CYCLONEDDS_URI=file:///home/<USER-NAME>/ros_workspace/src/cyclonedds/cyclonedds.xml/cyclonedds.xml" >> ~/.bashrc`
 
 `. ~/.bashrc`
-
 
 
 ## Verify installation:
