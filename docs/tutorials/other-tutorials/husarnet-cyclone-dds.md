@@ -138,5 +138,3 @@ And this command at the second:
 </center></div>
 
 #### This is all !!!
-
-Sometimes during using `ros2 topic list` you may not see topics shared over husarnet but if only you can subscribe it's working. It's some kind of bug we found will and be fixed soon.
