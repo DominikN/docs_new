@@ -134,7 +134,7 @@ And this command at the second:
 `ros2 topic echo /chatter`
 
 <div><center>
-<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/results3.png" width="900px" />
+<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/results4.png" width="900px" />
 </center></div>
 
 #### This is all !!!
