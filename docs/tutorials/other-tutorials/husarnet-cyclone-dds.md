@@ -28,7 +28,7 @@ Add your physical devices to the same Husarnet network, by executing following c
 `husarnet join <your-join-code> <mydevice-hostname>`
 
 <div><center>
-<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/join-code-covered.png" width="900px" />
+<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/join-code.png" width="900px" />
 </center></div>
 
 More information at: [Husarnet](https://docs.husarnet.com/)
@@ -105,7 +105,7 @@ It's necessary to use IPv6 but Cyclone don't allow to mix IPv4 with IPv6 so ever
 Here appropriate IP addresses should be filled, you can take this address form Husarnet WebUI. Safe method is to provide address of local IPv6 and remote machines.
 
 <div><center>
-<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/ipv6-covered.png" width="900px" />
+<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/ipv6-covered2.png" width="900px" />
 </center></div>
 
 If you need information about params check [cyclonedds-manual](https://github.com/eclipse-cyclonedds/cyclonedds/blob/master/docs/manual/config.rst)
@@ -134,7 +134,7 @@ And this command at the second:
 `ros2 topic echo /chatter`
 
 <div><center>
-<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/results.png" width="900px" />
+<img alt="" src="/docs/assets/img/husarnet-cyclone-dds/results2.png" width="900px" />
 </center></div>
 
 #### This is all !!!
