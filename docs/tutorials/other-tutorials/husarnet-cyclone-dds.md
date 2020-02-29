@@ -13,6 +13,8 @@ Both ROS1 and ROS2 allows you to run nodes on different physical machines as lon
 
 We assume that you have Ubuntu 18.04 with ROS2 Dashing installed. Open linux terminal application and follow these steps. 
 
+## Husarnet
+
 ### Install Husarnet:
 
 Execute this command on each physical device you need to connect.
@@ -33,7 +35,9 @@ Add your physical devices to the same Husarnet network, by executing following c
 
 More information at: [Husarnet](https://docs.husarnet.com/)
 
-## Install Cyclone DDS middleware: 
+## Cyclone DDS
+
+### Install Cyclone DDS middleware: 
 
 Default DDS implementation used in ROS2 Dashing is RMW FastRTPS. We will replace that by Eclipse Cyclone DDS, by executing the following commands in the terminal:
 
@@ -47,7 +51,7 @@ colcon build
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 ```
 
-## Configure Cyclone DDS:
+### Configure Cyclone DDS:
 
 Create communication settings file under this path `~/ros_workspace/src/cyclonedds/cyclonedds.xml`
 
