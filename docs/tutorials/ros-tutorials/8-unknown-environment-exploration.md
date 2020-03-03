@@ -82,7 +82,7 @@ destinations.
 
 - `transform_tolerance` - Transform tolerance to use when transforming robot pose. 
 
-- `min_frontier_size` - Minimum size of the frontier to consider the frontier as the exploration goal. In meter
+- `min_frontier_size` - Minimum size of the frontier to consider the frontier as the exploration goal. Value is in meter.
 
 
 
@@ -202,10 +202,12 @@ You can use below `launch` file:
 
 If everything was set correctly exploration will start immediately after node initialization. Exploration will finish when whole area is discovered. 
 
-If you are using gazebo you should see a maze with rosbot.
+If you are using gazebo you should see a maze with rosbot:
+
 ![image](/docs/assets/img/ros/man-8-gazebo.png)
 
-Expect how it works using rviz.
+Inspect how it works using rviz:
+
 ![image](/docs/assets/img/ros/man-8-rviz.png)
 
 

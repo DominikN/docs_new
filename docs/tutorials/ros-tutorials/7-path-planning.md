@@ -79,7 +79,7 @@ Above configuration is met by the robot created in previous manual.
 
 ## Configuration of `move_base` node
 
-`Move_base` node creates cost map basing on occupancy grid. , Cost map
+`Move_base` node creates cost map basing on occupancy grid. Cost map
 is a grid in which every cell gets assigned value (cost) determining
 distance to obstacle, where higher value means closer distance. With
 this map, trajectory passing cells with lowest cost is generated.
