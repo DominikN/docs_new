@@ -277,7 +277,7 @@ add some objects to visualize:
 You can also add `Tf` visualization, but it is not necessary for proper
 operation.
 
-![image](/docs/assets/img/ros-projects/2-using-frontier-exploration/project_3_1.png)
+![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_1.png)
 
 From toolbar select `Publish Point` button and click in visualization
 window, this will be first corner of exploration area, select
@@ -285,24 +285,24 @@ window, this will be first corner of exploration area, select
 area, they will be connected by blue line. Continue until desired area
 is surrounded by lines.
 
-![image](/docs/assets/img/ros-projects/2-using-frontier-exploration/project_3_2.png)
+![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_2.png)
 
 To finish defining exploration region set last point at the position of
 first corner, line will become red.
 
-![image](/docs/assets/img/ros-projects/2-using-frontier-exploration/project_3_3.png)
+![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_3.png)
 
 You need to use `Publish Point` button for the last time, click anywhere
 inside region and exploration task will start.
 
-![image](/docs/assets/img/ros-projects/2-using-frontier-exploration/project_3_4.png)
+![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_4.png)
 
 Robot will explore all accessible location within selected area. Observe
 as robot explores area, when there are no more frontiers or frontiers
 are not accessible due to obstacles, robot will stop and exploration
 task is considered as done.
 
-![image](/docs/assets/img/ros-projects/2-using-frontier-exploration/project_3_5.png)
+![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_5.png)
 
 ## Summary
 
