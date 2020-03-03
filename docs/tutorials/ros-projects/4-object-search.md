@@ -1,22 +1,28 @@
 ---
 title: Object search
-sidebar_label: 9. Object search
-id: 9-object-search
+sidebar_label: 4. Object search
+id: 4-object-search
 ---
 
-> You can run this tutorial on:
+> You can run this project on:
 >
 > - [ROSbot 2.0](https://store.husarion.com/products/rosbot)
 > - [ROSbot 2.0 PRO](https://store.husarion.com/collections/dev-kits/products/rosbot-pro)
 > - [ROSbot 2.0 simulation model (Gazebo)](https://github.com/husarion/rosbot_description)
 
+## Before start 
+
+Finish `ROS Projects 2. Using frontier exploration`
+
+This project can be done _`only on ROS Kinetic`_ due to API change of `frontier_exploration` package since ROS Melodic.`Frontier_exploration` project seems not to be developed anymore so we can't provide well tested instruction how to use it. This project uses frontier_exploration API only available at ROS Kinetic version.
+
 ## Introduction
 
-Object search task defines a mission in which robot has to explore environment while observing if given object exists in explored area. For this purpose it is necessary to use two different approaches, one for exploration and second for object recognition. In prevoius tutorial we already discussed object environment exploration and object recognition as separate tasks. Beside launching them together, it is necessary to keep track of which obstacles were checked by the object recognition process. Task is considered as finished when object is succesfully recognized or all obstacles were checked with no object detection.
+Object search task defines a mission in which robot has to explore environment while observing if given object exists in explored area. For this purpose it is necessary to use two different approaches, one for exploration and second for object recognition. In previous project and tutorials we already discussed object environment exploration and object recognition as separate tasks. Beside launching them together, it is necessary to keep track of which obstacles were checked by the object recognition process. Task is considered as finished when object is successfully recognized or all obstacles were checked with no object detection.
 
-![image](/docs/assets/img/ros/man_9_find_object_2d.png)
+![image](/docs/assets/img/ros-projects/4-object-search/find_object_2d.png)
 
-We have prepared ready to go virtual environment with end effect of following this tutorial. It is available on ROSDS:
+We have prepared ready to go virtual environment with end effect of following this project. It is available on ROSDS:
 
 <div><center>
 <a href="https://rds.theconstructsim.com/r/husarion/search_object_in_unknown_environment/">
@@ -25,7 +31,7 @@ We have prepared ready to go virtual environment with end effect of following th
 
 ## Object search in ROS
 
-It is possible to use configurations from prevoius tutorials for area exloration and object detection. We will use:
+It is possible to use configurations from previous project for area exploration and object detection. We will use:
 
 - `explore_server`node from `frontier_exploration` package
 
@@ -35,6 +41,20 @@ It is possible to use configurations from prevoius tutorials for area exloration
 
 Furthermore we will need our own node to keep track of checked obstacles.
 
+## Create package for project
+
+In this project we will be combining data from `tutorial_pkg` and our new package `husarion_project_4`
+
+To create new package:
+
+```bash
+cd ~/ros_workspace/src
+catkin_create_pkg husarion_project_4 roscpp
+mkdir -p husarion_project_4/config
+```
+
+
+
 ### Requirements regarding robot
 
 Before continuing with object detection task certain requirements must be met, robot should:
@@ -43,25 +63,25 @@ Before continuing with object detection task certain requirements must be met, r
 
 - Publish map to `/map` topic with message type `nav_msgs/OccupancyGrid`.
 
-- Publish to `/tf` topic transformations between robot starting point relative to map, robot relative to its starting point, laser scanner relative to robot and camera realative to robot.
+- Publish to `/tf` topic transformations between robot starting point relative to map, robot relative to its starting point, laser scanner relative to robot and camera relative to robot.
 
-- Be equipped with RGB-D camera (Orbbec Astra is used in tutorial)
+- Be equipped with RGB-D camera (Orbbec Astra is used in project)
 
 ### System architecture
 
-Our search system will consist of many cooperating ROS nodes, before we start configuring them, we need to specify overall data flow and principle of operation. For performing the search task we will use two main sensors, this will be laser scanner and RGB-D camera. Laser scanner will be used for robot localization and mapping, RDB-D camera will be used for object detection. The key role of the system will be played by our own node, we will name it `search_manager`, this node will be controlling state of other tasks like exploration or path planning. Furhtermore, `search_manager` will keep track of found obstacles and which of them were checked, for this, it will need to subscribe `/map` from `gmapping`, `/objects` from `find_object_2d` and `proj_scan` containing `sensor_msgs/LaserScan` projected from depth image.
+Our search system will consist of many cooperating ROS nodes, before we start configuring them, we need to specify overall data flow and principle of operation. For performing the search task we will use two main sensors, this will be laser scanner and RGB-D camera. Laser scanner will be used for robot localization and mapping, RDB-D camera will be used for object detection. The key role of the system will be played by our own node, we will name it `search_manager`, this node will be controlling state of other tasks like exploration or path planning. Furthermore, `search_manager` will keep track of found obstacles and which of them were checked, for this, it will need to subscribe `/map` from `gmapping`, `/objects` from `find_object_2d` and `proj_scan` containing `sensor_msgs/LaserScan` projected from depth image.
 
-![image](/docs/assets/img/ros/man_9_rqt_graph.png)
+![image](/docs/assets/img/ros-project/4-object-search/rqt_graph.png)
 
-Due to the fact that all computations would be exccesive load for SBC in the robot, some of the tasks will be moved to other computer.
+Due to the fact that all computations would be excessive load for SBC in the robot, some of the tasks will be moved to other computer.
 
 ### Configuration of `explore_server` and `move_base` nodes
 
-`Explore server` and `move_base` nodes can be used with the same configuration as in prevoius tutorials, make sure you have `costmap_common_params.yaml`, `local_costmap_params.yaml`, `global_costmap_params.yaml`, `trajectory_planner.yaml` and `exploration.yaml` file in `tutorial_pkg/config` directory.
+`Explore server` and `move_base` nodes can be used with the same configuration as in previous project, make sure you have move_base configuration from tutorials - `costmap_common_params.yaml`, `local_costmap_params.yaml`, `global_costmap_params.yaml`, `trajectory_planner.yaml` and `exploration.yaml` file in `tutorial_pkg/config` directory.
 
 ### Configuration of `find_object_2d` node
 
-`Find_object_2d` node will be used to detect the searched object, beside the anaysis of RGB image it can utilise depth image to measure detected object position and publish it to `/tf` topic.
+`Find_object_2d` node will be used to detect the searched object, beside the analysis of RGB image it can utilise depth image to measure detected object position and publish it to `/tf` topic.
 
 You can use the same images that you scanned in tutorial 4. Searching node will be running until any object is recognized.
 
@@ -103,7 +123,7 @@ We will also need to remap topics:
 
 ### Configuration of video streaming to external computer
 
-We will be performing image analysis on external computer, this could be PC connected through LAN or remote server connected through husarnet. Though it is possible to stream uncompressed images to other device, it is not adviced due to the huge bandwidth usage. Much better way is to use `image_transport` package to stream compressed images. For this we will need to start few aditional nodes. Two of them will be running on robot, they will subscribe respectively raw RGB and depth image and publish compressed images. Another two nodes will be running on another machine, their task will be to decompress images and publish them for further usage. All mentioned nodes are from `image_transport` package and are of type `republish`.
+We will be performing image analysis on external computer, this could be PC connected through LAN or remote server connected through husarnet. Though it is possible to stream uncompressed images to other device, it is not advised due to the huge bandwidth usage. Much better way is to use `image_transport` package to stream compressed images. For this we will need to start few additional nodes. Two of them will be running on robot, they will subscribe respectively raw RGB and depth image and publish compressed images. Another two nodes will be running on another machine, their task will be to decompress images and publish them for further usage. All mentioned nodes are from `image_transport` package and are of type `republish`.
 
 First node on robot will be defined with argument:`raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish` and no parameters.
 
@@ -123,7 +143,7 @@ Second node on external computer will be defined with argument: `compressed in:=
 
 ### Key methods in `search_manager` node
 
-The `search_manager` node that we will use in this tutorial is responsible for managing exploration and trajectory planning tasks. It also takes care of marking checked obstacles.
+The `search_manager` node that we will use in this project is responsible for managing exploration and trajectory planning tasks. It also takes care of marking checked obstacles.
 
 For controlling exploration and path planning tasks, we will use `actionlib` library.
 
@@ -176,7 +196,7 @@ void cancel_move_base_action()
 }
 ```
 
-We do not need to specify any function for initializaion of path planning, this is done by the exploration server or when destination point is published.
+We do not need to specify any function for initialization of path planning, this is done by the exploration server or when destination point is published.
 
 We also need to monitor statuses of other tasks. Define callback for path planning:
 
@@ -342,7 +362,7 @@ if (object_found)
 }
 else
 {
-   ROS_INFO("Detected exploration finsh");
+   ROS_INFO("Detected exploration finish");
 }
 ```
 
@@ -414,16 +434,16 @@ Above functions are only the most important for node operation. Node is using so
 
 ### `search_manager` node complete code
 
-Create file `search_manager_node.cpp` inside the `src` folder under `tutorial_pkg` and paste below code:
+Create file `search_manager_node.cpp` inside the `src` folder under `husarion_project_4` and paste below code:
 
 ```cpp
 #include <search_manager_node.h>
 
 /**
  * brief Computes the bearing in degrees from the point A(a1,a2) to the point B(b1,b2).
- * param a1 x coordiante of point A
+ * param a1 x coordinate of point A
  * param a2 y coordinate of point A
- * param b1 x coordiante of point B
+ * param b1 x coordinate of point B
  * param b2 y coordinate of point B
  */
 double bearing(double a1, double a2, double b1, double b2)
@@ -1113,7 +1133,7 @@ bool SearchManager::is_goal_reached(geometry_msgs::PoseStamped goal, tf::Stamped
 }
 ```
 
-Now we will create required header files. In `tutorial_pkg` create `include` directory. Inside the `include` directory create `search_manager_node.h` and paste:
+Now we will create required header files. In `husarion_project_4` create `include` directory. Inside the `include` directory create `search_manager_node.h` and paste:
 
 ```cpp
 #include <math.h>
@@ -1351,8 +1371,8 @@ And:
 
 - `search_manager` - executive node for search task that you just build
 
-It is necessary to distnguish launching search task on ROSbot and in Gazebo. Essential difference is that some processes will be moved from ROSbot to separate device to improve performance.
-When using Gazebo all processes can be executed on single device, we assume that worksatation is capable enough to run all of them. If you want, there are no restrictions to use Gazebo with similar setup as for ROSbot.
+It is necessary to distinguish launching search task on ROSbot and in Gazebo. Essential difference is that some processes will be moved from ROSbot to separate device to improve performance.
+When using Gazebo all processes can be executed on single device, we assume that workstation is capable enough to run all of them. If you want, there are no restrictions to use Gazebo with similar setup as for ROSbot.
 
 #### Gazebo version
 
@@ -1401,11 +1421,11 @@ For Gazebo you can use below `launch` file:
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
         <param name="controller_frequency" value="10.0"/>
-        <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-        <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-        <rosparam file="$(find rosbot_navigation)/config/local_costmap_params.yaml" command="load" />
-        <rosparam file="$(find rosbot_navigation)/config/global_costmap_params.yaml" command="load" />
-        <rosparam file="$(find rosbot_navigation)/config/trajectory_planner.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
     </node>
 
     <node name="rviz" pkg="rviz" type="rviz"/>
@@ -1413,7 +1433,7 @@ For Gazebo you can use below `launch` file:
     <node name="find_object_3d" pkg="find_object_2d" type="find_object_2d" output="log" required="true">
         <param name="gui" value="true" type="bool"/>
         <param name="subscribe_depth" value="true" type="bool"/>
-        <param name="objects_path" value="$(find tutorial_pkg)/image_rec/" type="str"/>
+        <param name="objects_path" value="$(find husarion_project_4)/image_rec/" type="str"/>
         <param name="object_prefix" value="object" type="str"/>
         <remap from="rgb/image_rect_color" to="/camera/rgb/image_raw"/>
         <remap from="depth_registered/image_raw" to="/camera/depth/image_raw"/>
@@ -1425,17 +1445,17 @@ For Gazebo you can use below `launch` file:
     <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
         <param name="frequency" type="double" value="1.0"/>
         <param name="goal_aliasing" type="double" value="0.1"/>
-        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosbot_navigation)/config/exploration.yaml" command="load" />
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
         <param name="explore_clear_space" type="boolean" value="true"/>
         <param name="frontier_travel_point" type="string" value="middle"/>
     </node>
 
-    <node pkg="tutorial_pkg" type="search_manager" name="search_manager" output="screen"/>
+    <node pkg="husarion_project_4" type="search_manager" name="search_manager" output="screen"/>
 
 </launch>
 ```
 
-![image](/docs/assets/img/ros/man_9_gazebo.png)
+![image](/docs/assets/img/ros-projects/4-object-search/gazebo.png)
 
 #### ROSbot version
 
@@ -1496,11 +1516,11 @@ When running search task on ROSbot, you will need two `launch` files, first to b
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
         <param name="controller_frequency" value="10.0"/>
-        <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-        <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-        <rosparam file="$(find rosbot_navigation)/config/local_costmap_params.yaml" command="load" />
-        <rosparam file="$(find rosbot_navigation)/config/global_costmap_params.yaml" command="load" />
-        <rosparam file="$(find rosbot_navigation)/config/trajectory_planner.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
     </node>
 
 </launch>
@@ -1533,12 +1553,12 @@ And second to be run on another device:
     <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
         <param name="frequency" type="double" value="1.0"/>
         <param name="goal_aliasing" type="double" value="0.1"/>
-        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosbot_navigation)/config/exploration.yaml" command="load" />
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
         <param name="explore_clear_space" type="boolean" value="true"/>
         <param name="frontier_travel_point" type="string" value="middle"/>
     </node>
 
-    <node pkg="tutorial_pkg" type="search_manager" name="search_manager" output="screen"/>
+    <node pkg="husarion_project_4" type="search_manager" name="search_manager" output="screen"/>
 
 </launch>
 ```
@@ -1551,20 +1571,20 @@ To view them in Rviz add objects:
 
 - `/obstacles/pending/Map`
 
-- `/obstacles/checked/Map` - for this one chenge `Color Scheme` to `costmap`, it will be easier to distinguish maps
+- `/obstacles/checked/Map` - for this one change `Color Scheme` to `costmap`, it will be easier to distinguish maps
 
 - `/proj_scan/LaserScan` - these are obstacles observed by the camera
 
 - From menu "Add" -> "By display type" choose "Robot model" - this will let you see where robot travelled
 
-![image](/docs/assets/img/ros/man_9_rviz.png)
+![image](/docs/assets/img/ros-projects/4-object-search/rviz.png)
 
 ## Summary
 
-After completing this tutorial you should be familiar with controlling tasks using `actionlib` library. You will also know basic usage of `grid_map` library to load, edit, create from scratch and publish `nav_msgs/OccupancyGrid` maps. Finally you will be able to configure your robot to search for an object in selected area.
+After completing this project you should be familiar with controlling tasks using `actionlib` library. You will also know basic usage of `grid_map` library to load, edit, create from scratch and publish `nav_msgs/OccupancyGrid` maps. Finally you will be able to configure your robot to search for an object in selected area.
 
 ---
 
 _by Łukasz Mitka, Husarion_
 
-_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
+_Do you need any support with completing this project or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_

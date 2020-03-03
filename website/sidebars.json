@@ -23,7 +23,7 @@
           "tutorials/ros-tutorials/6-slam-navigation",
           "tutorials/ros-tutorials/7-path-planning",
           "tutorials/ros-tutorials/8-unknown-environment-exploration",
-          "tutorials/ros-tutorials/9-object-search"
+          "tutorials/ros-tutorials/9-map-navigation"
         ]
       },
       {
@@ -31,7 +31,9 @@
         "label": "ROS Projects",
         "ids": [
           "tutorials/ros-projects/security-guard-robot",
-          "tutorials/ros-projects/control-virtual-robot-from-your-PC"
+          "tutorials/ros-projects/control-virtual-robot-from-your-PC",
+          "tutorials/ros-projects/3-using-frontier-exploration",
+          "tutorials/ros-projects/4-object-search"
         ]
       },
 	  {

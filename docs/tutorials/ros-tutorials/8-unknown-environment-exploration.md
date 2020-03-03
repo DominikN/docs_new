@@ -21,25 +21,19 @@ be explored and marked as free or occupied and frontiers are moved into
 an unknown territory. Process is repeated until all frontiers are
 investigated, this means free area must be surrounded by occupied cells.
 
-We have prepared ready to go virtual environment with end effect of following this tutorial. It is available on ROSDS:
-
-<div><center>
-<a href="http://www.rosject.io/l/b97ec47/">
-<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
-</center></div>
 
 ## Environment exploration in ROS
 
 In ROS it is possible to explore environment with use of occupancy grid
-frontiers. One of the nodes, that perform this task is `explore_server`
-node from `frontier_exploration` package. This node uses occupancy grid
+frontiers. One of the nodes, that perform this task is `explore`
+node from `explore_lite` package. This node uses occupancy grid
 e.g. created by `slam_gmapping` and publishes goal position to
 `/move_base/goal` topic subscribed by path planner e.g. `move_base`
 node.
 
 ### Requirements regarding robot
 
-Before continuing with `explore_server` node certain requirements must
+Before continuing with `explore_lite` node certain requirements must
 be met, robot should:
 
 - subscribe `/move_base/goal` topic with message type
@@ -51,107 +45,69 @@ be met, robot should:
 
 Above configuration is met by the robot created in previous manual.
 
-Moreover, we will use `explore_client` node from `frontier_exploration`
-package, this will make easier to define exploration area through
-`rviz`.
+## Configuration of `explore` node
 
-### Configuration of `explore_server` node
+Before starting experimenting with `explore_lite` you need to have working `move_base` for navigation. You should be able to navigate with `move_base` manually through `rviz`.
 
-Based on occupancy grid, `explore_server` node determines frontiers
+You should be also able to to navigate with move_base though unknown space in the map. If you set the goal to unknown place in the map, planning and navigating should work. With most planners this should work by default. Navigation through unknown space is required for `explore_lite`.
+
+If you want to use costmap provided by `move_base` you need to enable unknown space tracking by setting `track_unknown_space: true`.
+
+All required configuration should be set properly doing previous tutorials, so you can start experimenting with `explore_lite`. Provided `explore.launch` should work out-of-the box in most cases, but as always you might need to adjust topic names and frame names according to your setup.
+
+
+Based on occupancy grid, `explore` node determines frontiers
 between free and unknown area and using them determines robot
-destinations. It is necessary to define some parameters for
-`explore_server` before running it.
+destinations.
 
-Begin with robot outline, transform tolerance, update and publish
-frequency, map coordinate frame name, robot coordinate frame name,
-resolution and define if map should follow position of robot, these
-parameters have the same meaning as for trajectory planning:
+
+### Parameters 
+- `robot_base_frame` - The name of the base frame of the robot. This is used for determining robot position on map.
+
+- `costmap_topic` - Specifies topic of source nav_msgs/OccupancyGrid.
+
+- `costmap_updates_topic` - Specifies topic of source map_msgs/OccupancyGridUpdate. Not necessary if source of map is always publishing full updates, i.e. does not provide this topic. 
+
+- `visualize` - Specifies whether or not publish visualized frontiers. 
+
+- `planner_frequency` - Rate in Hz at which new frontiers will computed and goal reconsidered. 
+
+- `progress_timeout` - Time in seconds. When robot do not make any progress for progress_timeout, current goal will be abandoned. 
+
+- `potential_scale` - Used for weighting frontiers. This multiplicative parameter affects frontier potential component of the frontier weight (distance to frontier). 
+
+- `orientation_scale` - Used for weighting frontiers. This multiplicative parameter affects frontier orientation component of the frontier weight.
+
+- `gain_scale` - Used for weighting frontiers. This multiplicative parameter affects frontier gain component of the frontier weight (frontier size). 
+
+- `transform_tolerance` - Transform tolerance to use when transforming robot pose. 
+
+- `min_frontier_size` - Minimum size of the frontier to consider the frontier as the exploration goal. In meter
+
+
+
+Save configuration as `exploration.yaml` in `tutorial_pkg/config` directory.
+
+Your file should look like below:
 
 ```yaml
-footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
-transform_tolerance: 5
-update_frequency: 5
-publish_frequency: 5
-global_frame: map
 robot_base_frame: base_link
+costmap_topic: map
+costmap_updates_topic: map_updates
+visualize: true
+planner_frequency: 0.33
+progress_timeout: 30.0
+potential_scale: 3.0
+orientation_scale: 0.0
+gain_scale: 1.0
+transform_tolerance: 0.3
+min_frontier_size: 0.75
+
 ```
-
-Define what kind of map layers to use:
-
-```yaml
-plugins:
-    - {name: static,           type: "costmap_2d::StaticLayer"}
-    - {name: explore_boundary, type: "frontier_exploration::BoundedExploreLayer"}
-    - {name: inflation,        type: "costmap_2d::InflationLayer"}
-```
-
-Parameters for static map layer, map topic name and define if map can
-change:
-
-```yaml
-static:
-    map_topic: /map
-    subscribe_to_updates: true
-```
-Parameters for exploration boundaries layer:
-
-```yaml
-explore_boundary:
-    resize_to_boundary: false
-    frontier_travel_point: "middle"
-    explore_clear_space: false
-```
-
-Parameters meaning:
-
-- `resize_to_boundary` - Defines if cost map should be resized to
-  boundaries of search region.
-
-- `frontier_travel_point` - While defining next destination, which
-  fragment of frontier to choose, could be `closest` to robot,
-  `middle` of frontier or `centroid` of all frontier points.
-
-- `explore_clear_space` - Defines if exploration node should explore
-  space marked as clear or only unknown space.
-
-Parameters for obstacles inflation layer, define inflation radius:
-
-```yaml
-inflation:
-    inflation_radius: 0.5
-```
-
-Your final file should look like below:
-
-```yaml
-footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
-transform_tolerance: 5
-update_frequency: 5
-publish_frequency: 5
-global_frame: map
-robot_base_frame: base_link
-
-plugins:
-    - {name: static,           type: "costmap_2d::StaticLayer"}
-    - {name: explore_boundary, type: "frontier_exploration::BoundedExploreLayer"}
-    - {name: inflation,        type: "costmap_2d::InflationLayer"}
-
-static:
-    map_topic: /map
-    subscribe_to_updates: true
-explore_boundary:
-    resize_to_boundary: false
-    frontier_travel_point: "middle"
-    explore_clear_space: false
-inflation:
-    inflation_radius: 0.5
-```
-
-Save it as `exploration.yaml` in `tutorial_pkg/config` directory.
 
 ### Launching exploration task
 
-To test above configuration you will need to run `explore_server` node
+To test above configuration you will need to run `explore_lite` node
 with nodes from path planning configuration.
 
 To remind, you will need to run following nodes:
@@ -174,26 +130,18 @@ And:
 
 - `move_base` - trajectory planner
 
-- `explore_server` - exploration task
-
-- `explore_client` - node for defining exploration area
+- `explore_lite` - exploration task
 
 - `rviz` - visualization tool
 
-For the `explore_server` node you will need to specify some parameters
-and paths for `.yaml` configuration files:
+For the `explore_lite` node you will need to specify path for `.yaml` configuration file:
 
 ```xml
-<node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
-    <param name="frequency" type="double" value="1.0"/>
-    <param name="goal_aliasing" type="double" value="0.5"/>
-    <rosparam ns="explore_costmap" subst_value="true" file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
-</node>
+	<node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
+		<rosparam file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
+	</node>
 ```
 
-Parameter `frequency` defines how often new goal should be recalculated
-and `goal_aliasing` defines last goal and new goal before it is
-published to trajectory planner.
 
 You can use below `launch` file:
 
@@ -243,72 +191,33 @@ You can use below `launch` file:
 
     <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="screen"/>
 
-    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
-        <param name="frequency" type="double" value="1.0"/>
-        <param name="goal_aliasing" type="double" value="0.5"/>
-        <rosparam ns="explore_costmap" subst_value="true" file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
-    </node>
+    <node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
+		    <rosparam file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
+	  </node>
 
 </launch>
 ```
 
-### Setting the exploration area
+## Explore
 
-The easiest way to set exploration area is to use `rviz`. Go to it and
-add some objects to visualize:
+If everything was set correctly exploration will start immediately after node initialization. Exploration will finish when whole area is discovered. 
 
-- `/scan/LaserScan`
+If you are using gazebo you should see a maze with rosbot.
+![image](/docs/assets/img/ros/man-8-gazebo.png)
 
-- `/map/Map`
+Expect how it works using rviz.
+![image](/docs/assets/img/ros/man-8-rviz.png)
 
-- `/exploration_polygon_marker/Marker` - this will help you with
-  defining exploration area
-
-- `/explore_server/explore_costmap/costmap/Map` - this will show area
-  to explore
-
-- `/explore_server/explore_costmap/explore_boundary/frontiers/PointCloud2`
-  - this will show frontiers found in the area
-
-You can also add `Tf` visualization, but it is not necessary for proper
-operation.
-
-![image](/docs/assets/img/ros/man_8_1.png)
-
-From toolbar select `Publish Point` button and click in visualization
-window, this will be first corner of exploration area, select
-`Publish Point` button again and choose second corner of exploration
-area, they will be connected by blue line. Continue until desired area
-is surrounded by lines.
-
-![image](/docs/assets/img/ros/man_8_2.png)
-
-To finish defining exploration region set last point at the position of
-first corner, line will become red.
-
-![image](/docs/assets/img/ros/man_8_3.png)
-
-You need to use `Publish Point` button for the last time, click anywhere
-inside region and exploration task will start.
-
-![image](/docs/assets/img/ros/man_8_4.png)
-
-Robot will explore all accessible location within selected area. Observe
-as robot explores area, when there are no more frontiers or frontiers
-are not accessible due to obstacles, robot will stop and exploration
-task is considered as done.
-
-![image](/docs/assets/img/ros/man_8_5.png)
 
 ## Summary
 
 After completing this tutorial you should be able to configure
-`explore_server` node to find frontiers on occupancy grid map and set
-goals for trajectory planner to explore all unknown area, visualize
-frontiers found on the map and finally set exploration area using rviz.
+`explore_lite` node to find frontiers on occupancy grid map and set
+goals for trajectory planner to explore all unknown area.
 
 ---
 
-_by Łukasz Mitka, Husarion_
+_by Adam Krawczyk, Husarion_
 
 _Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
+
