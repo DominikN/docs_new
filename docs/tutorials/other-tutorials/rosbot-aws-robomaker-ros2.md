@@ -88,7 +88,19 @@ ROSbots are shipped with ROS1 support. In order to enable working with ROS2 supp
  - Open Etcher and select from your hard drive .img file that you extracted.
  - Select the SD card you wish to write your image to.
  - Review your selections and click *Flash!* to begin writing data to the SD card.
+ - Wait until the process is finished.
+ - Use **Unmount drive** on linux on **Remove device safely** on Windows, wait until system confirms that you can unplug card reader.
 5. Insert SD card back to ROSbot
+
+### Troubleshooting
+
+It may happen that process of flashing SD card will fail, this may prevent ROSbot from booting properly.
+Possible symptoms of faulty flashing process are:
+ - Blank screeen after powering up the ROSbot.
+ - ROSbot begins to boot, but freeze at some moment.
+ - ROSbot is booting into text-only mode.
+ - ROSbot is booting into graphical mode but it is not responding.
+If above signs are observed, it will be necassary to repeat card flasing process.
 
 ## Connecting to Wi-Fi network
 
@@ -100,49 +112,66 @@ ROSbot is basically a computer running Ubuntu, so let's configure it like a stan
 4. When connection is active, use networking menu again and choose **Connection Information** to find device IP address.
 5. Note the ROSbot IP address, you will need it later.
 
+## Choosing the location
+
+You can chose to work with AWS services on servers located in varoius location across world. You are free to choose the server closest to your location, although in tutorials we refer to **us-east-1**. Whichever location you will choose, you must keep it while following through the whole manual.
+
+To choose location, go to [AWS Management console](https://console.aws.amazon.com/console/) and find location dropdown menu next to your username in top right corner.
+From the menu choose **US East (N. Virginia) us-east-1**.
+
+![location](/docs/assets/img/aws-tutorials/ros2/Location.png)
+
+For more information regarding regions please check the [documentation](https://docs.aws.amazon.com/robomaker/latest/dg/limits-regions.html).
+
 ## Configure AWS Environment
 
-Before we use AWS RoboMaker to build and deploy the tutorial applications, we must first set up the AWS environment. To simplify the configuration, we will use AWS CloudFormation. CloudFormation enables us to use a template file to define the configuration of our environment. We will use CloudFormation to create a bucket in Amaazon S3, as well as to create the necessary permissions in AWS Identity and Access Manager (IAM) that AWS RoboMaker requires to simulate and deploy our robot applications.
+Before we use AWS RoboMaker to build and deploy the tutorial applications, we must first set up the AWS environment. To simplify the configuration, we will use AWS CloudFormation. CloudFormation enables us to use a template file to define the configuration of our environment. We will use CloudFormation to create a bucket in Amazon S3, as well as to create the necessary permissions in AWS Identity and Access Manager (IAM) that AWS RoboMaker requires to simulate and deploy our robot applications.
 
-To deploy the template, sign in to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/). Following the following steps to deploy the template:
+To deploy the template, sign in to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/). Follow the steps to deploy the template:
 
-1.  Download the template file from [here](https://raw.githubusercontent.com/husarion/rosbot-robomaker/master/rosbot_tutorial_template.yaml).
-2.  Click the **Create Stack** button.
-3.  Under _Choose a template_, choose _Upload a template to Amazon S3_ and click **Choose File**.
-4.  Browse to the rosbot_tutorial_template.yaml file you download in Step 1 above.
-5.  Click **Next**.
-6.  On the next screen, provide a _Stack name_. This should be something descriptive such as "ROSbot-setup".
-7.  In the _S3BucketName_ field, provide a globally-unique name for the S3 bucket that will be created. This S3 bucket will be used to store your robot application bundles, as well as any logs that your robot may generate during simulation. Use a name unique to you, such as "&lt;user_id&gt;-rosbot-tutorial". Replace "&lt;user-id&gt;" with a unique string.
-8.  Choose **Next**.
-9.  On the Options page, leave all defaults and choose **Next**.
-10. On the Review page, click the checkbox to acknowledge that CloudFormation will create IAM resources on your behalf.
-11. Click **Create**.
+1.  Click the **Create Stack** button and select **With new resources** from the drop down.
 
-After a few brief minutes, the stack will be created. When the status has changed to CREATE_COMPLETE, choose the stack you just created, and view its Outputs. You will see 3 key/value pairs. You will use these values later in this guide.
+![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-01.png)
+
+2.  In **Step 1: Specify template** in section **Prerequisite - Prepare template** select **Template is ready**, then in section **Specify template** select **Amazon S3 URL** and type in the following text field: `https://robomaker-rosbot-samples.s3.amazonaws.com/rosbot_tutorial_template.yaml`. Proceed with **Next** button.
+
+![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-02.png)
+
+3. In **Step 2: Specify stack details** in section **Stack name** type `rosbot-stack`, then proceed with **Next** button.
+
+![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-03.png)
+
+4. In **Step 3: Configure stack options** leave all settings default and proceed with **Next** button.
+5. In **Step 4: Review** scroll to last section named **Capabilities** then check **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**. Proceed with **Create stack** button.
+![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-04.png)
+6. You will be redirected to stacks list, wait until your stack is created.
+7. When stack creation is finished, click stack name to open its details, then choose tab **Outputs**, in the table you will see three rows, note the three **Key**/**Value** pairs as you will need them later in this guide.
+![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-05.png)
 
 ## ROSbot setup in RoboMaker
 
 ROSbot need some system modifications before Greengrass will be able to run and deploy applications. To configure ROSbot:
 
-- Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/).
-- In the left navigation pane, choose **Fleet Management** and then choose **Robots**.
-
-![RoboMaker robots](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_1.png)
-
-- Choose \*_Create robot_.
+1. Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/).
+2. In the left navigation pane, choose **Fleet Management** and then choose **Robots**.
+3. Choose **Create robot**.
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-01.png)
+4. In section **General**:
 - In the **Name** field, type `ROSbot`.
 - From the **Architecture** dropdown menu choose **ARMHF**.
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-02.png)
+5. In section **AWS Greengrass group details**:
+- From the **Greengrass setup method** dropdown menu choose **Use manual setup method**.
 - From the **AWS Greengrass group** dropdown menu choose **Create new**.
 - In the **AWS Greengrass prefix** field type `ROSbot`.
-- In the **IAM role** select **ROSbot-deployment-role**.
+- From the **IAM role** dropdown menu choose **ROSbotDeploymentRole**.
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-03.png)
 
-![RoboMaker create robot](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_2.png)
+6. Proceed with **Create**, you will be redirected to **Download your Core device** page.
 
-- Proceed with **Create**, you will be redirected to **Download your Core device** page.
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-05.png)
 
-![RoboMaker robot created](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_3.png)
-
-- Choose **Download** button next to **Download and store your Core's security resources**, you will get `ROSbot-setup.zip` file.
+7. Choose **Download** button next to **Download and store your Core's security resources**, you will get `ROSbot-setup.zip` file.
 
 - File needs to be uploaded to ROSbot. The upload process will vary, depending on your host operating system.
 
@@ -249,21 +278,24 @@ sudo MicroXRCEAgent serial --dev /dev/ttyS1 -b 500000
 
 Application will be built using the RoboMaker environment. To create the IDE:
 
-- Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/home)
+1. Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/home)
 
-![RoboMaker new IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_4.png)
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-06.png)
 
-- On the left, expand **Development**, choose **Development environments**, and then choose **Create environment**.
-- In the Create AWS RoboMaker development environment page, enter `rosbot_env` as the environment name.
-- Accept the default Instance type (`m4.large`). You can select different instances type to improve bundling performance.
-- In **VPC** dropdown list choose the default value.
+2. On the left, expand **Development**, choose **Development environments**, and then choose **Create environment**.
+3. In **General** section:
+- In the **Name** field type `rosbot_env`.
+- From the **Pre-installed ROS distribution** dropdown menu choose **ROS2 Dashing (Beta)**.
+- From the **Instance type** dropdown menu choose **m4.large**. You can select different instance type to improve bundling performance.
+4. In **Networking** section:
+- From the **VPC** dropdown menu choose the default value.
 - In the **Subnets** dropdown list choose the first subnet. You can select different subnet if necessary.
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-07.png)
 
-![RoboMaker create IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_5.png)
+5. Choose **Create** to create the AWS Cloud9 development environment, you will be redirected to new browser tab with environment opened.
 
-- Choose **Create** to create the AWS Cloud9 development environment.
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-09.png)
 
-![RoboMaker IDE ready](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
 
 ## Running RoboMaker sample applications on ROSbot
 
@@ -271,7 +303,7 @@ Below section will guide you through running [sample applications](https://docs.
 
 ### Running the Hello World sample application
 
-We are basing on [Hello World saple application](https://github.com/aws-robotics/aws-robomaker-sample-application-helloworld) with some modifications for running on ROSbot.
+We are basing on [Hello World sample application](https://github.com/aws-robotics/aws-robomaker-sample-application-helloworld) with some modifications for running on ROSbot.
 
 To deploy application, you will use RoboMaker environment created in previous step:
 
@@ -281,20 +313,21 @@ To deploy application, you will use RoboMaker environment created in previous st
 
 - Open the development environment with **Open environment** button.
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-08.png)
+
 
 - In the IDE, go to bash tab and clone the "Hello World" sample application repository in `~/environment/` directory:
 
 ```
 cd ~/environment/
-git clone https://github.com/lukaszmitka/aws-robomaker-sample-application-helloworld.git
+git clone https://github.com/husarion/aws-robomaker-sample-application-helloworld.git
 ```
 
 - Start the configuration script. You need to provide the S3 bucket name and the ARN of the IAM role that was created by CloudFormation earlier. The parameters to the script should be set to the corresponding values provided in the output of your CloudFormation stack:
 
 ```
 cd ~/environment/aws-robomaker-sample-application-helloworld/rosbot_deploy/
-./start_deployment_job.bash <S3BucketName> <ROSbotDeploymentRole>
+./start_deployment_job.bash <S3Bucket> <ROSbotDeploymentRole>
 ```
 
 The script will install all dependencies, configure project, build and set the deployment job.
@@ -338,12 +371,12 @@ In confirmation window, you receive **Access key ID** and hidden **Secret access
 
 Connect with ROSbot and open terminal, you will create AWS access configuration for ROSbot.
 
-- Create directory for storing configuration and credentials:
+- Create a directory for storing configuration and credentials:
     ```
     sudo -u ggc_user mkdir /home/ggc_user/.aws
     ```
 
-- Create configuration file:
+- Create a configuration file:
     ```
     sudo -H -u ggc_user nano config 
     ```
@@ -354,12 +387,12 @@ Connect with ROSbot and open terminal, you will create AWS access configuration 
     [default]
     region=********
     ```
-- Create credentials file:
+- Create a credentials file:
     ```
     sudo -H -u ggc_user nano credentials
     ```
 
-    In file paste following content, adjust values accordingly to keys that you created in previous step:
+    In the file paste the following content and adjust values according to the keys that you created in previous step:
     ```
     [default]
     aws_access_key_id=************
@@ -377,20 +410,20 @@ To deploy application, you will use RoboMaker environment created in previous st
 
 - Open the development environment with **Open environment** button.
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
+![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-08.png)
 
 - In the IDE, go to bash tab and clone the Cloud Watch sample application repository in `~/environment/` directory:
 
 ```
 cd ~/environment/
-git clone https://github.com/lukaszmitka/aws-robomaker-sample-application-cloudwatch.git
+git clone https://github.com/husarion/aws-robomaker-sample-application-cloudwatch.git
 ```
 
 - Start the configuration script. You need to provide the S3 bucket name and the ARN of the IAM role that was created by CloudFormation earlier. The parameters to the script should be set to the corresponding values provided in the output of your CloudFormation stack:
 
 ```
 cd ~/environment/aws-robomaker-sample-application-helloworld/rosbot_deploy/
-./start_deployment_job.bash <S3BucketName> <ROSbotDeploymentRole>
+./start_deployment_job.bash <S3Bucket> <ROSbotDeploymentRole>
 ```
 
 The script will install all dependencies, configure project, build and set the deployment job.
