@@ -126,7 +126,7 @@ There are a lot of params provided by AMCL node, we will focus on those which ar
 
 ### Initial Pose
 
-When using `initial_pose_*` make sure where map origin is (starting point of map building) and then provide where robot is relative to this point. Distance in metres and angle in the radians.
+When using `initial_pose_*` make sure where map origin is (starting point of map building) and then provide coordinates of robot relative to this point. Distance in metres and angle in the radians.
 
 This might be little confusing especially if you are not sure where map was started to be build. For this case there is better way using `rviz`.
 
