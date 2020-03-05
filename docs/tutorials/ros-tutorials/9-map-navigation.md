@@ -17,9 +17,9 @@ For map creation as you have seen in previous tutorials can be used `gmapping_no
 
 ## Map saving
 
-Problem with gmapping is that when you close your node you will lose all your explored map.
+SLAM based on for instance gmapping works this way that localization and map is available till node is running, when you close your node you will lose all your explored map.
 
-To deal with this we can save map, this is done by `map_server` map server is package providing all needed nodes for managing map.
+To deal with this we can save map, this is done by `map_server` , map server is package providing all needed nodes for managing map.
 
 ### Steps for map saving
 
@@ -37,7 +37,7 @@ mkdir maps
 cd maps
 rosrun map_server map_saver -f maze_map
 ```
-This command saves map under curren working directory with name specified after `-f` param.
+This command saves map under current working directory with name specified after `-f` param.
 
 After executing this command you should have two files:
 
@@ -91,14 +91,14 @@ Save this file in `launch` directory and name it `map_launch.launch`
 
 ## AMCL
 
-AMCL is a probabilistic localization system for a robot moving in 2D. It implements the adaptive (or KLD-sampling) Monte Carlo localization approach (as described by Dieter Fox), which uses a particle filter to track the pose of a robot against a known map. 
+AMCL is a probabilistic localization system for a robot moving in 2D. It implements the adaptive (or KLD-sampling) Monte Carlo localization approach (as [described](https://papers.nips.cc/paper/1998-kld-sampling-adaptive-particle-filters.pdf) by Dieter Fox ), which uses a particle filter to track the pose of a robot against a known map. 
 
 What it does is basically locating robot on map based on how map looks and how current laser scan match to map. Put simply, `AMCL + map_server` replaces `gmapping`. 
 
 
 ### AMCL params
 
-There is a lot of params provided by AMCL node, we will focus on those which are most important, for all please refer to [amcl](http://wiki.ros.org/amcl)
+There are a lot of params provided by AMCL node, we will focus on those which are most important, for all please refer to [amcl](http://wiki.ros.org/amcl)
 
 - `scan` - Laser scan topic. 
 
@@ -118,12 +118,21 @@ There is a lot of params provided by AMCL node, we will focus on those which are
 
 - `tf_broadcast` - Decide if publish the transform between the global frame and the odometry frame. 
 
-- `initial_pose_x` - Initial pose mean (x), you should set this param different than "0.0" only if place where robot starts navigation is different than start point for map. If it's small distance you should live this as "0.0".
+- `initial_pose_x` - Initial pose mean (x), you should set this param different than "0.0" only if place where robot starts navigation is different than start point for map. If it's small distance you should leave this as "0.0".
 
 - `initial_pose_y` - Initial pose mean (x). Use this the same way as `initial_pose_x`.
 
 - `initial_pose_a` - Initial pose mean (yaw). Use this the same way as `initial_pose_x`.
 
+### Initial Pose
+
+When using `initial_pose_*` make sure where map origin is (starting point of map building) and then provide where robot is relative to this point. Distance in metres and angle in the radians.
+
+This might be little confusing especially if you are not sure where map was started to be build. For this case there is better way using `rviz`.
+
+When you launch and the pose calculated by AMCL doesn't match real pose use `2D Estimate Pose` from `rviz`. Select point the same way as navigation goal.
+
+![image](/docs/assets/img/ros/man-9-estimate-pose.png)
 
 ## Launch navigation
 
@@ -162,9 +171,9 @@ Create following file in `launch` directory and name it `map_server.launch` :
 </launch>
 ```
 
-### Finall launch
+### Final launch
 
-Okay to let's create one launch file combining all what we need to provide autonomous navigation based on map and amcl.
+Okay, let's create one launch file combining all what we need to provide autonomous navigation based on map and amcl.
 
 Save following file as `tutorial_9.launch` :
 
