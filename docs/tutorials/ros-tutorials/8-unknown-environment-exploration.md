@@ -143,60 +143,82 @@ For the `explore_lite` node you will need to specify path for `.yaml` configurat
 ```
 
 
-You can use below `launch` file:
+You can use below `launch` file, save this as `tutorial_8.launch` :
 
 ```xml
 <launch>
+	<arg name="use_rosbot" default="true" />
+	<arg name="use_gazebo" default="false" />
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
+	<include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch" />
+	<include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot_gazebo.launch" />
+	<param if="$(arg use_gazebo)" name="use_sim_time" value="true" />
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
-
-    <param if="$(arg use_gazebo)" name="use_sim_time" value="true"/>
-
-    <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
-        <param name="angle_compensate" type="bool" value="true"/>
-        <param name="serial_baudrate" type="int" value="115200"/><!--model A2 (ROSbot 2.0) -->
-        <!--<param name="serial_baudrate" type="int" value="256000"/>--><!-- model A3 (ROSbot 2.0 PRO) -->
-    </node>
-
-    <!-- ROSbot 2.0 -->
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
-
-    <!-- ROSbot 2.0 PRO -->
-    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
-      <arg name="rosbot_pro" value="true" />
-    </include> -->
-
-    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
-
-    <node pkg="rviz" type="rviz" name="rviz"/>
-
-    <node pkg="gmapping" type="slam_gmapping" name="gmapping">
-        <param name="base_frame" value="base_link"/>
-        <param name="odom_frame" value="odom" />
-        <param name="delta" value="0.1" />
-    </node>
-
-    <node pkg="move_base" type="move_base" name="move_base" output="screen">
-        <param name="controller_frequency" value="10.0"/>
-        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-        <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-        <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-        <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
-        <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
-    </node>
-
-    <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="screen"/>
-
-    <node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
-		    <rosparam file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
-	  </node>
+    
+	<node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
+		<param name="angle_compensate" type="bool" value="true" />
+		<param name="serial_baudrate" type="int" value="115200" />
+		<!-- model A2 (ROSbot 2.0) -->
+		<!-- <param name="serial_baudrate" type="int" value="256000"/> -->
+		<!-- model A3 (ROSbot 2.0 PRO) -->
+	</node>
+	<!-- ROSbot 2.0 -->
+	<include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch" />
+	<!-- ROSbot 2.0 PRO -->
+	<!--
+	<include file="$(find rosbot_ekf)/launch/all.launch" >
+	<arg name="rosbot_pro" value="true" />
+	</include>
+	-->
+	<!-- <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" /> -->
+	<node pkg="rviz" type="rviz" name="rviz" />
+	
+    <node pkg="gmapping" type="slam_gmapping" name="gmapping_node" output="log">
+		<param name="base_frame" value="base_link" />
+		<param name="odom_frame" value="odom" />
+		<param name="delta" value="0.01" />
+		<param name="xmin" value="-5" />
+		<param name="ymin" value="-5" />
+		<param name="xmax" value="5" />
+		<param name="ymax" value="5" />
+		<param name="maxUrange" value="5" />
+		<param name="map_update_interval" value="1" />
+		<param name="linearUpdate" value="0.05" />
+		<param name="angularUpdate" value="0.05" />
+		<param name="temporalUpdate" value="0.1" />
+		<param name="particles" value="100" />
+	</node>
+	
+    <node pkg="move_base" type="move_base" name="move_base" output="log">
+		<param name="controller_frequency" value="10.0" />
+		<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+		<rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+	</node>
+	
+    <node pkg="explore_lite" type="explore" respawn="true" name="explore" output="screen">
+		<rosparam file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
+	</node>
 
 </launch>
 ```
+
+Launch this with commands:
+
+ROSbot:
+
+```
+roslaunch tutorial_pkg tutorial_8.launch 
+```
+
+Gazebo:
+
+```
+roslaunch tutorial_pkg tutorial_8.launch use_rosbot:=false use_gazebo:=true
+```
+
 
 ## Explore
 

@@ -16,6 +16,8 @@ Finish `ROS Projects 2. Using frontier exploration`
 
 This project can be done _`only on ROS Kinetic`_ due to API change of `frontier_exploration` package since ROS Melodic.`Frontier_exploration` project seems not to be developed anymore so we can't provide well tested instruction how to use it. This project uses frontier_exploration API only available at ROS Kinetic version.
 
+Final project is available at [object-search-project-code](https://github.com/husarion/object_search_project)
+
 ## Introduction
 
 Object search task defines a mission in which robot has to explore environment while observing if given object exists in explored area. For this purpose it is necessary to use two different approaches, one for exploration and second for object recognition. In previous project and tutorials we already discussed object environment exploration and object recognition as separate tasks. Beside launching them together, it is necessary to keep track of which obstacles were checked by the object recognition process. Task is considered as finished when object is successfully recognized or all obstacles were checked with no object detection.
