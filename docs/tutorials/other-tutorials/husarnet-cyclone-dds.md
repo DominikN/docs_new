@@ -120,7 +120,7 @@ Add changes to .bashrc file to use that configuration every time you boot your s
 
 `echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc`
 
-`echo "export CYCLONEDDS_URI=file:///home/<USER-NAME>/ros2_ws/src/cyclonedds/cyclonedds.xml" >> ~/.bashrc`
+`echo "export CYCLONEDDS_URI=file:///home/$USER/ros2_ws/src/cyclonedds/cyclonedds.xml" >> ~/.bashrc`
 
 `. ~/.bashrc`
 
