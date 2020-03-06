@@ -53,7 +53,7 @@ export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 ### Configure Cyclone DDS:
 
-Create communication settings file under this path `~/ros_workspace/src/cyclonedds/cyclonedds.xml`
+Create communication settings file under this path `~/ros2_ws/src/cyclonedds/cyclonedds.xml`
 
 To make communication work you have to set some params as follows:
 
@@ -120,7 +120,7 @@ Add changes to .bashrc file to use that configuration every time you boot your s
 
 `echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc`
 
-`echo "export CYCLONEDDS_URI=file:///home/<USER-NAME>/ros_workspace/src/cyclonedds/cyclonedds.xml/cyclonedds.xml" >> ~/.bashrc`
+`echo "export CYCLONEDDS_URI=file:///home/<USER-NAME>/ros2_ws/src/cyclonedds/cyclonedds.xml" >> ~/.bashrc`
 
 `. ~/.bashrc`
 
