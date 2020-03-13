@@ -480,7 +480,7 @@ You can use below `launch` file:
       <arg name="rosbot_pro" value="true" />
     </include> -->
 
-    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
+    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
