@@ -53,18 +53,30 @@
       },
       {
         "type": "subcategory",
+        "label": "AWS RoboMaker + ROSbot 2.0",
+        "ids": [
+          "tutorials/other-tutorials/rosbot-aws-robomaker-quick-start",
+          "tutorials/other-tutorials/run-ros-tutorials-using-aws-robomaker",
+          "tutorials/other-tutorials/rosbot-aws-robomaker-multiple-machines",
+          "tutorials/other-tutorials/rosbot-aws-robomaker-example-applications"
+        ]
+      },
+      {
+        "type": "subcategory",
         "label": "Other tutorials",
         "ids": [
-          "tutorials/other-tutorials/hframework-library-development",
-          "tutorials/other-tutorials/offline-development-tools",
-          "tutorials/other-tutorials/how-to-use-core2-ros-local-serial-offline",
-          "tutorials/other-tutorials/run-ros-tutorials-using-aws-robomaker",
-          "tutorials/other-tutorials/rosbot-aws-robomaker-example-applications",
-          "tutorials/other-tutorials/rosbot-aws-robomaker-quick-start",
-          "tutorials/other-tutorials/rosbot-aws-robomaker-multiple-machines",
           "tutorials/other-tutorials/using-core2-to-publish-ros-topics-through-usb",
           "tutorials/other-tutorials/rosbot-rosds-quick-start",
           "tutorials/other-tutorials/husarnet-cyclone-dds"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Deprecated",
+        "ids": [
+          "tutorials/other-tutorials/hframework-library-development",
+          "tutorials/other-tutorials/offline-development-tools",
+          "tutorials/other-tutorials/how-to-use-core2-ros-local-serial-offline"
         ]
       }
     ]

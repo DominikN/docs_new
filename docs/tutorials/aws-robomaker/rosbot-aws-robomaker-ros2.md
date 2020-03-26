@@ -1,6 +1,6 @@
 ---
 title: ROSbot + AWS Robomaker - ROS2 Example Applications
-sidebar_label: 5. ROSbot + AWS Robomaker - ROS2 Example Applications
+sidebar_label: 4. ROSbot + AWS Robomaker - ROS2 Example Applications
 id: rosbot-aws-robomaker-example-applications
 ---
 

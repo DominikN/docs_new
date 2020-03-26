@@ -1,6 +1,6 @@
 ---
 title: ROSbot + AWS Robomaker - Quick start tutorial
-sidebar_label: 6. ROSbot + AWS Robomaker - Quick start tutorial
+sidebar_label: 1. ROSbot + AWS Robomaker - Quick start tutorial
 id: rosbot-aws-robomaker-quick-start
 ---
 
