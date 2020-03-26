@@ -200,7 +200,7 @@ You should see interface like below:
 
 ![RouteAdminPanelScreenshot](/docs/assets/img/software/route-admin-panel.png)
 
-# ROS2 API
+## ROS2 API
 
 Below are ROS interfaces used by the route admin panel:
 
