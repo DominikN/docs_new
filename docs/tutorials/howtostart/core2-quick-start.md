@@ -18,148 +18,736 @@ Connect your CORE2 to a DC power supply. The power connector is a standard DC 5.
 
 Set the power switch to "ON" position and now your device is ready to use!
 
-## Connecting to the Cloud ##
+## Using CORE2 with Mbed OS
 
-There are a few methods to connect your controller to [Husarion Cloud](https://cloud.husarion.com). First one is universal for all of our devices and the other two apply only to CORE2-ROS controllers. For all of them you will need to register your own account on [Husarion Cloud](https://cloud.husarion.com). We will describe all three in great detail. 
+**Mbed OS** is free, open-source platform and embedded operating system designed for IoT devices based on Arm Cortex-M family of microcontrollers. It is developed as collaborative project by *Arm*, its partners and growing community of individual devs from across the world. Mbed OS is distributed under the [Apache-2.0 License](https://en.wikipedia.org/wiki/Apache_License) and it's available on project's [GitHub page](https://github.com/ARMmbed/mbed-os).
 
-### Connecting using mobile device and browser ###
 
-Before you perform the next steps, install the hConfig mobile application on your smartphone or tablet:
-* [Google Play](https://play.google.com/store/apps/details?id=com.husarion.configtool2&hl=en)
-* [AppStore](https://itunes.apple.com/us/app/hconfig/id1283536270?mt=8)
+Besides support for variety of boards from different manufacturers the framework has features like:
+* built-in support for connectivity options like *Bluetooth LE*, *Wi-Fi*, *Ethernet*, *Cellular*, *LoRa LPWAN*, *NFC* and others,
+* RTOS core based on open-source *CMSIS-RTOS RTX*,
+* *Hardware Enforced Security* and *Communications Security*,
+* easy and portable API.
 
-1\. Open the hConfig app on your smartphone and follow the wizard that will show you how to connect CORE2 to your Wi-Fi network and your Husarion cloud account. The phone is required only once for configuration and connecting CORE2 with cloud, later you will not be using it. After you select the Wi-Fi network for your CORE2 in the hConfig app, you can proceed to the next steps.
+<div>
+<center>
+<img src="/docs/assets/img/mbed-tutorials/mbed_logo.png" width="400px" alt="Mbed OS logo"/>
+</center></div>
 
-The WiFi bradcasted by CORE2 can be used only for configuration, it does not allow to connect to the internet. Your phone may show warning regarding no internet connection while connected to this WiFi. You can ignore these warnings, as this will not interrupt the process.
+* [Official Webpage](https://www.mbed.com/en/platform/mbed-os/)
+* [Mbed OS documentation](https://os.mbed.com/docs/v5.10/)
+* [Mbed OS Doxygen API](https://os.mbed.com/docs/v5.10/mbed-os-api-doxy/modules.html)
 
-<b>For Android users: turn off mobile internet on your smartphone while using hConfig app </b>
+## First Steps
 
-2\. hConfig app will ask you to add a new device. Open https://cloud.husarion.com in your browser and sign in.
+In this tutorial we will show you how to build, compile and run mbed applications on **CORE2** using mbed offline tools. You will be introduced to basics of mbed API, learn how to use rosserial library to connect your mbed application with SBC and more. Let's hack!
 
-![image](/docs/assets/img/howToStart/1_signin.png)
+<p>
+<center>
+<img src="https://cdn.shopify.com/s/files/1/2545/8446/products/CORE2-ROS_1024x1024@2x.png?v=1520001976" width="400px" alt="Mbed OS logo"/>
+</center>
+</p>
 
-3\. Click "Add new device".
+### Prerequisites
 
-![image](/docs/assets/img/howToStart/2_addNewDevice.png)
+#### Hardware
 
-4\. Enter a name for your CORE2 powered device.
+* CORE2-ROS (with SBC) or CORE2 and computer running Linux with ROS Kinetic,   
+* *ST-LINK V2 programmer* to flash CORE2 with mbed firmware,
 
-![image](/docs/assets/img/howToStart/3_enterName.png)
+#### Software prerequisites:
 
-5\. Scan QR code using the hConfig app.
+Before we start make sure you have following tools installed on your system:
 
-![image](/docs/assets/img/howToStart/4_scanQr.png)
+* [Visual Studio Code IDE](https://code.visualstudio.com/)
+* [GNU Arm Embedded version 6 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
+* [STM32 ST-LINK Utility](https://www.st.com/en/development-tools/stsw-link004.html) (Windows only)
+* [stlink flasher](https://github.com/texane/stlink/blob/master/README.md) (Mac or Linux)
+* [Mbed CLI](https://os.mbed.com/docs/mbed-os/v5.12/tools/installation-and-setup.html)
 
-6\. Well done! You just added your first device to the cloud!
+You can check our tutorial: [2. Offline development tools](https://husarion.com/core2/tutorials/other-tutorials/offline-development-tools) to find information on stlink flasher and VS Code IDE installation.
 
-![image](/docs/assets/img/howToStart/5_devAdded.png)
+#### Required Visual Studio Code extensions:
+* [Microsoft C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) (`ms-vscode.cpptools`)
+* [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug) (`marus25.cortex-debug`)
 
-### Connecting using only browser ###
+Everything up and ready? Proceed to the next steps then.
 
-1\. Open [Husarion Cloud](https://cloud.husarion.com) in your browser and sign in.
+### Mbed CLI installation
 
-![image](/docs/assets/img/howToStart/configuration_1.png)
+`mbed-cli` is a package name of **Arm Mbed CLI**, a command-line tool that enables use of Mbed build system, GIT/Mercurial-based version control, dependencies management and more. Check [Mbed CLI GitHub page](https://github.com/ARMmbed/mbed-cli) or [Mbed documentation](https://os.mbed.com/docs/v5.10/tools/developing-mbed-cli.html) for details about the tool.  
 
-2\. Click "Add new device".
+To install `mbed-cli` follow [this](https://os.mbed.com/docs/mbed-os/v5.13/tools/installation-and-setup.html) tutorial from the Mbed documentation. 
 
-![image](/docs/assets/img/howToStart/configuration_2.png)
+Installers for both Windows and macOS are provided. Linux users have to install tool manually. In case you are user of the latter system check if you have both Git and Mercurial installed before you start. See [Instructions for Linux](https://os.mbed.com/docs/mbed-os/v5.13/tools/manual-installation.html#instructions-for-linux) page for more details.
 
-3\. Enter a name for your CORE2 powered device.
+Check if the installation was successful by running following command in the terminal:
 
-![image](/docs/assets/img/howToStart/configuration_3.png)
+```bash
+mbed --version
+1.10.0
+```
 
-4\. Next copy the text code, located below the QR code. It should look similar to this: "prod|7gx9KNhfZhnnmowmDxxxxx"
+After installation you have to inform Mbed CLI about location of compiler (in our case GCC Arm Embedded Compiler) binaries. We will use global setting. Run:
 
-![image](/docs/assets/img/howToStart/configuration_4.png)
+```bash
+mbed config -G GCC_ARM_PATH <path to the compiler>
+```
 
-5\. Turn on your CORE2-ROS. Wait 20 - 30s until Linux system on SBC boot and hold hCfg button for more than 2 sec. Controller will be in configuration mode after that. Now connect to Wi-Fi:
+Linux example:
 
-name: HusarionConfigXXXX
-password: husarion
+```bash
+mbed config -G GCC_ARM_PATH /home/szysza/opt/gcc-arm-none-eabi-6-2017-q2-update/bin
+```
 
-6\. Then open new tab in your browser and type adress: http://192.168.50.1:8600 
+Windows example:
 
-![image](/docs/assets/img/howToStart/configuration_5.png)
+```bash
+where arm-none-eabi-gcc # prints path to arm-none-eabi-gcc.exe if in PATH
+mbed config -G GCC_ARM_PATH "C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
+```
 
-7\. Chose option "Connect to Wi-Fi network" (unless you are already connected to Wi-Fi) and pick up one of wireless from list. Type the password and click "Continue".
+You can check current configuration by running:
 
-![image](/docs/assets/img/howToStart/configuration_6.png)
+```bash
+mbed config --list
+```
 
-8\. Now chose "Connect device to cloud.husarion.com account".
+### Preparing a workspace
 
-![image](/docs/assets/img/howToStart/configuration_7.png)
+Create a new folder `core2-mbed-workspace`. It will serve as a workspace for your mbed projects. Run:
 
-9\. Paste previously copied code and click "Save".
+```bash
+mkdir core2-mbed-workspace && cd core2-mbed-workspace
+```
 
-![image](/docs/assets/img/howToStart/configuration_8.png)
+Next step is to import `mbed-os` library. It will be used by all your projects. In your workspace's folder run:
 
-10\. You will receive message "You might now close this page."
+```bash
+mbed import mbed-os
+[mbed] Working path "E:\mbed_projects\core2-mbed-workspace" (directory)
+[mbed] Program path "E:\mbed_projects\core2-mbed-workspace"
+[mbed] Importing program "mbed-os" from "https://github.com/ARMmbed/mbed-os" at latest revision in the current branch
+```
 
-![image](/docs/assets/img/howToStart/configuration_9.png)
+Mbed CLI needs to know the path to `mbed-os` directory. This way all your projects can use one instance of library (default configuration is to have separate instance of library for each project). Run:
 
-11\. Now your device should be visible as "Online" in your cloud.
+```bash
+mbed config -G MBED_OS_DIR <path to mbed-os>
+```
 
-![image](/docs/assets/img/howToStart/configuration_10.png)
+Example:
 
-### Connecting via the command line ###
+```bash
+mbed config -G MBED_OS_DIR "E:\mbed_projects\core2-mbed-workspace\mbed-os"
+[mbed] Working path "E:\mbed_projects\core2-mbed-workspace" (directory)
+[mbed] Program path "E:\mbed_projects\core2-mbed-workspace"
+[mbed] E:\mbed_projects\core2-mbed-workspace\mbed-os now set as global MBED_OS_DIR
+```
 
-If you have CORE2-ROS, you can also connect to the cloud via the command line. This is recommended only if you are able to open terminal or connect via SSH to your device.
+#### Adding a `.mbedignore` file
 
- * Open https://cloud.husarion.com in your browser, sign in and click "Add new device". 
- * Enter a name for you device.
- * Copy the text code, located below the QR code.
- * Run `sudo husarion-register` on your CORE2-ROS device. When asked, paste the previously copied code.
- * Reboot your device to complete the configuration.
+In order to add support for CORE2 target and speed-up building of your projects we will exclude certain folders of `mbed-os` library from compilation. For this purpose Mbed build system provides `.mbedignore` files. They have similar structure to `.gitignore` files used by GIT.
 
-## Writing your first program ##
+In your local `mbed-os` library directory create a new file and name it `.mbedignore`. Open it and add following lines:
 
-Click "+" next to your device name and sellect "IDE".
+```
+features/cellular/*
+features/cryptocell/*
+features/deprecated_warnings/*
+features/lorawan/*
+features/lwipstack/*
+features/nanostack/*
+features/netsocket/*
+features/nfc/*
+features/unsupported/*
+components/wifi/*
+components/802.15.4_RF/*
+targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/STM32F407XG.ld
+targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/startup_stm32f407xx.S
+usb/*
+```
 
-![image](/docs/assets/img/howToStart/6_openWebIDE.png)
+### Template Project
 
-Click "Create" button to open new project wizard.
+We will start by setting up a template project. You can use it as starting point for all of your mbed applications. 
 
-![image](/docs/assets/img/howToStart/7_createNewProj.png)
+Just download the zip : https://github.com/husarion/core2-mbed-template/archive/master.zip and extract it in your workspace.
 
-Select CORE2 board, chose HowToStart project template and enter name, eg. myFirstProject, and click "Create project" button.
+On Linux:
 
-![image](/docs/assets/img/howToStart/8_projSettings.png)
+```bash
+wget https://github.com/husarion/core2-mbed-template/archive/master.zip && unzip master.zip
+```
 
-This is a web Integrated Development Environment in which you can write a firmware for your device, and upload the firmware through the Internet.
+You can also clone the repository using GIT:
 
-![image](/docs/assets/img/howToStart/9_webIDEmain.png)
+```bash
+git clone https://github.com/husarion/core2-mbed-template.git
+```
 
-Click "&lt;none&gt;" next to "selected device" and select "myFirstDev" device.
+Open the template project in Visual Studio Code. In file `setting.json` from the directory `.vscode` in your template, change the value of `C_cpp.default.compilerPath` to match location of `arm-none-eabi-gcc` on your system:
 
-![image](/docs/assets/img/howToStart/10_webIDEselectDev.png)
+Windows:
+```json
+{
+"C_Cpp.default.compilerPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/6 2017-q2-update/bin/arm-none-eabi-g++"
+}
+```
 
-Click a button with a "cloud with arrow" to upload new firmware to your device. Well done! now you can check how your first program works.
+Linux:
+```json
+{
+"C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-g++"
+}
+```
 
-![image](/docs/assets/img/howToStart/11_webIDEprogram.png)
+> The paths may differ on your system.
 
-In the previous step you have uploaded the firmware into your CORE2. Let's check how it works!<br/>
+This will enable more accurate IntelliSense and remove some error notifications.
 
-Go to https://cloud.husarion.com and click the myFirstDev's avatar. It's web user interface will start loading.
+#### Template Project's files
 
-![image](/docs/assets/img/howToStart/12_openDevUI.png)
+Open the template project's directory and select `src/main.cpp`. You should see:
 
-After a while your device UI will appear. Now spend a few seconds playing with a dev's interface.
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img1.png" width="800px" alt=""/></center>
+</div> 
 
-![image](/docs/assets/img/howToStart/13_devUI.png)
+The sample code is very simple. It instantiates a `BusOut` object that controls multiple GPIOs regardless of ports they belong to. On-board LEDs blink in order described by `leds_mask` array at the interval introduced by function `ThisThread::sleep_for(1000)`.    
 
-## Share your device with friends ##
-Husarion Cloud allows you to share your devices conntected to Husarion cloud with other people with just a few clicks.
+In directory's root folder find `custom_targets.json` file:
 
-Click "+" next to your device name at https://cloud.husarion.com and select "Share".
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img2.png" width="800px" alt=""/></center>
+</div> 
 
-![image](/docs/assets/img/howToStart/14_shareSelect.png)
+Mbed OS Configuration system uses this file to describe user's custom boards. It allows using Mbed OS with boards that aren't officially supported. We use `custom_targets.json` and files from `TARGET_CORE2` to define `CORE2` target. You can learn more about configuration system [here](https://os.mbed.com/docs/v5.13/reference/configuration.html).
 
-Select "Share via Link" and click "Generate link". Now you can send this link to anybody you want to access your device.
+In the directory `TARGET_CORE2` you can find files `PinNames.h` and `PeripheralPins.c`. First one defines pin names of mcu and the latter defines peripherals that can be used on each pin.
 
-![image](/docs/assets/img/howToStart/15_shareDetails.png)
+Another file that is used by Mbed OS configuration system is `mbed_app.json`. Open it.
 
-When you open generated link, you’ll see your device’s web UI.
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img3.png" width="800px" alt=""/></center>
+</div> 
 
-![image](/docs/assets/img/howToStart/16_shareUI.png)
+This file is used to configure your application. It allows to override the default configuration of mbed libraries (or your own) for specific targets (tag `"target_overrides"`). You can also define your own macros that will have global visibility (tag `"macros"`) and create configuration entries (tag `"config"`).
 
-Now you can share the link with anybody!
+You can learn details of your configuration by running following command in the root directory of the template project:
+
+```bash
+mbed compile --config --source . --source ../mbed-os/ -v
+```
+
+The last file we will check is `task.json` from `.vscode` directory. It defines tasks that are recognized by Visual Studio Code IDE. The tasks can be accessed by pressing `CTRL + SHIFT + P` and typing `Task: Run Task` in Command Pallete.
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img4.png" width="800px" alt=""/></center>
+</div> 
+
+Here is the list of available tasks: 
+* `BUILD (RELEASE)`
+* `BUILD (DEBUG)`
+* `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`*
+* `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)`  *
+* `FLASH FIRMWARE NO BOOTLOADER (RELEASE)`  *
+* `FLASH FIRMWARE NO BOOTLOADER (DEBUG)`    *
+* `CREATE STATIC MBED-OS LIB (RELEASE)`
+* `CREATE STATIC MBED-OS LIB (DEBUG)`
+* `BUILD FROM STATIC LIB (RELEASE)`
+* `BUILD FROM STATIC LIB (DEBUG)`
+* `CLEAN DEBUG`
+* `CLEAN RELEASE`
+
+`*` *require ST-LINK programmer*
+
+### Building and flashing firmware
+
+> **Important!**
+>
+> At this point I assume you still have the core2 bootloader. We will cover using firmware without bootloader too. 
+
+
+Press `CTRL + SHIFT + B`. It will run `BUILD (RELEASE)` task. Wait until compilation finishes.
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img5.png" width="800px" alt=""/></center>
+</div> 
+
+Connect your ST-LINK programmer to debug pins of CORE2 and make sure it's connected to your computer. Press `CTRL + SHIFT + P` and in Command Pallete type `Task: Run Task`. Select `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`. The firmware flashing procedure should start:
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img6.png" width="800px" alt=""/></center>
+</div> 
+
+If LEDs start blinking like on the animation below then congratulations! You've just successfully built and flashed your first Mbed application for CORE2!
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-animation.gif" alt="result"/></center>
+</div> 
+
+### Building firmware without bootloader
+
+The software bootloader is necessary if you use Husarion Cloud IDE and hFramework. It is not required if we want to use offline tools and Mbed OS. To upload firmware over the Internet we will connect to SBC directly and use `stm32loader` tool.
+
+Please remove following lines from `mbed_app.json` in template project:
+```json
+"target.mbed_app_start":"0x08010000",
+"target.mbed_rom_start":"0x08000000",
+"target.mbed_rom_size":"0x100000"
+```
+They're responsible for shifting the firmware so it can "fit" in the flash memory alongside the bootloader.
+
+Press `CTRL + SHIFT + P` and select `BUILD (RELEASE)` task. Wait until compilation finishes. Now the firmware starts at the beginning of the memory.
+
+### stm32loader installation
+
+Please log into your SBC and follow this step by step tutorial on how to install and configure this tool.
+
+<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your device. These processes are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need the direct access to them. Run:
+
+```bash
+sudo systemctl disable husarnet-configurator
+sudo systemctl stop husarnet-configurator
+sudo systemctl disable husarion-shield
+sudo reboot
+```
+
+<strong>2.</strong> Install necessary support libraries for your device:
+
+**RPi:**
+```
+pip install RPi.GPIO
+```
+
+**Upboard:**
+```bash
+cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
+cd ~/python-periphery && git checkout v1.1.2
+sudo python setup.py install --record files.txt
+```
+**Asus Tinker board:**
+```bash
+cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
+cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
+```
+
+Restart the terminal after the installation.
+
+<strong>3.</strong> Install `stm32loader`:
+```bash
+cd ~/ && git clone https://github.com/husarion/stm32loader.git
+cd ~/stm32loader && sudo python setup.py install --record files.txt
+```
+
+### stm32loader usage
+
+Printing help:
+```bash
+stm32loader --help
+```
+
+To remove bootloader run:
+```bash
+sudo stm32loader -c <your-sbc> -W
+sudo stm32loader -c <your-sbc> -e
+```
+
+where `<your-sbc>` is:
+* `tinker` for Asus Tinker Board
+* `upboard` for Upboard
+* `rpi` for Raspberry Pi
+
+To upload the `firmware.bin` directly from SBC copy the firmware from your template project's `BUILD/RELEASE/` directory to SBC using `scp`. Following code will copy `firmware.bin` file to remote user's home directory.
+
+```bash
+scp firmware.bin user@address:~/
+```
+
+To flash new firmware log into your SBC and in the directory which contain the firmware run:
+
+```bash 
+sudo stm32loader -c <your_sbc> -e -w -v firmware.bin
+```
+
+### Tasks
+- Modify existing application so as the on-board leds blink in Gray code. 
+- Add [Serial](https://os.mbed.com/docs/v5.10/apis/serial.html) to print current sequence to the stdout (micro-usb port on CORE2) at the same time. 
+- In configuration files change baudrate to 9600. 
+- Check target's files and learn which UART instance is connected to pins `USBTX` and `USBRX`.    
+
+## Rosserial library
+
+If you made it this far you must be really into this stuff! Let's do something more interesting and learn how to communicate with devices running ROS using mbed. For this purpose we will use [rosserial for mbed platforms](http://wiki.ros.org/rosserial_mbed). 
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/ros_logo.png" width="400px" alt="result"/></center>
+</div> 
+
+### Example publisher
+
+First we will create a new project directory. Just simply duplicate template project and name it `example-publisher`:
+
+```bash
+cp -rf core2-mbed-template example-publisher
+```
+
+Another way is to create empty mbed project using Mbed CLI. Just type:
+```bash
+mbed new <project-name> --program
+```
+After that copy content of template project except `.git` directory to your newly created program directory.
+
+> **Tip**
+>
+> If you cloned your template project from online repository and you don't want to have version control in it just delete `.git` directory:
+> ```bash
+> rm -rf ./core2-mbed-template/.git/
+> ```
+> You can add it latter by running `git init .` in root dir of your project.   
+
+Open `example-publisher` directory in Visual Studio Code. In the program press `CTRL + ~` to open built-in terminal. In the terminal type:
+
+```bash
+cd lib 
+mbed add https://github.com/husarion/rosserial-mbed
+```
+
+This will add `rosserial-mbed` library to your project and download all library's dependencies. Managing libraries this way is simple:
+* `mbed add <library-url>` - adds library to project,
+* `mbed remove <library-name>` - removes library from project.
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img7.png" width="800px" alt=""/></center>
+</div> 
+
+#### The code
+
+Take a minute to analyze the program below. We provided you with comments to make it easier. 
+
+```
+/*
+ * main.cpp
+ */
+#include <mbed.h>
+#include <Thread.h>
+
+// This header file must be included before any other 
+// ros header files.
+#include <ros.h> 
+#include <std_msgs/String.h>
+
+// DigitalOut objects for controlling on-board leds.
+DigitalOut led1(LED1,0), led2(LED2,1), ros_led(LED3,0);
+
+// Thread object for controlling ros task. Feature of RTOS.
+Thread ros_thread;
+
+// Ticker object for controlling reoccurring interrupt 
+// that calls attached callback at given rate.  
+Ticker blinker;
+
+// Node handle instantiation - required for registering publishers, subscribers
+// and handling serial communication.
+ros::NodeHandle  nh;
+
+static const char * messages[] = {
+    "mbed V5.10", "CORE2", "MCU", "STM32F407ZG", 
+};
+
+// ros task
+void rosThreadCallback(void)
+{
+    std_msgs::String str_msg;
+        
+    // Instantiate Publisher object with topic name "mbed device".
+    // Second parameter is reference to instance of object that
+    // will be used in communication.
+    ros::Publisher mbed_device("mbed_device", &str_msg);
+
+    // Initialize node and advertise our custom topic. 
+    nh.initNode();
+    nh.advertise(mbed_device);
+
+    int i=0, n = sizeof(messages)/sizeof(messages[0]);
+
+    while(1)
+    {
+        ros_led = !ros_led;
+        str_msg.data = messages[i%n];
+
+        // publish message to topic
+        mbed_device.publish(&str_msg);
+        i++;
+
+        // process all messages
+        nh.spinOnce();
+
+        ThisThread::sleep_for(1000);
+    }
+}
+
+void blinkerCallback(void)
+{
+    led1 = !led1;
+    led2 = !led2;
+}
+
+int main()
+{
+    // registering a ros task
+    ros_thread.start(callback(rosThreadCallback));
+
+    // We attach callback to blink leds every 2s
+    blinker.attach(callback(blinkerCallback),2.0);
+}
+```
+
+As you can see the program is pretty straightforward. It creates topic "device_mbed" and publishes messages to it blinking board's leds at the same time. 
+
+If you would like to know more about mbed specific code check [Mbed API](https://os.mbed.com/docs/v5.10/apis/index.html) :
+* [Thread](https://os.mbed.com/docs/v5.10/apis/thread.html),
+* [Ticker](https://os.mbed.com/docs/v5.10/apis/ticker.html),
+* [DigitalOut](https://os.mbed.com/docs/v5.10/apis/digitalout.html).
+
+#### Running the code
+
+To get the application working we need to configure library's serial pins and baudrate. You can check default values in `rosserial-lib/mbed_lib.json`. If you use CORE2 with SBC connected to RPI connector, add this lines to your `mbed_app.json` file under `target_overrides.CORE2` object:
+
+```json
+"rosserial-mbed.tx_pin": "RPI_SERIAL_TX",
+"rosserial-mbed.rx_pin": "RPI_SERIAL_RX",
+"rosserial-mbed.baudrate": "115200"
+```
+
+Your `mbed_app.json` file should look like this:
+```json
+{
+    "config": {},
+    "macros": [
+        "ENCODER_1=TIM2",
+        "ENCODER_2=TIM8",
+        "ENCODER_3=TIM3",
+        "ENCODER_4=TIM4",
+        "UPPER_RESISTOR=5.6e4",
+        "LOWER_RESISTOR=1.0e4",
+        "VIN_MEAS_CORRECTION=0.986"
+    ],
+    "target_overrides": {
+        "CORE2": {
+            "events.shared-dispatch-from-application": 0,
+            "events.shared-eventsize": 512,
+            "events.shared-stacksize": 2048,
+            "platform.default-serial-baud-rate": 230400,
+            "platform.stdio-baud-rate": 230400,
+            "platform.all-stats-enabled": false,
+            "rosserial-mbed.tx_pin": "RPI_SERIAL_TX",
+            "rosserial-mbed.rx_pin": "RPI_SERIAL_RX",
+            "rosserial-mbed.baudrate": "115200"
+        }
+    }
+}
+```
+Now you can compile the project and flash it to your board. To view communication on your SBC you must disable Husarion Cloud.
+
+If you haven't already disabled `husarnet-configurator` service please run:
+```bash
+systemctl disable husarnet-configurator
+sudo shutdown -r now # it will reboot your SBC
+```
+
+After reboot open terminal and in first tab run `roscore`. Press `CTRL + SHIFT + T` and in second tab run:
+
+* Raspberry PI
+```bash
+rosrun rosserial_python serial_node.py _port:=/dev/serial0 _baud:=115200
+```
+
+* Asus Tinker Board
+```bash
+rosrun rosserial_python serial_node.py _port:=/dev/ttyS1 _baud:=115200
+```
+
+* Upboard
+```bash
+rosrun rosserial_python serial_node.py _port:=/dev/ttyS4 _baud:=115200
+```
+
+This will forward your MBED messages to rest of ROS. 
+
+To view communication on "mbed_device" topic open new termina and run:
+```bash
+rostopic echo mbed_device
+```
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img8.png" width="800px" alt=""/></center> 
+</div> 
+ 
+### Example subscriber
+
+In this project we'll use both publisher and subscriber as well as some cryptographic functionality of [mbed TLS library](https://tls.mbed.org/) . Mbed TLS library include crypto and SSL/TLS capabilities with minimal footprint and easy to use API. It is available as part of Mbed OS.
+
+Like in previous example create a new project and name it `subscriber-example`.
+
+#### The code
+
+The example creates two topics - "raw_input" for user to send short String messages to be encrypted by [AES-ECB](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) block cipher and "encrypted_output" for user to collect encrypted messages.
+
+```cpp
+/*
+ * main.cpp
+ */
+#include <mbed.h>
+#include <Thread.h>
+#include <ros.h> 
+#include <std_msgs/String.h>
+
+// header file for AES
+#include <mbedtls/aes.h>
+#define BLOCK_SIZE 16
+
+// LED1 = PE_2, 
+// LED2 = PE_3, 
+// LED3 = PE_4,
+
+// Port masks
+enum {
+    NONE = 0,
+    L1 = 0b00000100,
+    L2 = 0b00001000,
+    L3 = 0b00010000,
+    L1L2 = 0b00001100,
+    ALL = 0b00011100
+};
+
+uint8_t masks[] = {NONE,L1,L1L2,ALL};
+
+// Controls port E
+PortOut leds(PortE,ALL);
+
+Thread ros_thread;
+volatile bool message_ready = false;
+
+// variables required for AES encryption ECB mode
+mbedtls_aes_context aes;
+const uint8_t secret_key[BLOCK_SIZE+1] = "YMZE4oIxB9M14bkF"; // 128-bit key
+uint8_t input[BLOCK_SIZE];
+uint8_t output[BLOCK_SIZE];
+char formatted_output[2*BLOCK_SIZE+1];
+
+void subscriberCallback(const std_msgs::String &raw)
+{
+    // check if length <= 16
+    int n = strlen(raw.data);
+    if (n == 0 || n > 16)
+        return;
+    memcpy(input, raw.data, n);
+    // zero padding
+    for (int i = n; i < BLOCK_SIZE; ++i)
+        input[i] = 0;
+
+    // encrypt message
+    mbedtls_aes_crypt_ecb(&aes, MBEDTLS_AES_ENCRYPT, input, output);
+    message_ready = true;
+}
+
+void rosThreadCallback(void)
+{
+    ros::NodeHandle nh;
+
+    // the output will be formated string of characters
+    std_msgs::String str_output;
+    ros::Publisher pub("output_encrypted", &str_output);
+
+    // We instantiate publisher object with "input_raw" topic and attach
+    // callback for subscriber event (when user sends something).
+    ros::Subscriber<std_msgs::String> sub("input_raw", subscriberCallback);
+
+    nh.initNode();
+    nh.advertise(pub);
+
+    // subscribe to topic
+    nh.subscribe(sub);
+
+    // set aes key
+    mbedtls_aes_setkey_enc(&aes, secret_key, 128);
+    while (1)
+    {
+        // if message was encrypted send result to topic
+        if (message_ready)
+        {
+            int j = 0;
+            // format data
+            for (int i = 0; i < BLOCK_SIZE; ++i)
+            {
+                sprintf(formatted_output + j, "%02X", *(output + i));
+                j += 2;
+            }
+            str_output.data = formatted_output;
+            pub.publish(&str_output);
+            message_ready = false;
+        }
+        nh.spinOnce();
+        ThisThread::sleep_for(50);
+    }
+}
+
+int main()
+{
+    // registering a ros task
+    ros_thread.start(callback(rosThreadCallback));
+    int i = 0, n = sizeof(masks);
+    while(1)
+    {
+        leds = masks[i%n];
+        i++;
+        ThisThread::sleep_for(500);
+    }
+}
+```
+
+More about API used:
+* [PortOut](https://os.mbed.com/docs/v5.10/apis/portout.html),
+* [mbedtls_aes_crypt_ecb()](https://tls.mbed.org/api/aes_8h.html#a0e59fdda18a145e702984268b9ab291a).
+
+#### Running the code
+
+On your SBC open a terminal and in separate tabs start `roscore` and `rosrun rosserial_python serial_node.py` bridge with the same parameters like in the previous example. 
+
+To receive encrypted messages, in a new tab run:
+```bash
+rostopic echo output_encrypted
+```
+
+To publish new message to "input_raw" topic open a new tab and run:
+
+```bash
+rostopic pub input_raw std_msgs/String "Hello World!" --once
+```
+
+<div>
+<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img9.png" width="800px" alt=""/></center> 
+</div>
+
+If you want to learn more - check official [rosserial mbed tutorials](http://wiki.ros.org/rosserial_mbed/Tutorials) from **ros.org**. 
+
+### Tasks
+* Create an application that monitors the on-board button and publish the number of pushes to topic "button" every time the button's state changes. Use [InterruptIn](https://os.mbed.com/docs/v5.10/apis/interruptin.html) object. 
+* Create an application that lights up on-board leds accordingly to the mask value received on "led_mask" topic. Use `std_msgs::Uint8` type for ROS communication.
+
+<!-- TODO: MOTOR SECTION -->
+
+## Summary
+
+After completing this tutorial you should know the basics of Mbed OS 
+components and tools. You should be able to create, compile and run mbed 
+applications on CORE2 and use Rosserial library to incorporate your mbed platform into ROS projects.
+
+---------
+
+*by Szymon Szantula, Husarion*
+
+*Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com*
+

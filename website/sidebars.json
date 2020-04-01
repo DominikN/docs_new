@@ -44,14 +44,6 @@
       },
       {
         "type": "subcategory",
-        "label": "Mbed tutorials",
-        "ids": [
-          "tutorials/mbed-tutorials/using-core2-with-mbed-os",
-          "tutorials/mbed-tutorials/rosbot-and-ws2812b-led-signalization"
-        ]
-      },
-      {
-        "type": "subcategory",
         "label": "AWS RoboMaker + ROSbot 2.0",
         "ids": [
           "tutorials/aws-robomaker/rosbot-aws-robomaker-quick-start",
@@ -66,7 +58,8 @@
         "ids": [
           "tutorials/other-tutorials/rosbot-rosds-quick-start",
           "tutorials/other-tutorials/husarnet-cyclone-dds",
-          "tutorials/howtostart/getting-started-with-core2-lego-mindstorms"
+          "tutorials/other-tutorials/getting-started-with-core2-lego-mindstorms",
+          "tutorials/other-tutorials/rosbot-and-ws2812b-led-signalization"
         ]
       },
       {
