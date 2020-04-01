@@ -1,6 +1,6 @@
 ---
 title: Using Cyclone DDS with Husarnet on ROS2 
-sidebar_label: 3. Using Cyclone DDS with Husarnet on ROS2 
+sidebar_label: 2. Using Cyclone DDS with Husarnet on ROS2 
 id: husarnet-cyclone-dds
 ---
 

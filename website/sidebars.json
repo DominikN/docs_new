@@ -7,7 +7,6 @@
         "label": "How to start",
         "ids": [
           "tutorials/howtostart/core2-quick-start",
-          "tutorials/howtostart/getting-started-with-core2-lego-mindstorms",
           "tutorials/howtostart/rosbot---quick-start"
         ]
       },
@@ -65,15 +64,16 @@
         "type": "subcategory",
         "label": "Other tutorials",
         "ids": [
-          "tutorials/other-tutorials/using-core2-to-publish-ros-topics-through-usb",
           "tutorials/other-tutorials/rosbot-rosds-quick-start",
-          "tutorials/other-tutorials/husarnet-cyclone-dds"
+          "tutorials/other-tutorials/husarnet-cyclone-dds",
+          "tutorials/howtostart/getting-started-with-core2-lego-mindstorms"
         ]
       },
       {
         "type": "subcategory",
         "label": "Deprecated",
         "ids": [
+          "tutorials/deprecated/using-core2-to-publish-ros-topics-through-usb",
           "tutorials/deprecated/hframework-library-development",
           "tutorials/deprecated/offline-development-tools",
           "tutorials/deprecated/how-to-use-core2-ros-local-serial-offline"

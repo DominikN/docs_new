@@ -1,6 +1,6 @@
 ---
 title: Getting started with CORE2 + LEGO Mindstorms
-sidebar_label: 2. Getting started with CORE2 + LEGO Mindstorms
+sidebar_label: 3. Getting started with CORE2 + LEGO Mindstorms
 id: getting-started-with-core2-lego-mindstorms
 ---
 
