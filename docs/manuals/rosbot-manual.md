@@ -541,7 +541,7 @@ This process will differ depending on ROSbot version that you have.
 
 1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, thel pull it out. You can find SD card slot on ROSbot right side.
  ![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
-2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads) (there is a single image for both platforms).
+2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads), you can choose ROS Kinetic, ROS Melodic or ROS2 Dashing.
 3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
@@ -560,7 +560,7 @@ Before you begin, you will need:
 - Mouse, keyboard and USB hub
 - Display with HDMI cable
 
-1. Download Ubuntu 16.04 installation image from official [Ubuntu Releases](http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-amd64.iso).
+1. Download image for UpBoard from [here](https://husarion.com/downloads), you can choose ROS Kinetic, ROS Melodic or ROS2 Dashing.
 2. Flash Ubuntu on USB drive (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - Download [Etcher](https://www.balena.io/etcher/) and install it.
  - Plug in USB drive into your computer.
@@ -575,11 +575,7 @@ Before you begin, you will need:
 8. Click "Right arrow" to enter Boot card and change Boot Option Priorities for your USB drive.
 9. Save & Exit.
 10. After Restart chose option Install Ubuntu (remember to choose option with erasing new Ubuntu and remove all part of the old one).
-11. After installation go to [files.husarion.com](https://files.husarion.com) and download `upboard.sh` file.
-12. Change file permissions: `sudo chmod 777 upboard.sh`
-13. Run file: `sudo ./upboard.sh` (remember to chose option "NO" when you will see a dialog window with question about abandon kernel removal).
-14. After finish, reboot device.
-15. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
+11. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
 
 ## Connect ROSbot to your Wi-Fi network
 
@@ -662,7 +658,9 @@ SSH to ROSbot over LAN network or VPN to get access to it's Linux terminal.
 
 #### stm32loader installation
 
-We will use `stm32loader` tool to upload the firmware to ROSbot. To check if you have this tool already installed on your robot, open the terminal and run:
+We will use `stm32loader` tool to upload the firmware to ROSbot. All ROSbot images have this tool **already installed**. 
+
+In case you have uninstalled this tool, you can find installation steps below. To verify that you have this tool already installed on your robot, open the terminal and run:
 
 ```bash
 sudo stm32loader --help
@@ -729,10 +727,14 @@ We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have 
   - `500000` for ROSbot 2.0
   - `460800` for ROSbot 2.0 Pro
 
+For ROS Kinetic and Melodic the same firmware is compatible, ROS2 Dashing has different firmware.
+
 Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
 
-- [`ROSbot 2.0 fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.10.1.bin)
-- [`ROSbot 2.0 Pro fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.10.1.bin)
+- [`ROSbot 2.0 with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.10.1.bin)
+- [`ROSbot 2.0 Pro with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.10.1.bin)
+- [`ROSbot 2.0 with ROS2 Dashing`](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-fw-ros2-v0.2.0-synchro.bin)
+- [`ROSbot 2.0 Pro with ROS2 Dashing`](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-pro-fw-ros2-v0.2.0-synchro.bin)
 
 Before uploading the firmware using `stm32loader` make sure you have the `husarnet-configurator` service disabled.
 
@@ -760,7 +762,7 @@ sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
 
 Wait until firmware is uploaded.
 
-#### Required ROS packages - `rosbot_ekf`
+#### Required ROS packages for Kinetic and Melodic - `rosbot_ekf`
 
 In order to use mbed firmware the `rosbot_ekf` package have to be installed in your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the imu and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. To install the package please follow the steps below.
 
@@ -802,6 +804,44 @@ For PRO version add parameter:
 
 ```
 roslaunch rosbot_ekf all.launch rosbot_pro:=true
+```
+
+
+#### Launching navigation example on ROS2 Dashing
+
+Enable communication between FastRTPS on IPv4 and CycloneDDS on IPv6:
+
+```
+ros2 run dds_bridge dds_bridge
+```
+
+To find out more regarding the interoperability issue, refer to [`dds_bridge` documentation](https://github.com/husarion/dds_bridge#dds-bridge)
+
+By default CORE is measuring time since reset, thus timestapms are published the same.
+If you want to use system time, use `rosbot_time_publisher` node:
+
+```
+RMW_IMPLEMENTATION=rmw_fastrtps_cpp ros2 run dds_bridge rosbot_time_publisher
+```
+
+The example allows to build a map and navigate to user defined destinations.
+
+To run on ROSbot 2.0:
+
+```
+ros2 launch rosbot_description rosbot.launch.py
+```
+
+To run on ROSbot 2.0 PRO:
+
+```
+ros2 launch rosbot_description rosbot_pro.launch.py
+```
+
+To run the simulation:
+
+```
+ros2 launch rosbot_description rosbot_sim.launch.py
 ```
 
 ### II. Husarion Cloud + hFramework firmware (deprecated)
