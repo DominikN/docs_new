@@ -263,38 +263,6 @@ For PRO version add parameter:
 roslaunch rosbot_ekf all.launch rosbot_pro:=true
 ```
 
-### II. Husarion Cloud + hFramework firmware (deprecated)
-
-[hFramework](https://github.com/husarion/hFramework) is a framework used to create the previous version of ROSbot low-level firmware. It is not recommended to be used. Instead of hFramework based firmware please consider using mbed based ROSbot firmware mentioned. However that instruction is preserved for backward compatibility.
-
-At first you have to connect ROSbot to Husarion cloud. There are two ways to do that: over the terminal and using hConfig app.
-
-**a. Using Linux terminal**
-
-- open https://cloud.husarion.com in your web browser
-- click **Add new** button
-- enter device name and click **Next**
-- copy a code under a QR code (it looks like: `prod|xxxxxxxxxxxxxxxxxxxxxx`)
-- open Linux terminal execude a command (including code from the previous step)
-  `sudo husarion-register --code "prod|xxxxxxxxxxxxxxxxxxxxxx"`, and then `sudo systemctl restart husarnet-configurator`
-- after a few seconds you should see your device online at https://cloud.husarion.com
-
-**b. Using hConfig app (only for ROSbot 2.0)**
-That's a deprecated option, so previously mentioned instructions are preferred.
-
-- Press and hold the hCfg button on ROSbots rear panel.
-- Turn on the power switch.
-- When blue and yellow LEDs starts blinking, release the hCfg button.
-- Connect your mobile device to Husarion Wi-Fi and open hConfig app (<a href="https://itunes.apple.com/us/app/hconfig/id1283536270?mt=8">hConfig in App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.husarion.configtool2">hConfig in Google Play</a>) to connect ROSbot to the Wi-Fi network and your user account at <a href="https://cloud.husarion.com">cloud.husarion.com</a> (<a href="https://husarion.com/core2/tutorials/howtostart/run-your-first-program/#run-your-first-program-connecting-to-the-cloud">how to do this</a>).
-
-If your ROSbot is connected to Husarion cloud do the following steps:
-
-- Turn on your ROSbot.
-- At https://cloud.husarion.com click "edit" next to your device name and select "IDE".
-- Create a new project using CORE2 as your board and **"ROSbot default firmware"** as a template.
-- Build and upload program to the device (use button with a cloud in left-up corner).
-- Go back to main panel of https://cloud.husarion.com
-
 ## Setup web user interface for ROSbot
 
 Type the following lines in the terminal to update the package list and upgrade packages:

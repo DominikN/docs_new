@@ -154,6 +154,11 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
         <td>VL53L0X Time-of-Flight distance sensor with up to 200 cm range, <a href="https://www.pololu.com/file/0J1187/VL53L0X.pdf"> more details</a>.</td>
     </tr>
     <tr>
+        <td>CORE2</td>
+        <td>1</td>
+        <td>Real-time controller based on STM32F407 microcontroller.</td>
+    </tr>
+    <tr>
         <td>DC motor</td>
         <td>4</td>
         <td>Xinhe Motor XH-25D
@@ -200,9 +205,9 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
        <th>Description</th>
     </tr>
     <tr>
-        <td>CORE2-ROS</td>
+        <td>SBC</td>
         <td>1</td>
-        <td>Advanced version of CORE2 with an ASUS Tinker board computer. CORE2 real-time controller is based on STM32F407 microcontroller. The SBC runs on Ubuntu-based OS, customized to use ROS.</td>
+        <td>ASUS Tinker Board with 2 GB RAM, Rockchip RK 3288 with 4x 1.80 GHz as CPU and a ARM Mali-T764 MP2 as a GPU. The SBC runs on Ubuntu-based OS, customized to use ROS.</td>
     </tr>
     <tr>
         <td>LIDAR</td>
@@ -224,9 +229,9 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
        <th>Description</th>
     </tr>
     <tr>
-        <td>CORE2-ROS</td>
+        <td>SBC</td>
         <td>1</td>
-        <td>Advanced version of CORE2 with an Up Board computer. CORE2 real-time controller is based on STM32F407 microcontroller. The SBC runs on Ubuntu-based OS, customized to use ROS.</td>
+        <td>UpBoard with 4 GB RAM, Quad-Core Intel Atom Z8350 1,92 GHz as CPU, a Intel® HD 400 Graphics as a GPU and 32GB eMMC. The SBC runs on Ubuntu-based OS, customized to use ROS.</td>
     </tr>
     <tr>
         <td>LIDAR</td>
@@ -526,7 +531,7 @@ Before you begin, you will need:
 - Mouse, keyboard and USB hub
 - Display with HDMI cable
 
-1. Download Ubuntu 16.04 installation image from official [Ubuntu Releases](http://releases.ubuntu.com/16.04/ubuntu-16.04.6-desktop-amd64.iso).
+1. Download Ubuntu installation image from section [Downloads](https://husarion.com/downloads/) on our webside.
 2. Flash Ubuntu on USB drive (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - Download [Etcher](https://www.balena.io/etcher/) and install it.
  - Plug in USB drive into your computer.
@@ -541,11 +546,7 @@ Before you begin, you will need:
 8. Click "Right arrow" to enter Boot card and change Boot Option Priorities for your USB drive.
 9. Save & Exit.
 10. After Restart chose option Install Ubuntu (remember to choose option with erasing new Ubuntu and remove all part of the old one).
-11. After installation go to [files.husarion.com](https://files.husarion.com) and download `upboard.sh` file.
-12. Change file permissions: `sudo chmod 777 upboard.sh`
-13. Run file: `sudo ./upboard.sh` (remember to chose option "NO" when you will see a dialog window with question about abandon kernel removal).
-14. After finish, reboot device.
-15. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
+11. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
 
 ## Connect ROSbot to your Wi-Fi network
 
