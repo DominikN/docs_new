@@ -445,7 +445,7 @@ You can use below `launch` file:
 
     <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
+    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch"/>
     
     <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
         <arg name="serial_port" value="/dev/ttyS4"/>
