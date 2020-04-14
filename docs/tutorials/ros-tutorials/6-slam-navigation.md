@@ -233,7 +233,7 @@ for publishing relation between robot base and laser scanner.
 We can run it from command line:
 
 ```bash
-$ rosrun tf static_transform_publisher 0 0 0 3.14 0 0 base_link laser_frame 100
+$ rosrun tf static_transform_publisher 0 0 0 3.14 0 0 base_link laser 100
 ```
 Arguments are consecutively:
 
@@ -243,7 +243,7 @@ Arguments are consecutively:
 
 - `base_link` - transformation parent frame - the one that is static
 
-- `laser_frame` - transformation child frame - the one that is
+- `laser` - transformation child frame - the one that is
   transformed
 
 - `100` - delay between consecutive messages
@@ -256,12 +256,12 @@ probably your laser scanner will be attached above robot base. To set
 scanner 10 centimeters above robot you should use:
 
 ```bash
-rosrun tf static_transform_publisher 0 0 0.1 0 0 0 base_link laser_frame 100
+rosrun tf static_transform_publisher 0 0 0.1 0 0 0 base_link laser 100
 ```
 And if your scanner is also rotated by 180º around z-axis it should be:
 
 ```bash
-rosrun tf static_transform_publisher 0 0 0.1 3.14 0 0 base_link laser_frame 100
+rosrun tf static_transform_publisher 0 0 0.1 3.14 0 0 base_link laser 100
 ```
 Remember that if you have improperly mounted scanner or its position is
 not set correctly, your map will be generated with errors or it will be
@@ -330,7 +330,7 @@ will get lots of output that is hard to read. Better method for checking
 the `/scan` topic is to use rviz. Run rviz and click **Add** from object
 manipulation buttons, in new window select **`By topic`** and from the
 list select `/scan`. In visualized items list find position
-`Fixed Frame` and change it to `laser_frame`. To improve visibility of
+`Fixed Frame` and change it to `laser`. To improve visibility of
 scanned shape, you may need to adjust one of visualized object options,
 set value of `Style` to `Points`. You should see many points which
 resemble shape of obstacles surrounding your robot.
@@ -390,7 +390,7 @@ You can use below `launch` file:
     </include> 
     -->
 
-    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
+    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
@@ -452,7 +452,7 @@ You can use below `launch` file:
         <arg name="serial_baudrate" value="460800"/>
     </include>
 
-    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser_frame 100" />
+    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
