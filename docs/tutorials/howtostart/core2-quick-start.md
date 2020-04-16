@@ -77,9 +77,9 @@ Everything up and ready? Proceed to the next steps then.
 
 `mbed-cli` is a package name of **Arm Mbed CLI**, a command-line tool that enables use of Mbed build system, GIT/Mercurial-based version control, dependencies management and more. Check [Mbed CLI GitHub page](https://github.com/ARMmbed/mbed-cli) or [Mbed documentation](https://os.mbed.com/docs/v5.10/tools/developing-mbed-cli.html) for details about the tool.  
 
-To install `mbed-cli` follow [this](https://os.mbed.com/docs/mbed-os/v5.13/tools/installation-and-setup.html) tutorial from the Mbed documentation. 
+To install `mbed-cli` follow [this](https://os.mbed.com/docs/mbed-os/v5.14/tools/installation-and-setup.html) tutorial from the Mbed documentation. 
 
-Installers for both Windows and macOS are provided. Linux users have to install tool manually. In case you are user of the latter system check if you have both Git and Mercurial installed before you start. See [Instructions for Linux](https://os.mbed.com/docs/mbed-os/v5.13/tools/manual-installation.html#instructions-for-linux) page for more details.
+Installers for both Windows and macOS are provided. Linux users have to install tool manually. In case you are user of the latter system check if you have both Git and Mercurial installed before you start. See [Instructions for Linux](https://os.mbed.com/docs/mbed-os/v5.14/tools/manual-installation.html) page for more details.
 
 Check if the installation was successful by running following command in the terminal:
 
@@ -130,6 +130,18 @@ mbed import mbed-os
 [mbed] Importing program "mbed-os" from "https://github.com/ARMmbed/mbed-os" at latest revision in the current branch
 ```
 
+Set Mbed OS version to supported by this template:
+
+```bash
+cd mbed-os
+mbed update mbed-os-5.14.1
+```
+
+During Mbed OS installation you can be asked to install additional python libraries. Switch to mbed-os dir and run:
+```bash
+pip install -r requirements.txt --user
+```
+
 Mbed CLI needs to know the path to `mbed-os` directory. This way all your projects can use one instance of library (default configuration is to have separate instance of library for each project). Run:
 
 ```bash
@@ -162,10 +174,11 @@ features/netsocket/*
 features/nfc/*
 features/unsupported/*
 components/wifi/*
+components/cellular/*
 components/802.15.4_RF/*
+components/TARGET_PSA/*
 targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/STM32F407XG.ld
 targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/startup_stm32f407xx.S
-usb/*
 ```
 
 ### Template Project
@@ -206,7 +219,7 @@ Linux:
 
 This will enable more accurate IntelliSense and remove some error notifications.
 
-#### Template Project's files
+#### Template description
 
 Open the template project's directory and select `src/main.cpp`. You should see:
 
@@ -249,10 +262,10 @@ The last file we will check is `task.json` from `.vscode` directory. It defines 
 Here is the list of available tasks: 
 * `BUILD (RELEASE)`
 * `BUILD (DEBUG)`
+* `FLASH FIRMWARE (RELEASE)`  *
+* `FLASH FIRMWARE (DEBUG)`    *
 * `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`*
 * `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)`  *
-* `FLASH FIRMWARE NO BOOTLOADER (RELEASE)`  *
-* `FLASH FIRMWARE NO BOOTLOADER (DEBUG)`    *
 * `CREATE STATIC MBED-OS LIB (RELEASE)`
 * `CREATE STATIC MBED-OS LIB (DEBUG)`
 * `BUILD FROM STATIC LIB (RELEASE)`
@@ -260,14 +273,13 @@ Here is the list of available tasks:
 * `CLEAN DEBUG`
 * `CLEAN RELEASE`
 
-`*` *require ST-LINK programmer*
+*\* require ST-LINK programmer*
 
 ### Building and flashing firmware
 
 > **Important!**
->
-> At this point I assume you still have the core2 bootloader. We will cover using firmware without bootloader too. 
-
+If it's your first time with Mbed OS on CORE2 and you have been using Husarion Cloud until now you will need to do one more thing before proceeding. The Husarion Cloud used small program that resided in flash memory before main application called bootloader. This memory area is write protected so you have to use `core2-flasher` tool to unprotect it:
+`./core2-flasher --unprotect` 
 
 Press `CTRL + SHIFT + B`. It will run `BUILD (RELEASE)` task. Wait until compilation finishes.
 
@@ -275,7 +287,7 @@ Press `CTRL + SHIFT + B`. It will run `BUILD (RELEASE)` task. Wait until compila
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img5.png" width="800px" alt=""/></center>
 </div> 
 
-Connect your ST-LINK programmer to debug pins of CORE2 and make sure it's connected to your computer. Press `CTRL + SHIFT + P` and in Command Pallete type `Task: Run Task`. Select `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`. The firmware flashing procedure should start:
+Connect your ST-LINK programmer to debug pins of CORE2 and make sure it's connected to your computer. Press `CTRL + SHIFT + P` and in Command Pallete type `Task: Run Task`. Select `FLASH FIRMWARE (RELEASE)`. The firmware flashing procedure should start:
 
 <div>
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img6.png" width="800px" alt=""/></center>
@@ -286,6 +298,8 @@ If LEDs start blinking like on the animation below then congratulations! You've 
 <div>
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-animation.gif" alt="result"/></center>
 </div> 
+
+<!-- 
 
 ### Building firmware without bootloader
 
@@ -300,6 +314,8 @@ Please remove following lines from `mbed_app.json` in template project:
 They're responsible for shifting the firmware so it can "fit" in the flash memory alongside the bootloader.
 
 Press `CTRL + SHIFT + P` and select `BUILD (RELEASE)` task. Wait until compilation finishes. Now the firmware starts at the beginning of the memory.
+
+ -->
 
 ### stm32loader installation
 
@@ -426,12 +442,13 @@ This will add `rosserial-mbed` library to your project and download all library'
 
 Take a minute to analyze the program below. We provided you with comments to make it easier. 
 
-```
+```cpp
 /*
  * main.cpp
  */
 #include <mbed.h>
 #include <Thread.h>
+#define ARRAY_SIZE 4
 
 // This header file must be included before any other 
 // ros header files.
@@ -452,7 +469,7 @@ Ticker blinker;
 // and handling serial communication.
 ros::NodeHandle  nh;
 
-static const char * messages[] = {
+static const char * messages_array[ARRAY_SIZE] = {
     "mbed V5.10", "CORE2", "MCU", "STM32F407ZG", 
 };
 
@@ -470,12 +487,12 @@ void rosThreadCallback(void)
     nh.initNode();
     nh.advertise(mbed_device);
 
-    int i=0, n = sizeof(messages)/sizeof(messages[0]);
+    int i=0;
 
     while(1)
     {
         ros_led = !ros_led;
-        str_msg.data = messages[i%n];
+        str_msg.data = messages_array[i%ARRAY_SIZE];
 
         // publish message to topic
         mbed_device.publish(&str_msg);
