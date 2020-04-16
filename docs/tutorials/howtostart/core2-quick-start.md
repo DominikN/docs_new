@@ -427,7 +427,7 @@ Open `example-publisher` directory in Visual Studio Code. In the program press `
 
 ```bash
 cd lib 
-mbed add https://github.com/husarion/rosserial-mbed
+mbed add https://github.com/byq77/rosserial-mbed
 ```
 
 This will add `rosserial-mbed` library to your project and download all library's dependencies. Managing libraries this way is simple:
