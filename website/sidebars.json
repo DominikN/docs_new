@@ -12,6 +12,13 @@
       },
       {
         "type": "subcategory",
+        "label": "Mbed framework",
+        "ids": [
+          "tutorials/mbed/1-enviroment-configuration"
+        ]
+      },
+      {
+        "type": "subcategory",
         "label": "ROS tutorials",
         "ids": [
           "tutorials/ros-tutorials/1-ros-introduction",
@@ -35,7 +42,7 @@
           "tutorials/ros-projects/4-object-search"
         ]
       },
-	  {
+	    {
         "type": "subcategory",
         "label": "ROSbot 2.0 + ROSDS LIVE-Class",
         "ids": [
@@ -66,10 +73,10 @@
         "type": "subcategory",
         "label": "Deprecated",
         "ids": [
-          "tutorials/deprecated/using-core2-to-publish-ros-topics-through-usb",
           "tutorials/deprecated/hframework-library-development",
           "tutorials/deprecated/offline-development-tools",
-          "tutorials/deprecated/how-to-use-core2-ros-local-serial-offline"
+          "tutorials/deprecated/how-to-use-core2-ros-local-serial-offline",
+          "tutorials/deprecated/using-core2-to-publish-ros-topics-through-usb"
         ]
       }
     ]
