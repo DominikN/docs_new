@@ -109,11 +109,7 @@ To get more information about using Husarnet visit this [tutorial](https://docs.
 
 In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating PID regulator output or talking to distance sensors. High level computation is handled by SBC (single board computer) - ASUS Tinker Board (in ROSbot 2.0) or UP Board (in ROSbot 2.0 PRO).
 
-In order to use ROSbot you have to flash ROSbot's CORE2 board with low level firmware. There are two firmware options for you to choose from.
-
-### I. Mbed firmware (recommended)
-
-> **WARNING**: When mbed firmware is uploaded to internal STM32F4 microcontroller, https://cloud.husarion.com is no available for your ROSbot.
+### Mbed firmware (recommended)
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
@@ -127,42 +123,7 @@ We will use `stm32loader` tool to upload the firmware to ROSbot. To check if you
 sudo stm32loader --help
 ```
 
-If you get `command not found` you will need to finish all the steps below. Otherwise, you just need to complete step one.
-
-<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your ROSbot. These services are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need direct access to them. Run:
-
-```bash
-sudo systemctl disable husarnet-configurator
-sudo systemctl stop husarnet-configurator
-sudo systemctl disable husarion-shield
-sudo reboot
-```
-
-<strong>2.</strong> Install necessary support libraries on your robot. In the terminal run:
-
-**ROSbot 2.0:**
-
-```bash
-cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
-cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
-```
-
-**ROSbot 2.0 PRO:**
-
-```bash
-cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
-cd ~/python-periphery && git checkout v1.1.2
-sudo python setup.py install --record files.txt
-```
-
-Restart the terminal after the installation.
-
-<strong>3.</strong> Install `stm32loader` on your robot:
-
-```bash
-cd ~/ && git clone https://github.com/husarion/stm32loader.git
-cd ~/stm32loader && sudo python setup.py install --record files.txt
-```
+If you get `command not found` you will need to refresh you image following this [manual](https://husarion.com/manuals/rosbot-manual/#system-reinstallation).
 
 You can check if tool works by running following commands:
 
@@ -188,151 +149,24 @@ We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have 
   - `500000` for ROSbot 2.0
   - `460800` for ROSbot 2.0 Pro
 
-Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
+The appropriate firmware for your ROSbot should be in `/home/husarion/`, if it's not there, you can download it from links below:
 
 - [`ROSbot 2.0 fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.10.1.bin)
 - [`ROSbot 2.0 Pro fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.10.1.bin)
 
-Before uploading the firmware using `stm32loader` make sure you have the `husarnet-configurator` service disabled.
+Note taht default ROSbot firmware is allready flashed on you robot.
 
-> The following steps remove the software bootloader used by Husarion Cloud. You can flash it again in any moment in case you want to return to hFramework firmware.
-
-To upload the firmware run:
+In case you need to upload the firmware one more time run:
 
 ```bash
-sudo stm32loader -c tinker -u -W
-```
-
-```bash
-sudo stm32loader -c tinker -e -w -v rosbot-2.0-***.bin
-```
-
-PRO:
-
-```bash
-sudo stm32loader -c upboard -u -W
-```
-
-```bash
-sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
+./flash_firmware.sh
 ```
 
 Wait until firmware is uploaded.
 
 #### Required ROS packages - `rosbot_ekf`
 
-In order to use mbed firmware the `rosbot_ekf` package have to be installed on your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the imu and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. To install the package please follow the steps below.
-
-Create new work space and change directory:
-```
-mkdir ~/ros_workspace
-mkdir ~/ros_workspace/src
-cd ~/ros_workspace/src
-```
-Clone rosbot_ekf repository:
-```
-git clone https://github.com/husarion/rosbot_ekf.git
-```
-Install dependencies required by rosbot_ekf package:
-```
-sudo apt-get install ros-kinetic-robot-localization
-```
-Change directory and build code using catkin_make:
-```
-cd ~/ros_workspace
-catkin_make
-```
-To set it up permanently, open .bashrc file in text editor:
-```
-nano ~/.bashrc
-```
-Go to the end of file and add line:
-```
-. /home/husarion/ros_workspace/devel/setup.sh
-```
-
-To launch rosserial communication and Kalman filter for mbed firmware run:
-
-```
-roslaunch rosbot_ekf all.launch
-```
-
-For PRO version add parameter:
-
-```
-roslaunch rosbot_ekf all.launch rosbot_pro:=true
-```
-
-## Setup web user interface for ROSbot
-
-Type the following lines in the terminal to update the package list and upgrade packages:
-
-```
-sudo apt update
-sudo apt dist-upgrade
-```
-
-Install the required packages:
-
-`sudo apt install python-pip ros-kinetic-rosbridge-suite ros-kinetic-web-video-server nginx`
-
-and:
-
-`python -m pip install --user tornado==4.5.3 python-wifi ifparser`
-
-Create a new work space (you can skip next two lines if you have build `rosbot_ekf` package):
-
-`mkdir ~/ros_workspace`
-
-`mkdir ~/ros_workspace/src`
-
-Change directory:
-
-`cd ~/ros_workspace/src`
-
-Clone repository containing rosbot webui to `~/ros_workspace/src/`:
-
-`git clone https://github.com/husarion/rosbot_webui.git`
-
-Clone `husarion_ros` repository:
-
-`git clone https://github.com/husarion/husarion_ros.git`
-
-Change directory and build code using catkin_make:
-
-`cd ~/ros_workspace`
-
-`catkin_make`
-
-Add environmental variables by executing this in Linux command line:
-
-`source devel/setup.sh`
-
-> **Note that you have to do it every time you want to use ROSbot webui**. To set it up permanently, open .bashrc file in text editor:
->
-> `nano ~/.bashrc`
->
-> Go to the end of file and add line:
->
-> `. /home/husarion/ros_workspace/devel/setup.sh`
->
-> Staying in terminal issue command:
-
-`sudo nano /etc/nginx/sites-enabled/default`
-
-This will open text editor with configuration file. Find line:
-
-`root /var/www/html;`
-
-and change it to:
-
-`root /home/husarion/ros_workspace/src/rosbot_webui/edit;`
-
-To exit text editor press: "Ctrl + x", "y", "Enter"
-
-Again in terminal issue command:
-
-`sudo systemctl restart nginx`
+In order to use mbed firmware the `rosbot_ekf` package have to be installed on your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the imu and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. The package is already installed on your ROSbot.
 
 ## Usage
 
@@ -365,7 +199,14 @@ _If you use ROSbot 2.0 PRO:_
 `roslaunch rosbot_webui demo_rosbot_pro.launch`
 
 - Connect your laptop or mobile device to the same network as ROSbot.
-- Launch web browser and type the local IP of your ROSbot (the one you noted before)
+- Launch web browser and type the local IP of your ROSbot if both device are in the same network:
+```
+192.0.2.26
+```
+or IPv6 if you using husarnet:
+```
+[fc92:a348:c2e8:cbcb:480f:bd93:6a21:f3c7]
+```
 - You should see interface as below, use it to test and control your ROSbot.
 
 Also, you can check how it works in gazebo simulation:
