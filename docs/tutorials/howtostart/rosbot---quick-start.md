@@ -109,7 +109,7 @@ To get more information about using Husarnet visit this [tutorial](https://docs.
 
 In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating PID regulator output or talking to distance sensors. High level computation is handled by SBC (single board computer) - ASUS Tinker Board (in ROSbot 2.0) or UP Board (in ROSbot 2.0 PRO).
 
-### Mbed firmware (recommended)
+### Mbed firmware
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
@@ -173,12 +173,8 @@ In order to use mbed firmware the `rosbot_ekf` package have to be installed on y
 Programming procedure needs to be done only once, on further uses, you can start from this point:
 
 - Turn on your ROSbot.
-- Click "edit" next to your device name and select "More" where you will find a local IP address of your device.
-- Open a terminal and ssh to that previous remembered IP address using that command: `ssh husarion@x.x.x.x` (instead of "x.x.x.x" type your local IP address - your laptop should be in the same Wi-Fi network as you robot)
-- Note the address next to "Local IP" (in "Edit"->"More" section), you will need it in a while.
+- Open a terminal and run ssh using that command: `ssh husarion@x.x.x.x` (instead of "x.x.x.x" type hostname of device if you using Husarnet or your local IP address - your laptop should be in the same Wi-Fi network as you robot in this case)
 - In terminal issue following command:
-
-If you use Mbed firmware:
 
 _If you use ROSbot 2.0:_
 
@@ -188,25 +184,16 @@ _If you use ROSbot 2.0 PRO:_
 
 `roslaunch rosbot_webui demo_rosbot_pro_mbed_fw.launch`
 
-If you use deprecated hFramework firmware:
-
-_If you use ROSbot 2.0:_
-
-`roslaunch rosbot_webui demo.launch`
-
-_If you use ROSbot 2.0 PRO:_
-
-`roslaunch rosbot_webui demo_rosbot_pro.launch`
-
-- Connect your laptop or mobile device to the same network as ROSbot.
-- Launch web browser and type the local IP of your ROSbot if both device are in the same network:
-```
-192.0.2.26
-```
-or IPv6 if you using husarnet:
+- Launch web browser and type IPv6 if you using husarnet:
 ```
 [fc92:a348:c2e8:cbcb:480f:bd93:6a21:f3c7]
 ```
+or the local IP of your ROSbot if both device are in the same network:
+```
+192.0.2.26
+```
+*Please note that IP address may vary depending on your network configuration!*
+
 - You should see interface as below, use it to test and control your ROSbot.
 
 Also, you can check how it works in gazebo simulation:
