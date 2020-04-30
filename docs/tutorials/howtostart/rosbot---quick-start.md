@@ -49,7 +49,7 @@ ROSbot is basically a computer running Ubuntu, so let's open it like a standard 
 
 1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
 2. Turn on the robot and wait until it boots.
-3. Connect to a Wi-Fi network using Ubuntu GUI
+3. Connect to a Wi-Fi network using Ubuntu GUI.
 4. Open Linux terminal and type `ifconfig` to find your IP address. Save it for later.
 
 ### Option 2: Using Ethernet adapter
@@ -57,10 +57,10 @@ ROSbot is basically a computer running Ubuntu, so let's open it like a standard 
 In the ROSbot 2.0 set there is one USB-Ethernet card.
 
 1. Turn on the robot and wait until it boots.
-2. Plug in Ethernet adapter (included in set) to USB port in the rear panel
-3. Plug in one end of the Ethernet cable into your computer and other one to the adapter
-4. To connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`
-5. Connect to a Wi-Fi network
+2. Plug in Ethernet adapter (included in set) to USB port in the rear panel.
+3. Plug in one end of the Ethernet cable into your computer and other one to the adapter.
+4. To connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`.
+5. Connect to a Wi-Fi network.
 
 - in the terminal type `nmcli c add type wifi save yes autoconnect yes con-name rosbot20wifi ifname wlan0 ssid <WiFi-SSID>` and press Enter
 - type `nmcli c modify rosbot20wifi wifi-sec.key-mgmt wpa-psk wifi-sec.psk <WiFi-PASSWORD>` and press Enter to obtain an IP address and connect to the Wi-Fi network
@@ -91,7 +91,7 @@ You will see the ROSbot desktop, from the top menu, choose the `Applications` ->
 
 ### Connecting over the internet (optional)
 
-Not always your laptop and ROSbot can be in the same LAN network. To overcome that obstacle use VPN. [Husarnet](https://husarnet.com/) is a recommended VPN for ROSbots. It's preinstalled on ROSbot so you need to install that on you laptop.
+Not always your laptop and ROSbot can be in the same LAN network. To overcome that obstacle use VPN. [Husarnet](https://husarnet.com/) is a recommended VPN for ROSbots. It's preinstalled on ROSbot so you need to install that on your laptop.
 
 To connect your laptop and ROSbot over VPN:
 
@@ -123,7 +123,7 @@ We will use `stm32loader` tool to upload the firmware to ROSbot. To check if you
 sudo stm32loader --help
 ```
 
-If you get `command not found` you will need to refresh you image following this [manual](https://husarion.com/manuals/rosbot-manual/#system-reinstallation).
+If you get `command not found` you will need to refresh your image following this [manual](https://husarion.com/manuals/rosbot-manual/#system-reinstallation).
 
 You can check if tool works by running following commands:
 
@@ -154,7 +154,7 @@ The appropriate firmware for your ROSbot should be in `/home/husarion/`, if it's
 - [`ROSbot 2.0 fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.10.1.bin)
 - [`ROSbot 2.0 Pro fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.10.1.bin)
 
-Note that default ROSbot firmware is already flashed on you robot.
+Note that default ROSbot firmware is already flashed on your robot.
 
 In case you need to upload the firmware one more time run:
 
@@ -166,7 +166,7 @@ Wait until firmware is uploaded.
 
 #### Required ROS packages - `rosbot_ekf`
 
-In order to use mbed firmware the `rosbot_ekf` package have to be installed on your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the imu and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. The package is already installed on your ROSbot.
+In order to use Mbed firmware the `rosbot_ekf` package have to be installed on your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the IMU and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. The package is already installed on your ROSbot.
 
 ## Usage
 
@@ -174,41 +174,40 @@ Programming procedure needs to be done only once, on further uses, you can start
 
 - Turn on your ROSbot.
 - Open a terminal and run ssh using that command: `ssh husarion@x.x.x.x` (instead of "x.x.x.x" type hostname of device if you using Husarnet or your local IP address - your laptop should be in the same Wi-Fi network as you robot in this case)
-- In terminal issue following command:
+- In terminal paste following command:
 
 _If you use ROSbot 2.0:_
 
-`roslaunch rosbot_webui demo_rosbot_mbed_fw.launch`
+```bash
+roslaunch route_admin_panel demo_rosbot_mbed_fw.launch
+```
 
 _If you use ROSbot 2.0 PRO:_
 
-`roslaunch rosbot_webui demo_rosbot_pro_mbed_fw.launch`
-
-- Launch web browser and type IPv6 if you using husarnet:
+```bash
+roslaunch route_admin_panel demo_rosbot_pro_mbed_fw.launch
 ```
-[fc92:a348:c2e8:cbcb:480f:bd93:6a21:f3c7]
+
+Launch web browser and type IPv6 if you using husarnet:
+```
+[fc92:a348:c2e8:cbcb:480f:bd93:6a21:f3c7]:8000
 ```
 or the local IP of your ROSbot if both device are in the same network:
 ```
-192.0.2.26
+192.0.2.26:8000
 ```
 *Please note that IP address may vary depending on your network configuration!*
 
 - You should see interface as below, use it to test and control your ROSbot.
 
 Also, you can check how it works in gazebo simulation:
+    
+```bash
+roslaunch route_admin_panel demo_gazebo.launch
+```
 
-`roslaunch rosbot_webui demo_gazebo.launch`
+![panel accessed through husarnet](/docs/assets/img/software/panel_at_husarnet.png)
 
-<div><center><img src="https://user-images.githubusercontent.com/29305346/62871739-5425ad00-bd1c-11e9-9e6c-b52262e2282a.png"/><center></div>
-
-What can you see and how to use it:
-
-- In the upper part you can see two red rectangles, the right one is for changing map zoom, the left one is for changing clipping distance - distance from where image will be set to black.
-- In the corners of camera reading image you can see distance sensors reading.
-- In the left lower part of page you can see navigation panel here you can control your rosbot using virtual joystick.
-- In the right lower part of page you can see rosbot status - battery, position, orientation.
-- To create exploration task (rosbot will try to map whole area) just press _EXPLORE_ button.
-- If you want to use portrait orientation of web page you can click and slide to left/right side, this will change displayed section.
+You can find detailed description of Route Admin Panel in [software section](https://husarion.com/software/route-admin-panel/).
 
 > Note: if you experience any issues, make sure batteries are fully charged ([LED L1 is blinking](https://husarion.com/manuals/rosbot-manual/#rear-panel-description) if battery level is low). Charging manual is [here](https://husarion.com/manuals/rosbot-manual/#charging-rosbot).
