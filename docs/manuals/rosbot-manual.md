@@ -1,5 +1,5 @@
 ---
-title: ROSbot manual
+title: ROSbot 2.0
 id: rosbot-manual
 ---
 
@@ -849,7 +849,7 @@ To run the simulation:
 ros2 launch rosbot_description rosbot_sim.launch.py
 ```
 
-### II. Husarion Cloud + hFramework firmware (deprecated)
+<!-- ### II. Husarion Cloud + hFramework firmware (deprecated)
 
 [hFramework](https://github.com/husarion/hFramework) is a framework used to create the previous version of ROSbot low-level firmware. It is not recommended to be used. Instead of hFramework based firmware please consider using mbed based ROSbot firmware mentioned. However that instruction is preserved for backward compatibility.
 
@@ -879,66 +879,13 @@ If your ROSbot is connected to Husarion cloud do the following steps:
 - At https://cloud.husarion.com click "edit" next to your device name and select "IDE".
 - Create a new project using CORE2 as your board and **"ROSbot default firmware"** as a template.
 - Build and upload program to the device (use button with a cloud in left-up corner).
-- Go back to main panel of https://cloud.husarion.com
+- Go back to main panel of https://cloud.husarion.com -->
 
 
 ## ROS tutorials ##
 
 ROS (Robot Operating System) provides libraries and tools to help software developers create robot applications. It provides hardware abstraction, device drivers, libraries, visualizers, message-passing, package management, and more. It's very powerful and 
 functional tool dedicated to design robots. We created the set of [ROS tutorials dedicated for this platform](/tutorials/ros-tutorials/1-ros-introduction/ "ROS tutorials dedicated for this platform") to make it easier to familiarize yourself with these frameworks. 
-
-## Configuring ROSbot to work with 5GHz WiFi. ##
-
-By default ROSbot supports WiFi in 2.4GHz band, this is sufficent for most cases.
-If you encounter problems with data transfers e.g. due to processing large amounts of data or noise from other networks you can try to use connection in 5GHz band.
-
-### Device installation
-
-To do this, you will need a USB 5GHz WiFi card (any device based on [RTL8811AU or RTL8812AU](https://wikidevi.com/w/index.php?title=Special%3AAsk&q=%5B%5BChip1+model%3A%3ARTL8811AU%5D%5D+OR+%5B%5BChip1+model%3A%3ARTL8812AU%5D%5D&po=%3FInterface%0D%0A%3FForm+factor%3DFF%0D%0A%3FInterface+connector+type%3DUSB+conn.%0D%0A%3FFCC+ID%0D%0A%3FManuf%0D%0A%3FManuf+product+model%3DManuf.+mdl%0D%0A%3FVendor+ID%0D%0A%3FDevice+ID%0D%0A%3FChip1+model%0D%0A%3FSupported+802dot11+protocols%3DPHY+modes%0D%0A%3FMIMO+config%0D%0A%3FOUI%0D%0A%3FEstimated+year+of+release%3DEst.+year%0D%0A&eq=yes&p%5Bformat%5D=broadtable&sort_num=&order_num=ASC&p%5Blimit%5D=500&p%5Boffset%5D=&p%5Blink%5D=all&p%5Bsort%5D=&p%5Bheaders%5D=show&p%5Bmainlabel%5D=&p%5Bintro%5D=&p%5Boutro%5D=&p%5Bsearchlabel%5D=%E2%80%A6+further+results&p%5Bdefault%5D=&p%5Bclass%5D=sortable+wikitable+smwtable&p%5Bsep%5D=&eq=yes) should be fine,we have tested it with **TP-Link Archer T4U** and **D-Link DWA-172**).
-
-**ROSbot 2.0** is supporting the adapters by default, if you have recent image version you can skip update and kernel instal, otherwise do:
-```  
-sudo apt-get update
-sudo apt-get install tinkerboard-kernel
-modprobe rtl8812au
-```
-
-For **ROSbot 2.0 PRO** some modifications are required:
-```bash
-sudo apt install linux-headers-generic-hwe-16.04-upboard
-git clone https://github.com/abperiasamy/rtl8812AU_8821AU_linux.git
-cd rtl8812AU_8821AU_linux/
-make
-sudo make install
-sudo modprobe -a rtl8812au
-sudo cp -R . /usr/src/rtl8812AU_8821AU_linux-1.0
-sudo dkms add -m rtl8812AU_8821AU_linux -v 1.0
-sudo dkms build -m rtl8812AU_8821AU_linux -v 1.0
-sudo dkms install -m rtl8812AU_8821AU_linux -v 1.0
-```
-
-### WiFi setup
-
-For **Remote Desktop** or keyboard and display, you can use desktop GUI tools to setup connection.
-
-For **SSH** method type `ifconfig` to list network interfaces, you should see now new interface named `wlan1`.
-
-Now, list all available newtworks:
-
-```
-sudo iwlist wlan1 scanning | grep ESSID
-```
-
-Connect to selected WiFi with:
-
-```bash
-nmcli c add type wifi save yes autoconnect yes con-name <NetworkSSID> ifname wlan1 ssid <NetworkSSID>
-nmcli c modify <NetworkSSID> wifi-sec.key-mgmt wpa-psk wifi-sec.psk <Password>
-```
-
-Remember to replace `<NetworkSSID>` and `<Password>` with name and passowrd of chosen network.
-
-ROSbot will try to connect to this network each time it boots.
 
 ## Docs and links ##
 All helpful documents and links in one place:
