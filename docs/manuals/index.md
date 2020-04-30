@@ -4,19 +4,19 @@ sidebar_label: About manuals
 id: index
 ---
 
-This section conains a technical documentation for hardware products provided by Husarion:
+This section contains a technical documentation for hardware products provided by Husarion:
 
-## ROSbot ##
+## ROSbot 2.0 ##
 
-4x4 drive autonomous mobile robot platform with LIDAR, RGB-D camera, IMU, encoders, distance sensors. Powered by ROS.
+4x4 drive autonomous mobile robot platform equipped with LIDAR, RGB-D camera, IMU, encoders, distance sensors. Powered by ROS.
 
 ## CORE2 ##
 
-A robotic controller that powers ROSbot.
+A low-level STM32F4 based robotic controller that sits inside ROSbot.
 
 ## CORE2mini ##
 
-A small-factor version of CORE2 with less ports (discontinued).
+A small-factor version of CORE2 with less ports (discontinued)
 
 ## CORE2 add-ons ##
 

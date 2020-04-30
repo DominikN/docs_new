@@ -1,5 +1,5 @@
 ---
-title: CORE2mini manual
+title: CORE2mini
 id: core2mini
 ---
 

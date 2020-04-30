@@ -1,5 +1,5 @@
 ---
-title: CORE2 manual
+title: CORE2 
 id: core2
 ---
 
