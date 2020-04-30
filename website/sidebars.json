@@ -84,7 +84,7 @@
   "docs-manuals": {
     "Manuals": [
       "manuals/index",
-      "manuals/rosbot-manual",
+      "manuals/rosbot",
       "manuals/core2",
       "manuals/core2mini",
       "manuals/core2-add-ons"

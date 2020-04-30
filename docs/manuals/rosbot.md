@@ -1,11 +1,11 @@
 ---
-title: ROSbot 2.0
-id: rosbot-manual
+title: ROSbot 2.0 & ROSbot 2.0 PRO
+id: rosbot
 ---
 
 ## Overview ##
 
-ROSbot is an autonomous robot platform based on Husarion CORE2-ROS robot controller available in two version: 2.0 and 2.0 PRO. 
+ROSbot is a 4x4 drive autonomous mobile robot platform equipped with LIDAR, RGB-D camera, IMU, encoders, distance sensors available in two version: 2.0 and 2.0 PRO. Powered by ROS.
 
 <div align="center">
 <iframe width="784" height="441" src="https://www.youtube.com/embed/QHJFNMX4Us8" frameborder="0" gesture="media" allowfullscreen></iframe>
