@@ -4,23 +4,20 @@ sidebar_label: About manuals
 id: index
 ---
 
-## CORE2 manual ##
+This section conains a technical documentation for hardware products provided by Husarion:
 
-A description of all hardware functionalities of CORE2 development board: specifications, connectivity, electrical parameters etc.
+## ROSbot ##
 
-## CORE2mini manual ##
+4x4 drive autonomous mobile robot platform with LIDAR, RGB-D camera, IMU, encoders, distance sensors. Powered by ROS.
 
-A description of all hardware functionalities of CORE2mini development board: specifications, connectivity, electrical parameters etc.
+## CORE2 ##
 
-## Telepresence robot kit manual ##
+A robotic controller that powers ROSbot.
 
-A manual describing an open source self-balancing telepresence robot kit based on CORE2
+## CORE2mini ##
 
+A small-factor version of CORE2 with less ports (discontinued).
 
-## ROSbot manual ##
+## CORE2 add-ons ##
 
-Hardware documentation of ROSbot.
-
-## Husarion add-ons ##
-
-Description of extension sets for CORE2 or CORE2-ROS
+Extension sets for CORE2 controllers only (discontinued)

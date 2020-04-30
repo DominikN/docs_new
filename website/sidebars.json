@@ -84,10 +84,10 @@
   "docs-manuals": {
     "Manuals": [
       "manuals/index",
+      "manuals/rosbot-manual",
       "manuals/core2",
       "manuals/core2mini",
-      "manuals/rosbot-manual",
-      "manuals/husarion-add-ons"
+      "manuals/core2-add-ons"
     ]
     },
   "docs-software":

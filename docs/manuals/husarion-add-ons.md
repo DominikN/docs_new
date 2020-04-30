@@ -1,6 +1,6 @@
 ---
-title: Husarion add-ons
-id: husarion-add-ons
+title: CORE2 add-ons
+id: core2-add-ons
 ---
 
 ## CORE2brick extension kit ##
