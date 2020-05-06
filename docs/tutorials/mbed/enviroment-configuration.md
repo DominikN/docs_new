@@ -285,24 +285,6 @@ If LEDs start blinking like on the animation below then congratulations! You've 
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-animation.gif" alt="result"/></center>
 </div> 
 
-<!-- 
-
-### Building firmware without bootloader
-
-The software bootloader is necessary if you use Husarion Cloud IDE and hFramework. It is not required if we want to use offline tools and Mbed OS. To upload firmware over the Internet we will connect to SBC directly and use `stm32loader` tool.
-
-Please remove following lines from `mbed_app.json` in template project:
-```json
-"target.mbed_app_start":"0x08010000",
-"target.mbed_rom_start":"0x08000000",
-"target.mbed_rom_size":"0x100000"
-```
-They're responsible for shifting the firmware so it can "fit" in the flash memory alongside the bootloader.
-
-Press `CTRL + SHIFT + P` and select `BUILD (RELEASE)` task. Wait until compilation finishes. Now the firmware starts at the beginning of the memory.
-
- -->
-
 ### stm32loader installation
 
 Please log into your SBC and follow this step by step tutorial on how to install and configure this tool.
