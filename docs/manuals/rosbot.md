@@ -580,7 +580,8 @@ Before you begin, you will need:
 8. Click "Right arrow" to enter Boot card and change Boot Option Priorities for your USB drive.
 9. Save & Exit.
 10. After Restart chose option Install Ubuntu (remember to choose option with erasing new Ubuntu and remove all part of the old one).
-11. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
+11. Connect your ROSbot to internet during the installation. Access to the internet is necessary to finish installation.
+12. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
 
 ## Connect ROSbot to your Wi-Fi network
 
@@ -654,8 +655,7 @@ In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family 
 
 In order to use ROSbot you have to flash ROSbot's CORE2 board with low level firmware. There are two firmware options for you to choose from.
 
-### I. Mbed firmware (recommended)
-> **WARNING**: When mbed firmware is uploaded to internal STM32F4 microcontroller, https://cloud.husarion.com is no available for your ROSbot.
+### I. Mbed firmware 
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
