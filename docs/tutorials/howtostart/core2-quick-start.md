@@ -66,7 +66,13 @@ The sample code is very simple. It instantiates a `BusOut` object that controls 
 
 Before we start extract file `husarion-tools.zip` which contain few versions of `core2-flasher` script for different operating system and processor architecture. For example when you use Ubuntu x64 you have use `amd64-linux` version.
 
-Now let's plug in micro USB cable to USB hSerial port and to your computer. Open console and run core2-flasher using our `example.hex`:
+Now let's plug in micro USB cable to USB hSerial port and to your computer. 
+
+<div>
+<center><img src="/docs/assets/img/howToStart/core2_hSerial.png" alt="output"/></center>
+</div>
+
+Open console and run core2-flasher using our `example.hex`:
 
 ```sh
 .<directory>/core2-flasher <directory>/example.hex
