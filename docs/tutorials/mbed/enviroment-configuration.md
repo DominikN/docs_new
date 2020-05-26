@@ -38,20 +38,15 @@ In this tutorial we will show you how to build, compile and run mbed application
 
 #### Hardware
 
-* CORE2-ROS (with SBC) or CORE2 and computer running Linux with ROS Kinetic,   
-* *ST-LINK V2 programmer* to flash CORE2 with mbed firmware,
-
+* CORE2-ROS (with SBC) or CORE2 and computer running Linux with ROS Kinetic or Melodic. Note that ROSbot 2.0 contain CORE2-ROS inside.
+* USB cable if you want to flash code straight from your PC or laptop.     
 #### Software prerequisites:
 
 Before we start make sure you have following tools installed on your system:
 
 * [Visual Studio Code IDE](https://code.visualstudio.com/)
 * [GNU Arm Embedded version 6 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
-* [STM32 ST-LINK Utility](https://www.st.com/en/development-tools/stsw-link004.html) (Windows only)
-* [stlink flasher](https://github.com/texane/stlink/blob/master/README.md) (Mac or Linux)
 * [Mbed CLI](https://os.mbed.com/docs/mbed-os/v5.12/tools/installation-and-setup.html)
-
-You can check our tutorial: [2. Offline development tools](https://husarion.com/core2/tutorials/other-tutorials/offline-development-tools) to find information on stlink flasher and VS Code IDE installation.
 
 #### Required Visual Studio Code extensions:
 * [Microsoft C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) (`ms-vscode.cpptools`)
@@ -61,7 +56,7 @@ Everything up and ready? Proceed to the next steps then.
 
 ### Mbed CLI installation
 
-`mbed-cli` is a package name of **Arm Mbed CLI**, a command-line tool that enables use of Mbed build system, GIT/Mercurial-based version control, dependencies management and more. Check [Mbed CLI GitHub page](https://github.com/ARMmbed/mbed-cli) or [Mbed documentation](https://os.mbed.com/docs/v5.10/tools/developing-mbed-cli.html) for details about the tool.  
+`mbed-cli` is a package name of **Arm Mbed CLI**, a command-line tool that enables use of Mbed build system, GIT/Mercurial-based version control, dependencies management and more. Check [Mbed CLI GitHub page](https://github.com/ARMmbed/mbed-cli) or [Mbed documentation](https://os.mbed.com/docs/mbed-os/v5.15/tools/developing-mbed-cli.html) for details about the tool.  
 
 To install `mbed-cli` follow [this](https://os.mbed.com/docs/mbed-os/v5.14/tools/installation-and-setup.html) tutorial from the Mbed documentation. 
 
@@ -71,7 +66,7 @@ Check if the installation was successful by running following command in the ter
 
 ```bash
 mbed --version
-1.10.0
+1.10.1
 ```
 
 After installation you have to inform Mbed CLI about location of compiler (in our case GCC Arm Embedded Compiler) binaries. We will use global setting. Run:
@@ -167,7 +162,7 @@ targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/ST
 targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/startup_stm32f407xx.S
 ```
 
-### Template Project
+## Template Project
 
 We will start by setting up a template project. You can use it as starting point for all of your mbed applications. 
 
@@ -205,7 +200,7 @@ Linux:
 
 This will enable more accurate IntelliSense and remove some error notifications.
 
-#### Template description
+### Template description
 
 Open the template project's directory and select `src/main.cpp`. You should see:
 
@@ -233,6 +228,17 @@ Another file that is used by Mbed OS configuration system is `mbed_app.json`. Op
 
 This file is used to configure your application. It allows to override the default configuration of mbed libraries (or your own) for specific targets (tag `"target_overrides"`). You can also define your own macros that will have global visibility (tag `"macros"`) and create configuration entries (tag `"config"`).
 
+You can also chosee here format of output file. If you want to use stm32loader and program your CORE2 straight from SBC you should leave:
+
+```
+"target.OUTPUT_EXT": "bin"
+```
+But if you want to use core2_flasher and USB cable you should change it to:
+
+```
+"target.OUTPUT_EXT": "hex"
+```
+
 You can learn details of your configuration by running following command in the root directory of the template project:
 
 ```bash
@@ -244,22 +250,6 @@ The last file we will check is `task.json` from `.vscode` directory. It defines 
 <div>
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img4.png" width="800px" alt=""/></center>
 </div> 
-
-Here is the list of available tasks: 
-* `BUILD (RELEASE)`
-* `BUILD (DEBUG)`
-* `FLASH FIRMWARE (RELEASE)`  *
-* `FLASH FIRMWARE (DEBUG)`    *
-* `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`*
-* `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)`  *
-* `CREATE STATIC MBED-OS LIB (RELEASE)`
-* `CREATE STATIC MBED-OS LIB (DEBUG)`
-* `BUILD FROM STATIC LIB (RELEASE)`
-* `BUILD FROM STATIC LIB (DEBUG)`
-* `CLEAN DEBUG`
-* `CLEAN RELEASE`
-
-*\* require ST-LINK programmer*
 
 ### Building and flashing firmware
 
@@ -273,87 +263,39 @@ Press `CTRL + SHIFT + B`. It will run `BUILD (RELEASE)` task. Wait until compila
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img5.png" width="800px" alt=""/></center>
 </div> 
 
-Connect your ST-LINK programmer to debug pins of CORE2 and make sure it's connected to your computer. Press `CTRL + SHIFT + P` and in Command Pallete type `Task: Run Task`. Select `FLASH FIRMWARE (RELEASE)`. The firmware flashing procedure should start:
+Here we have two option of flashing firmawre to CORE2.
+
+#### Flashing using .hex file and core2_flasher 
+
+This method was explained in tutorial [CORE2 - quick start](https://husarion.com/tutorials/howtostart/core2-quick-start/#the-flashing) so if you don't know it yet please check this tutorial.
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial1-img6.png" width="800px" alt=""/></center>
-</div> 
+<center><img src="/docs/assets/img/howToStart/core2_hSerial.png" alt="output"/></center>
+</div>
+
+> **Note!**
+The hSerial port on rear panel of ROSbot is the same port as hSerial on CORE2 visible in the illustration. 
+
+#### Flashing using .bin file and STM32loader
+
+This method is only for CORE2 with SBC connected to hRPi connector (CORE2-ROS or ROSbot's). You don't have to use any additional cables because it's using UART from hRPi connector. 
+
+Open console of your SBC. Go to the directory including your .bin file. Next type:
+
+```
+sudo stm32loader -c <your_sbc> -e -w -v firmware.bin
+```
+You have to replace `<your_sbc>` with `rpi`, `tinker` or `upboard`.
+
+Full documentation of STM32loader you can find in our [Software](https://husarion.com/software/stm32loader/) section.
+
+#### Results
 
 If LEDs start blinking like on the animation below then congratulations! You've just successfully built and flashed your first Mbed application for CORE2!
 
 <div>
 <center><img src="/docs/assets/img/mbed-tutorials/mbed-tutorial-animation.gif" alt="result"/></center>
 </div> 
-
-### stm32loader installation
-
-Please log into your SBC and follow this step by step tutorial on how to install and configure this tool.
-
-<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your device. These processes are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need the direct access to them. Run:
-
-```bash
-sudo systemctl disable husarnet-configurator
-sudo systemctl stop husarnet-configurator
-sudo systemctl disable husarion-shield
-sudo reboot
-```
-
-<strong>2.</strong> Install necessary support libraries for your device:
-
-**RPi:**
-```
-pip install RPi.GPIO
-```
-
-**Upboard:**
-```bash
-cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
-cd ~/python-periphery && git checkout v1.1.2
-sudo python setup.py install --record files.txt
-```
-**Asus Tinker board:**
-```bash
-cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
-cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
-```
-
-Restart the terminal after the installation.
-
-<strong>3.</strong> Install `stm32loader`:
-```bash
-cd ~/ && git clone https://github.com/husarion/stm32loader.git
-cd ~/stm32loader && sudo python setup.py install --record files.txt
-```
-
-### stm32loader usage
-
-Printing help:
-```bash
-stm32loader --help
-```
-
-To remove bootloader run:
-```bash
-sudo stm32loader -c <your-sbc> -W
-sudo stm32loader -c <your-sbc> -e
-```
-
-where `<your-sbc>` is:
-* `tinker` for Asus Tinker Board
-* `upboard` for Upboard
-* `rpi` for Raspberry Pi
-
-To upload the `firmware.bin` directly from SBC copy the firmware from your template project's `BUILD/RELEASE/` directory to SBC using `scp`. Following code will copy `firmware.bin` file to remote user's home directory.
-
-```bash
-scp firmware.bin user@address:~/
-```
-
-To flash new firmware log into your SBC and in the directory which contain the firmware run:
-
-```bash 
-sudo stm32loader -c <your_sbc> -e -w -v firmware.bin
-```
 
 ### Tasks
 - Modify existing application so as the on-board leds blink in Gray code. 
@@ -721,8 +663,6 @@ If you want to learn more - check official [rosserial mbed tutorials](http://wik
 ### Tasks
 * Create an application that monitors the on-board button and publish the number of pushes to topic "button" every time the button's state changes. Use [InterruptIn](https://os.mbed.com/docs/v5.10/apis/interruptin.html) object. 
 * Create an application that lights up on-board leds accordingly to the mask value received on "led_mask" topic. Use `std_msgs::Uint8` type for ROS communication.
-
-<!-- TODO: MOTOR SECTION -->
 
 ## Summary
 

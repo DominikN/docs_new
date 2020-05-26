@@ -93,8 +93,9 @@
   "docs-software":
   {
     "Software":[
-      "software/hframework",
-      "software/route-admin-panel"
+      "software/route-admin-panel",
+      "software/stm32loader",
+      "software/hframework"
     ]
     }
 }
