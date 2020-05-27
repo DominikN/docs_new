@@ -180,7 +180,7 @@ ros2 run dds_bridge dds_bridge
 
 To find out more regarding the interoperability issue, refer to [`dds_bridge` documentation](https://github.com/husarion/dds_bridge#dds-bridge)
 
-By default CORE is measuring time since reset, thus timestapms are published the same.
+By default CORE is measuring time since reset, thus timestamps are published the same.
 If you want to use system time, use `rosbot_time_publisher` node:
 
 ```
