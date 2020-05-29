@@ -71,12 +71,6 @@ class Footer extends React.Component {
               Documentation
             </a>
             <a
-              href="https://cloud.husarion.com/"
-              target="_blank"
-              rel="noreferrer noopener">
-              Husarion Cloud
-            </a>
-            <a
               href="https://community.husarion.com/"
               target="_blank"
               rel="noreferrer noopener">
