@@ -508,9 +508,7 @@ They cannot be charged - they are only the “link” to omit 3 unnecessary plac
 
 To use CORE2mini hardware from the cloud, you need to provide the Internet connection for CORE2mini.
 
-This can be done thanks to cheap Wi-Fi module, such as ESP32, as well as a Linux computer (e.g. RaspberryPi). All depends on your application. In most cases ESP32 is sufficient, but in some cases more computing power and andvanced onboard libraries (e.g. ROS - Robotic Operating System) are necessary. This section will help you to choose the configuration you need.
-
-By now you know 2 basic ways to connect CORE2mini to the Internet, ESP32 adapter or a Raspberry Pi computer. In the future other options will be available.
+This can be done thanks to cheap Wi-Fi module, such as ESP32 which is sufficient in most cases. In certain uses more computing power and andvanced onboard libraries (e.g. ROS - Robotic Operating System) are necessary CORE2 can be connected with a Linux computer (e.g. RaspberryPi). When working with Linux, cloud connection is not available, it can be flashed with offline tools like [MBED framework](/tutorials/mbed/1-enviroment-configuration/).
 
 ### Connecting CORE2mini to the cloud ###
 
