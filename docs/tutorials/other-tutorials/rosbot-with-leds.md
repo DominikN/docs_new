@@ -4,10 +4,6 @@ sidebar_label: 4. ROSbot with WS2812B LEDs signalization
 title: ROSbot with WS2812B LEDs signalization
 ---
 
-> **WARNING**: When mbed firmware is uploaded to internal STM32F4 microcontroller, https://cloud.husarion.com is no available for your ROSbot.
->
-> This tutorial requires [the Mbed OS version of ROSbot firmware](https://github.com/husarion/rosbot-firmware-new)!
-
 ## Introduction
 
 <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img1.jpg" data-fancybox="images" data-caption="ROSbot status illumination">
