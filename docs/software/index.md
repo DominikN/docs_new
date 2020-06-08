@@ -1,9 +1,7 @@
 ---
-title: 'Software'
-platform: 'CORE2'
-autotoc: true
-layout: layout.hbs
-page: 'Software'
+title: About Husarion's software
+sidebar_label: About software
+id: index
 ---
 
 
