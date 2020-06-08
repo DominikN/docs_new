@@ -871,9 +871,7 @@ They cannot be charged - they are only the “link” to omit 3 unnecessary plac
 
 To use CORE2 hardware from the cloud, you need to provide the Internet connection for CORE2.
 
-This can be done thanks to cheap Wi-Fi module, such as ESP32, as well as a Linux computer (e.g. RaspberryPi). All depends on your application. In most cases ESP32 is sufficient, but in some cases more computing power and andvanced onboard libraries (e.g. ROS - Robotic Operating System) are necessary. This section will help you to choose the configuration you need.
-
-By now you know 2 basic ways to connect CORE2 to the Internet, ESP32 adapter or a Raspberry Pi computer. In the future other options will be available.
+This can be done thanks to cheap Wi-Fi module, such as ESP32 which is sufficient in most cases. In certain uses more computing power and andvanced onboard libraries (e.g. ROS - Robotic Operating System) are necessary CORE2 can be connected with a Linux computer (e.g. RaspberryPi). When working with Linux, cloud connection is not available, it can be flashed with offline tools like [MBED framework](/tutorials/mbed/1-enviroment-configuration/).
 
 ### Connecting CORE2 to the cloud ###
 
@@ -936,23 +934,6 @@ There are 2 status LEDs - LR1 and LR2 - controlled directly from the ESP32/RPi d
     </tr>
 </tbody>
 </table>
-
-## Connecting to CORE2-ROS through SSH ##
-
-To obtain IP address of your CORE2-ROS, log into cloud.husarion.com and enter "More" section in drop down menu next to your robot name. You will see this:
-
-<div class="image center h300">
-
-![](/docs/assets/img/core2-hardware/CORE2-ssh-ip.PNG)
-
-</div>
-
-Then open Linux terminal or putty on Windows and execute the following command (IP as on screenshot above):
-
-```
-ssh husarion@192.168.0.29
-```
-Password: 'husarion"
 
 ## hRPI connector ##
 
@@ -1099,7 +1080,7 @@ That's all, your ESP32 firmware is up-to-date.
 
 #### Installing new image ####
 
-1. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads) (there is a single image for both platforms).
+1. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads).
 2. Follow the [official guide on raspberrypi.org webpage](https://www.raspberrypi.org/documentation/installation/installing-images/) for writing image to SD card.
 
 #### Updating OS ####

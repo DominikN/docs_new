@@ -281,11 +281,6 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
         <td>Button used for reset CORE2.</td>
     </tr>
     <tr>
-        <td>hCfg button</td>
-        <td>1</td>
-        <td>Button used for connecting ROSbot to [Husarion Cloud](https://cloud.husarion.com/).</td>
-    </tr>
-    <tr>
         <td>hBtn</td>
         <td>2</td>
         <td>hBtn1, hBtn2 - programmable buttons.</td>
