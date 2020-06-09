@@ -4,18 +4,6 @@ sidebar_label: About tutorials
 id: index
 ---
 
----
-title: About Husarion's tutorials
-sidebar_label: About tutorials
-id: index
----
-
----
-title: About Husarion's tutorials
-sidebar_label: About tutorials
-id: index
----
-
 ## [How to start](https://husarion.com/tutorials/howtostart/core2-quick-start/) ##
 
 The tutorials that will help you to run your first program on CORE2 and show you how to start using your ROSbot.
