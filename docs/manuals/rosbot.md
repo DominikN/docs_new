@@ -117,7 +117,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     </tr>
     <tr>
         <td>Maximum translational velocity</td>
-        <td>1.25 m/s</td>
+        <td>1.0 m/s</td>
     </tr>
     <tr>
         <td>Maximum rotational velocity</td>
