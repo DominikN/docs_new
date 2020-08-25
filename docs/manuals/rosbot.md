@@ -78,7 +78,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 
 ## Hardware guide ##
 
-## Specification ##
+### Specification ###
 
 <div class="img-container.w1">
     <a href="/docs/assets/img/ROSbot_manual/ROSbot-dim-bold.jpg" data-fancybox="gallery" data-caption="ROSbot dimension">
@@ -133,13 +133,13 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     </tr>
 </table>
 
-## Components ##
+### Components ###
 
 ![Side scheme](/docs/assets/img/ROSbot_manual/scheme_side.png "Side scheme")
 
 ![Back](/docs/assets/img/ROSbot_manual/colour_back.jpg "Scheme back")
 
-### Components description ###
+#### Components description ####
 
 <table class="text_table">
     <tr>
@@ -240,7 +240,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     </tr>
 </table>
 
-## Rear panel description ##
+### Rear panel description ###
 
 ![Rear panel description](/docs/assets/img/ROSbot_manual/ROSbot2_rear_panel_v1.1.png "Rear panel description")
 
@@ -321,7 +321,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     </tr>
 </table>
 
-## Power supply ##
+### Power supply ###
 
 ROSbot is powered from an internal, rechargeable Li-Ion battery pack that contains 3 Li-Ion cells, connected in series. This type of connection is called “3S”. The schematic below explains how the cells are wired together and with the charging connector (on ROSbot side).
 
@@ -338,7 +338,7 @@ If only the right firmware is preloaded to the internal controller (CORE2), the 
 
 Please make sure that the user firmware always contains the function that monitors the supply voltage level. Deep discharging of batteries may decrease their lifecycle. Discharging to the voltage lower than 3.0V/cell can also trigger the over discharge protection. If the voltage is too low, turn ROSbot off and charge batteries as soon as possible.
 
-## Charging ROSbot ##
+### Charging ROSbot ###
 
 <a href="/docs/assets/img/ROSbot_manual/charger+cables+PSU.jpg" data-fancybox data-caption="Charging kit">
 <img src="/docs/assets/img/ROSbot_manual/charger+cables+PSU.jpg" alt="Charging kit" width="50%" />
