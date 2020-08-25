@@ -1,7 +1,7 @@
 ---
 title: About Husarion's tutorials
 sidebar_label: About tutorials
-id: index
+id: tutorials
 ---
 
 ## [How to start](https://husarion.com/tutorials/howtostart/core2-quick-start/) ##

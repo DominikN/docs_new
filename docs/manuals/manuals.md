@@ -1,7 +1,7 @@
 ---
 title: Manuals
 sidebar_label: About manuals
-id: index
+id: manuals
 ---
 
 This section contains a technical documentation for hardware products provided by Husarion:

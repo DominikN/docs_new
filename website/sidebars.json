@@ -1,7 +1,7 @@
 {
   "docs-tutorials": {
     "Tutorials": [
-      "tutorials/index",
+      "tutorials/tutorials",
       {
         "type": "subcategory",
         "label": "How to start",
@@ -83,7 +83,7 @@
   },
   "docs-manuals": {
     "Manuals": [
-      "manuals/index",
+      "manuals/manuals",
       "manuals/rosbot",
       "manuals/core2",
       "manuals/core2mini",
@@ -93,7 +93,7 @@
   "docs-software":
   {
     "Software":[
-      "software/index",
+      "software/software",
       "software/route-admin-panel",
       "software/stm32loader",
       "software/hframework"

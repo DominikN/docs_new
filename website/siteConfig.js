@@ -45,9 +45,9 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'tutorials/index', label: 'Tutorials'},
-    {doc: 'manuals/index', label: 'Manuals'},
-    {doc: 'software/index', label: 'Software'},
+    {doc: 'tutorials/tutorials', label: 'Tutorials'},
+    {doc: 'manuals/manuals', label: 'Manuals'},
+    {doc: 'software/software', label: 'Software'},
     {href: 'https://husarion.com/downloads/', label: 'Downloads', external: true},
     {href: 'https://community.husarion.com/', label: 'Community', external: true}
     // {search: true}

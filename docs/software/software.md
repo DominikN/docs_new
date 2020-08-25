@@ -1,7 +1,7 @@
 ---
 title: About Husarion's software
 sidebar_label: About software
-id: index
+id: software
 ---
 
 ## [Route Admin Panel](https://husarion.com/software/route-admin-panel/) ##
