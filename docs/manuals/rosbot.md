@@ -96,7 +96,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
         <td>200 x 235 x 220mm / 7.87 x 9.25 x 8.66in [L x W x H]</td>
     </tr>
     <tr>
-        <td>Dimensions without LiDAR</td>
+        <td>Dimensions without camera</td>
         <td>200 x 235 x 146mm / 7.87 x 9.25 x 5.74in [L x W x H]</td>
     </tr>
     <tr>
