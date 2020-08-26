@@ -5,17 +5,90 @@ id: panther
 
 ## Overview ##
 
+Autonomous, mobile robot platform dedicated for outdoor environment. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
+
 ## Hardware guide ##
 
-## Specification ##
+### Specification ###
 
-## Components ##
+**Dimensions and weight**
 
-### Components description ###
+|          Name          	|  Value 	|
+|:----------------------:	|:------:	|
+|                 lenght 	| 805 mm 	|
+|                  width 	| 840 mm 	|
+|        platform height 	| 290 mm 	|
+|         overall height 	| 365 mm 	|
+|              wheelbase 	| 440 mm 	|
+|        track of wheels 	| 695 mm 	|
+|  max. ground clearance 	| 155mm  	|
+|  min. ground clearance 	| 139 mm 	|
+| up-side-down clearance 	| 75 mm  	|
+|                 weight 	| 50 kg  	|
 
-## Power supply ##
+**Traction**
 
-## Charging Panther ##
+|              Name             	|  Value  	|
+|:-----------------------------:	|:-------:	|
+|                     max speed 	| 2 m/s   	|
+|     maximum carrying capacity     | 80 kg     |
+|          nominal shaft torque 	| 17.4 Nm 	|
+|          maximum shaft torque 	| 30 Nm   	|
+|  nominal total traction force 	| 365 N   	|
+|  maximum total traction force 	| 630 N   	|
+|               hil climb grade 	| 96%     	|
+| climb grade with 50 kgs cargo 	| 40%     	|
+| climb grade with 80 kgs cargo 	| 30%     	|
+|          hill grade traversal 	| 80%     	|
+
+
+### Components ###
+
+**standard modules**
+* signal lights,
+* inertial navigation system,
+* on-board computer
+
+**external modules**
+* GPS,
+* headlights,
+* RGBD camera,
+* manipulator
+
+**communication**
+* Ethernet,
+* CAN,
+* RS232,
+* RS485,
+* WiFi,
+* I2C,
+* SPI,
+* USB
+
+### Power supply ###
+
+The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours.
+
+To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 550W of power to the user's devices.
+The supply voltages available on the user Power panel are 5V with a total current limitation up to 15A (3x female XT60), 12V limited to 20A (3x female XT60) and 19V limited to 10A (3x female XT60).
+
+Note: One of 19V output is used by NUC. 
+
+**Power**
+
+|          Name          	|          Value            |
+|:----------------------:	|:------------------------: |
+|       Battery capacity 	| 740Wh  	                |
+|                Runtime 	| 3.5 h  	                |
+|     Total output power 	| 1 kW  	                |
+|     Maximum peak power 	| 1.8 kW 	                |
+|     Power for user use 	| 5V@15A, 12V@20A, 19V@10A  |
+
+### Charging Panther ###
+
+In the set with the robot, we provide a dedicated 42V @ 5A charger, which the robot will charge to 80% in 4 hours, and to 100% in 7 hours. The mains-operated charger is connected directly to the robot's charging connector on its housing.
+
+Note: If the robot is turned on and has a connected charger, the charging process may never be completed (the green LED indicating the end of charging will not light up on the charger) despite the high level of battery charge.
 
 ## Software ##
 
