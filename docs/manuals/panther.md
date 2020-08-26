@@ -104,14 +104,29 @@ Below are topics and services available in ROSbot:
 | `/battery` | `sensor_msgs/BatteryState` | publisher | `/panther_driver` | Battery voltage |
 | `/pose` | `geometry_msgs/Pose` | publisher | `/panther_driver` | Position based on encoders |
 | `/cmd_vel` | `geometry_msgs/Twist` | subscriber | `/panther_driver` | Velocity commands |
+| `/panther_lights` | `panther_lights/LightsMessage` | subscriber | `/panther_lights` | Control the front and rear lights |
+
+Lights pattern could be set by publishing appropriate message to `/panther_lights` topic, to change animation to `BLINKER_LEFT`:
+```
+rostopic pub /panther_lights panther_lights/LightsMessage "animation: 1
+custom_color: ''" -1
+```
+
+To change animation to `BLINKER_LEFT` with custom colors (front is green, rear is red):
+```
+rostopic pub /panther_lights panther_lights/LightsMessage "animation: 1
+custom_color: '0x00FF00 0xFF0000'" -1
+```
+More details regarding lights control could be found in [`panther_lights` documentation](https://github.com/byq77/panther-lights#ros-interface).
 
 #### External documentation ####
 
  - Slamtec RpLidar scanner API is documented in [driver repository](https://github.com/Slamtec/rplidar_ros)
 
-### ROS2 API
+### Joystick control ###
 
-#### External documentation
+The Raspberry Pi SBC has a preinstalled webui with simple joystick. The joystick allows user to issue simple motion commands for the robot.
+To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
 
 ### System reinstallation ###
 
@@ -134,7 +149,25 @@ Below are topics and services available in ROSbot:
  - Review your selections and click 'Flash!' to begin writing data to the SD card.
 5. Insert SD card back to Raspberry Pi
 
-#### Launching navigation example on ROS2 Dashing
+#### Launching navigation example
+
+The user space PC comes with preinstalled Ubuntu 20.04 and ROS, the same as the Raspberry Pi SBC. It also has a [route_admin_panel](https://github.com/husarion/route_admin_panel/) as an example application.
+
+To start the RAP:
+
+```
+roslaunch panther_driver rap.launch 
+```
+
+Then open in browser: 
+
+```
+PANTHER_IP_ADDRESS:8000
+```
+
+You should see interface like below:
+
+![RouteAdminPanelScreenshot](/docs/assets/img/software/route-admin-panel.png)
 
 ## Docs and links ##
 All helpful documents and links in one place:
