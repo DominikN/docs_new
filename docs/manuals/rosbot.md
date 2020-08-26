@@ -601,8 +601,7 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 4. To connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`
 5. Connect to a Wi-Fi network
 
-- in the terminal type `nmcli c add type wifi save yes autoconnect yes con-name rosbot20wifi ifname wlan0 ssid <WiFi-SSID>` and press Enter
-- type `nmcli c modify rosbot20wifi wifi-sec.key-mgmt wpa-psk wifi-sec.psk <WiFi-PASSWORD>` and press Enter to obtain an IP address and connect to the Wi-Fi network
+- in the terminal type `nmcli d wifi connect <WiFi-SSID> password <WiFi-PASSWORD>` and press Enter to obtain an IP address and connect to the Wi-Fi network
 
 6. type `ifconfig` to find your IP address. Save it for later.
 
