@@ -115,6 +115,25 @@ Below are topics and services available in ROSbot:
 
 ### System reinstallation ###
 
+ In some cases you will need to restore Panther's system to its default settings:
+ - in case of accidential damage of the system,
+ - to update the OS (it can be udpated remotely, but flashing the microSD card can be easier sometimes),
+ - to clear all user changes and restore factory settings.
+
+ The reinstallation procedure is following:
+
+1. Extract SD card from Raspberry Pi SBC by pushing card carefully until it is released back by card holder, thel pull it out. In order to find SD card slot, you will need to disassemble part of the top cover.
+2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2020-08-18.img.xz).
+3. Extract downloaded image (For this process we recommend using [unxz](https://linux.die.net/man/1/unxz) tool).
+4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
+ - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
+ - Download [Etcher](https://www.balena.io/etcher/) and install it.
+ - Connect an SD card reader with the SD card inside.
+ - Open Etcher and select from your hard drive .img file that you extracted.
+ - Select the SD card you wish to write your image to.
+ - Review your selections and click 'Flash!' to begin writing data to the SD card.
+5. Insert SD card back to Raspberry Pi
+
 #### Launching navigation example on ROS2 Dashing
 
 ## Docs and links ##
