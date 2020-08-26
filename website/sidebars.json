@@ -1,7 +1,7 @@
 {
   "docs-tutorials": {
     "Tutorials": [
-      "tutorials/tutorials",
+      "tutorials",
       {
         "type": "subcategory",
         "label": "How to start",
@@ -42,7 +42,7 @@
           "tutorials/ros-projects/4-object-search"
         ]
       },
-	    {
+      {
         "type": "subcategory",
         "label": "ROSbot 2.0 + ROSDS LIVE-Class",
         "ids": [
@@ -83,20 +83,29 @@
   },
   "docs-manuals": {
     "Manuals": [
-      "manuals/manuals",
-      "manuals/rosbot",
-      "manuals/core2",
-      "manuals/core2mini",
-      "manuals/core2-add-ons"
+      "manuals",
+      {
+        "type": "subcategory",
+        "ids": [
+          "manuals/rosbot",
+          "manuals/core2",
+          "manuals/core2mini",
+          "manuals/core2-add-ons"
+        ]
+      }
     ]
-    },
-  "docs-software":
-  {
-    "Software":[
-      "software/software",
-      "software/route-admin-panel",
-      "software/stm32loader",
-      "software/hframework"
+  },
+  "docs-software": {
+    "Software": [
+      "software",
+      {
+        "type": "subcategory",
+        "ids": [
+          "software/route-admin-panel",
+          "software/stm32loader",
+          "software/hframework"
+        ]
+      }
     ]
-    }
+  }
 }
