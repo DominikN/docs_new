@@ -113,56 +113,7 @@ In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family 
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
-SSH to ROSbot over LAN network or VPN to get access to it's Linux terminal.
-
-#### stm32loader installation
-
-We will use `stm32loader` tool to upload the firmware to ROSbot. To check if you have this tool already installed on your robot, open the terminal and run:
-
-```bash
-sudo stm32loader --help
-```
-
-If you get `command not found` you will need to refresh your image following this [manual](https://husarion.com/manuals/rosbot-manual/#system-reinstallation).
-
-You can check if tool works by running following commands:
-
-**ROSbot 2.0:**
-
-```bash
-sudo stm32loader -c tinker -f F4
-```
-
-**ROSbot 2.0 PRO:**
-
-```bash
-sudo stm32loader -c upboard -f F4
-```
-
-#### Programming the firmware (using stm32loader)
-
-We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have following settings:
-
-- ws2812b driver is enabled by default (check [ROSbot with WS2812B LEDs signalization](https://husarion.com/tutorials/mbed-tutorials/rosbot-and-ws2812b-led-signalization/))
-- rosserial baudrate is set to:
-
-  - `500000` for ROSbot 2.0
-  - `460800` for ROSbot 2.0 Pro
-
-The appropriate firmware for your ROSbot should be in `/home/husarion/`, if it's not there, you can download it from links below:
-
-- [`ROSbot 2.0 fw v0.13.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.13.1.bin)
-- [`ROSbot 2.0 Pro fw v0.13.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.13.1.bin)
-
-Note that default ROSbot firmware is already flashed on your robot.
-
-In case you need to upload the firmware one more time run:
-
-```bash
-./flash_firmware.sh
-```
-
-Wait until firmware is uploaded.
+All needed information about flashing ROSbot firmware and using stm32loader you can find in [ROSbot manual](https://husarion.com/manuals/rosbot/#i-mbed-firmware). 
 
 #### Required ROS packages - `rosbot_ekf`
 
