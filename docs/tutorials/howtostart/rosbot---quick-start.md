@@ -151,8 +151,8 @@ We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have 
 
 The appropriate firmware for your ROSbot should be in `/home/husarion/`, if it's not there, you can download it from links below:
 
-- [`ROSbot 2.0 fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.10.1.bin)
-- [`ROSbot 2.0 Pro fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.10.1.bin)
+- [`ROSbot 2.0 fw v0.13.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.13.1.bin)
+- [`ROSbot 2.0 Pro fw v0.13.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.13.1.bin)
 
 Note that default ROSbot firmware is already flashed on your robot.
 

@@ -665,42 +665,7 @@ In case you have uninstalled this tool, you can find installation steps below. T
 sudo stm32loader --help
 ```
 
-If you get `command not found` you will need to finish all the steps below. Otherwise, you just need to complete step one.
-
-<strong>1.</strong> Disable `husarnet-configurator` and `husarion-shield services` and reboot your ROSbot. These services are responsible for connection to the Husarion Cloud and they also control GPIO pins that are used for uploading the firmware. We will need direct access to them. Run:
-
-```bash
-sudo systemctl disable husarnet-configurator
-sudo systemctl stop husarnet-configurator
-sudo systemctl disable husarion-shield
-sudo reboot
-```
-
-<strong>2.</strong> Install necessary support libraries on your robot. In the terminal run:
-
-**ROSbot 2.0:**
-
-```bash
-cd ~/ && git clone https://github.com/TinkerBoard/gpio_lib_python.git
-cd ~/gpio_lib_python && sudo python setup.py install --record files.txt
-```
-
-**ROSbot 2.0 PRO:**
-
-```bash
-cd ~/ && git clone https://github.com/vsergeev/python-periphery.git
-cd ~/python-periphery && git checkout v1.1.2
-sudo python setup.py install --record files.txt
-```
-
-Restart the terminal after the installation.
-
-<strong>3.</strong> Install `stm32loader` on your robot:
-
-```bash
-cd ~/ && git clone https://github.com/husarion/stm32loader.git
-cd ~/stm32loader && sudo python setup.py install --record files.txt
-```
+If you get `command not found` you will need to finish all the steps below. Otherwise, you just need to complete steps from this [tutorial](https://husarion.com/software/stm32loader/).
 
 You can check if tool works by running following commands:
 
@@ -730,8 +695,8 @@ For ROS Kinetic and Melodic the same firmware is compatible, ROS2 Dashing has di
 
 Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
 
-- [`ROSbot 2.0 with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.10.1.bin)
-- [`ROSbot 2.0 Pro with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.10.1.bin)
+- [`ROSbot 2.0 with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.13.1.bin)
+- [`ROSbot 2.0 Pro with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.13.1.bin)
 - [`ROSbot 2.0 with ROS2 Dashing`](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-fw-ros2-v0.2.0-synchro.bin)
 - [`ROSbot 2.0 Pro with ROS2 Dashing`](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-pro-fw-ros2-v0.2.0-synchro.bin)
 
