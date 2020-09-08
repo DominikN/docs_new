@@ -7,6 +7,24 @@ id: panther
 
 Autonomous, mobile robot platform dedicated for outdoor environment. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
 
+<div class="clearfix">
+<div class="img-container w3">
+    <a href="/docs/assets/img/Panther/_DSC6422_gm.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/_DSC6422_gm.jpg" alt="Panther basic right-front perspective view" class="hover-shadow"/>
+    </a>
+</div>
+<div class="img-container w3">
+    <a href="/docs/assets/img/Panther/_DSC6416_gm.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/_DSC6416_gm.jpg" alt="Panther basic front perspective view" class="hover-shadow"/>
+    </a>
+</div> 
+<div class="img-container w3">
+    <a href="/docs/assets/img/Panther/_DSC6415_gm.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/_DSC6415_gm.jpg" alt="Panther basic left-front perspective view" class="hover-shadow"/>
+    </a>
+</div> 
+</div>
+
 ## Hardware guide ##
 
 ### Specification ###
@@ -67,14 +85,12 @@ Autonomous, mobile robot platform dedicated for outdoor environment. Depending o
 
 ### Power supply ###
 
-The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours.
+The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours).
 
-To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 550W of power to the user's devices.
+To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 505W of power to the user's devices.
 The supply voltages available on the user Power panel are 5V with a total current limitation up to 15A (3x female XT60), 12V limited to 20A (3x female XT60) and 19V limited to 10A (3x female XT60).
 
 Note: One of 19V output is used by NUC. 
-
-**Power**
 
 |          Name          	|          Value            |
 |:----------------------:	|:------------------------: |
