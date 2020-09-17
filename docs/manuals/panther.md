@@ -5,26 +5,44 @@ id: panther
 
 ## Overview ##
 
+<div class="clearfix">
+<div class="img-container w3">
+    <a href="/docs/assets/img/Panther/Panther_basic_right-front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/Panther_basic_right-front_perspective_view.jpg" alt="Panther basic right-front perspective view" class="hover-shadow"/>
+    </a>
+</div>
+<div class="img-container w3">
+    <a href="/docs/assets/img/Panther/Panther_basic_front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/Panther_basic_front_perspective_view.jpg" alt="Panther basic front perspective view" class="hover-shadow"/>
+    </a>
+</div> 
+<div class="img-container w3">
+    <a href="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg.jpg" alt="Panther basic left-front perspective view" class="hover-shadow"/>
+    </a>
+</div> 
+</div>
+
 Autonomous, mobile robot platform dedicated for outdoor environment. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
+
 
 <div class="clearfix">
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/_DSC6422_gm.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/_DSC6422_gm.jpg" alt="Panther basic right-front perspective view" class="hover-shadow"/>
+    <a href="/docs/assets/img/Panther/Panther_basic_left-front_high_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/Panther_basic_left-front_high_perspective_view.jpg" alt="Panther basic left-front high perspective view" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/_DSC6416_gm.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/_DSC6416_gm.jpg" alt="Panther basic front perspective view" class="hover-shadow"/>
+    <a href="/docs/assets/img/Panther/Panther_basic_left_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/Panther_basic_left_perspective_view.jpg" alt="Panther basic left perspective view" class="hover-shadow"/>
     </a>
 </div> 
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/_DSC6415_gm.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/_DSC6415_gm.jpg" alt="Panther basic left-front perspective view" class="hover-shadow"/>
+    <a href="/docs/assets/img/Panther/Panther_basic_right-front_high_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/Panther_basic_right-front_high_perspective_view.jpg" alt="Panther basic right-front high perspective view" class="hover-shadow"/>
     </a>
 </div> 
 </div>
-
 ## Hardware guide ##
 
 ### Specification ###
