@@ -17,8 +17,8 @@ id: panther
     </a>
 </div> 
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg.jpg" alt="Panther basic left-front perspective view" class="hover-shadow"/>
+    <a href="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg" alt="Panther basic left-front perspective view" class="hover-shadow"/>
     </a>
 </div> 
 </div>
@@ -205,3 +205,9 @@ You should see interface like below:
 
 ## Docs and links ##
 All helpful documents and links in one place:
+
+* [Panther schematic block diagram](https://files.husarion.com/panther/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them,
+* [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") - three basic projections of the platform,
+
+
+
