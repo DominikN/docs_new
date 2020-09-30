@@ -43,6 +43,8 @@ Autonomous, mobile robot platform dedicated for outdoor environment. Depending o
     </a>
 </div> 
 </div>
+
+
 ## Hardware guide ##
 
 ### Specification ###
