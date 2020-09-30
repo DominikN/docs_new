@@ -10,6 +10,10 @@ This section contains a technical documentation for hardware products provided b
 
 4x4 drive autonomous mobile robot platform equipped with LIDAR, RGB-D camera, IMU, encoders, distance sensors. Powered by ROS.
 
+## [Panther](https://husarion.com/manuals/panther/) ##
+
+Autonomous, mobile robot platform dedicated for outdoor environment. Powered by ROS.
+
 ## [CORE2](https://husarion.com/manuals/core2/) ##
 
 A low-level STM32F4 based robotic controller that sits inside ROSbot.
