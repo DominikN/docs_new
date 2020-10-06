@@ -83,17 +83,20 @@ Autonomous, mobile robot platform dedicated for outdoor environment. Depending o
 ### Components ###
 
 **standard modules**
+
 * signal lights,
 * inertial navigation system,
 * on-board computer
 
 **external modules**
+
 * GPS,
 * headlights,
 * RGBD camera,
 * manipulator
 
 **communication**
+
 * Ethernet,
 * CAN,
 * RS232,
@@ -110,7 +113,11 @@ The Panther is equipped with a set of battery cells in Lithium-Ion technology wi
 To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 505W of power to the user's devices.
 The supply voltages available on the user Power panel are 5V with a total current limitation up to 15A (3x female XT60), 12V limited to 20A (3x female XT60) and 19V limited to 10A (3x female XT60).
 
-Note: One of 19V output is used by NUC. 
+Note:
+
+* One of 19V output is used by NUC.
+* One of 12V output is used by router
+
 
 |          Name          	|          Value            |
 |:----------------------:	|:------------------------: |
@@ -205,11 +212,49 @@ You should see interface like below:
 
 ![RouteAdminPanelScreenshot](/docs/assets/img/software/route-admin-panel.png)
 
+## Network ##
+
+### Overview ###
+
+Panther is equipped with a router running open-source firmware OpenWRT, which provide following interfaces:
+
+**Ehernet**
+
+* 1 x WAN 10/100/1000Mbps (by default configured as a LAN port)
+* 3 x LAN 10/100/1000Mbps 
+* 2 ports are available for user equipment
+
+**Wireless**
+
+* Two radios (2.4GHZ and 5Ghz)
+* Support for 802.11ac (WiFi 5) with link rate up to 867Mbps, fast roaming with 802.11r
+* Works as access point (AP) and/or as a client/station (STA)
+* External antennas with 2dBi gain
+
+**Cellular**
+
+* Dual-Sim with fail-over
+* LTE (4G) Cat 6
+* External antenna with 3dBi gain
+
+**GNSS**
+
+* Support for GPS, GLONASS, Galileo and BeiDou
+* Integrated into ROS
+
+Each form of connectivity can be part of automatic WAN fail-over in order to provide continuous connection to external services.
+More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual).
+
+
+
+
+
 ## Docs and links ##
 All helpful documents and links in one place:
 
 * [Panther schematic block diagram](https://files.husarion.com/panther/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them,
 * [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") - three basic projections of the platform,
-
+* [Teltonika RUTX11 manual](https://wiki.teltonika-networks.com/view/RUTX11_Manual)
+* [Teltonika RUTX11 datasheet](https://teltonika-networks.com/downloads/en/rutx11/RUTX11-Datasheet.pdf)
 
 
