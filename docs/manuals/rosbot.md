@@ -240,6 +240,10 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     </tr>
 </table>
 
+### Block diagram ###
+
+![Block diagram](/docs/assets/img/ROSbot_manual/block_diagram.png "Block diagram")
+
 ### Rear panel description ###
 
 ![Rear panel description](/docs/assets/img/ROSbot_manual/ROSbot2_rear_panel_v1.1.png "Rear panel description")
@@ -820,6 +824,7 @@ All helpful documents and links in one place:
 * [ROSbot limited warranty terms and conditions](https://files.husarion.com/docs2/ROSbot_limited_warranty_terms_and_conditions_1.0.pdf "ROSbot Safety Instructions") - important!
 * [Charging manual for ROSbot](https://files.husarion.com/docs2/Charging%20manual%20for%20ROSbot.pdf)
 * [ROSbot drawing](https://files.husarion.com/docs2/ROSbot_2.0-Drawing.pdf)
+* [ROSbot block diagram](https://files.husarion.com/docs2/ROSbot_block_diagram.pdf)
 * [ROS tutorials for ROSbot](/tutorials/ros-tutorials/1-ros-introduction)
 * [ROSbot on ROS webpage](https://robots.ros.org/rosbot-2.0/)
 * [ROSbot on ROS Wiki](http://wiki.ros.org/Robots/ROSbot-2.0)
