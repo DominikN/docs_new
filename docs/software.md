@@ -12,6 +12,10 @@ Husarnet is a P2P, VPN network dedicated for robots, drones and autonomous vehic
 
 STM32loader is Python script used to upload or download firmware to / from STM32 microcontrollers over UART.
 
+## [Mbed studio](https://husarion.com/software/mbed-studio/) ##
+
+The example project is part of the [Arm Mbed OS Official Examples](https://os.mbed.com/code/) and is the [getting started example for Mbed OS](https://os.mbed.com/docs/mbed-os/v5.14/quick-start/index.html). It contains an application that repeatedly blinks an LED on the Mbed OS supporting boards.
+
 ## [hFramework (deprecated)](https://husarion.com/software/hframework/) ##
 
 hFramework is a library for creating software for mechatronic devices (e.g. robots). It's completely open sorce. In this tab you can find a lot of useful tips and examples how to use it properly. 

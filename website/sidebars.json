@@ -104,6 +104,7 @@
         "ids": [
           "software/route-admin-panel",
           "software/stm32loader",
+          "software/mbed-studio",
           "software/hframework"
         ]
       }

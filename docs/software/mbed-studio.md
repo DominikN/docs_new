@@ -1,3 +1,8 @@
+---
+title: Mbed studio
+id: mbed-studio
+---
+
 ![](/docs/assets/img/mbed-studio/official_armmbed_example_badge.png)
 # Blinky Mbed OS example
 > Supports Mbed OS 6.2.1
