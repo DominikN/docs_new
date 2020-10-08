@@ -242,6 +242,8 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 
 ### Block diagram ###
 
+Graphic representation of ROSbot 2.0 (PRO) components and connections between them.
+
 ![Block diagram](/docs/assets/img/ROSbot_manual/block_diagram.png "Block diagram")
 
 ### Rear panel description ###
