@@ -106,6 +106,12 @@ Autonomous, mobile robot platform dedicated for outdoor environment. Depending o
 * SPI,
 * USB
 
+### Block diagram ###
+
+Graphic representation of Panther components and connections between them. A full, more detailed version of the block diagram can be downloaded [here](https://files.husarion.com/panther/schematic_block_diagram.pdf).
+
+![Block diagram](/docs/assets/img/Panther/simplified_block_diagram.png "Block diagram")
+
 ### Power supply ###
 
 The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours).
