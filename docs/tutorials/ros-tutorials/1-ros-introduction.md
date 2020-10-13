@@ -190,13 +190,13 @@ If you are working on Windows, press `WinKey + r` then type `mstsc`.
 
 You will see a window appear:
 
-<div><center><img src="/docs/assets/img/ros/man_1_1a.png" /></center></div>
+![](/docs/assets/img/ros/man_1_1a.png)
 
 Type in your device IP address and click `connect`. If you are working on
 Mac, you can use **Microsoft Remote Desktop** available at **AppStore**.
 If you are working on Ubuntu, you can use **Remmina**.
 
-![image](/docs/assets/img/ros/man_1_0.png)
+![](/docs/assets/img/ros/man_1_0.png)
 
 The first step in working with ROS is to run master process called roscore.
 This node handles registration of other nodes, topics and services. After

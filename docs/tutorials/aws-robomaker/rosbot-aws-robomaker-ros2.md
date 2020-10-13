@@ -21,7 +21,7 @@ What's in the box:
 - microSD card with the software for ROSbot
 - USB to Ethernet adapter
 
-<div><center><img src="https://raw.githubusercontent.com/husarion/static_docs/master/src/assets/img/howToStart/ROSbot_unboxing.jpg"/></center></div>
+![](/docs/assets/img/howToStart/ROSbot_unboxing.jpg)
 
 ## Rear panel description
 

@@ -6,7 +6,7 @@ id: rosbot---quick-start
 
 ROSbot 2.0 and ROSbot 2.0 PRO are autonomous, open source robot platforms running on CORE2-ROS controller. They can be used as learning platforms for Robot Operating System (ROS) as well as a base for a variety of robotic applications like inspection robots, custom service robots etc.
 
-If you don't have one, you can get it <a href="https://store.husarion.com/">here</a>.
+If you don't have one, you can get it [here](https://store.husarion.com/).
 
 ## Unboxing
 
@@ -21,7 +21,7 @@ What's in the box:
 - microSD card with the software for ROSbot
 - USB to Ethernet adapter
 
-<div><center><img src="https://raw.githubusercontent.com/husarion/static_docs/master/src/assets/img/howToStart/ROSbot_unboxing.jpg"/></center></div>
+![](/docs/assets/img/howToStart/ROSbot_unboxing.jpg)
 
 ## Assembly
 
@@ -35,7 +35,7 @@ To mount batteries:
 - place batteries accordingly to the symbols, keeping the black strip under the batteries
 - place battery cover and mount it with screws
 
-To charge the batteries, follow this <a href="https://files.husarion.com/docs2/Charging%20manual%20for%20ROSbot.pdf">guide</a>.
+To charge the batteries, follow this [guide](https://files.husarion.com/docs2/Charging%20manual%20for%20ROSbot.pdf).
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 

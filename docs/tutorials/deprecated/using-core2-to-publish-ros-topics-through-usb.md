@@ -158,29 +158,21 @@ Open new tab and type:
 rosrun rosserial_python serial_node.py _baud:=500000 _port:=/dev/ttyUSB0
 ```
 
-<div><center>
-<img alt="" src="/docs/assets/img/core_usb_ros/terminal_1.png" width="900px" />
-</center></div>
+![](/docs/assets/img/core_usb_ros/terminal_1.png)
 
 Note that CORE2 port name may be listed under different number, e.g. /dev/ttyUSB1
 
 Type `rostopic list` to chech list of available topics.
 
-<div><center>
-<img alt="" src="/docs/assets/img/core_usb_ros/terminal_2.png" width="900px" />
-</center></div>
+![](/docs/assets/img/core_usb_ros/terminal_2.png)
 
 Using `rostopic echo /battery` you will see all messsages from topic `/battery`
 
-<div><center>
-<img alt="" src="/docs/assets/img/core_usb_ros/terminal_3.png" width="900px" />
-</center></div>
+![](/docs/assets/img/core_usb_ros/terminal_3.png)
 
 Output should look like this:
 
-<div><center>
-<img alt="" src="/docs/assets/img/core_usb_ros/terminal_4.png" width="900px" />
-</center></div>
+![](/docs/assets/img/core_usb_ros/terminal_4.png)
 
 ## Summary
 

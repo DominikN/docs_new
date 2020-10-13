@@ -45,32 +45,32 @@ after time _δt_ for given control parameters:
 
 In our case the angular speed ω and the angular position Φ of each virtual wheel will be an average of its real counterparts:
 
-<div><center><img src="/docs/assets/img/ros/man_3_formula_1_1.png" title="\large \phi_{W_L}=\frac{\phi_{W_{FL}}+\phi_{W_{RL}}}{2}" /></center></div>
-<div><center><img src="/docs/assets/img/ros/man_3_formula_1_2.png" title="\large \phi_{W_R}=\frac{\phi_{W_{FR}}+\phi_{W_{RR}}}{2}" /></center></div>
-<div><center><img src="/docs/assets/img/ros/man_3_formula_1_3.png" title="\large \omega_{W_L}=\frac{\omega_{W_{FL}}+\omega_{W_{RL}}}{2}" /></center></div>
-<div><center><img src="/docs/assets/img/ros/man_3_formula_1_4.png" title="\large \omega_{W_R}=\frac{\omega_{W_{FR}}+\omega_{W_{RR}}}{2}" /></center></div>
+![](/docs/assets/img/ros/man_3_formula_1_1.png)
+![](/docs/assets/img/ros/man_3_formula_1_2.png)
+![](/docs/assets/img/ros/man_3_formula_1_3.png)
+![](/docs/assets/img/ros/man_3_formula_1_4.png)
 
 Linear speed of each virtual wheel:
 
-<div><center><img src="/docs/assets/img/ros/man_3_formula_2_1.png" title="\huge \huge v_{R} = \omega_{W_R} \times r" /></div></center>
-<div><center><img src="/docs/assets/img/ros/man_3_formula_2_2.png" title="\huge \huge v_{L} = \omega_{W_L} \times r" /></div></center>
+![](/docs/assets/img/ros/man_3_formula_2_1.png)
+![](/docs/assets/img/ros/man_3_formula_2_2.png)
 
 where _r_ - the wheel radius.
 
 We can determine robot angular position and speed with:
 
-<div><center><img src="/docs/assets/img/ros/man_3_formula_3_1.png" title="\huge \alpha = (\phi_{W_R} - \phi_{W_L})\frac{r}{l_2}" /></div></center>
-<div><center><img src="/docs/assets/img/ros/man_3_formula_3_2.png" title="\huge \dot{\alpha}=\frac{d\alpha}{dt}" /></center></div>
+![](/docs/assets/img/ros/man_3_formula_3_1.png)
+![](/docs/assets/img/ros/man_3_formula_3_2.png)
 
 Then robot speed x and y component:
 
-<div><center><img src="/docs/assets/img/ros/man_3_formula_4_1.png" title="\huge \dot{x_c}=(v_L + \dot{\alpha}\tfrac{l_2}{2})cos(\alpha)" /></center></div>
-<div><center><img src="/docs/assets/img/ros/man_3_formula_4_2.png" title="\huge \dot{y_c}=(v_L + \dot{\alpha}\tfrac{l_2}{2})sin(\alpha)" /></center></div>
+![](/docs/assets/img/ros/man_3_formula_4_1.png)
+![](/docs/assets/img/ros/man_3_formula_4_2.png)
 
 To get position:
 
-<div><center><img src="/docs/assets/img/ros/man_3_formula_5_1.png" title="\huge x_c = \int_{0}^{t}\dot{x_c}\ dt" /></center></div>
-<div><center><img src="/docs/assets/img/ros/man_3_formula_5_2.png" title="\huge y_c = \int_{0}^{t}\dot{y_c}\ dt" /></center></div>
+![](/docs/assets/img/ros/man_3_formula_5_1.png)
+![](/docs/assets/img/ros/man_3_formula_5_2.png)
 
 We assume starting position as (0,0).
 
@@ -345,7 +345,7 @@ appear in visualization window.
 Now we will visualize position published by your robot, run `rviz`,
 click **Add** and choose tab **By topic**.
 
-<div><center><img src="/docs/assets/img/ros/man_3_4.png" /></center></div>
+![](/docs/assets/img/ros/man_3_4.png)
 
 If you are working with ROSbot:
 Find topic `/pose` and choose `Pose` and click **OK**.

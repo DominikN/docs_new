@@ -140,7 +140,7 @@ When you launch and the pose calculated by AMCL doesn't match real pose use `2D 
 
 Create launch file for AMCL based on params we have discussed, and save it under launch directory and name `amcl_only.launch` :
 
-```
+```xml
 <launch>
     <node pkg="amcl" type="amcl" name="amcl" output="screen">
     <remap from="scan" to="scan"/>
@@ -177,7 +177,7 @@ Okay, let's create one launch file combining all what we need to provide autonom
 
 Save following file as `tutorial_9.launch` :
 
-```
+```xml
 <launch>
 
     <arg name="use_rosbot" default="true"/>

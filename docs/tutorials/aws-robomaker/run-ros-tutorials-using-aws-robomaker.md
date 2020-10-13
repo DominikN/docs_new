@@ -25,9 +25,7 @@ In this tutorial we will show you how to setup environment at AWS RoboMaker to l
 
 To begin, you need to have an active AWS account. Go to [signup panel](https://portal.aws.amazon.com/billing/signup?registration-confirmation#/start) and follow steps required to create account.
 
-<div><center>
-<img alt="" src="/docs/assets/img/aws-tutorials/aws_tutorial_img1.png" width="900px" />
-</center></div>
+![](/docs/assets/img/aws-tutorials/aws_tutorial_img1.png)
 
 ## Configure AWS Environment
 
@@ -110,7 +108,6 @@ python configure_project.py --bucket $BUCKET_NAME --iam $IAM_ROLE
 ![Simulation jobs menu](/docs/assets/img/aws-tutorials/aws_tutorial_img28.png)
 
 7. Open simulation by clicking its name.
-
 
 ![Simulation view](/docs/assets/img/aws-tutorials/aws_tutorial_img29.png)
 

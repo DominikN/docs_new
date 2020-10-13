@@ -65,7 +65,6 @@
         "ids": [
           "tutorials/other-tutorials/rosbot-rosds-quick-start",
           "tutorials/other-tutorials/husarnet-cyclone-dds",
-          "tutorials/other-tutorials/getting-started-with-core2-lego-mindstorms",
           "tutorials/other-tutorials/rosbot-and-ws2812b-led-signalization"
         ]
       },

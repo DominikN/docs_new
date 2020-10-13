@@ -1,6 +1,6 @@
 ---
 id: rosbot-and-ws2812b-led-signalization
-sidebar_label: 4. ROSbot with WS2812B LEDs signalization 
+sidebar_label: 3. ROSbot with WS2812B LEDs signalization 
 title: ROSbot with WS2812B LEDs signalization
 ---
 
