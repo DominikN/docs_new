@@ -24,13 +24,71 @@ We recommend you to switch default compiler to **Arm Embedded GCC Compiler 9-201
 
 * Open [Mbed Studio](https://os.mbed.com/studio/) IDE. 
 * From menu select `File -> Import Program...` 
-* In **Import program** dialog box paste link to this repository. 
+* In **Import program** dialog box paste link to this repository: `https://github.com/husarion/core2-template-mbed-studio`
 * In **Mbed OS Location** select first option if you want to download a new copy of Mbed OS and store it in your program folder. In case you want to share single instance of the Mbed OS library among many programs download it to a known location and proceed with the option number two. 
 * Finalize the import by clicking **Add Program**.
 
 ![](/docs/assets/img/mbed-studio/mbed_studio_instruction1.png)
 
 ## Selecting a custom build target
+
+After importing program you click on `target` drop-down list and chose CORE2. 
+
+![](/docs/assets/img/mbed-studio/mbed_studio_instruction6.png)
+
+## Building and running
+
+* From the **Build profile** drop-down list select one of the profiles:
+    * Debug (default)
+    * Develop
+    * Release
+
+* Clicking the **hammer** icon will compile your project and generate `bin`, `elf` and `hex` files.
+* Clicking on the **play** icon will build the example and flash it to the connected board (only with [connected St-link](https://husarion.com/software/mbed-studio/#debugging-code-using-st-link)).
+* Clicking the **bug** icon will start debug session (only with [connected St-link](https://husarion.com/software/mbed-studio/#debugging-code-using-st-link)).
+
+![](/docs/assets/img/mbed-studio/mbed_studio_instruction5.png)
+
+## Flashing code to CORE2
+
+To flash your build code to CORE2 you can use different tools depends on what is your hardware set. In case you are using bare CORE2 you have to use USB cable connected to your computer and CORE2. If you are using CORE2-ROS you can use USB cable and stm32loader preinstalled in our Ubuntu images.
+
+### Using usb cable 
+
+Connect your USB cable to CORE2 hSerial port and your computer.
+
+![](/docs/assets/img/howToStart/core2_hSerial.png)
+
+Download and extract [Husarion tools](https://files.husarion.com/husarion-tools/husarion-tools.zip). Open directory corresponding to your processor architecture. 
+
+Next you just have to run `core2-flasher` and point `hex` file you want to flash. 
+
+```
+.<directory>/core2-flasher <directory>/example.hex
+```
+
+For example:
+
+```
+./core2-flasher ~/Mbed Programs/core2-template-mbed-studio/BUILD/CORE2/GCC_ARM/core2-template-mbed-studio.hex
+```
+
+Everything went OK, if you will see output similar to this:
+
+![](/docs/assets/img/howToStart/output.png)
+
+### Using stm32loader
+
+Full manual of using this tool, available only for CORE2-ROS you can find [here](https://husarion.com/software/stm32loader/#stm32loader-usage).
+
+## Application functionality
+
+The `main()` function is the single thread in the application. It toggles the state of a digital output connected to an LED on the board.
+
+## Expected output
+The LED on your target turns on and off every 500 milliseconds.
+
+## Debugging code using ST-link
 
 * Attach your ST-LINK probe to CORE2, power-up the board and connect the programmer to your computer. 
 * Open **Target** drop-down list and click on **Mangage custom targets** button.
@@ -47,26 +105,6 @@ Following dialog box should appear:
 ![](/docs/assets/img/mbed-studio/mbed_studio_instruction4.png)
 
 * Save the configuration with **Save all**.
-
-## Building and running
-
-* From the **Build profile** drop-down list select one of the profiles:
-    * Debug (default)
-    * Develop
-    * Release
-
-* Clicking the **hammer** icon will compile your project and generate `bin` file.
-* Clicking on the **play** icon will build the example and flash it to the connected board.
-* Clicking the **bug** icon will start debug session.
-
-![](/docs/assets/img/mbed-studio/mbed_studio_instruction5.png)
-
-## Application functionality
-
-The `main()` function is the single thread in the application. It toggles the state of a digital output connected to an LED on the board.
-
-## Expected output
-The LED on your target turns on and off every 500 milliseconds.
 
 ## Troubleshooting
 If you have problems, you can review the [documentation](https://os.mbed.com/docs/latest/tutorials/debugging.html) for suggestions on what could be wrong and how to fix it.
