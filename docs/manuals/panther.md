@@ -280,18 +280,26 @@ To reinstall system in your main computer you should do this as for any other ub
 
 #### Launching navigation example
 
-The user space PC comes with preinstalled Ubuntu 20.04 and ROS, the same as the Raspberry Pi SBC. It also has a [route_admin_panel](https://github.com/husarion/route_admin_panel/) as an example application.
+The user space PC comes with preinstalled Ubuntu 20.04 and ROS, the same as the Raspberry Pi SBC. PC also has a [route_admin_panel](https://github.com/husarion/route_admin_panel/) as an example application.
 
 To start the RAP:
 
+PC:
+
 ```
-roslaunch panther_driver rap.launch 
+roscore
+roslaunch route_admin_panel demo_panther_classic.launch # chose between classic mix and mecanum depending of your wheel configuration
+```
+
+RPI:
+```
+roslaunch panther_driver driver.launch 
 ```
 
 Then open in browser: 
 
 ```
-PANTHER_IP_ADDRESS:8000
+PANTHER_IP_ADDRESS:8000 #default 10.15.20.3:8000
 ```
 
 You should see interface like below:
