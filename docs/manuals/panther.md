@@ -44,6 +44,53 @@ Autonomous, mobile robot platform dedicated for outdoor environment. Depending o
 </div> 
 </div>
 
+## Quick Start ##
+Here is a very basic demo allowing you to use your Panther the first time without coding:
+
+Rotate emergency push button + set power switch to right (it is 3 pose switch, set to the 3rd pose), and then wait for Wi-Fi to come up:
+
+SSID: Panther_<serial_number>
+
+PASS:  husarion
+
+Connect to Wi-Fi and open WEBUI ROS JOYSTICK [10.15.20.2:8000] or connect to web page [10.15.20.3:8000] (default addresses and ports for Panther). 
+When the robot is ready to work you should see it's lights.
+#
+Route Admin Panel (https://husarion.com/software/route-admin-panel/) is a preinstalled, open-source web user interface available on the Panther. By using RAP you can test autonomous drive of your robot - you can define navigation points and send orders to Panther to visit them. Before using RAP, at first you need to create a basic map of the environment you are going to test the robot - you can do it manually by a web-joystick available under [10.15.20.2:8000].
+
+#
+WARNING: RAP is not a production-ready software, that's a basic demo you use on your own risk. Especially some obstacles in your working environment might be invisible for sensors in your configuration. Feel free to modify this demo code. It is open source and available on Husarion's github https://github.com/husarion/route_admin_panel .
+#
+
+REMOTE ACCESS
+You can access your Panther from any place in the world, thanks to Husarnet VPN service (husarnet.com). Husarnet is preinstalled on the Panther. To access your robot from any place in the world, just follow these steps:
+
+Create an account at https://app.husarnet.com/ and click [Create network] button. Go to the newly created Husarnet network and click [Add element] button. Go to a [join code] tab and copy your join code, it should look like this:
+
+fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/xxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Open a linux terminal in your laptop that is connected to the hotspot provided by Panther
+
+```$ ssh [10.15.20.3:8000]```
+
+Open the `~/panther_rutx11/setup.sh` file and modify lines:
+
+12 - 14 with your Wi-Fi network credentials of the network you want your Panther be connected to
+
+18 - 19 with you Husarnet "join code" (from point 3) and a hostname for the Panther
+
+Execute a script:
+
+```$ ./setup.sh```
+
+After 20 - 60 seconds you should be able to see you panther available at app.husarnet.com. You can ping it
+
+$ ping6 myPanther
+or SSH to it:
+
+$ ssh husarion@myPanther
+Remember to connect also your laptop to the same Husarnet network as Panther (https://docs.husarnet.com/docs/begin-linux).
+
 
 ## Hardware guide ##
 
@@ -145,7 +192,7 @@ Panther robot is equipped with the Raspberry Pi 4 SBC with custom OS based on Ub
 
 ### ROS API ###
 
-Below are topics and services available in ROSbot:
+Below are topics and services available in Panther:
 
 | Topic | Message type | Direction | Node |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
 | --- | --- | --- | --- | --- |
@@ -153,41 +200,68 @@ Below are topics and services available in ROSbot:
 | `/battery` | `sensor_msgs/BatteryState` | publisher | `/panther_driver` | Battery voltage |
 | `/pose` | `geometry_msgs/Pose` | publisher | `/panther_driver` | Position based on encoders |
 | `/cmd_vel` | `geometry_msgs/Twist` | subscriber | `/panther_driver` | Velocity commands |
-| `/panther_lights` | `panther_lights/LightsMessage` | subscriber | `/panther_lights` | Control the front and rear lights |
+| `/set_panther_lights` | `panther_lights/LightsMessage` | service | `/panther_lights` | Control the front and rear lights |
+| `/imu/data` | `sensor_msgs/Imu` | publisher | `/imu_manager` | Publishes imu data |
 
-Lights pattern could be set by publishing appropriate message to `/panther_lights` topic, to change animation to `BLINKER_LEFT`:
+
+Lights pattern could be set by calling appropriate message to `/set_panther_lights` service, to change animation to `BLINKER_LEFT`:
 ```
-rostopic pub /panther_lights panther_lights/LightsMessage "animation: 1
-custom_color: ''" -1
+rosservice call /set_panther_lights "animation: 1
+custom_color: ''"
 ```
 
 To change animation to `BLINKER_LEFT` with custom colors (front is green, rear is red):
 ```
-rostopic pub /panther_lights panther_lights/LightsMessage "animation: 1
-custom_color: '0x00FF00 0xFF0000'" -1
+rosservice call /set_panther_lights "animation: 1
+custom_color: '0x00FF00 0xFF0000'"
 ```
-More details regarding lights control could be found in [`panther_lights` documentation](https://github.com/byq77/panther-lights#ros-interface).
+More details regarding lights control could be found in [`panther_lights` documentation](https://github.com/husarion/panther_lights).
+
+More details regarding driver could be found in [`panther_driver` documentation](https://github.com/husarion/panther_driver).
+
+### Disable autostart ROS nodes ###
+
+Brand new Panther launches some ROS nodes, you can disable them just by sending systemctl commands.
+
+_ROSCORE_ :
+
+By default roscore starts at main computer and can be disabled by logging (default `ssh husarion@10.15.20.3` pass:`husarion`) and executing following command:
+
+```systemctl disable roscore.service```
+
+_ROUTE ADMIN PANEL_ 
+
+By default route admin panel starts at main computer and can be disabled by logging (default `ssh husarion@10.15.20.3` pass:`husarion`) and executing following command:
+
+```systemctl disable route_admin_panel.service```
+
+_PANTHER DRIVER_ 
+
+Panther driver starts at RPI SBC and it's responsible for controlling motors, and also sync time from main computer it's not recommended to disable this because you can end up with timestamp problems. Instead we recommend to customize [launch file](https://github.com/husarion/panther_driver/blob/main/launch/driver.launch) by setting appropriate arguments. If you still want to disable this use:
+
+```sudo systemctl disable launch_driver.service```
+
 
 #### External documentation ####
 
- - Slamtec RpLidar scanner API is documented in [driver repository](https://github.com/Slamtec/rplidar_ros)
+ - Slamtec RpLidar scanner API is documented in [rplidar repository](https://github.com/Slamtec/rplidar_ros)
 
 ### Joystick control ###
 
-The Raspberry Pi SBC has a preinstalled webui with simple joystick. The joystick allows user to issue simple motion commands for the robot.
+The Raspberry Pi SBC has a preinstalled WEBUI with simple joystick. The joystick allows user to issue simple motion commands for the robot.
 To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
 
 ### System reinstallation ###
 
  In some cases you will need to restore Panther's system to its default settings:
  - in case of accidential damage of the system,
- - to update the OS (it can be udpated remotely, but flashing the microSD card can be easier sometimes),
+ - to update the OS,
  - to clear all user changes and restore factory settings.
 
  The reinstallation procedure is following:
 
 1. Extract SD card from Raspberry Pi SBC by pushing card carefully until it is released back by card holder, thel pull it out. In order to find SD card slot, you will need to disassemble part of the top cover.
-2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2020-08-18.img.xz).
+2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2020-10-15.img.xz).
 3. Extract downloaded image (For this process we recommend using [unxz](https://linux.die.net/man/1/unxz) tool).
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
@@ -197,6 +271,12 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
  - Select the SD card you wish to write your image to.
  - Review your selections and click 'Flash!' to begin writing data to the SD card.
 5. Insert SD card back to Raspberry Pi
+
+To reinstall system in your main computer you should do this as for any other ubuntu system. 
+
+1. Download image from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-x64-2020-10-13.iso).
+2. Create bootable pendrive with [Etcher](https://www.balena.io/etcher/).
+3. Insert pendrive into one of Panther's USB ports and install by selecting appropriate option during boot.
 
 #### Launching navigation example
 
