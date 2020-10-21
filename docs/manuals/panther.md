@@ -71,24 +71,29 @@ fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/xxxxxxxxxxxxxxxxxxxxxxxxxx
 
 Open a linux terminal in your laptop that is connected to the hotspot provided by Panther
 
-```$ ssh [10.15.20.3:8000]```
+```$ ssh husarion@10.15.20.2``` with password `husarion`
 
-Open the `~/panther_rutx11/setup.sh` file and modify lines:
+To connect Panther to WiFi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
 
-12 - 14 with your Wi-Fi network credentials of the network you want your Panther be connected to
+ `~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 0`
 
-18 - 19 with you Husarnet "join code" (from point 3) and a hostname for the Panther
+After message `Network added` exit terminal session by command `exit`
 
-Execute a script:
+Note: WiFi must be in range of Panther. For more information head to [Network Section](#Network)
 
-```$ ./setup.sh```
+```$ ssh husarion@10.15.20.3``` with password `husarion`
 
-After 20 - 60 seconds you should be able to see you panther available at app.husarnet.com. You can ping it
+To join Panther to your Husarnet network execute:
 
-$ ping6 myPanther
+`husarnet join fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/xxxxxxxxxxxxxxxxxxxxxxxxxx myPanther`
+
+After 20 - 60 seconds you should be able to see you panther available at https://app.husarnet.com/. You can ping it:
+
+`$ ping6 myPanther`
+
 or SSH to it:
 
-$ ssh husarion@myPanther
+`$ ssh husarion@myPanther`
 Remember to connect also your laptop to the same Husarnet network as Panther (https://docs.husarnet.com/docs/begin-linux).
 
 
@@ -338,7 +343,6 @@ Panther is equipped with a router running open-source firmware OpenWRT, which pr
 
 Each form of connectivity can be part of automatic WAN fail-over in order to provide continuous connection to external services.
 More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual).
-
 
 
 
