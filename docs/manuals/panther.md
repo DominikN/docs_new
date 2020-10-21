@@ -344,6 +344,31 @@ Panther is equipped with a router running open-source firmware OpenWRT, which pr
 Each form of connectivity can be part of automatic WAN fail-over in order to provide continuous connection to external services.
 More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual).
 
+### Connecting Panther to WiFi ###
+
+Panther can be connected WiFi on 2.4GHz or 5GHz band. It will be used as WAN source and be prioritized over cellular connection. Single radio can act simultaneously as AP (access point) and STA (client).
+
+#### Connecting to 2.4GHz WiFi ####
+
+Open a linux terminal in your laptop that is connected to the hotspot provided by Panther
+
+```$ ssh husarion@10.15.20.2``` with password `husarion`
+To connect Panther to WiFi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
+
+`~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 0`
+
+After message `Network added` exit terminal session by command `exit`.
+
+#### Connecting to 5GHz WiFi ####
+
+Due to limitation of WiFi chipset it is not possible to connect to 5GHz network without its brief shutdown. Its advised to connect to Panther with 2.4GHz WiFi when executing commands below.
+
+```$ ssh husarion@10.15.20.2``` with password `husarion`
+To connect Panther to WiFi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
+
+ `~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 1`
+
+After message `Network added` exit terminal session by command `exit`.
 
 
 
