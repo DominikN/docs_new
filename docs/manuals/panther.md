@@ -51,6 +51,7 @@ Rotate emergency push button + set power switch to right (it is 3 pose switch, s
 
 
 > **SSID:** `Panther_<serial_number>`
+>
 > **PASS:** `husarion`
 
 Connect to Wi-Fi and open WEBUI ROS JOYSTICK [10.15.20.2:8000] or connect to web page [10.15.20.3:8000] (default addresses and ports for Panther). 
