@@ -55,19 +55,19 @@ PASS:  husarion
 
 Connect to Wi-Fi and open WEBUI ROS JOYSTICK [10.15.20.2:8000] or connect to web page [10.15.20.3:8000] (default addresses and ports for Panther). 
 When the robot is ready to work you should see it's lights.
-#
-Route Admin Panel (https://husarion.com/software/route-admin-panel/) is a preinstalled, open-source web user interface available on the Panther. By using RAP you can test autonomous drive of your robot - you can define navigation points and send orders to Panther to visit them. Before using RAP, at first you need to create a basic map of the environment you are going to test the robot - you can do it manually by a web-joystick available under [10.15.20.2:8000].
 
-#
-WARNING: RAP is not a production-ready software, that's a basic demo you use on your own risk. Especially some obstacles in your working environment might be invisible for sensors in your configuration. Feel free to modify this demo code. It is open source and available on Husarion's github https://github.com/husarion/route_admin_panel .
-#
+[Route Admin Panel](https://husarion.com/software/route-admin-panel/) (RAP) is a preinstalled, open-source web user interface available on the Panther. By using RAP you can test autonomous drive of your robot - you can define navigation points and send orders to Panther to visit them. Before using RAP, at first you need to create a basic map of the environment you are going to test the robot - you can do it manually by a web-joystick available under [10.15.20.2:8000].
 
-REMOTE ACCESS
-You can access your Panther from any place in the world, thanks to Husarnet VPN service (husarnet.com). Husarnet is preinstalled on the Panther. To access your robot from any place in the world, just follow these steps:
 
-Create an account at https://app.husarnet.com/ and click [Create network] button. Go to the newly created Husarnet network and click [Add element] button. Go to a [join code] tab and copy your join code, it should look like this:
+> **WARNING:** RAP is not a production-ready software, **that's a basic demo you use on your own risk**. Especially some obstacles in your working environment might be invisible for sensors in your configuration. Feel free to modify this demo code. It is open source and available on Husarion's github https://github.com/husarion/route_admin_panel .
 
-fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/xxxxxxxxxxxxxxxxxxxxxxxxxx
+
+## Remote Access
+You can access your Panther over the Internet, from any place in the world, thanks to Husarnet VPN service (husarnet.com). Husarnet is preinstalled on the Panther. To access your robot from any place in the world, just follow these steps:
+
+Create an account at https://app.husarnet.com/ and click [Create network] button. Go to the newly created Husarnet network and click **[Add element]** button. Go to a [join code] tab and copy your join code, it should look like this:
+
+`fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/xxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 Open a linux terminal in your laptop that is connected to the hotspot provided by Panther
 
@@ -79,7 +79,7 @@ To connect Panther to WiFi on 2.4GHz named `MyNetwork` with password `MyPassword
 
 After message `Network added` exit terminal session by command `exit`
 
-Note: WiFi must be in range of Panther. For more information head to [Network Section](#Network)
+> **Note:** WiFi must be in range of Panther. For more information head to [Network Section](#Network)
 
 ```$ ssh husarion@10.15.20.3``` with password `husarion`
 
