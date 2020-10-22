@@ -49,9 +49,9 @@ Here is a very basic demo allowing you to use your Panther the first time withou
 
 Rotate emergency push button + set power switch to right (it is 3 pose switch, set to the 3rd pose), and then wait for Wi-Fi to come up:
 
-SSID: Panther_<serial_number>
 
-PASS:  husarion
+> **SSID:** `Panther_<serial_number>`
+> **PASS:** `husarion`
 
 Connect to Wi-Fi and open WEBUI ROS JOYSTICK [10.15.20.2:8000] or connect to web page [10.15.20.3:8000] (default addresses and ports for Panther). 
 When the robot is ready to work you should see it's lights.
