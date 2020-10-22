@@ -73,13 +73,13 @@ Open a linux terminal in your laptop that is connected to the hotspot provided b
 
 ```$ ssh husarion@10.15.20.2``` with password `husarion`
 
-To connect Panther to WiFi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
+To connect Panther to Wi-Fi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
 
  `~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 0`
 
 After message `Network added` exit terminal session by command `exit`
 
-> **Note:** WiFi must be in range of Panther. For more information head to [Network Section](#Network)
+> **Note:** Wi-Fi must be in range of Panther. For more information head to [Network Section](#Network)
 
 ```$ ssh husarion@10.15.20.3``` with password `husarion`
 
@@ -153,7 +153,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 * CAN,
 * RS232,
 * RS485,
-* WiFi,
+* Wi-Fi,
 * I2C,
 * SPI,
 * USB
@@ -315,7 +315,7 @@ You should see interface like below:
 
 ### Overview ###
 
-Panther is equipped with a router running open-source firmware OpenWRT, which provide following interfaces:
+Panther is equipped with a RUTX11 router running open-source firmware OpenWRT, which provide following interfaces:
 
 **Ehernet**
 
@@ -325,8 +325,8 @@ Panther is equipped with a router running open-source firmware OpenWRT, which pr
 
 **Wireless**
 
-* Two radios (2.4GHZ and 5Ghz)
-* Support for 802.11ac (WiFi 5) with link rate up to 867Mbps, fast roaming with 802.11r
+* Two radios (2.4GHz and 5GHz)
+* Support for 802.11ac (Wi-Fi 5) with link rate up to 867Mbps, fast roaming with 802.11r
 * Works as access point (AP) and/or as a client/station (STA)
 * External antennas with 2dBi gain
 
@@ -342,29 +342,29 @@ Panther is equipped with a router running open-source firmware OpenWRT, which pr
 * Integrated into ROS
 
 Each form of connectivity can be part of automatic WAN fail-over in order to provide continuous connection to external services.
-More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual).
+More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual). Some RUTX11 configuration scripts are available on [our GitHub repository](https://github.com/husarion/panther_rutx11).
 
-### Connecting Panther to WiFi ###
+### Connecting Panther to Wi-Fi ###
 
-Panther can be connected WiFi on 2.4GHz or 5GHz band. It will be used as WAN source and be prioritized over cellular connection. Single radio can act simultaneously as AP (access point) and STA (client).
+Panther can be connected Wi-Fi on 2.4GHz or 5GHz band. It will be used as WAN source and be prioritized over cellular connection. Single radio can act simultaneously as AP (access point) and STA (client).
 
-#### Connecting to 2.4GHz WiFi ####
+#### Connecting to 2.4GHz Wi-Fi ####
 
 Open a linux terminal in your laptop that is connected to the hotspot provided by Panther
 
 ```$ ssh husarion@10.15.20.2``` with password `husarion`
-To connect Panther to WiFi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
+To connect Panther to Wi-Fi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
 
 `~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 0`
 
 After message `Network added` exit terminal session by command `exit`.
 
-#### Connecting to 5GHz WiFi ####
+#### Connecting to 5GHz Wi-Fi ####
 
-Due to limitation of WiFi chipset it is not possible to connect to 5GHz network without its brief shutdown. Its advised to connect to Panther with 2.4GHz WiFi when executing commands below.
+Due to limitation of Wi-Fi chipset it is not possible to connect to 5GHz network without its brief shutdown. Its advised to connect to Panther with 2.4GHz Wi-Fi when executing commands below.
 
 ```$ ssh husarion@10.15.20.2``` with password `husarion`
-To connect Panther to WiFi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
+To connect Panther to Wi-Fi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
 
  `~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 1`
 
