@@ -167,7 +167,13 @@ Most of external modules are attached to the profiles on the top of the platform
 
 Graphic representation of Panther components and connections between them. A full, more detailed version of the block diagram can be downloaded [here](https://files.husarion.com/panther/schematic_block_diagram.pdf).
 
-![Block diagram](/docs/assets/img/Panther/simplified_block_diagram.png "Block diagram")
+<div class="clearfix">
+<div class="img-container w3">
+    <a href="/docs/assets/img/Panther/simplified_block_diagram.png" data-fancybox="gallery" data-caption="Block diagram">
+    <img width ="400px" src="/docs/assets/img/Panther/simplified_block_diagram.png" alt="Block diagram" class="hover-shadow"/>
+    </a>
+</div> 
+</div>
 
 ### Power supply ###
 
@@ -175,6 +181,8 @@ The Panther is equipped with a set of battery cells in Lithium-Ion technology wi
 
 To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 505W of power to the user's devices.
 The supply voltages available on the user Power panel are 5V with a total current limitation up to 15A (3x female XT60), 12V limited to 20A (3x female XT60) and 19V limited to 10A (3x female XT60).
+
+![User Panel - Power Supply](/docs/assets/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
 
 Note:
 
@@ -210,10 +218,15 @@ These profiles are fixed to the robot with four bolts DIN912 M8x40.
 
 ![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
 
+For more useful information in the field of mechanics, please see the document [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions").
+
 ### Access to the interior ###
 
 The robot's volume has been divided into three parts.
-The central space is dedicated to the user's components and electronics. Here, by default, the Inter NUC computer, RUTX11 router and the robot's battery are located. Two user panels has been led to this space.A panel distributing electric power for the user and a panel for communication with the rest of the robot - as standard it is an Ethernet connector to the internal SBC).
+The central space is dedicated to the user's components and electronics. Here, by default, the Inter NUC computer, RUTX11 router and the robot's battery are located. Two user panels has been led to this space. A panel distributing electric power for the user:
+![User Panel - Power Supply](/docs/assets/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
+And a panel for communication with the rest of the robot - as standard it is an Ethernet connector to the internal SBC):
+![User Panel - Communication Port](/docs/assets/img/Panther/UserPanel_CommunicationPort.png "User Panel - Communication Port")
 The front and rear spaces are occupied by motors and built-in electronics. For these spaces it is usually not needed to access by the user. Opening these spaces is mainly used for service work.
 
 To access the components inside the user space, unscrew the top rails (4x DIN912 M8x40).
