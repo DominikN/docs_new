@@ -170,7 +170,7 @@ Graphic representation of Panther components and connections between them. A ful
 <div class="clearfix">
 <div class="img-container w3">
     <a href="/docs/assets/img/Panther/simplified_block_diagram.png" data-fancybox="gallery" data-caption="Block diagram">
-    <img width ="400px" src="/docs/assets/img/Panther/simplified_block_diagram.png" alt="Block diagram" class="hover-shadow"/>
+    <img width ="680px" style="center" src="/docs/assets/img/Panther/simplified_block_diagram.png" alt="Block diagram" class="hover-shadow"/>
     </a>
 </div> 
 </div>
