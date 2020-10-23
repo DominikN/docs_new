@@ -167,13 +167,7 @@ Most of external modules are attached to the profiles on the top of the platform
 
 Graphic representation of Panther components and connections between them. A full, more detailed version of the block diagram can be downloaded [here](https://files.husarion.com/panther/schematic_block_diagram.pdf).
 
-<div class="clearfix">
-<div class="img-container w3">
-    <a href="/docs/assets/img/Panther/simplified_block_diagram.png" data-fancybox="gallery" data-caption="Block diagram">
-    <img width ="680px" style="center" src="/docs/assets/img/Panther/simplified_block_diagram.png" alt="Block diagram" class="hover-shadow"/>
-    </a>
-</div> 
-</div>
+![Block diagram](/docs/assets/img/Panther/simplified_block_diagram.png "Block diagram")
 
 ### Power supply ###
 
@@ -208,7 +202,7 @@ Note: If the robot is turned on and has a connected charger, the charging proces
 
 Sensors, constructions and payload can be attached to the profiles on top of the robot. 
 
-![Rails on top of the Robot](/docs/assets/img/Panther/top_rail.png "Block diagram")
+![Rails on top of the Robot](/docs/assets/img/Panther/top_rail.png "Rails on top of the Robot")
 
 The profiles used are aluminum V-slot 2020 profiles. The best way to attach the elements to them is to use mounting elements dedicated to this type of profiles, such as T-nuts, fittings and angles.
 
