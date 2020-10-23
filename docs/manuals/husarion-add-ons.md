@@ -7,7 +7,6 @@ id: core2-add-ons
 
 Adapter which connects CORE2 or CORE2-ROS with LEGO® Mindstorms system. 
 
-
 <div class="image center h300">
 <a href="/docs/assets/img/husarion-add-ons/core2brick_title.jpg" data-fancybox >
 <img src="/docs/assets/img/husarion-add-ons/core2brick_title.jpg" />
@@ -33,64 +32,24 @@ The LEGO® Mindstorms sets use non-standard, modular 6P6C connectors, also known
 
 We decided to provide the shield with typical 6P6C receptacles (the crimping tool for them is widely available) and 10 cables, which are adapters in fact:
 
-<div class="image center h300">
-<img src="/docs/assets/img/husarion-add-ons/cableRJ.png" />
-</div>
+![](/docs/assets/img/husarion-add-ons/cableRJ.png)
 
 The pin numbering convention:
 
-<div class="image center h300">
-<img src="/docs/assets/img/husarion-add-ons/6p6c.png" />
-</div>
+![](/docs/assets/img/husarion-add-ons/6p6c.png)
 
 ### Motor interface ###
 
 The motor interface is straight - there is 1:1 connection between CORE2 hMotor outputs and CORE2brick interface to LEGO® motors. It is just an adapter.
 
-<table class="text_table">
-    <tr>
-       <th>CORE2 hMotor pin</th>
-	   <th>CORE2 hMotor signal</th>
-       <th>6P6C connector pin</th>
-	   <th>LEGO® motor signal</th>
-    </tr>
-	<tr>
-        <td>1</td>
-        <td>H-bridge output A</td>
-        <td>1</td>
-        <td>Motor terminal A</td>
-    </tr>
-	<tr>
-        <td>2</td>
-        <td>H-bridge output B</td>
-        <td>2</td>
-        <td>Motor terminal B</td>
-    </tr>
-	<tr>
-        <td>3</td>
-        <td>GND</td>
-        <td>3</td>
-        <td>Neg. encoder supply</td>
-    </tr>
-	<tr>
-        <td>4</td>
-        <td>+5V</td>
-        <td>4</td>
-        <td>Pos. encoder supply</td>
-    </tr>
-	<tr>
-        <td>5</td>
-        <td>Encoder input A</td>
-        <td>5</td>
-        <td>Encoder output A</td>
-    </tr>
-	<tr>
-        <td>6</td>
-        <td>Encoder input B</td>
-        <td>6</td>
-        <td>Encoder output B</td>
-    </tr>
-</table>
+| CORE2 hMotor pin | CORE2 hMotor signal | 6P6C connector pin | LEGO® motor signal |
+| --- | --- | --- | --- |
+| 1 | H-bridge output A | 1 | Motor terminal A |
+| 2 | H-bridge output B | 2 | Motor terminal B |
+| 3 | GND | 3 | Neg. encoder supply |
+| 4 | +5V | 4 | Pos. encoder supply |
+| 5 | Encoder input A | 5 | Encoder output A |
+| 6 | Encoder input B | 6 | Encoder output B |
 
 ### Sensor interface ###
 
@@ -102,50 +61,14 @@ The sensor interface needs an adaptation to another pinout and signal types. The
 
 The schematic shows a single sensor interface. Each sensor connector is connected with the corresponding hSens number on CORE2, eg. hSens1 is connected with Sensor1 on the CORE2brick shield. The voltage regulators on the shield converts 5V supply from CORE2 to 3.3V and 9V, needed for LEGO® sensors. The switchable current source is necessary for some sensors.
 
-<table class="text_table">
-    <tr>
-       <th>CORE2 hSensor pin</th>
-	   <th>CORE2 hSensor signal</th>
-       <th>6P6C connector pin</th>
-	   <th>LEGO® sensor signal</th>
-    </tr>
-	<tr>
-        <td>1</td>
-        <td>GPIO / ADC / interrupt</td>
-        <td>1</td>
-        <td>GPIO / ADC / current source</td>
-    </tr>
-	<tr>
-        <td>2</td>
-        <td>GPIO</td>
-        <td>-</td>
-        <td>switches the current source on pin 1, active with high level</td>
-    </tr>
-	<tr>
-        <td>3</td>
-        <td>GPIO/SCL/TX*</td>
-        <td>5</td>
-        <td>GPIO/SCL/RX*</td>
-    </tr>
-	<tr>
-        <td>4</td>
-        <td>GPIO/SDA/RX*</td>
-        <td>6</td>
-        <td>GPIO/SDA/TX*</td>
-    </tr>
-	<tr>
-        <td>5</td>
-        <td>+5V output</td>
-        <td>4</td>
-        <td>+5V input</td>
-    </tr>
-	<tr>
-        <td>6</td>
-        <td>GND</td>
-        <td>2,3</td>
-        <td>GND</td>
-    </tr>
-</table>
+| CORE2 hSensor pin | CORE2 hSensor signal | 6P6C connector pin | LEGO® sensor signal |
+| --- | --- | --- | --- |
+| 1 | GPIO / ADC / interrupt | 1 | GPIO / ADC / current source |
+| 2 | GPIO | - | switches the current source on pin 1, active with high level |
+| 3 | GPIO/SCL/TX* | 5 | GPIO/SCL/RX* |
+| 4 | GPIO/SDA/RX* | 6 | GPIO/SDA/TX* |
+| 5 | +5V output | 4 | +5V input |
+| 6 | GND | 2,3 | GND |
 
 *- see [hSensor description](/manuals/core2#hsensor "hSensor description") for the specific functions availability
 
@@ -193,160 +116,39 @@ The connectors used with CORE2 are shrouded box headers: 2×3-Pin, 0.1" (2.54 mm
 
 Adapter PCBs that can be separated by breaking them off, if you like. The connections on each adapter are explained on the circuit diagram below:
 
-<div class="image center h300">
-<img src="/docs/assets/img/husarion-add-ons/core2block-schematic.png" />
-</div>
+![](/docs/assets/img/husarion-add-ons/core2block-schematic.png)
 
 Important: the Makeblock documentation shows a different, non-standard pin order for 6P6C (RJ25) connector. We follow the order used by Molex and FCI connector manufacturers, and also by LEGO® in their Mindstorms kits.
 
 On the bottom side of PCB you can find jumpers for configuring the adapter connections. They are needed for interfacing CORE2 with different Makeblock sensors. The photo below shows the jumper position on PCB:
 
-<div class="image center h200">
-<img src="/docs/assets/img/husarion-add-ons/jumpers.jpg" />
-</div>
+![](/docs/assets/img/husarion-add-ons/jumpers.jpg)
 
 And this table should be helpful for you:
 
-<table class="text_table">
-    <tr>
-       <th>Makeblock sensor name</th>
-       <th>Main interface</th>
-	   <th>CORE2 hSens port no</th>
-       <th>JP1-JP3 position</th>
-    </tr>
-    <tr>
-        <td>Me Compass</td>
-        <td>I2C</td>
-        <td>1 or 2</td>
-        <td>B</td>
-    </tr>
-    <tr>
-        <td>Me Ultrasonic Sensor</td>
-        <td>digital/interrupt</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-    <tr>
-        <td>Me 3-Axis Accelerometer and Gyro Sensor</td>
-        <td>I2C</td>
-        <td>1 or 2</td>
-        <td>B</td>
-    </tr>
-    <tr>
-        <td>Me 7-Segment Serial Display</td>
-        <td>2-wire serial</td>
-        <td>3-4</td>
-        <td>A</td>
-    </tr>
-    <tr>
-        <td>Me Bluetooth Module(Dual Mode)</td>
-        <td>UART</td>
-        <td>3 or 4</td>
-        <td>A</td>
-    </tr>
-    <tr>
-        <td>Me Flame Sensor</td>
-        <td>digital</td>
-        <td>1-6</td>
-        <td>A or B</td>
-    </tr>
-    <tr>
-        <td>Me Line Follower</td>
-        <td>digital</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-    <tr>
-        <td>Me Light Sensor</td>
-        <td>analog</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-    <tr>
-        <td>Me Infrared Receiver Decode</td>
-        <td>I2C</td>
-        <td>1-6</td>
-        <td>A or B</td>
-    </tr>
-    <tr>
-        <td>Me PM2.5 Sensor</td>
-        <td>UART</td>
-        <td>3 or 4</td>
-        <td>A</td>
-    </tr>
-    <tr>
-        <td>Me Potentiometer</td>
-        <td>analog</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-    <tr>
-        <td>Me PIR Motion Sensor</td>
-        <td>digital/interrupt</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-	<tr>
-        <td>Me RGB LED</td>
-        <td>serial</td>
-        <td>3 or 4</td>
-        <td>A or B</td>
-    </tr>
-	<tr>
-        <td>Me-Shutter</td>
-        <td>digital</td>
-        <td>1-6</td>
-        <td>A or B</td>
-    </tr>
-    <tr>
-        <td>Me Slide Potentiometer</td>
-        <td>analog</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-	<tr>
-        <td>Me USB Host</td>
-        <td>serial</td>
-        <td>3 or 4</td>
-        <td>A</td>
-    </tr>
-	<tr>
-        <td>Me Touch Sensor</td>
-        <td>digital</td>
-        <td>1-6</td>
-        <td>A or B</td>
-    </tr>
-	<tr>
-        <td>Me Temperature and Humidity Sensor</td>
-        <td>digital</td>
-        <td>1-6</td>
-        <td>A or B</td>
-    </tr>
-	<tr>
-        <td>Me Sound Sensor</td>
-        <td>analog</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-	<tr>
-        <td>Me TFT LCD Screen – 2.2 Inch</td>
-        <td>UART</td>
-        <td>3 or 4</td>
-        <td>A</td>
-    </tr>
-	<tr>
-        <td>Me Line Follower Array</td>
-        <td>UART</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-	<tr>
-        <td>Me Sound Sensor</td>
-        <td>analog</td>
-        <td>1-6</td>
-        <td>B</td>
-    </tr>
-</table>
+| Makeblock sensor name | Main interface | CORE2 hSens port no | JP1-JP3 position |
+| --- | --- | --- | --- |
+| Me Compass | I2C | 1 or 2 | B |
+| Me Ultrasonic Sensor | digital/interrupt | 1-6 | B |
+| Me 3-Axis Accelerometer and Gyro Sensor | I2C | 1 or 2 | B |
+| Me 7-Segment Serial Display | 2-wire serial | 3-4 | A |
+| Me Bluetooth Module(Dual Mode) | UART | 3 or 4 | A |
+| Me Flame Sensor | digital | 1-6 | A or B |
+| Me Line Follower | digital | 1-6 | B |
+| Me Light Sensor | analog | 1-6 | B |
+| Me Infrared Receiver Decode | I2C | 1-6 | A or B |
+| Me PM2.5 Sensor | UART | 3 or 4 | A |
+| Me Potentiometer | analog | 1-6 | B |
+| Me PIR Motion Sensor | digital/interrupt | 1-6 | B |
+| Me RGB LED | serial | 3 or 4 | A or B |
+| Me-Shutter | digital | 1-6 | A or B |
+| Me Slide Potentiometer | analog | 1-6 | B |
+| Me USB Host | serial | 3 or 4 | A |
+| Me Touch Sensor | digital | 1-6 | A or B |
+| Me Temperature and Humidity Sensor | digital | 1-6 | A or B |
+| Me Sound Sensor | analog | 1-6 | B |
+| Me TFT LCD Screen – 2.2 Inch | UART | 3 or 4 | A |
+| Me Line Follower Array | UART | 1-6 | B |
 
 ### Motor adapter ###
 

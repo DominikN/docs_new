@@ -86,52 +86,18 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
     </a>
 </div>
 
-<table class="text_table">
-    <tr>
-       <th>Attribute</th>
-       <th>Description</th>
-    </tr>
-    <tr>
-        <td>Dimensions with camera and LiDAR</td>
-        <td>200 x 235 x 220mm / 7.87 x 9.25 x 8.66in [L x W x H]</td>
-    </tr>
-    <tr>
-        <td>Dimensions without camera</td>
-        <td>200 x 235 x 146mm / 7.87 x 9.25 x 5.74in [L x W x H]</td>
-    </tr>
-    <tr>
-        <td>Dimensions without camera and LiDAR</td>
-        <td>200 x 235 x 106mm / 7.87 x 9.25 x 4.17in [L x W x H]</td>
-    </tr>
-    <tr>
-        <td>Weight</td>
-        <td>2,84kg / 100oz (with camera and LiDAR), 2,45kg / 86oz (without camera and LiDAR)</td>
-    </tr>
-    <tr>
-        <td>Wheel diameter / Clearance / Wheelbase</td>
-        <td>85mm / 22mm / 105mm</td>
-    </tr>
-    <tr>
-        <td>Chassis material</td>
-        <td>Powder-coated aluminum plate, 1.5mm thick</td>
-    </tr>
-    <tr>
-        <td>Maximum translational velocity</td>
-        <td>1.0 m/s</td>
-    </tr>
-    <tr>
-        <td>Maximum rotational velocity</td>
-        <td>420 deg/s (7.33 rad/s)</td>
-    </tr>
-    <tr>
-        <td>Maximum load capacity</td>
-        <td>10kg / 352oz</td>
-    </tr>
-    <tr>
-        <td>Battery life</td>
-        <td>1.5h - 5h</td>
-    </tr>
-</table>
+|Attribute|Description|
+| --- | ---| 
+| Dimensions with camera and LiDAR | 200 x 235 x 220mm / 7.87 x 9.25 x 8.66in [L x W x H] |
+| Dimensions without camera | 200 x 235 x 146mm / 7.87 x 9.25 x 5.74in [L x W x H] |
+| Dimensions without camera and LiDAR | 200 x 235 x 106mm / 7.87 x 9.25 x 4.17in [L x W x H] |
+| Weight | 2,84kg / 100oz (with camera and LiDAR), 2,45kg / 86oz (without camera and LiDAR) |
+| Wheel diameter / Clearance / Wheelbase | 85mm / 22mm / 105mm |
+| Chassis material | Powder-coated aluminum plate, 1.5mm thick |
+| Maximum translational velocity | 1.0 m/s |
+| Maximum rotational velocity | 420 deg/s (7.33 rad/s) |
+| Maximum load capacity | 10kg / 352oz |
+| Battery life | 1.5h - 5h |
 
 ### Components ###
 
@@ -141,104 +107,29 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 
 #### Components description ####
 
-<table class="text_table">
-    <tr>
-       <th>Component</th>
-       <th>Quantity</th>
-       <th>Description</th>
-    </tr>
-    <tr>
-    <tr>
-        <td>Infrared distance sensor</td>
-        <td>4</td>
-        <td>VL53L0X Time-of-Flight distance sensor with up to 200 cm range, <a href="https://www.pololu.com/file/0J1187/VL53L0X.pdf"> more details</a>.</td>
-    </tr>
-    <tr>
-        <td>CORE2</td>
-        <td>1</td>
-        <td>Real-time controller based on STM32F407 microcontroller.</td>
-    </tr>
-    <tr>
-        <td>DC motor</td>
-        <td>4</td>
-        <td>Xinhe Motor XH-25D
-		Motor used: RF-370, 6VDC nominal, 5000rpm
-		No load speed at the output shaft: 165 rpm
-		Stall torque: 2.9 kg*cm
-		Stall current: 2.2A
-		Gear ratio: ~34 (exact ratio is 30613/900)
-		Encoder: magnetic, 48ppr, 12 poles</td>
-    </tr>
-    <tr>
-        <td>IMU sensor</td>
-        <td>1</td>
-        <td>Powerful 9-Axis Accel/Gyro/Magnetometer sensor with MPU-9250, <a href="https://www.invensense.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf"> more details</a>.</td>
-    </tr>
-    <tr>
-        <td>RGBD camera</td>
-        <td>1</td>
-        <td>Orbbec Astra with RGB image size 640x480 and depth image size 640x480.</td> 
-    </tr>
-    <tr>
-        <td>Batteries</td>
-        <td>3</td>
-        <td>Li-Ion 18650 protected, rechargeable batteries, 3500mAh capacity, 3.7V nominal voltage <br>
-		Note: Device may be shipped interchangeably with similar batteries.</td>
-    </tr>
-    <tr>
-        <td>Antenna</td>
-        <td>1</td>
-        <td>Connected directly to the ASUS Tinker Board Wi-Fi module. Uses an RP-SMA(m) <-> I-PEX MHF4 cable to connect the antenna with SBC.</td>
-    </tr>	
-</table>
-
-
+| Component | Quantity | Description |
+| --- | --- | --- |
+| Infrared distance sensor | 4 | VL53L0X Time-of-Flight distance sensor with up to 200 cm range, [more details](https://www.pololu.com/file/0J1187/VL53L0X.pdf) |
+| CORE2 | 1 | Real-time controller based on STM32F407 microcontroller. |
+| DC motor | 4 | Xinhe Motor XH-25D, Motor used: RF-370, 6VDC nominal, 5000rpm, no load speed at the output shaft: 165 rpm, stall torque: 2.9 kg*cm, stall current: 2.2A, gear ratio: ~34 (exact ratio is 30613/900), encoder: magnetic, 48ppr, 12 poles |
+| IMU sensor | 1 | Powerful 9-Axis Accel/Gyro/Magnetometer sensor with MPU-9250, [more details](https://www.invensense.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf).|
+| RGBD camera | 1 | Orbbec Astra with RGB image size 640x480 and depth image size 640x480. |
+| Batteries | 3 | Li-Ion 18650 protected, rechargeable batteries, 3500mAh capacity, 3.7V nominal voltage. Note: Device may be shipped interchangeably with similar batteries. |
+| Antenna | 1 | Connected directly to the ASUS Tinker Board Wi-Fi module. Uses an RP-SMA(m) <-> I-PEX MHF4 cable to connect the antenna with SBC. |
 
 **In ROSbot 2.0:**
 
-
-
-<table class="text_table">
-    <tr>
-       <th>Component</th>
-       <th>Quantity</th>
-       <th>Description</th>
-    </tr>
-    <tr>
-        <td>SBC</td>
-        <td>1</td>
-        <td>ASUS Tinker Board with 2 GB RAM, Rockchip RK 3288 with 4x 1.80 GHz as CPU and a ARM Mali-T764 MP2 as a GPU and 32 GB MicroSD. The SBC runs on Ubuntu-based OS, customized to use ROS.</td>
-    </tr>
-    <tr>
-        <td>LIDAR</td>
-        <td>1</td>
-        <td>RpLidar A2, 360 degree and up to 8m range, <a href="https://www.slamtec.com/en/Lidar/A2"> more details</a>.</td>
-    </tr>
-</table>
-
-
+| Component | Quantity | Description |
+| --- | --- | --- |
+| SBC | 1 | ASUS Tinker Board with 2 GB RAM, Rockchip RK 3288 with 4x 1.80 GHz as CPU and a ARM Mali-T764 MP2 as a GPU and 32 GB MicroSD. The SBC runs on Ubuntu-based OS, customized to use ROS. |
+| LIDAR | 1 | RpLidar A2, 360 degree and up to 8m range, [more details](https://www.slamtec.com/en/Lidar/A2) |
 
 **In ROSbot 2.0 PRO:**
 
-
-
-<table class="text_table">
-    <tr>
-       <th>Component</th>
-       <th>Quantity</th>
-       <th>Description</th>
-    </tr>
-    <tr>
-        <td>SBC</td>
-        <td>1</td>
-        <td>UpBoard with 4 GB RAM, Quad-Core Intel Atom Z8350 1,92 GHz as CPU, a Intel® HD 400 Graphics as a GPU and 32GB eMMC. The SBC runs on Ubuntu-based OS, customized to use ROS.</td>
-    </tr>
-    <tr>
-        <td>LIDAR</td>
-        <td>1</td>
-        <td>RpLidar A3, 360 degree and up to 25m range, <a href="https://www.slamtec.com/en/Lidar/A3"> more details</a>.</td>
-    </tr>
-</table>
+| Component | Quantity | Description |
+| --- | --- | --- |
+| SBC | 1 | UpBoard with 4 GB RAM, Quad-Core Intel Atom Z8350 1,92 GHz as CPU, a Intel® HD 400 Graphics as a GPU and 32GB eMMC. The SBC runs on Ubuntu-based OS, customized to use ROS. |
+| LIDAR | 1 | RpLidar A3, 360 degree and up to 25m range, [more details](https://www.slamtec.com/en/Lidar/A3) |
 
 ### Block diagram ###
 
@@ -250,82 +141,22 @@ Graphic representation of ROSbot 2.0 (PRO) components and connections between th
 
 ![Rear panel description](/docs/assets/img/ROSbot_manual/ROSbot2_rear_panel_v1.1.png "Rear panel description")
 
-<table class="text_table">
-    <tr>
-       <th>Component</th>
-       <th>Quantity</th>
-       <th>Description</th>
-    </tr>
-    <tr>
-        <td>Antenna connector</td>
-        <td>1</td>
-        <td>Wi-Fi antenna RP-SMA socket. Required for Wi-Fi connectivity.</td>
-    </tr>
-    <tr>
-        <td>USB</td>
-        <td>2</td>
-        <td>USB 2.0 host ports from SBC.</td>
-    </tr>
-    <tr>
-        <td>HDMI</td>
-        <td>1</td>
-        <td>HDMI output from SBC.</td>
-    </tr>
-    <tr>
-        <td>Power switch</td>
-        <td>1</td>
-        <td>Turns ROSbot completely ON or OFF.</td>
-    </tr>
-    <tr>
-        <td>LEDs</td>
-        <td>6</td>
-        <td>LR1(yellow), LR2(blue), L1(red), L2(green), L3(green), PWR(red), more details <a href="/manuals/core2#leds-and-buttons">here</a>.</td>
-    </tr>
-    <tr>
-        <td>reset button</td>
-        <td>1</td>
-        <td>Button used for reset CORE2.</td>
-    </tr>
-    <tr>
-        <td>hBtn</td>
-        <td>2</td>
-        <td>hBtn1, hBtn2 - programmable buttons.</td>
-    </tr>	
-    <tr>
-        <td>Outputs for servo</td>
-        <td>6</td>
-        <td>Servo output with PWM, more details <a href="core2#hservo">here</a>.</td>
-    </tr>
-    <tr>
-        <td>USB serial</td>
-        <td>1</td>
-        <td>USB serial port used for debugging the firmware on CORE2-ROS controller.</td>
-    </tr>
-    <tr>
-        <td>Charging connector</td>
-        <td>1</td>
-        <td>6-pin connector for charging internal Li-Ion batteries.</td>
-    </tr>
-    <tr>
-        <td>DC power input</td>
-        <td>1</td>
-        <td>DC for working with external 12V power supply. Use the power supply included with charger or any 12V, min. 5A power supply with 5.5/2.5mm plug (center-positive).</td>
-    </tr>
-    <tr>
-        <td>Time-of-Flight distance sensor</td>
-        <td>2</td>
-        <td>VL53L0X Time-of-Flight distance sensor with up to 200 cm range, more details <a href="https://www.pololu.com/file/0J1187/VL53L0X.pdf">here</a>.</td>.
-    <tr>
-        <td>hExt</td>
-        <td>1</td>
-        <td>12xGPIO, 7x ADC, SPI, I2C, UART, more details <a href="core2#hext">here</a>.     </td>
-    </tr>
-    <tr>
-        <td>hSens</td>
-        <td>1</td>
-        <td>4 xGPIO, ADC, UART, more details <a href="core2#hsensor">here</a>.</td>
-    </tr>
-</table>
+| Component | Quantity | Description |
+| --- | --- | --- |
+| Antenna connector | 1 | Wi-Fi antenna RP-SMA socket. Required for Wi-Fi connectivity. |
+| USB | 2 | USB 2.0 host ports from SBC. |
+| HDMI | 1 | HDMI output from SBC. |
+| Power switch | 1 | Turns ROSbot completely ON or OFF. |
+| LEDs | 6 | LR1(yellow), LR2(blue), L1(red), L2(green), L3(green), PWR(red), more details [here](https://husarion.com/manuals/core2/#leds-and-buttons). |
+| Reset button | 1 | Button used for reset CORE2. |
+| hBtn | 2 | hBtn1, hBtn2 - programmable buttons. |
+| Outputs for servo | 6 | Servo output with PWM, more details [here](https://husarion.com/manuals/core2/#hservo). |
+| USB serial | 1 | USB serial port used for debugging the firmware on CORE2-ROS controller. |
+| Charging connector | 1 | 6-pin connector for charging internal Li-Ion batteries. |
+| DC power input | 1 | DC for working with external 12V power supply. Use the power supply included with charger or any 12V, min. 5A power supply with 5.5/2.5mm plug (center-positive). |
+| Time-of-Flight distance sensor | 2 | VL53L0X Time-of-Flight distance sensor with up to 200 cm range, more details [here](https://www.pololu.com/file/0J1187/VL53L0X.pdf). |
+| hExt | 1 | 12xGPIO, 7x ADC, SPI, I2C, UART, more details [here](https://husarion.com/manuals/core2/#hext). |
+| hSens | 1 | 4 xGPIO, ADC, UART, more details [here](https://husarion.com/manuals/core2/#hsensor). |
 
 ### Power supply ###
 

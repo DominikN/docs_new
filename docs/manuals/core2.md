@@ -18,64 +18,17 @@ id: core2
 
 ## Electrical specification ##
 
-<table class="text_table">
-    <tr>
-       <th>Interface</th>
-       <th>Description</th>
-       <th>Parameters</th>
-    </tr>
-    <tr>
-        <td>Power input</td>
-        <td>6.8-16V</td>
-        <td>70...3000mA current consumption, depends on external modules<br>standard 5.5/2.1 mm DC plug (centre-positive)</td>
-    </tr>
-    <tr>
-        <td>I/O ports</td>
-        <td>54</td>
-        <td>3.3V/5V tolerant GPIOs<br>series resistance is 330Ω</td>
-    </tr>
-    <tr>
-        <td>ADC</td>
-        <td>up to 13 channels</td>
-        <td>12-bit resolution</td>
-    </tr>
-    <tr>
-        <td>PWM</td>
-        <td>up to 10 channels:<br/>
-        - 6x 3.3V<br/>
-        - 4x H-bridge output
-        </td>
-        <td>Frequency range for H-bridge: 1Hz...21khz (in 16 steps)<br/>
-        	Period range for 3.3V outputs: 1...65535 us
-        </td>
-    </tr>
-    <tr>
-        <td>UART</td>
-        <td>up to 4 channels</td>
-        <td>baudrate: 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000, 1000000, 2000000, 4000000</td>
-    </tr>
-    <tr>
-        <td>I2C</td>
-        <td>3 channels</td>
-        <td>up to 400kHz</td>
-    </tr>
-    <tr>
-        <td>SPI</td>
-        <td>1</td>
-        <td>up to 1 Mbps</td>
-    </tr>
-    <tr>
-        <td>CAN</td>
-        <td>1</td>
-        <td>500kbps</td>
-    </tr>
-    <tr>
-        <td>External Interrupts</td>
-        <td>up to 8 channels</td>
-        <td>triggered by an edge or voltage level</td>
-    </tr>
-</table>
-
+| Interface | Description | Parameters |
+| --- | --- | --- | 
+| Power input | 6.8-16V | 70...3000mA current consumption, depends on external modules<br>standard 5.5/2.1 mm DC plug (centre-positive) |
+| I/O ports | 54 | 3.3V/5V tolerant GPIOs<br>series resistance is 330Ω |
+| ADC | up to 13 channels | 12-bit resolution |
+| PWM | up to 10 channels: 6x 3.3V, 4x H-bridge output | Frequency range for H-bridge: 1Hz...21khz (in 16 steps) Period range for 3.3V outputs: 1...65535 us | 
+| UART | up to 4 channels | baudrate: 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000, 1000000, 2000000, 4000000 |
+| I2C | 3 channels | up to 400kHz |
+| SPI | 1 | up to 1 Mbps |
+| CAN | 1 | 500kbps |
+| External Interrupts | up to 8 channels | triggered by an edge or voltage level |
 
 ## Ports description ##
 
@@ -95,68 +48,16 @@ This port is compatible with LEGO® MINDSTORMS® sets when a special adapter for
 
 3. **4 digital inputs/outputs.** Additionally, some hSensor ports have a hardware UART interface assigned to these IO’s, and some have a hardware I2C interface. If you want UART or I2C, please check the software documentation which physical ports to use.
 
-<div class="image center h300">
-
 ![](/docs/assets/img/core2-hardware/hsensor.svg)
 
-</div>
-
-<table class="text_table">
-<tbody>
-    <tr>
-        <th>hSensor pin</th>
-        <th>Software name</th>
-        <th>Default function</th>
-        <th colspan="2">Alternate function</th>
-    </tr>
-    <tr>
-        <td align="center">1</td>
-        <td>hSensX.pin1</td>
-        <td>GPIO</td>
-        <td>external interrupt input</td>
-        <td>ADC converter</td>
-    </tr>
-    <tr>
-        <td align="center">2</td>
-        <td>hSensX.pin2</td>
-        <td>GPIO</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td align="center">3</td>
-        <td>hSensX.pin3</td>
-        <td>GPIO</td>
-        <td>I2C_SCL (in hSens 1 &amp; 2) <br>
-            UART_TX (in hSens 3 &amp; 4) <br>
-	    no alt. function (in hSens 5 &amp; 6)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td align="center">4</td>
-        <td>hSensX.pin4</td>
-        <td>GPIO</td>
-        <td>I2C_SDA (in hSens 1 &amp; 2)<br>
-        UART_RX (in hSens 3 &amp; 4) <br>
-	no alt. function (in hSens 5 &amp; 6)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td align="center">5</td>
-        <td>-</td>
-        <td>+5V power supply output</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td align="center">6</td>
-        <td>-</td>
-        <td>GND (0V)</td>
-        <td></td>
-        <td></td>
-    </tr>
-</tbody>
-</table>
+| hSensor pin | Software name | Default function | Alternate function |
+| --- | --- | --- | --- |
+| 1 | hSensX.pin1 | GPIO | external interrupt input, ADC converter |
+| 2 | hSensX.pin2 | GPIO | |
+| 3 | hSensX.pin3 | GPIO | I2C_SCL (in hSens 1 &amp; 2), UART_TX (in hSens 3 &amp; 4), no alt. function (in hSens 5 &amp; 6) |
+| 4 | hSensX.pin4 | GPIO | I2C_SDA (in hSens 1 &amp; 2), UART_RX (in hSens 3 &amp; 4), no alt. function (in hSens 5 &amp; 6) |
+| 5 | - | +5V power supply output | |
+| 6 | - | GND (0V) | |
 
 [comment]: <> (***Advice: use <mark>ctrl + SPACE</mark> after typing "software_name." to see methods in the web IDE.***)
 
@@ -190,235 +91,54 @@ Each hExt port contains:
 
 All interfaces are compatible with 3.3V CMOS logic. The A/D converter range is 0 - 3.3 V.
 
-<div class="image center">
-
 ![](/docs/assets/img/core2-hardware/hext.svg)
-
-</div>
 
 ##### Pin functions #####
 
-<table class="text_table">
-  <tbody>
-  <tr>
-    <th>hExt pin</th>
-    <th>
-      <a href="https://docs.robocore.io/api/core2_0_1_0/classh_framework_1_1stm32_1_1h_ext_class.html#ab4ec85d044fab18a3a97961903af2e54">Software name</a>
-    </th>
-    <th>Default function</th>
-    <th colspan="2">Alternate function</th>
-  </tr>
-  <tr>
-    <td align="right">1</td>
-    <td>hExt.pin1</td>
-    <td>GPIO</td>
-    <td>external interrupt input</td>
-    <td>ADC converter</td>
-  </tr>
-  <tr>
-    <td align="right">2</td>
-    <td>hExt.pin2</td>
-    <td>GPIO</td>
-    <td>external interrupt input</td>
-    <td>ADC converter</td>
-  </tr>
-  <tr>
-    <td align="right">3</td>
-    <td>hExt.pin3</td>
-    <td>GPIO</td>
-    <td>-</td>
-    <td>ADC converter</td>
-  </tr>
-  <tr>
-    <td align="right">4</td>
-    <td>hExt.pin4</td>
-    <td>GPIO</td>
-    <td>-</td>
-    <td>ADC converter</td>
-  </tr>
-  <tr>
-    <td align="right">5</td>
-    <td>hExt.pin5</td>
-    <td>GPIO</td>
-    <td>-</td>
-    <td>ADC converter</td>
-  </tr>
-  <tr>
-    <td align="right">6</td>
-    <td>hExt.serial.pinRx</td>
-    <td>UART RX</td>
-    <td>GPIO</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">7</td>
-    <td>hExt.serial.pinTx</td>
-    <td>UART TX</td>
-    <td>GPIO</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">8</td>
-    <td>hExt.spi.pinSck</td>
-    <td>SPI SCK</td>
-    <td>GPIO</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">9</td>
-    <td>hExt.spi.pinMiso</td>
-    <td>SPI MISO</td>
-    <td>GPIO</td>
-    <td>ADC converter</td>
-  </tr>
-  <tr>
-    <td align="right">10</td>
-    <td>hExt.spi.pinMosi</td>
-    <td>SPI MOSI</td>
-    <td>GPIO</td>
-    <td>ADC converter</td>
-  </tr>
-  <tr>
-    <td align="right">11</td>
-    <td>hExt.i2c.pinSda</td>
-    <td>I2C SDA</td>
-    <td>GPIO</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">12</td>
-    <td>hExt.i2c.pinScl</td>
-    <td>I2C SCL</td>
-    <td>GPIO</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">13</td>
-    <td>-</td>
-    <td>+5V power supply output</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">14</td>
-    <td>-</td>
-    <td>GND (0V)</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">15</td>
-    <td>-</td>
-    <td>+Vin (6-16V) power supply output</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">16</td>
-    <td>-</td>
-    <td>GND (0V)</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">17</td>
-    <td>-</td>
-    <td>+Vin (6-16V) power supply output</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">18</td>
-    <td>-</td>
-    <td>GND (0V)</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">19</td>
-    <td>-</td>
-    <td>+Vin (6-16V) power supply output</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td align="right">20</td>
-    <td>-</td>
-    <td>GND (0V)</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  </tbody>
-</table>
-
-[comment]: <> (***Advice: use <mark>ctrl + SPACE</mark> after typing "software_name." to see methods in the web IDE.***)
-
+| hExt pin | Software name | Default function | Alternate function |
+| --- | --- | --- | --- |
+| 1 | hExt.pin1 | GPIO | external interrupt input, ADC converter |
+| 2 | hExt.pin2 | GPIO | external interrupt input, ADC converter |
+| 3 | hExt.pin3 | GPIO | ADC converter |
+| 4 | hExt.pin4 | GPIO | ADC converter |
+| 5 | hExt.pin5 | GPIO | ADC converter |
+| 6 | hExt.serial.pinRx | UART RX | GPIO |
+| 7 | hExt.serial.pinTx | UART TX | GPIO |
+| 8 | hExt.spi.pinSck | SPI SCK | GPIO |
+| 9 | hExt.spi.pinMiso | SPI MISO | GPIO, ADC converter |
+| 10 | hExt.spi.pinMosi | SPI MOSI | GPIO,ADC converter |
+| 11 | hExt.i2c.pinSda | I2C SDA | GPIO |
+| 12 | hExt.i2c.pinScl | I2C SCL | GPIO |
+| 13 | - | +5V power supply output | - |
+| 14 | - | GND (0V) | - |
+| 15 | - | +Vin (6-16V) power supply output | - |
+| 16 | - | GND (0V) | - |
+| 17 | - | +Vin (6-16V) power supply output | - |
+| 18 | - | GND (0V) | - |
+| 19 | - | +Vin (6-16V) power supply output | - |
+| 20 | - | GND (0V) | - |
 
 ### Communication interfaces ###
 
-<table class="text_table">
-<tbody>
-    <tr>
-        <th align="left">hExt communication interface</th>
-        <th align="left">Software name</th>
-        <th align="left">Parameters</th>
-    </tr>
-    <tr>
-        <td>USART</td>
-        <td>hExt.serial</td>
-        <td>baudrate: 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000, 1000000, 2000000, 4000000</td>
-    </tr>
-    <tr>
-        <td>SPI</td>
-        <td>hExt.spi</td>
-        <td>up to 1 Mbps</td>
-    </tr>
-    <tr>
-        <td>I2C</td>
-        <td>hExt.i2c</td>
-        <td>up to 400kHz</td>
-    </tr>
-</tbody>
-</table>
-
+| hExt communication interface | Software name | Parameters |
+| --- | --- | --- |
+| USART | hExt.serial | baudrate: 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000, 1000000, 2000000, 4000000 | 
+| SPI | hExt.spi | up to 1 Mbps | 
+| I2C | hExt.i2c | up to 400kHz | 
 
 ### hServo ###
 
 You can connect up to 6 servo motors directly to CORE2. Power supply is onboard thanks to integrated DC/DC converter with selectable voltage output (remeber that there is one power supply voltage for all servos).
 
-<div class="image center h300">
-
 ![](/docs/assets/img/core2-hardware/hservo.svg)
 
-</div>
+| hServo pin | Description | Parameters |
+| --- | --- | --- |
+| 1 | PWM output | 3.3V standard, pulse width: 1 - 65535 us, pulse period: 1 - 65535 us (can not be higher than pulse width) | 
+| 2 | Servo power supply output | selectable voltage level: 5V / 6V / 7.4V / 8.6V (tolerance +/- 0.2V), maximum current comsuption for all servos: 2.5A (continous) , 4A (peak) | 
+| 3 | GND (0V) | up to 400kHz | 
 
-<table class="text_table">
-<tbody>
-    <tr>
-        <th>hServo pin</th>
-        <th>Description</th>
-        <th>Parameters</th>
-    </tr>
-    <tr>
-        <td align="center">1</td>
-        <td align="left">PWM output</td>
-        <td>3.3V standard, pulse width: 1 - 65535 us, pulse period: 1 - 65535 us (can not be higher than pulse width)</td>
-    </tr>
-    <tr>
-        <td align="center">2</td>
-        <td align="left">Servo power supply output</td>
-        <td>selectable voltage level: 5V / 6V / 7.4V / 8.6V (tolerance +/- 0.2V) <br>
-        Maximum current comsuption for all servos: 2.5A (continous) , 4A (peak)</td>
-	</tr>
-    <tr>
-        <td align="center">3</td>
-        <td align="left">GND (0V)</td>
-        <td>-</td>
-    </tr>
-</tbody>
-</table>
-
-```
+```cpp
 hServoModule.enablePower();
 hServoModule.s1.setPeriod(20000); //PWM period 20ms
 while (1) {
@@ -445,64 +165,22 @@ Wikipedia provides an accessible explanation how encoders work: [incremental rot
 
 The encoder interface is compatible with the majority of popular optical and magnetic encoders integrated with motors or sold separately.
 
-<div class="image center h300">
-
 ![](/docs/assets/img/core2-hardware/hmot.svg)
 
-</div>
-
-<table class="text_table">
-<tbody>
-    <tr>
-        <th align="center">hMot pin</th>
-        <th align="left">Default function</th>
-        <th align="left">Description</th>
-    </tr>
-    <tr>
-        <td align="center">1</td>
-        <td>Output A</td>
-        <td>Output voltage: 0 - Vin (6-16V) <br>
-	        Output current: 1A (continuous), 2A (peak) with built-in overcurrent protection</td>
-	</tr>
-    <tr>
-        <td align="center">2</td>
-        <td>Output B</td>
-        <td>Output voltage: 0 - Vin (6-16V) <br>
-        Output current: 1A (continuous), 2A (peak) with built-in overcurrent protection
-        </td>
-    </tr>
-    <tr>
-        <td align="center">3</td>
-        <td>GND</td>
-        <td>Ground terminal</td>
-    </tr>
-    <tr>
-        <td align="center">4</td>
-        <td>+5V output</td>
-        <td>Voltage supply for encoder circuit. Keep the maximum current below 50mA for each hMot port.</td>
-    </tr>
-    <tr>
-        <td align="center">5</td>
-        <td>Encoder input A</td>
-        <td>5V standard digital input for encoder interface (channel A)</td>
-    </tr>
-    <tr>
-        <td align="center">6</td>
-        <td>Encoder input B</td>
-        <td>5V standard digital input for encoder interface (channel B)</td>
-    </tr>
-</tbody>
-</table>
+| hMot pin | Default function | Description |
+| --- | --- | --- |
+| 1 | Output A | Output voltage: 0 - Vin (6-16V), Output current: 1A (continuous), 2A (peak) with built-in overcurrent protection | 
+| 2 | Output B | Output voltage: 0 - Vin (6-16V), Output current: 1A (continuous), 2A (peak) with built-in overcurrent protection | 
+| 3 | GND | Ground terminal |
+| 4 | +5V output | Voltage supply for encoder circuit. Keep the maximum current below 50mA for each hMot port. |
+| 5 | Encoder input A | 5V standard digital input for encoder interface (channel A) |
+| 6 | Encoder input B | 5V standard digital input for encoder interface (channel B) |
 
 ### Supported motor types ###
 
 **DC motor with encoder**
 
-<div class="thumb w180 right">
-
 ![](/docs/assets/img/core2-hardware/motors_encoders.jpg)
-
-</div>
 
 This motor type is suitable for more professional applications. It can be identified by 6 wires coming out of the encoder board. DC motor with quadrature encoder interface allows you to create own sophisticated control algorithm optimized for your application in contrast to RC servos that can't give any feedback to your algorithms.
 
@@ -511,11 +189,7 @@ Remember not to power your motors using higher voltage than recommended in their
 
 **DC motor without encoder**
 
-<div class="thumb w180 right">
-
 ![](/docs/assets/img/core2-hardware/dc_motor.jpg)
-
-</div>
 
 Of course, in many cases you don't need the encoder - e.g. if you need to drive wheels without sensing their position. In that case you can use a simple DC motor with gearbox. It can be identified by 2 wires coming out of the motor.
 
@@ -523,11 +197,7 @@ Despite the lack of the encoder, you still can recognize the extreme positions o
 
 **LEGO® motor**
 
-<div class="thumb w180 right">
-
 ![](/docs/assets/img/core2-hardware/lego_motors.jpg)
-
-</div>
 
 CORE2 is fully compatible with servomotors from LEGO® Mindstorms® when used with connector adapter. There are 3 types of LEGO® servomotors: motor from NXT/NXT2.0 kit and two types from EV3 kit. In fact, they are all motors with quadrature encoder. \\
 Remember that LEGO® motors have 9V nominal voltage and when you supply CORE2 with higher voltage, you should limit the PWM duty cycle.
@@ -535,64 +205,35 @@ Remember that LEGO® motors have 9V nominal voltage and when you supply CORE2 wi
 
 **Stepper motor**
 
-<div class="thumb w180 right">
-
 ![](/docs/assets/img/core2-hardware/hstep.png)
 
-</div>
-
 Connecting a bipolar stepper motor is also possible. In this case, you need two hMotor ports to drive one stepper motor. If your motor windings have 4 or 6 terminals, it can work in the bipolar configuration (the 6-terminal motors can work in both unipolar and bipolar configuration). In the picture you can see how to connect the bipolar motor with two H-bridge outputs.
-
 
 
 ### hCAN ###
 **Basics**
 
-The CAN (Controller Area Network) is the best way to expand your device with more than one CORE2 or with other modules with a CAN interface. When two or more COREs are connected with hCAN they are able to send commands via a real-time network. One CORE2 is not enough for your application? No problem! Use as many CORE2's as you need for your projects and connect one of them to the Internet - every command will be executed very quickly. One CORE2 can be connected to the Internet while the others take care of all the sensors and motors.<br>
+The CAN (Controller Area Network) is the best way to expand your device with more than one CORE2 or with other modules with a CAN interface. When two or more COREs are connected with hCAN they are able to send commands via a real-time network. One CORE2 is not enough for your application? No problem! Use as many CORE2's as you need for your projects and connect one of them to the Internet - every command will be executed very quickly. One CORE2 can be connected to the Internet while the others take care of all the sensors and motors.
 
 **Physical interface**
 
 For those who don’t know what CAN is, it’s a two-wire, bidirectional, differential bus, commonly used in automotive applications. You will find more on Wikipedia: [CAN bus](https://en.wikipedia.org/wiki/CAN_bus)
 
-We used a non-standard connector. The industrial standard is a 9-pin DSUB connector, but of course it's too large, so we decided to use a 3 pin, 2.54mm pitch header which.<br>
+We used a non-standard connector. The industrial standard is a 9-pin DSUB connector, but of course it's too large, so we decided to use a 3 pin, 2.54mm pitch header which.
 
 **Termination**
 
-Communication via CAN requires terminated transmission line. Thus, CORE2 has the selectable terminator on board. <br>
-For short distances, terminator can be connected only to the one end of the bus. CORE2 has an optional jumper (to be soldered) that connects a 100Ω, 220Ω or both resistors to the line. Two CORE2s with two terminators (jumper soldered in 100Ω configuration) can communicate with full speed at long distances. <br>
+Communication via CAN requires terminated transmission line. Thus, CORE2 has the selectable terminator on board. For short distances, terminator can be connected only to the one end of the bus. CORE2 has an optional jumper (to be soldered) that connects a 100Ω, 220Ω or both resistors to the line. Two CORE2s with two terminators (jumper soldered in 100Ω configuration) can communicate with full speed at long distances. 
+
 If you need to connect more than two CORE2s, you can attach jumpers in only one or two CORE2s and remove jumpers from the others to keep the total impedance greater than 45Ω. The special case is the "star" connection, where you can leave the termination only in one CORE2 that is the star common junction node. The recommended termination for this case is 100Ω or 100Ω||220Ω (in parallel) that gives the resistance ~69Ω.
-
-
-<div class="image center h300">
 
 ![](/docs/assets/img/core2-hardware/hcan.svg)
 
-</div>
-
-<table class="text_table">
-<tbody>
-    <tr>
-        <th>hCan pin</th>
-        <th>Signal</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td align="center">1</td>
-        <td>CAN H</td>
-        <td>CAN high (positive) line</td>
-    </tr>
-    <tr>
-        <td align="center">2</td>
-        <td>GND</td>
-        <td>Ground (0V)</td>
-    </tr>
-    <tr>
-        <td align="center">3</td>
-        <td>CAN L</td>
-        <td>CAN low (negative) line</td>
-    </tr>
-</tbody>
-</table>
+| hCan pin | Signal | Description |
+| --- | --- | --- |
+| 1 | CAN H | CAN high (positive) line | 
+| 2 | GND | Ground (0V) | 
+| 3 | CAN L | CAN low (negative) line | 
 
 ### DBG ###
 
@@ -628,12 +269,7 @@ The USB host connector has two functions:
 Independently from chosen function, it also works as a port for charging mobile
 devices. Data connection and charging (up to 1A) can be provided simultaneously.
 
-
-<div class="thumb h100 right">
-
 ![Jumpers configuration example](/docs/assets/img/core2-hardware/jumper_USB_opis2.jpg "Jumpers configuration example")
-
-</div>
 
 The function is chosen by soldering small jumpers on the bottom side of the PCB
 (see the picture).
@@ -647,81 +283,29 @@ The second function of this port is provided for more advanced users, because it
 needs soldering the twisted-pair wire from Raspberry Pi Zero board to the CORE2
 board. Thanks to that function, you are able to connect e.g. Wi-Fi dongle to the Raspberry
 Pi Zero without using the additional USB-OTG adapter.
-<!-- For more information see the
-chapter [Raspberry Pi configuration](#raspberry-pi-configuration). -->
 
 The table below explains the jumpers functions.
 
-<table class="text_table">
-<tbody>
-    <tr>
-        <th>Position</th>
-        <th align="center">Jumper 1</th>
-        <th align="center">Jumper 2</th>
-        <th align="center">Jumper 3</th>
-    </tr>
-    <tr>
-        <td align="center">A</td>
-        <td align="center">USB works with STM32F4</td>
-        <td align="center">USB works with STM32F4</td>
-        <td align="center">USB power is controlled by STM32F4</td>
-    </tr>
-    <tr>
-        <td align="center">B</td>
-        <td align="center">USB works with Raspberry Pi Zero</td>
-        <td align="center">USB works with Raspberry Pi Zero</td>
-        <td align="center">USB power is permanently switched on</td>
-    </tr>
-</tbody>
-</table>
+| Position | Jumper 1 | Jumper 2 | Jumper 3 |
+| --- | --- | --- | --- |
+| A | USB works with STM32F4 | USB works with STM32F4 | USB power is controlled by STM32F4 |
+| B | USB works with Raspberry Pi Zero | USB works with Raspberry Pi Zero | USB power is permanently switched on |
 
 The second table explains in easy way which configuration is for you:
 
-<table class="text_table">
-<tbody>
-    <tr>
-        <th align="left">USB function</th>
-        <th align="center">Jumper 1 pos.</th>
-        <th align="center">Jumper 2 pos.</th>
-        <th align="center">Jumper 3 pos.</th>
-    </tr>
-    <tr>
-        <td align="left">USB works with STM32F4</td>
-        <td align="center">A</td>
-        <td align="center">A</td>
-        <td align="center">A</td>
-    </tr>
-    <tr>
-        <td align="left">USB works with Raspberry Pi Zero</td>
-        <td align="center">B</td>
-        <td align="center">B</td>
-        <td align="center">B</td>
-    </tr>
-    <tr>
-        <td align="left">Charging only (with no communication)</td>
-        <td align="center">unsoldered</td>
-        <td align="center">unsoldered</td>
-        <td align="center">B</td>
-    </tr>
-    <tr>
-        <td align="left">Charging controlled by STM32F4 (defualt)</td>
-        <td align="center">unsoldered</td>
-        <td align="center">unsoldered</td>
-        <td align="center">A</td>
-    </tr>
-</tbody>
-</table>
+| USB function | Jumper 1 pos. | Jumper 2 pos. | Jumper 3 pos. |
+| --- | --- | --- | --- |
+| USB works with STM32F4 | A | A | A |
+| USB works with Raspberry Pi Zero | B | B | B |
+| Charging only (with no communication) | unsoldered | unsoldered | B |
+| Charging controlled by STM32F4 (defualt) | unsoldered | unsoldered | A |
 
 ### hSD ###
 Just a connector for a standard microSD card. It uses one of the SPI interfaces available in the microcontroller. The rest is software.
 
 ### LEDs and buttons ###
 
-<div class="thumb w270 right">
-
 <img  width="50%" src="/docs/assets/img/core2-hardware/leds.svg" alt="LEDs" />
-
-</div>
 
 There are 3 green LEDs and 2 buttons to be controlled by user on CORE2. The hLED1, hLED2 and hLED3 are described as **L1**, **L2**, **L3** on the PCB. The buttons hBtn1 and hBtn2 are placed near the LEDs.
 
@@ -741,13 +325,11 @@ while (true) {
 
 In case you observe LEDs blinking in a strange way, it means that the microcontroller fell into hard fault state and needs reset. It can happen if you accidentally execute an inappropriate program code. The picture below shows how it looks like:
 
-<div class="image h100">
-<img src="/docs/assets/img/core2-hardware/L123_hard_fault.gif" alt="LEDs_hard_fault" />
-</div>
+![](/docs/assets/img/core2-hardware/L123_hard_fault.gif)
 
 The buttons can be used in a very simple way:
 
-```
+```cpp
 while (true) {
 	if(hBtn1.isPressed() == 1){ 
 		LED3.on();
@@ -772,58 +354,16 @@ The CORE2 power supply input has overvoltage (>16V), reverse-polarity and overcu
 
 ### Block diagram ###
 
-<div class="thumb center">
-
 ![](/docs/assets/img/core2-hardware/powersupply.svg)
 
-</div>
-
-<table class="text_table">
-<tbody>
-    <tr>
-        <th>Voltage line name</th>
-        <th align="center">I max</th>
-        <th>Available on port:</th>
-        <th>Info</th>
-    </tr>
-    <tr>
-        <td>Vin</td>
-        <td align="center">-</td>
-        <td>-</td>
-        <td>main power input</td>
-    </tr>
-    <tr>
-        <td>Vin(p)</td>
-        <td align="center">2A</td>
-        <td>hExt</td>
-        <td>gated main input</td>
-    </tr>
-    <tr>
-        <td>+5V</td>
-        <td align="center">2A</td>
-        <td>hMot, hRPI, USB host</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>+5V(sw)</td>
-        <td align="center">1A</td>
-        <td>hSensor, hExt</td>
-        <td>drawn from +5V, switched by software</td>
-    </tr>
-    <tr>
-        <td>+3.3V</td>
-        <td align="center">0.5A</td>
-        <td>-</td>
-        <td>only for internal circuits</td>
-    </tr>
-    <tr>
-        <td>Vservo</td>
-        <td align="center">3A</td>
-        <td>hServoModule</td>
-        <td>programmable voltage: 5/6/7.4/8.2V</td>
-    </tr>
-</tbody>
-</table>
+| Voltage line name | I max | Available on port: | Info |
+| --- | --- | --- | --- |
+| Vin | - | - | main power input |
+| Vin(p) | 2A | hExt | gated main input |
+| +5V | 2A | hMot, hRPI, USB host | |
+| +5V(sw) | 1A | hSensor, hExt | drawn from +5V, switched by software |
+| +3.3V | 0.5A | - | only for internal circuits |
+| Vservo | 3A | hServoModule | programmable voltage: 5/6/7.4/8.2V |
 
 ### Controlling servo power supply ###
 
@@ -853,17 +393,11 @@ The supply voltage +5V(sw) for hExt and hSens connectors can be switched on and 
 
 If you are not willing to use AA or similar alkaline batteries, the first alternative is to use NiCd or NiMH rechargeable batteries - but they have much lower nominal voltage. The better alternative are Li-Ion or Li-Poly batteries. Fortunately, these are available in the same shape as AA batteries and they are called “14500”. The name comes from their dimensions: 14x50mm.
 
-Some examples:
-[14500 reachargeable battery on AliExpress](http://www.aliexpress.com/wholesale?catId=0&initiative_id=SB_20160428221617&SearchText=14500+rechargeable)
-
 Of course, you will also need a charger.
 
 Remebmer that Li-Ion and Li-Poly batteries have higher nominal voltage and you have to use 3 cells instead of 6 cells. To do that, you can:
 * use only one 3*AA battery holder with 3 Li-Ion/Poly batteries,
 * use 6*AA battery holder with 3 “dummy” batteries and 3 Li-Ion/Poly batteries.
-The “dummy” (placeholder) batteries examples:
-[AA placeholder on AliExpress](http://www.aliexpress.com/wholesale?catId=0&initiative_id=AS_20160428223009&SearchText=AA+placeholder)
-They cannot be charged - they are only the “link” to omit 3 unnecessary places in the battery holder.
 
 ***
 
@@ -882,155 +416,39 @@ Use hConfig app (to be found on AppStore or Google Play) where wizard will guide
 
 There are 2 status LEDs - LR1 and LR2 - controlled directly from the ESP32/RPi device. These LEDs can't be controlled from STM32 microcontroller. The following table shows their behavior under different conditions:
 
-<table class="text_table">
-<tbody>
-    <tr>
-        <th>Mode</th>
-        <th>LR1 (yellow)</th>
-        <th>LR2 (blue)</th>
-	<th>Period</th>
-	<th>Behavior</th>
-    </tr>
-    <tr>
-        <td>Config mode</td>
-        <td colspan="2">blinking alternately</td>
-	<td>600 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_config.gif" /></td>
-    </tr>
-    <tr>
-        <td>Connecting</td>
-        <td>OFF</td>
-        <td>blinking</td>
-	<td>300 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_connecting.gif" /></td>
-    </tr>
-    <tr>
-        <td>Connected</td>
-        <td>OFF</td>
-        <td>ON</td>
-	<td>-</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_connected.gif" /></td>
-    </tr>
-    <tr>
-        <td>Not configured</td>
-        <td>blinking</td>
-        <td>OFF</td>
-	<td>100/1000 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_not_conf.gif" /></td>
-    </tr>
-    <tr>
-        <td>Invalid auth.</td>
-        <td>blinking</td>
-        <td>OFF</td>
-	<td>100 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif" /></td>
-    </tr>
-    <tr>
-        <td>No Internet</td>
-        <td>blinking</td>
-        <td>ON</td>
-	<td>100 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_no_internet.gif" /></td>
-    </tr>
-</tbody>
-</table>
+| Mode | LR1 (yellow) | LR2 (blue) | Period | Behavior |
+| --- | --- | --- | --- | --- |
+| Config mode | blinking alternately | | 600 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_config.gif) |
+| Connecting | OFF | blinking | 300 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_connecting.gif) |
+| Connected | OFF | ON | - | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_connected.gif) |
+| Not configured | blinking | OFF | 100/1000 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_not_conf.gif) |
+| Invalid auth. | blinking | OFF | 100 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif) |
+| No Internet | blinking | ON | 100 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_no_internet.gif) |
 
 ## hRPI connector ##
 
-<div class="thumb right w180">
-
 ![](/docs/assets/img/core2-hardware/rpi_connector.png "hRPI connector")
-
-</div>
 
 Although the connector's name comes from Raspberry Pi, it is designed to be used with both ESP
 and Raspberry. CORE2 comes without any connector soldered because the connector
 type depends on module for Internet connection you are going to use in your project.
 
-<!--If your ESP32 or Raspberry Pi is not installed to CORE2 yet, see the instruction here:
-[Assembling the ESP32 adapter](howtostart#preparing-hardware). This page also serves as the
-guide for connecting CORE2 with our cloud. -->
-
-<div style="float: center;">
-<table class="text_table">
-<tbody>
-    <tr>
-        <th>hRPI pin</th>
-        <th>Signal name</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td align="center">1</td>
-        <td>---</td>
-        <td>Not connected</td>
-    </tr>
-    <tr>
-        <td align="center">2</td>
-        <td>+5V</td>
-        <td>Supply voltage (max. 1A)</td>
-    </tr>
-    <tr>
-        <td align="center">3</td>
-        <td>LR2</td>
-        <td>LED LR2 (cathode)</td>
-    </tr>
-    <tr>
-        <td align="center">4</td>
-        <td>+5V</td>
-        <td>Supply voltage (max. 1A)</td>
-    </tr>
-    <tr>
-        <td align="center">5</td>
-        <td>GPIO</td>
-        <td>GPIO (STM34F4)</td>
-    </tr>
-    <tr>
-        <td align="center">6</td>
-        <td>GND</td>
-        <td>Ground (0V)</td>
-    </tr>
-    <tr>
-        <td align="center">7</td>
-        <td>GPIO</td>
-        <td>GPIO (STM34F4)</td>
-    </tr>
-    <tr>
-        <td align="center">8</td>
-        <td>UART RX</td>
-        <td>UART RX (STM32F4)</td>
-    </tr>
-    <tr>
-        <td align="center">9</td>
-        <td>GND</td>
-        <td>Ground (0V)</td>
-    </tr>
-    <tr>
-        <td align="center">10</td>
-        <td>UART TX</td>
-        <td>UART TX (STM32F4)</td></tr>
-    <tr>
-        <td align="center">11</td>
-        <td>LR1 / BOOT0</td>
-        <td>LED LR1 (anode) / BOOT0 pin (STM32F4)</td>
-    </tr>
-    <tr>
-        <td align="center">12</td>
-        <td>RST</td>
-        <td>RST active-high (STM32F4)</td>
-    </tr>
-    <tr>
-        <td align="center">13</td>
-        <td>hCFG</td>
-        <td>hCFG button</td>
-    </tr>
-    <tr>
-        <td align="center">14</td>
-        <td>GND</td>
-        <td>Ground (0V)</td>
-    </tr>
-</tbody>
-</table>
-</div>
+| hRPI pin | Signal name | Description |
+| --- | --- | --- |
+| 1 | - | Not connected | 
+| 2 | +5V | Supply voltage (max. 1A) | 
+| 3 | LR2 | LED LR2 (cathode) |
+| 4 | +5V | Supply voltage (max. 1A) |
+| 5 | GPIO | GPIO (STM34F4) |
+| 6 | GND | Ground (0V) |
+| 7 | GPIO | GPIO (STM34F4) |
+| 8 | UART RX | UART RX (STM32F4) |
+| 9 | GND | Ground (0V) |
+| 10 | UART TX | UART TX (STM32F4) |
+| 11 | LR1 / BOOT0 | LED LR1 (anode) / BOOT0 pin (STM32F4) |
+| 12 | RST | RST active-high (STM32F4) |
+| 13 | hCFG | hCFG button |
+| 14 | GND | Ground (0V) |
 
 ***
 
