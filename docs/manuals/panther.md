@@ -150,6 +150,8 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 * RGBD camera,
 * manipulator
 
+Most of external modules are attached to the profiles on the top of the platform. Read more in 'Mounting rails'.
+
 **communication**
 
 * Ethernet,
@@ -194,7 +196,36 @@ In the set with the robot, we provide a dedicated 42V @ 5A charger, which the ro
 
 Note: If the robot is turned on and has a connected charger, the charging process may never be completed (the green LED indicating the end of charging will not light up on the charger) despite the high level of battery charge.
 
-## Software ##
+### Mounting rails ###
+
+Sensors, constructions and payload can be attached to the profiles on top of the robot. 
+
+![Rails on top of the Robot](/docs/assets/img/Panther/top_rail.png "Block diagram")
+
+The profiles used are aluminum V-slot 2020 profiles. The best way to attach the elements to them is to use mounting elements dedicated to this type of profiles, such as T-nuts, fittings and angles.
+
+![V-slot aluminium extrusion](/docs/assets/img/Panther/v-slot_profile.png "Block diagram")
+
+These profiles are fixed to the robot with four bolts DIN912 M8x40.
+
+![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
+
+### Access to the interior ###
+
+The robot's volume has been divided into three parts.
+The central space is dedicated to the user's components and electronics. Here, by default, the Inter NUC computer, RUTX11 router and the robot's battery are located. Two user panels has been led to this space.A panel distributing electric power for the user and a panel for communication with the rest of the robot - as standard it is an Ethernet connector to the internal SBC).
+The front and rear spaces are occupied by motors and built-in electronics. For these spaces it is usually not needed to access by the user. Opening these spaces is mainly used for service work.
+
+To access the components inside the user space, unscrew the top rails (4x DIN912 M8x40).
+![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
+
+Then unscrew Cover (18x DIN912 M5x12).
+![Cover fixing](/docs/assets/img/Panther/cover_M5.png "Block diagram")
+
+To access the components in service space, unscrew the top rails and then (19x DIN912 M5x12).
+![Deck fixing](/docs/assets/img/Panther/deck_M5.png "Block diagram")
+
+## Software guide ##
 
 Panther robot is equipped with the Raspberry Pi 4 SBC with custom OS based on Ubuntu 20.04 and contains all components needed to start working with ROS immediately. The microSD card with OS for the Raspberry Pi is included with each Panther robot. The OS contains software drivers for all components and has been modified to make the file system insensitive to sudden power cuts.
 
