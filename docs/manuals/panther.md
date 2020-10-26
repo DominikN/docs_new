@@ -416,7 +416,7 @@ After message `Network added` exit terminal session by command `exit`.
 ## Docs and links ##
 All helpful documents and links in one place:
 
-* [Panther schematic block diagram](https://files.husarion.com/panther/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them,
+* [Panther schematic block diagram](/docs/assets/pdf/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them,
 * [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") - three basic projections of the platform,
 * [Teltonika RUTX11 manual](https://wiki.teltonika-networks.com/view/RUTX11_Manual)
 * [Teltonika RUTX11 datasheet](https://teltonika-networks.com/downloads/en/rutx11/RUTX11-Datasheet.pdf)
