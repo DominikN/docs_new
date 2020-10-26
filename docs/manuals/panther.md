@@ -232,6 +232,14 @@ Then unscrew Cover (18x DIN912 M5x12).
 To access the components in service space, unscrew the top rails and then (19x DIN912 M5x12).
 ![Deck fixing](/docs/assets/img/Panther/deck_M5.png "Block diagram")
 
+### CAD models ###
+
+To facilitate the work with the project based on Panther platform, we have prepared CAD models for download in three extension formats:
+
+* [STEP](/docs/assets/models/Panther_v0.2.step.zip "STEP model")
+* [IGES](/docs/assets/models/Panther_v0.2.iges.zip "IGES model")
+* [STL](/docs/assets/models/Panther_v0.2.stl.zip "STL model")
+
 ## Software guide ##
 
 Panther robot is equipped with the Raspberry Pi 4 SBC with custom OS based on Ubuntu 20.04 and contains all components needed to start working with ROS immediately. The microSD card with OS for the Raspberry Pi is included with each Panther robot. The OS contains software drivers for all components and has been modified to make the file system insensitive to sudden power cuts.
