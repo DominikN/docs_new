@@ -169,6 +169,22 @@ Graphic representation of Panther components and connections between them. A ful
 
 ![Block diagram](/docs/assets/img/Panther/simplified_block_diagram.png "Block diagram")
 
+### Power Switch and Emergency button ###
+
+The robot is equipped with a three-position Main switch and Emergency push button.
+
+| Main switch position |  Name of position 	| LED state |              Power state              |
+| :------------------: | :----------------:	| :-------: | :-----------------------------------: |
+|        left          |         Off        |     Off   |              Turned off               |
+|       center         |       Stage 1      |     On    | The robot turned on except the motors |
+|        right         |       Stage 2      |     On    |  The robot fully ready for operation  |
+
+Pushing the safety switch completely cuts off the power to the device.
+
+> **Note:** Cutting off the computer's power may cause data loss.
+
+![Power switch positions](/docs/assets/img/Panther/power_switch.png "Power switch positions")
+
 ### Power supply ###
 
 The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours).
@@ -178,10 +194,7 @@ The supply voltages available on the user Power panel are 5V with a total curren
 
 ![User Panel - Power Supply](/docs/assets/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
 
-Note:
-
-* One of 19V output is used by NUC.
-* One of 12V output is used by router
+> **Note:** One of 19V output is used by NUC and one of 12V output is used by router.
 
 
 |          Name          	|          Value            |
@@ -190,13 +203,17 @@ Note:
 |                Runtime 	| 3.5 h  	                |
 |     Total output power 	| 1 kW  	                |
 |     Maximum peak power 	| 1.8 kW 	                |
-|     Power for user use 	| 5V@15A, 12V@20A, 19V@10A  |
+|     Max power for user use* 	| 5V@15A, 12V@20A, 19V@10A  |
+|     Total power for user use* 	| 360W  |
+
+
+> **Note:** *Each of the voltage sources has an independent overcurrent switch, but the total power consumed by the devices plugged into the Power panel **cannot exceed 360W**.
 
 ### Charging Panther ###
 
 In the set with the robot, we provide a dedicated 42V @ 5A charger, which the robot will charge to 80% in 4 hours, and to 100% in 7 hours. The mains-operated charger is connected directly to the robot's charging connector on its housing.
 
-Note: If the robot is turned on and has a connected charger, the charging process may never be completed (the green LED indicating the end of charging will not light up on the charger) despite the high level of battery charge.
+> **Note:** If the robot is turned on and has a connected charger, the charging process may never be completed (the green LED indicating the end of charging will not light up on the charger) despite the high level of battery charge.
 
 ### Mounting rails ###
 
