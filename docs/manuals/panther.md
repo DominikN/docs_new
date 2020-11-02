@@ -150,6 +150,8 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 * RGBD camera,
 * manipulator
 
+Most of external modules are attached to the profiles on the top of the platform. Read more in 'Mounting rails'.
+
 **communication**
 
 * Ethernet,
@@ -167,6 +169,22 @@ Graphic representation of Panther components and connections between them. A ful
 
 ![Block diagram](/docs/assets/img/Panther/simplified_block_diagram.png "Block diagram")
 
+### Power Switch and Emergency button ###
+
+The robot is equipped with a three-position Main switch and Emergency push button.
+
+| Main switch position |  Name of position 	| LED state |              Power state              |
+| :------------------: | :----------------:	| :-------: | :-----------------------------------: |
+|        left          |         Off        |     Off   |              Turned off               |
+|       center         |       Stage 1      |     On    | The robot turned on except the motors |
+|        right         |       Stage 2      |     On    |  The robot fully ready for operation  |
+
+Pushing the safety switch completely cuts off the power to the device.
+
+> **Note:** Cutting off the computer's power may cause data loss.
+
+![Power switch positions](/docs/assets/img/Panther/power_switch.png "Power switch positions")
+
 ### Power supply ###
 
 The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours).
@@ -174,10 +192,9 @@ The Panther is equipped with a set of battery cells in Lithium-Ion technology wi
 To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 505W of power to the user's devices.
 The supply voltages available on the user Power panel are 5V with a total current limitation up to 15A (3x female XT60), 12V limited to 20A (3x female XT60) and 19V limited to 10A (3x female XT60).
 
-Note:
+![User Panel - Power Supply](/docs/assets/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
 
-* One of 19V output is used by NUC.
-* One of 12V output is used by router
+> **Note:** One of 19V output is used by NUC and one of 12V output is used by router.
 
 
 |          Name          	|          Value            |
@@ -186,15 +203,61 @@ Note:
 |                Runtime 	| 3.5 h  	                |
 |     Total output power 	| 1 kW  	                |
 |     Maximum peak power 	| 1.8 kW 	                |
-|     Power for user use 	| 5V@15A, 12V@20A, 19V@10A  |
+|     Max power for user use* 	| 5V@15A, 12V@20A, 19V@10A  |
+|     Total power for user use* 	| 360W  |
+
+
+> **Note:** *Each of the voltage sources has an independent overcurrent switch, but the total power consumed by the devices plugged into the Power panel **cannot exceed 360W**.
 
 ### Charging Panther ###
 
 In the set with the robot, we provide a dedicated 42V @ 5A charger, which the robot will charge to 80% in 4 hours, and to 100% in 7 hours. The mains-operated charger is connected directly to the robot's charging connector on its housing.
 
-Note: If the robot is turned on and has a connected charger, the charging process may never be completed (the green LED indicating the end of charging will not light up on the charger) despite the high level of battery charge.
+> **Note:** If the robot is turned on and has a connected charger, the charging process may never be completed (the green LED indicating the end of charging will not light up on the charger) despite the high level of battery charge.
 
-## Software ##
+### Mounting rails ###
+
+Sensors, constructions and payload can be attached to the profiles on top of the robot. 
+
+![Rails on top of the Robot](/docs/assets/img/Panther/top_rail.png "Rails on top of the Robot")
+
+The profiles used are aluminum V-slot 2020 profiles. The best way to attach the elements to them is to use mounting elements dedicated to this type of profiles, such as T-nuts, fittings and angles.
+
+![V-slot aluminium extrusion](/docs/assets/img/Panther/v-slot_profile.png "Block diagram")
+
+These profiles are fixed to the robot with four bolts DIN912 M8x40.
+
+![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
+
+For more useful information in the field of mechanics, please see the document [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions").
+
+### Access to the interior ###
+
+The robot's volume has been divided into three parts.
+The central space is dedicated to the user's components and electronics. Here, by default, the Inter NUC computer, RUTX11 router and the robot's battery are located. Two user panels has been led to this space. A panel distributing electric power for the user:
+![User Panel - Power Supply](/docs/assets/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
+And a panel for communication with the rest of the robot - as standard it is an Ethernet connector to the internal SBC):
+![User Panel - Communication Port](/docs/assets/img/Panther/UserPanel_CommunicationPort.png "User Panel - Communication Port")
+The front and rear spaces are occupied by motors and built-in electronics. For these spaces it is usually not needed to access by the user. Opening these spaces is mainly used for service work.
+
+To access the components inside the user space, unscrew the top rails (4x DIN912 M8x40).
+![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
+
+Then unscrew Cover (18x DIN912 M5x12).
+![Cover fixing](/docs/assets/img/Panther/cover_M5.png "Block diagram")
+
+To access the components in service space, unscrew the top rails and then (19x DIN912 M5x12).
+![Deck fixing](/docs/assets/img/Panther/deck_M5.png "Block diagram")
+
+### CAD models ###
+
+To facilitate the work with the project based on Panther platform, we have prepared CAD models for download in three extension formats:
+
+* [STEP](/docs/assets/models/Panther_v0.2.step.zip "STEP model")
+* [IGES](/docs/assets/models/Panther_v0.2.iges.zip "IGES model")
+* [STL](/docs/assets/models/Panther_v0.2.stl.zip "STL model")
+
+## Software guide ##
 
 Panther robot is equipped with the Raspberry Pi 4 SBC with custom OS based on Ubuntu 20.04 and contains all components needed to start working with ROS immediately. The microSD card with OS for the Raspberry Pi is included with each Panther robot. The OS contains software drivers for all components and has been modified to make the file system insensitive to sudden power cuts.
 
@@ -378,7 +441,7 @@ After message `Network added` exit terminal session by command `exit`.
 ## Docs and links ##
 All helpful documents and links in one place:
 
-* [Panther schematic block diagram](https://files.husarion.com/panther/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them,
+* [Panther schematic block diagram](/docs/assets/pdf/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them,
 * [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") - three basic projections of the platform,
 * [Teltonika RUTX11 manual](https://wiki.teltonika-networks.com/view/RUTX11_Manual)
 * [Teltonika RUTX11 datasheet](https://teltonika-networks.com/downloads/en/rutx11/RUTX11-Datasheet.pdf)
