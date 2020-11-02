@@ -213,7 +213,7 @@ The supply voltages available on the user Power panel are 5V with a total curren
 
 In the set with the robot, we provide a dedicated 42V @ 5A charger, which the robot will charge to 80% in 4 hours, and to 100% in 7 hours. The mains-operated charger is connected directly to the robot's charging connector on its housing.
 
-> **Note:** If the robot is turned on and has a connected charger, the charging process may never be completed (the green LED indicating the end of charging will not light up on the charger) despite the high level of battery charge.
+> **Warning!** It is highly recommended not to use the robot during the charging process! When the charger is connected to the robot, the robot should be turned off completely.
 
 ### Mounting rails ###
 
