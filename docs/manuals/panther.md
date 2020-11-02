@@ -215,6 +215,8 @@ In the set with the robot, we provide a dedicated 42V @ 5A charger, which the ro
 
 > **Warning!** It is highly recommended not to use the robot during the charging process! When the charger is connected to the robot, the robot should be turned off completely.
 
+> **Warning!** Please do not leave charger connected to the robot after the charging process is completed (the red LED and charger fan will turn off).
+
 ### Mounting rails ###
 
 Sensors, constructions and payload can be attached to the profiles on top of the robot. 
