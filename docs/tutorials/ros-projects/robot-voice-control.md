@@ -26,7 +26,7 @@ Project is platform with web UI running on Robot Operating System allowing users
 
 ## Installation using Docker image
 
-The easier way to test robot voice control is to use Docker container. To install Docker please refer to [Docker installation manual](https://docs.docker.com/engine/install/ubuntu/).
+The easier way to test robot voice control is to use Docker container. To install Docker please refer to [Docker installation manual](https://docs.docker.com/engine/install/ubuntu/). You should also set permission for docker to avoid additional problems. Official docker manual is available [here](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
 ### With ROSbot
 
