@@ -438,7 +438,14 @@ To connect Panther to Wi-Fi on 2.4GHz named `MyNetwork` with password `MyPasswor
 
 After message `Network added` exit terminal session by command `exit`.
 
+### Access to router WebUI ###
 
+Further configuration can be done through WebUI, which is available under `10.15.20.1` address. Login with username `admin` and password `Husarion1`. Consult [Teltonika RUTX11 manual](https://wiki.teltonika-networks.com/view/RUTX11_Manual) for more information.
+> **Note:** It is advised to change default password.
+
+### Resetting router to default settings ###
+
+In case of misconfiguration it is possible to reset router to working default settings (as shipped to you). To do it press and hold reset button on powered on RUTX11 for at least six seconds. Signal strength LEDs indicate elapsed time. After all five LEDs are lit up, reset button can be released. After automatic restart router is ready to be used.
 
 ## Docs and links ##
 All helpful documents and links in one place:
