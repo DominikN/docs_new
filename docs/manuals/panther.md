@@ -126,7 +126,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 |                     max speed 	| 2 m/s   	|
 |     maximum carrying capacity     | 80 kg     |
 |          nominal shaft torque 	| 17.4 Nm 	|
-|          maximum shaft torque 	| 30 Nm   	|
+|          maximum shaft torque 	| 60 Nm   	|
 |  nominal total traction force 	| 365 N   	|
 |  maximum total traction force 	| 630 N   	|
 |               hil climb grade 	| 96%     	|
@@ -137,31 +137,47 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 
 ### Components ###
 
-**standard modules**
+#### Standard ####
 
-* signal lights,
-* inertial navigation system,
-* on-board computer
+| Component | Quantity | Description |
+| --- | --- | --- |
+| Internal computer | 1 | Raspberry Pi 4B with Broadcom BCM2711 processor, quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz and 4GB LPDDR4 RAM. Used to manage all the basic functions of a mobile platform. |
+| On-board computer-ver 1* | 1 | Intel NUC10i7FNH (CPU: Intel Core i7-10710U (12MB Cache, 1.10GHz), RAM 1xSODIMM DDR4 HyperX HX426S15IB2/16 (16GB), SSD Samsung MZ-V7E500 500GB) This powerful computer installed on board can process a huge amount of information from sensors, plan the route of autonomous robot driving and detect obstacles. |
+| On-board computer-ver 2* | 1 | ADLINK Technology Vizi-AI (CPU: Intel Atom® x5-E3940 SOC, RAM 4GB LPDDR4, MicroSD 32GB) This Machine Vision AI Development Kit combines plug-and-play hardware and software to provide a fast, simple, and scalable starting-point for AI-deployments at the edge. |
+| Router | 1 | Teltonika RUTX11 - Dual-band (2.4 GHz/5 GHz), Access Point / Client Mode, 4G LTE CAT 6 dual SIM, Bluetooth 4.0 LE, GNSS (GPS, GLONASS, BeiDou, Galileo and QZSS) - This device ensures reliable communication between internal and external components of the robot system. Fast LTE communication and dual-band WiFi allow you to maintain communication with the robot. [More details](https://teltonika-networks.com/product/rutx11/). |
+| Inertial navigation system | 1 | PhidgetSpatial 3/3/3 Basic (3-axis compass, a 3-axis gyroscope, and a 3-axis accelerometer) [More details](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=1025). |
+| Front and rear lights | 2 | Signal lighting made of 48 pcs. APA102C LED chips build into an aluminum profile on the robot's bumpers. |
+| Brushless Motor with planetary gearbox | 4 | 80PMB800K.80RBL-100 - Drive implemented on 4 durable motors 473 watts of power (900W instantaneous power) each and planetary gears with a maximum torque of 60Nm allows the robot to move at a speed of 2 m/s even uphill with a slope of 40% with a load of 50 kg. |
 
-**external modules**
+> **Note:** *By default, there is only one on-board computer in the robot.
 
-* GPS,
+#### External modules ####
+
 * headlights,
 * RGBD camera,
-* manipulator
+* thermal camera,
+* manipulator,
+* ect.
 
-Most of external modules are attached to the profiles on the top of the platform. Read more in 'Mounting rails'.
+Most of external modules are attached to the profiles on the top of the platform. [More details](https://husarion.com/manuals/panther/#mounting-rails).
 
-**communication**
+#### Communication ####
+**available as standard**
 
 * Ethernet,
+* USB,
+* Wi-Fi (2.4GHz & 5GHz),
+* LTE,
+* GPS.
+
+
+**possible to extend**
+
 * CAN,
 * RS232,
 * RS485,
-* Wi-Fi,
 * I2C,
-* SPI,
-* USB
+* SPI
 
 ### Block diagram ###
 
@@ -231,7 +247,7 @@ These profiles are fixed to the robot with four bolts DIN912 M8x40.
 
 ![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
 
-For more useful information in the field of mechanics, please see the document [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions").
+For more useful information in the field of mechanics, please see the document [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
 
 ### Access to the interior ###
 
