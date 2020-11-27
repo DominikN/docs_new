@@ -142,14 +142,13 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 | Component | Quantity | Description |
 | --- | --- | --- |
 | Internal computer | 1 | Raspberry Pi 4B with Broadcom BCM2711 processor, quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz and 4GB LPDDR4 RAM. Used to manage all the basic functions of a mobile platform. |
-| On-board computer-ver 1* | 1 | Intel NUC10i7FNH (CPU: Intel Core i7-10710U (12MB Cache, 1.10GHz), RAM 1xSODIMM DDR4 HyperX HX426S15IB2/16 (16GB), SSD Samsung MZ-V7E500 500GB) This powerful computer installed on board can process a huge amount of information from sensors, plan the route of autonomous robot driving and detect obstacles. |
-| On-board computer-ver 2* | 1 | ADLINK Technology Vizi-AI (CPU: Intel Atom® x5-E3940 SOC, RAM 4GB LPDDR4, MicroSD 32GB) This Machine Vision AI Development Kit combines plug-and-play hardware and software to provide a fast, simple, and scalable starting-point for AI-deployments at the edge. |
+| On-board computer * | 1 | Intel NUC10i7FNH, ADLINK Vizi-AI, HP Z2 Mini Workstation, ADLINK I-Pi SMARC |
 | Router | 1 | Teltonika RUTX11 - Dual-band (2.4 GHz/5 GHz), Access Point / Client Mode, 4G LTE CAT 6 dual SIM, Bluetooth 4.0 LE, GNSS (GPS, GLONASS, BeiDou, Galileo and QZSS) - This device ensures reliable communication between internal and external components of the robot system. Fast LTE communication and dual-band WiFi allow you to maintain communication with the robot. [More details](https://teltonika-networks.com/product/rutx11/). |
 | Inertial navigation system | 1 | PhidgetSpatial 3/3/3 Basic (3-axis compass, a 3-axis gyroscope, and a 3-axis accelerometer) [More details](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=1025). |
 | Front and rear lights | 2 | Signal lighting made of 48 pcs. APA102C LED chips build into an aluminum profile on the robot's bumpers. |
 | Brushless Motor with planetary gearbox | 4 | 80PMB800K.80RBL-100 - Drive implemented on 4 durable motors 473 watts of power (900W instantaneous power) each and planetary gears with a maximum torque of 60Nm allows the robot to move at a speed of 2 m/s even uphill with a slope of 40% with a load of 50 kg. |
 
-> **Note:** *By default, there is only one on-board computer in the robot.
+> **Note:** *By default, there is only one on-board computer in the robot. For detailed information please check System installation
 
 #### External modules ####
 
@@ -340,14 +339,14 @@ Panther driver starts at RPI SBC and it's responsible for controlling motors, an
 The Raspberry Pi SBC has a preinstalled WEBUI with simple joystick. The joystick allows user to issue simple motion commands for the robot.
 To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
 
-### System reinstallation ###
+### System installation ###
 
  In some cases you will need to restore Panther's system to its default settings:
  - in case of accidential damage of the system,
  - to update the OS,
  - to clear all user changes and restore factory settings.
 
- The reinstallation procedure is following:
+ The reinstallation procedure for on-board RPI:
 
 1. Extract SD card from Raspberry Pi SBC by pushing card carefully until it is released back by card holder, thel pull it out. In order to find SD card slot, you will need to disassemble part of the top cover.
 2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2020-10-15.img.xz).
@@ -361,12 +360,19 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
  - Review your selections and click 'Flash!' to begin writing data to the SD card.
 5. Insert SD card back to Raspberry Pi
 
-To reinstall system in your main computer you should do this as for any other ubuntu system. 
+To install system on *Intel NUC* or *HP G2*, you can download created ready to use Ubuntu20 image. 
 
 1. Download image from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-x64-2020-10-13.iso).
 2. Create bootable pendrive with [Etcher](https://www.balena.io/etcher/).
 3. Insert pendrive into one of Panther's USB ports and install by selecting appropriate option during boot.
 
+Optional you can install clear image of your favorite Linux distro and use [husarion docker](https://github.com/adamkrawczyk/husarion_docker)
+
+To install system on Vizi-AI 
+
+1. [Download](https://vizi-ai-ppa.s3.eu-west-2.amazonaws.com/Win-mac/Vizi-AI.xz) image - official instruction is [here](https://www.goto50.ai/re-installing-or-upgrading-the-vizi-ai-sd-card-image/)
+2. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
+3. Follow install instructions at [panther system ros1 docker](https://github.com/adamkrawczyk/husarion_docker/blob/main/panther_system_ros1/README.md) to use ROS noetic container. 
 #### Launching navigation example
 
 The user space PC comes with preinstalled Ubuntu 20.04 and ROS, the same as the Raspberry Pi SBC. PC also has a [route_admin_panel](https://github.com/husarion/route_admin_panel/) as an example application.
