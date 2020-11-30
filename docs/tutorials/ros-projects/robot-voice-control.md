@@ -9,10 +9,20 @@ Nowadays growing popularity of IoT caused greater demand for creating user-frien
  Provided application was developed with attempts to follow mentioned principle to make it easier both for developer (by allowing one to write as little code as possible) and potential user (by creating very friendly interfaces).
 
 ## Description
-Project is platform with web UI running on Robot Operating System allowing users to control robot by voice commands with [DeepSpeech](https://github.com/mozilla/DeepSpeech) used as speech-to-text engine. You can check video demo below. 
+Project is a platform with web UI running on Robot Operating System allowing users to control the robot by voice commands with [DeepSpeech](https://github.com/mozilla/DeepSpeech) used as speech-to-text engine. We will show four possible way to run this project depends on the user's preferences:
+
+Using docker image:
+- with physical ROSbot
+- with ROSbot simulated in Gazebo
+
+Using installation from source:
+- with physical ROSbot
+- with ROSbot simulated in Gazebo
+
+You can check video demo showing project with real ROSbot below. 
 
 <div align="center">
-<iframe width="784" height="441" src="https://www.youtube.com/embed/XCsuoYbqdc4" frameborder="0" gesture="media" allowfullscreen></iframe>
+<iframe width="784" height="441" src="https://www.youtube.com/embed/G_gPP5dVqTg" frameborder="0" gesture="media" allowfullscreen></iframe>
 </div>
 
 ## Features and capabilities
@@ -30,7 +40,7 @@ The easier way to test robot voice control is to use Docker container. To instal
 
 ### With ROSbot
 
-Voice recognition server must be running on a PC with x86-64 architechture, while rest of the algorithms may be running on ROSbot. In this tutorial we will connect both devices with use of Husarnet.
+Voice recognition server must be running on a PC with x86-64 architechture, while rest of the algorithms may be running on ROSbot (with latest image version running on Ubuntu 18.04 and Mbed firmware). In this tutorial we will connect both devices with use of Husarnet.
 
 #### Connecting devices through Husarnet
 
@@ -79,18 +89,22 @@ Launch voice control server:
 roslaunch voice_control voice_control_standalone.launch
 ```
 
-On the ROSbot install the repository:
+On the ROSbot install the repository and source it:
 ```
 cd ~/husarion_ws/src
 git clone https://github.com/husarion/robot_voice_control.git
 cd ~/husarion_ws
 catkin_make
+source ~/husarion_ws/devel/setup.sh
 ```
 
-Launch ROSbot controls:
+Launch ROSbot 2.0 controls:
 ```
-source ~/husarion_ws/devel/setup.sh
 roslaunch voice_control rosbot.launch
+```
+or if you are using ROSbot 2.0 PRO:
+```
+roslaunch voice_control rosbot_pro.launch
 ```
 
 Then open control panel in Chrome browser by typing address:
@@ -138,6 +152,12 @@ https://CONTAINER_IP:3000
 ```
 
 You may see warning regarding unsigned certificate, accept it to proceed.
+
+You can check example video below:
+
+<div align="center">
+<iframe width="784" height="441" src="https://www.youtube.com/embed/XCsuoYbqdc4" frameborder="0" gesture="media" allowfullscreen></iframe>
+</div>
 
 ## Installation from source
 
@@ -943,7 +963,7 @@ You don't even have to use predefined **"mbgoal"** label. You can write own exec
 
 ## Summary
 
-After completing this project you should be able to configure your robot to follow your orders.
+After completing this project you should be able to configure `robot_voice_control` package so that the robot follow your orders.
 
 ---
 

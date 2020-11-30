@@ -39,7 +39,8 @@
           "tutorials/ros-projects/security-guard-robot",
           "tutorials/ros-projects/control-virtual-robot-from-your-PC",
           "tutorials/ros-projects/3-using-frontier-exploration",
-          "tutorials/ros-projects/4-object-search"
+          "tutorials/ros-projects/4-object-search",
+          "tutorials/ros-projects/control-robot-by-voice-commands"
         ]
       },
       {
