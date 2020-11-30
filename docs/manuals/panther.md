@@ -142,7 +142,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 | Component | Quantity | Description |
 | --- | --- | --- |
 | Internal computer | 1 | Raspberry Pi 4B with Broadcom BCM2711 processor, quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz and 4GB LPDDR4 RAM. Used to manage all the basic functions of a mobile platform. |
-| On-board computer * | 1 | Intel NUC10i7FNH, ADLINK Vizi-AI, HP Z2 Mini Workstation, ADLINK I-Pi SMARC |
+| On-board computer * | 1 | **Intel NUC10i7FNH** / **ADLINK Vizi-AI** / **HP Z2 Mini Workstation** with **Nvidia graphics card** |
 | Router | 1 | Teltonika RUTX11 - Dual-band (2.4 GHz/5 GHz), Access Point / Client Mode, 4G LTE CAT 6 dual SIM, Bluetooth 4.0 LE, GNSS (GPS, GLONASS, BeiDou, Galileo and QZSS) - This device ensures reliable communication between internal and external components of the robot system. Fast LTE communication and dual-band WiFi allow you to maintain communication with the robot. [More details](https://teltonika-networks.com/product/rutx11/). |
 | Inertial navigation system | 1 | PhidgetSpatial 3/3/3 Basic (3-axis compass, a 3-axis gyroscope, and a 3-axis accelerometer) [More details](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=1025). |
 | Front and rear lights | 2 | Signal lighting made of 48 pcs. APA102C LED chips build into an aluminum profile on the robot's bumpers. |
@@ -339,13 +339,14 @@ Panther driver starts at RPI SBC and it's responsible for controlling motors, an
 The Raspberry Pi SBC has a preinstalled WEBUI with simple joystick. The joystick allows user to issue simple motion commands for the robot.
 To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
 
-### System installation ###
+## System installation ##
 
  In some cases you will need to restore Panther's system to its default settings:
  - in case of accidential damage of the system,
  - to update the OS,
  - to clear all user changes and restore factory settings.
 
+### Raspberry Pi 4 ###
  The reinstallation procedure for on-board RPI:
 
 1. Extract SD card from Raspberry Pi SBC by pushing card carefully until it is released back by card holder, thel pull it out. In order to find SD card slot, you will need to disassemble part of the top cover.
@@ -360,6 +361,7 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
  - Review your selections and click 'Flash!' to begin writing data to the SD card.
 5. Insert SD card back to Raspberry Pi
 
+### Intel NUC / HP G2 ###
 To install system on *Intel NUC* or *HP G2*, you can download created ready to use Ubuntu20 image. 
 
 1. Download image from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-x64-2020-10-13.iso).
@@ -368,14 +370,102 @@ To install system on *Intel NUC* or *HP G2*, you can download created ready to u
 
 Optional you can install clear image of your favorite Linux distro and use [husarion docker](https://github.com/adamkrawczyk/husarion_docker)
 
+### Vizi-AI ###
 To install system on Vizi-AI 
+
+**How to install and use**
+
+**Install**
 
 1. [Download](https://vizi-ai-ppa.s3.eu-west-2.amazonaws.com/Win-mac/Vizi-AI.xz) image - official instruction is [here](https://www.goto50.ai/re-installing-or-upgrading-the-vizi-ai-sd-card-image/)
 2. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
-3. Follow install instructions at [panther system ros1 docker](https://github.com/adamkrawczyk/husarion_docker/blob/main/panther_system_ros1/README.md) to use ROS noetic container. 
+3. When using Vizi-AI:
+    - Connect your Vizi to Internet, insert SD card, plug in keyboard and power on.
+    - Login using L:`root`, P:`root`
+    - Enable ssh with following commands:
+    
+    ```
+    sed -i 's/#PermitRootLogin prohibit-password /PermitRootLogin yes/' /etc/ssh/sshd_config
+    systemctl enable ssh
+    systemctl start ssh
+    ip a # get your IP address for connection (should be under br-enp6s0)(#should be 10.15.20.3)
+    ```
+    - Upload file [set_vizi-ai.sh](https://github.com/adamkrawczyk/husarion_docker/blob/main/panther_system_ros1/set_vizi-ai.sh) (scp set_vizi-ai.sh root@10.15.20.3:/root)
+    - Execute file `./set_vizi-ai.sh` - This will create user husarion with password husarion set your environment and also download container.
+4. When not using script download image 
+
+```
+docker pull khasreto/panther_system_ros1:latest
+```
+
+5. Run image 
+
+```
+docker run  --net=host -e ROS_MASTER_URI -e ROS_IP -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev:/dev --privileged --name panther_system_ros1 khasreto/panther_system_ros1:latest
+```
+
+The Code Explained:
+
+`--net=host` - start a container in the host network, from the perspective of the network look like they are running on the host itself.
+
+`-e ROS_MASTER_URI -e ROS_IP` - set environment variables (should be inside ~/.bashrc).
+
+`-it` - interactive terminal.
+
+`-v /tmp/.X11-unix:/tmp/.X11-unix` - Set the X11 server communication.
+
+`-v /dev:/dev` - Gives permissions to use /dev/*, needed to launch for example Lidar.
+
+`--privileged` - Give extended privileges to this container, container can not only access to all hosts devices but also use most of host computer’s kernel functions.
+
+`--name panther_system_ros1` - Name of container (the one used for future launches and container identification).
+
+`khasreto/panther_system_ros1:latest` - Name of image.
+
+6. If you want to autostart:
+```
+touch /etc/systemd/system/docker-panther-system.service
+```
+
+To file /etc/systemd/system/docker-panther-system.service paste following code:
+```
+[Unit]
+Description=Panther System ROS1 noetic Container
+Requires=docker.service
+After=docker.service NetworkManager.service time-sync.target
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a panther_system_ros1
+ExecStop=/usr/bin/docker stop -t 2 panther_system_ros1
+
+[Install]
+WantedBy=local.target
+```
+
+Enable service
+
+sudo systemctl enable docker-panther-system.service
+
+
+**Usage**
+
+- If you have made an autostart then to access container use following command:
+
+    `docker exec -it panther_system_ros1 /bin/bash`
+
+- In case you haven't made an autostart use:
+
+    `docker start -i panther_system_ros1`
+
+    Then 
+
+    `docker exec -it panther_system_ros1 /bin/bash`
 #### Launching navigation example
 
 The user space PC comes with preinstalled Ubuntu 20.04 and ROS, the same as the Raspberry Pi SBC. PC also has a [route_admin_panel](https://github.com/husarion/route_admin_panel/) as an example application.
+
+NOTE: If using Docker run every command inside container
 
 To start the RAP:
 
