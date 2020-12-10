@@ -566,6 +566,7 @@ In case of misconfiguration it is possible to reset router to working default se
 ## Docs and links ##
 All helpful documents and links in one place:
 
+* [Safety instructions](/docs/assets/pdf/Husarion_Panther_safety_instructions.pdf "Husarion Panther safety instructions") - to avoid malfunction or damage your Panther please read this safety manual before use,
 * [Panther schematic block diagram](/docs/assets/pdf/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them,
 * [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") - three basic projections of the platform,
 * [Teltonika RUTX11 manual](https://wiki.teltonika-networks.com/view/RUTX11_Manual)
