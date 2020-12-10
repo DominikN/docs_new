@@ -23,7 +23,7 @@ id: panther
 </div> 
 </div>
 
-Autonomous, mobile robot platform dedicated for outdoor environment. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
+Autonomous, mobile robot platform dedicated for outdoor environment. Compliant with IP54 rate of protection. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
 
 
 <div class="clearfix">
@@ -118,6 +118,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 |  min. ground clearance 	| 139 mm 	|
 | up-side-down clearance 	| 75 mm  	|
 |                 weight 	| 50 kg  	|
+|       protection index 	| IP54  	|
 
 **Traction**
 
@@ -244,9 +245,11 @@ The profiles used are aluminum V-slot 2020 profiles. The best way to attach the 
 
 These profiles are fixed to the robot with four bolts DIN912 M8x40.
 
-![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
+![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Top rails fixing")
 
 For more useful information in the field of mechanics, please see the document [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
+
+> **Note** The presence of railings has no effect on the water and dust resistance of the robot.
 
 ### Access to the interior ###
 
@@ -257,14 +260,15 @@ And a panel for communication with the rest of the robot - as standard it is an 
 ![User Panel - Communication Port](/docs/assets/img/Panther/UserPanel_CommunicationPort.png "User Panel - Communication Port")
 The front and rear spaces are occupied by motors and built-in electronics. For these spaces it is usually not needed to access by the user. Opening these spaces is mainly used for service work.
 
-To access the components inside the user space, unscrew the top rails (4x DIN912 M8x40).
-![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Block diagram")
-
-Then unscrew Cover (18x DIN912 M5x12).
+To access the components inside the user space, unscrew the top rails (4x DIN912 M8x40) and then unscrew Cover (18x DIN912 M5x12).
 ![Cover fixing](/docs/assets/img/Panther/cover_M5.png "Block diagram")
 
 To access the components in service space, unscrew the top rails and then (19x DIN912 M5x12).
 ![Deck fixing](/docs/assets/img/Panther/deck_M5.png "Block diagram")
+
+The bolts must be re-tightened with a torque of 4-5 Nm.
+
+> **Warning!** A necessary condition to meet the protection rate for external conditions and the faultless operation of the robot is the correct tightening of all screws fixing the Cover and both Decks!
 
 ### CAD models ###
 
