@@ -5,13 +5,13 @@ title: 5. Control robot by voice commands
 ---
 
 ## Abstract 
-Nowadays growing popularity of IoT caused greater demand for creating user-friendly interfaces for complicated devices to allow everyone to use such devices without diving into the details about how do they work.  
- Provided application was developed with attempts to follow mentioned principle to make it easier both for developer (by allowing one to write as little code as possible) and potential user (by creating very friendly interfaces).
+Nowadays growing popularity of IoT causes increasing demand for creating user-friendly interfaces for complicated devices to allow everyone to use them without the knowlagde of how they work.  
+Provided application was developed with an attempt to follow the mentioned principle and make it easier both for developers (by allowing them to write as little code as possible) and potential users (by creating very friendly interfaces).
 
 ![image](/docs/assets/img/ros-projects/robot-voice-control/diagram.png)
 
 ## Description
-Project is a platform with web UI running on Robot Operating System allowing users to control the robot by voice commands with [DeepSpeech](https://github.com/mozilla/DeepSpeech) used as speech-to-text engine. We will show four possible way to run this project depends on the user's preferences:
+This project is a platform with a web UI running on Robot Operating System allowing users to control their robot by voice commands with [DeepSpeech](https://github.com/mozilla/DeepSpeech) used as speech-to-text engine. We will show you four possible ways of running this project depending on your preferences:
 
 Using docker image:
 - with physical ROSbot
@@ -21,34 +21,34 @@ Using installation from source:
 - with physical ROSbot
 - with ROSbot simulated in Gazebo
 
-You can check video demo showing project with real ROSbot below. 
+You can check a demo video showing the outcome of the project with real ROSbot below. 
 
 <div align="center">
 <iframe width="784" height="441" src="https://www.youtube.com/embed/G_gPP5dVqTg" frameborder="0" gesture="media" allowfullscreen></iframe>
 </div>
 
 ## Features and capabilities
-* Possibility to define custom orders 
-* Recognizing sequence of commands with separator at once
-* Cancelling and sorting orders that have not been yet sent
+* Possibility of defining custom orders 
+* Recognizing sequences of commands with a separator
+* Cancelling and sorting orders that have not been sent yet
 * Tracking current/next orders
 * Cancelling already sent orders (current and next)
 * History of previous orders with their results
-* Voice aliases can be written in regex style which allows to use many voice aliases for same order
+* Voice aliases can be written in regex style which allows to use many voice aliases for the same order
 
 ## Installation using Docker image
 
-The easier way to test robot voice control is to use Docker container. To install Docker please refer to [Docker installation manual](https://docs.docker.com/engine/install/ubuntu/). You should also set permission for docker to avoid additional problems. Official docker manual is available [here](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
+The easiest way to test robot voice control is to use a Docker container. To install Docker please refer to [Docker installation manual](https://docs.docker.com/engine/install/ubuntu/). You should also set permission for docker to avoid additional problems. Official docker manual is available [here](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
 ### With ROSbot
 
-Voice recognition server must be running on a PC with x86-64 architechture, while rest of the algorithms may be running on ROSbot (with latest image version running on Ubuntu 18.04 and Mbed firmware). In this tutorial we will connect both devices with use of Husarnet.
+Voice recognition server must be running on a PC with x86-64 architechture, while rest of the algorithms may be running on ROSbot (with the latest image version running on Ubuntu 18.04 and Mbed firmware). In this tutorial we will connect both devices with a use of Husarnet.
 
 #### Connecting devices through Husarnet
 
-- Log in or create an account at [husarnet.com](app.husarnet.com).
-- Create a new Husarnet network
-- Click **Add element** button and go to a **Join Code** tab.
+- Log in or create your (free) account at [husarnet.com](app.husarnet.com).
+- Create new Husarnet network
+- Click **Add element** button and go to **Join Code** tab.
 - Copy your join code. It should look like this: `fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/XXXXXXXXXXXXXXXXXXXXX`
 - On both your robot and your laptop execute the following commands to connect them to the same Husarnet network:
   a) install Husarnet
@@ -59,7 +59,7 @@ Voice recognition server must be running on a PC with x86-64 architechture, whil
   ```
   systemctl restart husarnet
   ```
-  b) join your robot and computer to the Husarnet network created in the point 2:
+  b) connect your robot and computer to the Husarnet network created in the point 2:
   ```
   sudo husarnet join <PLACE_YOUR_JOINCODE_HERE> <PLACE_YOUR_HOSTNAME_HERE>
   ```
@@ -79,7 +79,7 @@ Run docker container:
 docker run --net=host -e ROS_MASTER_URI -e ROS_IPV6 -it --name voice_control voice_control
 ```
 
-Inside container configure server:
+Inside the container configure server:
 
 ```
 source ~/ros_ws/devel/setup.sh
@@ -109,13 +109,13 @@ or if you are using ROSbot 2.0 PRO:
 roslaunch voice_control rosbot_pro.launch
 ```
 
-Then open control panel in Chrome browser by typing address:
+Then open the control panel in Chrome browser by typing address:
 ```
 https://PC_HOSTNAME:3000
 ```
 Where `PC_HOSTNAME` is host PC name defined when connecting through Husarnet.
 
-You may see warning regarding unsigned certificate, accept it to proceed.
+You may see warning regarding an unsigned certificate. Accept it to proceed.
 
 
 ### With Gazebo
@@ -153,9 +153,9 @@ Then open control panel in Chrome browser by typing address:
 https://CONTAINER_IP:3000
 ```
 
-You may see warning regarding unsigned certificate, accept it to proceed.
+You may see warning regarding an unsigned certificate. Accept it to proceed.
 
-You can check example video below:
+You can see an example video below:
 
 <div align="center">
 <iframe width="784" height="441" src="https://www.youtube.com/embed/XCsuoYbqdc4" frameborder="0" gesture="media" allowfullscreen></iframe>
@@ -213,17 +213,17 @@ cd ~/ros_workspace/src/robot_voicce_control
 
 
 
-Installation may take few minutes, because deepspeech model has to be downloaded.
+Installation may take a few minutes, because deepspeech model has to be downloaded.
 **During installation you may be asked for sudo password to install OpenSSL. After this any time that script waits for input just hit ENTER.**
 
 ### Usage
 
-**Run command below to start all internal components** 
+**Run the command below to start all internal components** 
 ```
 roslaunch voice_control voice_control.launch  
 ```
 
-Now we must also launch node from [order_executor](#order_executor) package. Creating your own nodes will be described in examples. Right now we can use already created ```mbgoal_demo```, which has plenty of already defined destinations that are reached with Move Base client.
+Now we must also launch a node from [order_executor](#order_executor) package. Creating your own nodes will be described in examples. Right now we can use an already created ```mbgoal_demo```, which has plenty of already defined destinations that are reached with Move Base client.
 
 After launching
 ```
@@ -258,17 +258,17 @@ roslaunch tutorial_pkg move_base.launch
 ```
 
 
-**Now fire your Chrome browser and go to address** 
+**Now launch your Chrome browser and go to address** 
 
 >https://{YOURHOSTNAME}:3000  
 
 Where {YOURHOSTNAME} is hostname as specified at the beggining of this step.  
 
-It is possible that browser will inform you about potential risk, but just ignore this and proceed anyway. The reason for this is that browser requires secure connection for audio streaming.
+It is possible that your browser will inform you about a potential risk, but just ignore this and proceed anyway. The reason for this is that browser requires secure connection for audio streaming.
 
-Website works well on Google Chrome, both for mobile and PC versions. For Firefox there is additional step needed, that is you have to open web developer console and manually click on one of links from socketio that appears in this console, and then accept risk. 
+Website works well on Google Chrome, both for mobile and PC versions. For Firefox there is additional step needed- you have to open web developer console and manually click on one of links from socketio that appears in this console, and then accept the risk. 
 
-**Let's hit "Start recording" button and say "turn left then turn right". Two orders should appear**
+**Let's click "Start recording" button and say "turn left then turn right". Two orders should appear**
 
 **To see all possible orders for this example go to**
 ```
@@ -305,7 +305,7 @@ string progress
 **Some fields of this action will be described below, other are self explanatory and intuitive**
 
 **Goal**
-* **label** - entity used by [order_executor](#order_executor) for recognizing type of action that robot should take for particular order.
+* **label** - entity used by [order_executor](#order_executor) to recognize a type of action which robot should complete in a particular order.
 * **target_pose** - optional field, PoseStamped of target
 * **description** - entity used to recognize particular order by user - it is displayed on the website
 * **fkeys**, **fvals** - additional parameters that can be represented as floats (so ints, booleans are also stored here)
@@ -328,7 +328,7 @@ separator: "then"
 ```
 Separator makes it possible to call sequence of orders at once. By default it is set to "then".  
 
-Orders' definitions start in next line. Lets take a closer look to one of them, i.e. ```rotation``` order
+Orders' definitions start in the next line. Lets take a closer look at one of them, i.e. ```rotation``` order
 ```yaml
   rotation: 
     voice_alias: "turn"
@@ -347,16 +347,16 @@ Orders' definitions start in next line. Lets take a closer look to one of them, 
         yaw: 3.14
 ```
 
-First two keys, i.e. ```voice_alias``` and ```label``` are mandatory. Former is alias which user has to say to trigger particular order, latter was described earlier.  
-There is optional parameter - ```description``` which was described the moment ago. If this key is absent (like in this example) it is assumed to be equivalent with voice_alias. You could add as many keys in custom order as you need, without any limitations. These would be converted automatically to keys and values in order action message.
+First two keys, i.e. ```voice_alias``` and ```label``` are mandatory. Former is an alias which user has to say to trigger particular order, latter was described earlier.  
+There is an optional parameter - ```description``` which was described the moment ago. If this key is absent (like in this example) it is assumed to be equivalent with voice_alias. You could add as many keys in custom order as you need, without any limitations. These would be converted automatically to keys and values in order action message.
 
 As you can see in this example order is divided into few cases, each with its own ```voice_alias``` and ```description```. For example if user says
-**"turn left"** then it would be recognized as a order with label ``mbgoal``, frame ``base_link`` and case ```left``` with field ```yaw``` equal to 1.57. On the website it will be shown as goal with description ``turn left``, which is concatenation of description of order and particular case.   
+**"turn left"** then it would be recognized as a order with label ``mbgoal``, frame ``base_link`` and case ```left``` with field ```yaw``` equal to 1.57. On the website it will be shown as goal with description ``turn left``, which is a concatenation of description of order and particular case.   
 
-You can add as many keys as you need. These would be stored in action message as **keys** and **values** described above, but keys ```frame```, ```x```, ```y``` and ```yaw``` are exception. They would be converted to ```target_pose``` field of action message.
+You can add as many keys as you need. These would be stored in action message as **keys** and **values** described above, but keys ```frame```, ```x```, ```y``` and ```yaw``` are an exception. They would be converted to ```target_pose``` field of action message.
 
 
-**Of course one could add any case to existing order, which is very simple operation. Feel free to do so and add e.g. your favourite locations as another cases**
+**Of course one could add any case to existing order, which is a very simple operation. Feel free to do so and add e.g. your favourite locations as another cases**
 
 **It is worth to mention that splitting orders into cases for user-defined orders is optional** 
 
@@ -364,7 +364,7 @@ You can add as many keys as you need. These would be stored in action message as
 
 
 ### Structure of executors
-For each distinct label proper executor must be created. These are defined in [order_executor](#order_executor) package. To understand their structure let's examinate class that each one have to inherit from.    
+For each distinct label proper executor must be created. These are defined in [order_executor](#order_executor) package. To understand their structure let's examinate a class that each one have to inherit from.    
 
 Move to
 ```
@@ -389,7 +389,7 @@ protected:
 };
 ```
 
-Nice thing about creating your own executor is that you don't have to bother about internals of this project, only thing you've to do is implement ```execute``` method in child of this class and make use of action server ```as``` to set state, send feedback and send result with no limitations of child's components used during execution. ```start``` method is called automatically, so you should not bother about it.     
+Nice thing about creating your own executor is that you don't have to bother with internals of this project, only thing you need to do is implement ```execute``` method in child of this class and make use of an action server ```as``` to set state, send feedback and send result with no limitations of child's components used during execution. ```start``` method is called automatically, so you should not bother with it.     
 
 Two protected methods ```get_strdict``` and ```get_fdict``` are wrappers for [keys and values](#Structure-of-orders) discussed earlier. If your order contains any optional parameters they would be stored as key/value pairs in one of these two maps. These methods can be called inside ```execute``` method.
 
@@ -457,14 +457,14 @@ To execute order with particular label proper child of Executor class must be de
 
 After this object of created class must be binded to mentioned object of ```ActionSrv```. There is always one object of ``ActionSrv`` initialised, to which many ``Executor``s can be binded.
 
-In this example, we will examinate ```mbgoal_demo``` node which contains executor ``MoveBaseExec`` that handles orders with ```mbgoal``` label.Notice that every order from ```order_executor/config/mbgoal_demo.yaml``` has same label, hence only one executor is required.
+In this example, we will examinate ```mbgoal_demo``` node which contains executor ``MoveBaseExec`` that handles orders with ```mbgoal``` label. Notice that every order from ```order_executor/config/mbgoal_demo.yaml``` has the same label, hence only one executor is required.
 
 
 Let's move to proper directory
 ```
 roscd order_executor/nodes
 ```
-and now open mentioned ```mbgoal_demo.cpp```. You should see something like following:
+and now open mentioned ```mbgoal_demo.cpp```. You should see something like the following:
 
 ```cpp
 #include <ActionSrv.hpp>
@@ -510,7 +510,7 @@ int main(int argc, char* argv[]){
 #include <MoveBaseExec.hpp>
 ```
 The former header contains declaration of ActionSrv class, which gathers all executors and redirect goals to them.  
-The latter contains declaration of child of ```Executor``` class responsible for executing goal with ```mbgoal``` label. It makes use of ```target_pose``` field of order action message to reach demanded pose using Move Base client.
+The latter contains declaration of child of ```Executor``` class responsible for executing a goal with ```mbgoal``` label. It makes use of ```target_pose``` field of order action message to reach demanded pose using Move Base client.
 
 ```cpp
 
@@ -530,7 +530,7 @@ The latter contains declaration of child of ```Executor``` class responsible for
     ros::Subscriber odom = nh.subscribe("/odom", 1, &MoveBaseExec::update_odom, &move_base_exec);
 ```
 Nice thing is that Executor's structure is arbitrary -  you can pass any objects inside them to execute your order.    
-Last but one line is very important. It instantiates object of ``MoveBaseExec`` class, that is ``Executor`` of order with label ``mbgoal``. 
+Last line is very important. It instantiates object of ``MoveBaseExec`` class, that is ``Executor`` of order with label ``mbgoal``. 
 
 ```cpp
     //declare ActionSrv class
@@ -542,7 +542,7 @@ These two lines are self explanatory. ActionSrv takes NodeHandle object in its c
     //bind all executors to proper labels
     order_executor.bind_executor("mbgoal", move_base_exec);
 ```
-This section is more interesting. We've to bind ```MoveBaseExec``` executor to ```ActionSrv```. Now every order with label ```mbgoal``` will be forwarded to move_base_exec object. 
+This section is more interesting. We have to bind ```MoveBaseExec``` executor to ```ActionSrv```. Now every order with label ```mbgoal``` will be forwarded to move_base_exec object. 
 
 ```cpp
     //start action server
@@ -552,9 +552,9 @@ This section is more interesting. We've to bind ```MoveBaseExec``` executor to `
 
     ros::spin();
   ```
-  Here we've to start action server. It will also invoke ```start``` method in all executors binded to this object.
+  Here we have to start an action server. It will also invoke ```start``` method in all executors binded to this object.
 
-Now we can [run](#Usage) all nodes, go to website and check whether orders defined in ```order_executor/config/mbdemo_orders.yaml``` file can be invoked via voice commands.
+Now we can [run](#Usage) all nodes, go to the website and check whether orders defined in ```order_executor/config/mbdemo_orders.yaml``` file can be invoked via voice commands.
 
 ### Ex.1. Defining your own simple order
 
@@ -562,9 +562,9 @@ Now we can [run](#Usage) all nodes, go to website and check whether orders defin
 1. Order definition in YAML file
 2. class responsible for executing order
 
-Whole process was made as simple as possible, so each mentioned thing reduces to few easy steps
+Whole process was made as simple as possible, so each mentioned stage was reduced to few easy steps.
 
-**In this example we will create "take_photo" order that will save recent photo from camera after call.**
+**In this example we will create a "take_photo" order which will save recent photo from camera after a call.**
 
 #### 1. Order definition in YAML file
 Go to
@@ -573,7 +573,7 @@ roscd order_executor/config
 ```
 and create **orders_tutorial.yaml**
 
-**Paste following content**
+**Paste the following content**
 
 ```yaml
 orders_list:
@@ -584,12 +584,12 @@ orders_list:
       description: "take a photo"
       label: "pic"
 ```
-defined order is as simple as possible. Creating orders with additional keys will be covered in next tutorials
+defined order is as simple as possible. Creating orders with additional keys will be covered in the next tutorials
 
 **Note that every yaml file with orders must live in ```orders_list``` namespace**
 
 #### 2. Class responsible for executing order
-For every order with new label we've to create proper class responsible for executing it  
+For every order with a new label we have to create proper class responsible for executing it.  
 
 **We will develop TakePhotoExec class to handle order with label ```pic```**  
 lets create ```TakePhotoExec.cpp``` and ```TakePhotoExec.hpp``` in ``src`` and ``include`` folders respectively.
@@ -599,7 +599,7 @@ touch $(rospack find order_executor)/src/TakePhotoExec.cpp
 touch $(rospack find order_executor)/include/TakePhotoExec.hpp
 ```
 
-Following rules described in [Structure of executors](#Structure-of-executors) paste following content to the latter file   
+Following rules described in [Structure of executors](#Structure-of-executors) paste the following content to the latter file   
 
 ```TakePhotoExec.hpp```
 ```cpp
@@ -715,7 +715,7 @@ int main(int argc, char* argv[]){
 }
 ```
 
-Last thing to do is to create launch file to start executor's node
+Last thing to do is to create a launch file to start executor's node
 ```
 touch order_executor/launch/orders_tutorial.launch
 ```
@@ -734,16 +734,16 @@ touch order_executor/launch/orders_tutorial.launch
 
 Add proper dependecies, libraries and executables to package.xml and CMakeLists.txt following [this](http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages) tutorial (Remember also to link OpenCV libraries and  orders_tutorial executable)
 
-Now after building, [launch](#Usage) nodes of this package, but instead of launching ```mbgoal_demo.launch``` fire:
+Now after building, [launch](#Usage) nodes of this package, but instead of launching ```mbgoal_demo.launch``` run:
 ```
 roslaunch order_executor orders_tutorial.launch
 ```
 And launch all other nodes that are necessary (camera publisher etc)
 
-Now go to webpage, start recording and say "take picture". New order should appear on website and after acceptance, photo should be saved in directory of your choice.
+Now go to the webpage, start recording and say "take picture". New order should appear on the website and after acceptance, photo should be saved in directory of your choice.
 
 ### Ex.2 - Defining order with additional parameters
-Suppose we want to store another parameters in our order. It is reasonable, if for instance we want to have different orders with same label (i.e. handled by the same executor), which organizes them in clear and human-friendly fashion (already defined ```local_goal```, ```goal``` and ```rotation``` from ```mbgoal_demo``` example are splitted that way) or if we want to parametrize some values used by executor in nice way. Knowledge of how to deal with additional parameters would also be crucial in next tutorial about orders with cases.
+Suppose we want to store another parameters in our order. It is reasonable, if for instance we want to have different orders with the same label (i.e. handled by the same executor), which organizes them in clear and human-friendly fashion (already defined ```local_goal```, ```goal``` and ```rotation``` from ```mbgoal_demo``` example are splitted that way) or if we want to parametrize some values used by executor in a nice way. Knowledge of how to deal with additional parameters would also be crucial in next tutorial about orders with cases.
 
 Let's go back to our order from previous example and add ```wait``` key - it would represent the amount of time to wait before taking photo.
 ```yaml
@@ -754,9 +754,9 @@ Let's go back to our order from previous example and add ```wait``` key - it wou
     wait: 5
 ```
 
-The great thing is that converter deals with additional parameters automatically. Parameters can be reached in executor's class using one of two methods from parent. These methods were described [here](#Structure-of-executors). In our case we've only one, numeric parameter, hence we will use of ```get_fdict``` method.  
+The great thing is that the converter deals with additional parameters automatically. Parameters can be reached in executor's class using one of two methods from parent. These methods were described [here](#Structure-of-executors). In our case we have only one, numeric parameter, hence the usage of ```get_fdict``` method.  
 
-Let's modify ```TakePhotoExec.cpp``` file from previous example
+Let's modify ```TakePhotoExec.cpp``` file from the previous example
 ```cpp
 #include <TakePhotoExec.hpp>
 
@@ -808,7 +808,7 @@ std::string TakePhotoExec::_filename(){
 **Now each picture will be taken after 5 seconds of sleep**
 
 ### Ex.3. Defining order with cases
-Cases are useful feature which gather similar orders. With addition to obligatory parameters that were discussed previously order with cases must also include ```cases``` key. Then, every case has only one obligatory field - ```voice_alias```.
+Cases are a useful feature which gathers similar orders. With addition to obligatory parameters that were discussed previously an order with cases must also include ```cases``` key. Then, every case has only one obligatory field - ```voice_alias```.
 
 To trigger particular case user has to say combination of voice aliases of order and case. Consider following order.
 
@@ -833,9 +833,9 @@ To trigger this order with case ```primes``` user has to say **"multiply primes"
 
 **Important thing is that each case should have similar structure.**  
 
-It is that important because as we will see shortly executor is not explicitly aware of which case is being executed. It only cares about values of parameters (in this example ```description```, ```first``` and ```second```).  
+It is very important because as we will see shortly that executor is not explicitly aware of which case is being executed. It only cares about the values of parameters (in this example ```description```, ```first``` and ```second```).  
 
-One could now be confused about presence of ```description``` key in ```primes``` case, because it is absent in second case. This was discussed earlier, as ```description``` is special key which is optional, but always present, because if it is not specified explicitly, then it is assumed to be same as ```voice_alias```.
+One could now be confused about presence of ```description``` key in ```primes``` case, because it is absent in second case. This was discussed earlier, as ```description``` is a special key which is optional, but always present, because if it is not specified explicitly, then it is assumed to be same as ```voice_alias```.
 
 
 We can paste this order to previously created ```orders_tutorial.yaml``` file
@@ -938,7 +938,7 @@ int main(int argc, char* argv[]){
 
 ### Ex.4. Using target_pose field
 
-To use this field, which is convenient representation of pose (```geometry_msgs/PoseStamped```) let's define order with cases and all mandatory fields learned from previous examples. 
+To use this field, which is a convenient representation of pose (```geometry_msgs/PoseStamped```) let's define an order with cases and all mandatory fields learned from previous examples. 
 
 ```yaml
   my_order: 
@@ -961,11 +961,11 @@ Mentioned keys would be converted to ```geometry_msgs/PoseStamped```. Of course 
 
 **Another important fact is that due to implementation of ```Converter``` class if you want to use ``target_pose`` order must be specified with cases, but of course you can define only one case if it is sufficient.** 
 
-You don't even have to use predefined **"mbgoal"** label. You can write own executor to handle this order.
+You don't even have to use predefined **"mbgoal"** label. You can write your own executor to handle this order.
 
 ## Summary
 
-After completing this project you should be able to configure `robot_voice_control` package so that the robot follow your orders.
+After completing this project you should be able to configure `robot_voice_control` package so that the robot will follow your orders.
 
 ---
 
