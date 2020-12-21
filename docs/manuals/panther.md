@@ -261,14 +261,20 @@ And a panel for communication with the rest of the robot - as standard it is an 
 The front and rear spaces are occupied by motors and built-in electronics. For these spaces it is usually not needed to access by the user. Opening these spaces is mainly used for service work.
 
 To access the components inside the user space, unscrew the top rails (4x DIN912 M8x40) and then unscrew Cover (18x DIN912 M5x12).
-![Cover fixing](/docs/assets/img/Panther/cover_M5.png "Block diagram")
+![Cover fixing](/docs/assets/img/Panther/cover_M5.png "Cover fixing")
 
 To access the components in service space, unscrew the top rails and then (19x DIN912 M5x12).
-![Deck fixing](/docs/assets/img/Panther/deck_M5.png "Block diagram")
+![Deck fixing](/docs/assets/img/Panther/deck_M5.png "[Deck fixing")
 
 The bolts must be re-tightened with a torque of 4-5 Nm.
 
 > **Warning!** A necessary condition to meet the protection rate for external conditions and the faultless operation of the robot is the correct tightening of all screws fixing the Cover and both Decks!
+
+### Space inside the robot ###
+
+Inside the robot, there is a dedicated volume of approximately 14.5 liters (3.8 gallons) for the user's equipment and devices. This part of the robot has the same water and dust tightness class as the robot. By default, there is the Intel NUC on-board computer and the RUTx11 router responsible for both the communication of the robot with the inner world and the connection of computers and sensors within the robot.
+
+![User's space](/docs/assets/img/Panther/UserSpaceDrawning.png "[User's space")
 
 ### CAD models ###
 
