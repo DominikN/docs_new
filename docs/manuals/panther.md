@@ -205,6 +205,8 @@ Pushing the safety switch completely cuts off the power to the device.
 
 The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours).
 
+Low battery level will be indicated by a change in the bumper light - both lights will fade in and out orange to indicate that the battery voltage has dropped below 35 volts. Read more in the [Bumpers and signal lights](#bumpers-and-signal-lights) section.
+
 To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 505W of power to the user's devices.
 The supply voltages available on the user Power panel are 5V with a total current limitation up to 15A (3x female XT60), 12V limited to 20A (3x female XT60) and 19V limited to 10A (3x female XT60).
 
@@ -250,6 +252,13 @@ These profiles are fixed to the robot with four bolts DIN912 M8x40.
 For more useful information in the field of mechanics, please see the document [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
 
 > **Note** The presence of railings has no effect on the water and dust resistance of the robot.
+
+### Bumpers and signal lights ###
+
+The robot's bumbers are made of a profile with the same cross-section as the railings. They are 0.5 meters wide and, in addition to buffer shock and reducing potential damage when the robot collides with an obstacle at high speed, additional sensors can be mounted on them. By default, the signaling lighting is mounted on each bumper in the form of an aluminum profiles with 46 programmable RGB LEDs.
+
+These lights may be widely used - to indicate the status of the robot, the direction of movement or the intention to change direction, warn about low battery or other detected errors, signal the status of the charging process or even for illuminate the area in front of the robot. More details regarding lights and their control is available in [ROS API](#ros-api) section.
+
 
 ### Access to the interior ###
 
