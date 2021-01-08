@@ -311,6 +311,20 @@ Below are topics and services available in Panther:
 | `/imu/data` | `sensor_msgs/Imu` | publisher | `/imu_manager` | Publishes imu data |
 
 
+GPS API: 
+
+GPS data in [NMEA](https://en.wikipedia.org/wiki/NMEA_0183) format is forwarded to main computer IP address (Intel NUC/ Vizi-AI) at port 5000, typically it is `10.15.20.3:5000`. 
+
+Data frequency is 1Hz and can be interacted ether with GPSD daemon (`gpsd -N -D 5 udp://10.15.20.3:5000`) or directly with [ROS package](https://github.com/adamkrawczyk/nmea_navsat_driver) redirecting signal to ROS topic. 
+
+After cloning [this package](https://github.com/adamkrawczyk/nmea_navsat_driver) into your workspace (`~/husarion_ws/src`) use following command to run:
+
+```
+rosrun nmea_navsat_driver nmea_socket_driver _port:=udp://10.15.20.3:5000
+```
+
+You should be able to see data on `/fix` topic (`rostopic echo /fix`). 
+
 Lights pattern could be set by calling appropriate message to `/set_panther_lights` service, to change animation to `BLINKER_LEFT`:
 ```
 rosservice call /set_panther_lights "animation: 1
