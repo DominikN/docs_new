@@ -315,12 +315,26 @@ GPS API:
 
 GPS data in [NMEA](https://en.wikipedia.org/wiki/NMEA_0183) format is forwarded to main computer IP address (Intel NUC/ Vizi-AI) at port 5000, typically it is `10.15.20.3:5000`. 
 
-Data frequency is 1Hz and can be interacted ether with GPSD daemon (`gpsd -N -D 5 udp://10.15.20.3:5000`) or directly with [ROS package](https://github.com/adamkrawczyk/nmea_navsat_driver) redirecting signal to ROS topic. 
+Data frequency is 1Hz and can be interacted ether with GPSD daemon (`gpsd -N -D 5 udp://10.15.20.3:5000`) or directly with [ROS package](https://github.com/ros-drivers/nmea_navsat_driver/tree/decode-udp-line) redirecting signal to ROS topic. 
 
-After cloning [this package](https://github.com/adamkrawczyk/nmea_navsat_driver) into your workspace (`~/husarion_ws/src`) use following command to run:
+After cloning [this package](https://github.com/ros-drivers/nmea_navsat_driver/tree/decode-udp-line) [IMPORTANT: use branch `decode-udp-line`] into your workspace (`~/husarion_ws/src`) use following command to run:
 
 ```
-rosrun nmea_navsat_driver nmea_socket_driver _port:=udp://10.15.20.3:5000
+rosrun nmea_navsat_driver nmea_socket_driver _port:=5000 _local_ip:=10.15.20.3
+```
+
+or use launch file:
+
+```
+<launch>
+  <arg name="port" default="5000" />
+  <arg name="local_ip" default="10.15.20.3" />
+
+  <node pkg="nmea_navsat_driver" type="nmea_socket_driver" name="nmea_socket_driver_node" output="screen">
+    <param name="port" type="int" value="$(arg port)"/>
+    <param name="local_ip" type="str" value="$(arg local_ip)" />
+  </node>
+</launch>
 ```
 
 You should be able to see data on `/fix` topic (`rostopic echo /fix`). 
