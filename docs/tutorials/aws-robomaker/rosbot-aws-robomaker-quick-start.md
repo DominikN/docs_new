@@ -204,7 +204,7 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 
 - Choose \*_Create robot_.
 - In the **Name** field, type `ROSbot`.
-- From the **Architecture** dropdown menu choose **ARMHF**.
+- From the **Architecture** dropdown menu choose, depending on your ROSbot version: **ARMHF** for ROSbot 2.0, **X86_64** for ROSbot 2.0 PRO.
 - From the **AWS Greengrass group** dropdown menu choose **Create new**.
 - In the **AWS Greengrass prefix** field type `ROSbot`.
 - In the **IAM role** select **ROSbot-deployment-role**.
