@@ -136,9 +136,7 @@ And this is how it looks like:
 
 You can also go through ROS tutorials using **ROSbot 2.0 simulation model in Gazebo** environment instead of physical robot. It is available here, at our <a href="https://github.com/husarion/rosbot_description">GitHub page</a>.
 
-You can use simulation model on a **ready to go virtual machine image**, which you can download from <a href="https://files.husarion.com/husarion-vm.vmdk.xz">our file server</a>. Virtual machine is already configured with all required packages and you can use it with minimal setup effort.
-
-Another option is to use **ROS native installation**, this requires Ubuntu 16.04 operating system and you will have to install ROS with Gazebo according to this <a href="http://wiki.ros.org/kinetic/Installation/Ubuntu">guide</a>. Native installation requires a bit of experience with Linux and command line, but will offer much better performance camparing to virtual machine.
+Another option is to use **virtual machine** or **ROS native installation**, this requires Ubuntu 18.04 operating system and you will have to install ROS with Gazebo according to this <a href="http://wiki.ros.org/melodic/Installation/Ubuntu">guide</a>. Native installation but will offer much better performance camparing to virtual machine.
 
 You can also try online simulator at <a href="http://www.theconstructsim.com/">www.theconstructsim.com</a>, it comes with all required packages installed and offer great computing power for a reasonable price.
 

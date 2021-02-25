@@ -24,6 +24,7 @@ Description:
 * x<sub>c</sub> - robot geometric centre x position
 * y<sub>c</sub> - robot geometric centre y position
 * x<sub>r</sub> - robot local x axis that determines front of the robot
+* y<sub>r</sub> - robot local y axis
 * α - robot angular position
 * W<sub>FL</sub> - front left wheel
 * W<sub>FR</sub> - front right wheel
@@ -153,7 +154,7 @@ keyboard. You will need `teleop_twist_keyboard` node from
 `teleop_twist_keyboard` package.
 
 Log in to your CORE2 device through remote desktop and run terminal. In
-first terminal window run `$ roscore`, in second run:
+first terminal window run `roscore`, in second run:
 
 For ROSbot 2.0:
 ```
@@ -206,7 +207,7 @@ Inside the `~/ros_workspace/src/tutorial_pkg/launch` create `tutorial_3.launch` 
     <arg name="use_rosbot" default="true"/>
     <arg name="use_gazebo" default="false"/>
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>    
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>    
         
         <!-- ROSbot 2.0 -->
     <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
@@ -258,14 +259,14 @@ In this section you will learn how to visualize data from ros topics using PlotJ
 Start PlotJuggler:
 
 ```bash
-rosrun plotjuggler PlotJuggler
+rosrun plotjuggler plotjuggler
 ```
 
 In case your image lacks this tool you can install it by typing:
 
 ```bash
 sudo apt-get update
-sudo apt-get install ros-kinetic-plotjuggler
+sudo apt-get install ros-melodic-plotjuggler-ros
 ```
 
 From menu bar select **Streaming > Start: ROS_Topic_Streamer**. In pop-up menu that will appear choose **/pose** from available topic names and press ok.

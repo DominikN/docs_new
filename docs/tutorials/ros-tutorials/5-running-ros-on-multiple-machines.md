@@ -82,9 +82,9 @@ Options for configuration are:
 One benefit of using Husarnet is that it manages hostnames so you don't have to worry about it.
 
 
-TIP! If you do changes in .bashrc file always source it with `. ~/.bashrc` or reopen terminal
+> TIP! If you do changes in .bashrc file always source it with `. ~/.bashrc` or reopen terminal
 
-TIP 2! Remember that `roscore` must be running on the device indicated as ROS master!!!
+> TIP 2! Remember that `roscore` must be running on the device indicated as ROS master!!!
 
 **Task 1**
 
