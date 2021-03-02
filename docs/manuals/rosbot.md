@@ -211,11 +211,11 @@ If you need more information about charging, please read the [Charging manual fo
 ## Software ##
 
 Software for ROSbot can be divided into 2 parts:
- * A [low-level firmware](https://github.com/husarion/rosbot-firmware-new) that works on the real-time controller (CORE2). It can be developed using [Visual Studio Code IDE](/tutorials/mbed-tutorials/using-core2-with-mbed-os/).
- * OS based on Ubuntu 16.04, which runs on the SBC (ASUS Tinker Board or UpBoard) and contains all components needed to start working with ROS immediately. The microSD card with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
+ * A [low-level firmware](https://github.com/husarion/rosbot-stm32-firmware) that works on the real-time controller (CORE2). It can be developed using [Visual Studio Code IDE](/tutorials/mbed-tutorials/using-core2-with-mbed-os/).
+ * OS based on Ubuntu 18.04 or 20.04, which runs on the SBC (ASUS Tinker Board or UpBoard) and contains all components needed to start working with ROS or ROS2 immediately. The microSD card or MMC memory with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
 
 
-### ROS API ###
+### ROS/ROS2 API ###
 
 Below are topics and services available in ROSbot:
 
@@ -239,13 +239,6 @@ Below are topics and services available in ROSbot:
 | `/cmd_vel` | `geometry_msgs/Twist` | subscriber | `/serial_node` | Velocity commands |
 | `/config` | `rosbot_ekf/Configuration` | service server | `/serial_node` | Allow to control behaviour of CORE2 board, detaild in [CORE2 config](#core2-config) section |
 
-#### External documentation ####
-
- - Orbbec Astra camera API is documented in [driver repository](https://github.com/orbbec/ros_astra_camera)
-
- - Slamtec RpLidar scanner API is documented in [driver repository](https://github.com/Slamtec/rplidar_ros)
-
-
 #### User buttons ####
 
 User button message is published only once when button is pushed. In case when both buttons are presse at the same time, two messages will be pubilshed.
@@ -268,101 +261,73 @@ uint8 result
 ```
 Available commands:
 
-- SLED - Set LED state, data structure is `LED_NUMBER LED_STATE`, where:
+**SLED** - Set LED state, data structure is `LED_NUMBER LED_STATE`, where:
     
-    `LED_NUMBER` is number of LED, could be `1`, `2` or `3`
+`LED_NUMBER` is number of LED, could be `1`, `2` or `3`
     
-    `LED_STATE` is desired LED state, could be `0` to set LED off and `1` to set LED on
+`LED_STATE` is desired LED state, could be `0` to set LED off and `1` to set LED on
 
-- EIMU - Enable/disable IMU, possible values:
+**EIMU** - Enable/disable IMU, possible values:
   
-    `'1'` - enable
+`'1'` - enable
   
-    `'0'` - disable
+`'0'` - disable
 
-- RIMU - Reset IMU (for Kalman related odometry)
+**RIMU** - Reset IMU (for Kalman related odometry)
 
-    To reset IMU MPU9250 call with empty `data` field.
+To reset IMU MPU9250 call with empty `data` field.
 
-- EJSM - Enable/disable joint state message publication, possible values
+**EJSM** - Enable/disable joint state message publication, possible values
 
-    `'1'` - enable
+`'1'` - enable
 
-    `'0'` - disable
+`'0'` - disable
 
-- RODOM - Reset odometry
+**RODOM** - Reset odometry
 
-    To reset odometry call with empty `data` field.
+To reset odometry call with empty `data` field.
 
-- CALI - Odometry valibration (update coefficients), data structure is: `X Y`, where
+**CALI** - Odometry valibration (update coefficients), data structure is: `X Y`, where
 
-    `X` - diameter_modificator value
+`X` - diameter_modificator value
 
-    `Y` - tyre_deflation value
+`Y` - tyre_deflation value
 
-- EMOT - Enable/disable motors, possible values:
+**EMOT** - Enable/disable motors, possible values:
 
-    `'0'` - disconnect motors
+`'0'` - disconnect motors
 
-    `'1'` - connect motors
+`'1'` - connect motors
 
-- SANI - Set WS2812B LEDs animation
-    This functionality is not default for ROSbots. It requires WS2812B LED stripe connected to servo 1 output on ROSbot back panel and rebuilding firmware with custom configuration.
-    To enable the WS2812B interface open the mbed_app.json file and change the line:
-    ```
-    "enable-ws2812b-signalization": 0
-    ```
-    to
-    ```
-    "enable-ws2812b-signalization": 1
-    ```
+**SANI** - Set WS2812B LEDs animation
+This functionality is not default for ROSbots. It requires WS2812B LED stripe connected to servo 1 output on ROSbot back panel and rebuilding firmware with custom configuration.
+    
+To enable the WS2812B interface open the mbed_app.json file and change the line:
+```
+"enable-ws2812b-signalization": 0
+```
+to
+```
+"enable-ws2812b-signalization": 1
+```
 
-    Possible values:
+Possible values:
         
-    `O` - OFF
+`O` - OFF
     
-    `S <hex color code>` - SOLID COLOR
+`S <hex color code>` - SOLID COLOR
     
-    `F <hex color code>` - FADE IN FADE OUT ANIMATION
+`F <hex color code>` - FADE IN FADE OUT ANIMATION
     
-    `B <hex color code>` - BLINK FRONT/REAR ANIMATION
+`B <hex color code>` - BLINK FRONT/REAR ANIMATION
     
-    `R` - RAINBOW ANIMATION
+`R` - RAINBOW ANIMATION
 
-### ROS2 API
+#### External documentation ####
 
-You can access ROSbot interfaces through IPv4 or IPv6 network interfaces.
-The reason for below distinction is that [Micro XRCE-DDS Agent](https://github.com/eProsima/Micro-XRCE-DDS-Agent), which is based on `FastRTPS`, is impossible to be configured in IPv6 network. The issue persists as the time of writing this manual.
+ - Orbbec Astra camera API is documented in [driver repository](https://github.com/orbbec/ros_astra_camera).
 
-#### IPv4
-
-ROSbot interfaces are being handled by [`MicroXRCEAgent`](https://github.com/eProsima/Micro-XRCE-DDS-Agent), this node is directly communicating with CORE2 board on one side and IPv4 network on the other side.
-
-Below topics are available in ROSbot:
-
-| Topic | Message type | Direction | Node |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
-| --- | --- | --- | --- | --- |
-| `/battery` | `sensor_msgs/msg/BatteryState` | publisher | `MicroXRCEAgent` | Battery voltage |
-| `/odom` | `geometry_msgs/msg/PoseStamped` | publisher | `MicroXRCEAgent` | Odometry based on wheel encoders |
-| `/tf` | `tf2_msgs/msg/TFMessage` | publisher | `MicroXRCEAgent` | ROSbot position based on wheel encoders |
-| `/cmd_vel` | `geometry_msgs/msg/Twist` | subscriber | `MicroXRCEAgent` | Velocity commands |
-
-#### IPv6
-
-The interefaces from IPv4 are translated to IPv6 by [`dds_bridge`](https://github.com/husarion/dds_bridge). Thier summary is below:
-
-| Topic | Message type | Direction | Node |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
-| --- | --- | --- | --- | --- |
-| `/cyclonedds/battery` | `sensor_msgs/msg/BatteryState` | publisher | `dds_bridge` | Battery voltage |
-| `/cyclonedds/odom` | `geometry_msgs/msg/PoseStamped` | publisher | `dds_bridge` | Odometry based on wheel encoders |
-| `/tf` | `tf2_msgs/msg/TFMessage` | publisher | `dds_bridge` | ROSbot position based on wheel encoders |
-| `/cyclonedds/cmd_vel` | `geometry_msgs/msg/Twist` | subscriber | `dds_bridge` | Velocity commands |
-
-#### External documentation
-
- - Orbbec Astra camera API is documented in [driver repository](https://github.com/lukaszmitka/ros_astra_camera)
-
- - Slamtec RpLidar scanner API is documented in [driver repository](https://github.com/lukaszmitka/rplidar_ros)
+ - Slamtec RpLidar scanner API is documented in [driver repository](https://github.com/Slamtec/rplidar_ros).
 
 
  ### System reinstallation ###
@@ -378,7 +343,7 @@ This process will differ depending on ROSbot version that you have.
 
 1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, thel pull it out. You can find SD card slot on ROSbot right side.
  ![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
-2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads), you can choose ROS Kinetic, ROS Melodic or ROS2 Dashing.
+2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads), you can choose ROS Melodic, ROS Noetic or ROS2 Foxy.
 3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
@@ -397,7 +362,7 @@ Before you begin, you will need:
 - Mouse, keyboard and USB hub
 - Display with HDMI cable
 
-1. Download Ubuntu installation image for UpBoard from section [Downloads](https://husarion.com/downloads), you can choose ROS Kinetic, ROS Melodic or ROS2 Dashing.
+1. Download Ubuntu installation image for UpBoard from section [Downloads](https://husarion.com/downloads), you can choose ROS Melodic, ROS Noetic or ROS2 Foxy.
 2. Flash Ubuntu on USB drive (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - Download [Etcher](https://www.balena.io/etcher/) and install it.
  - Plug in USB drive into your computer.
@@ -492,7 +457,7 @@ This firmware version is based on ARM's Mbed OS system. If you're interested in 
 
 SSH to ROSbot over LAN network or VPN to get access to it's Linux terminal.
 
-#### stm32loader installation
+#### stm32loader usage
 
 We will use `stm32loader` tool to upload the firmware to ROSbot. All ROSbot images have this tool **already installed**. 
 
@@ -502,21 +467,7 @@ In case you have uninstalled this tool, you can find installation steps below. T
 sudo stm32loader --help
 ```
 
-If you get `command not found` you will need to finish all the steps below. Otherwise, you just need to complete steps from this [tutorial](https://husarion.com/software/stm32loader/).
-
-You can check if tool works by running following commands:
-
-**ROSbot 2.0:**
-
-```bash
-sudo stm32loader -c tinker -f F4
-```
-
-**ROSbot 2.0 PRO:**
-
-```bash
-sudo stm32loader -c upboard -f F4
-```
+If you want to know more about stm32loader check this [tutorial](https://husarion.com/software/stm32loader/).
 
 #### Programming the firmware (using stm32loader)
 
@@ -525,21 +476,15 @@ We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have 
 - ws2812b driver is enabled by default (check [ROSbot with WS2812B LEDs signalization](https://husarion.com/tutorials/mbed-tutorials/rosbot-and-ws2812b-led-signalization/))
 - rosserial baudrate is set to:
 
-  - `500000` for ROSbot 2.0
-  - `460800` for ROSbot 2.0 Pro
-
-For ROS Kinetic and Melodic the same firmware is compatible, ROS2 Dashing has different firmware.
+  - `500000` for ROSbot 2.0 with ROS Melodic and Foxy
+  - `460800` for ROSbot 2.0 Pro with ROS Melodic and Foxy
+  - `525000` for ROSbot 2.0 and 2.0 PRO with ROS Noetic
 
 Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
 
-- [`ROSbot 2.0 with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.13.1.bin)
-- [`ROSbot 2.0 Pro with ROS Kinetic and Melodic`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-pro-fw-v0.13.1.bin)
-- [`ROSbot 2.0 with ROS2 Dashing`](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-fw-ros2-v0.2.0-synchro.bin)
-- [`ROSbot 2.0 Pro with ROS2 Dashing`](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-pro-fw-ros2-v0.2.0-synchro.bin)
-
-Before uploading the firmware using `stm32loader` make sure you have the `husarnet-configurator` service disabled.
-
-> The following steps remove the software bootloader used by Husarion Cloud. You can flash it again in any moment in case you want to return to hFramework firmware.
+- [`ROSbot 2.0 for ROS Melodic and Foxy`](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.2.bin)
+- [`ROSbot 2.0 Pro for ROS Melodic and Foxy`](https://files.husarion.com/images/rosbot-2.0-pro-fw-v0.14.2.bin)
+- [`ROSbot 2.0 and 2.0 PRO for ROS Noetic`](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.3-noetic.bin)
 
 To upload the firmware run:
 
@@ -563,37 +508,9 @@ sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
 
 Wait until firmware is uploaded.
 
-#### Required ROS packages for Kinetic and Melodic - `rosbot_ekf`
+#### Required ROS packages - `rosbot_ekf`
 
 In order to use mbed firmware the `rosbot_ekf` package have to be installed in your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the imu and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. To install the package please follow the steps below.
-
-Create new work space and change directory:
-```
-mkdir ~/ros_workspace
-mkdir ~/ros_workspace/src
-cd ~/ros_workspace/src
-```
-Clone rosbot_ekf repository:
-```
-git clone https://github.com/husarion/rosbot_ekf.git
-```
-Install dependencies required by rosbot_ekf package:
-```
-sudo apt-get install ros-kinetic-robot-localization
-```
-Change directory and build code using catkin_make:
-```
-cd ~/ros_workspace
-catkin_make
-```
-To set it up permanently, open .bashrc file in text editor:
-```
-nano ~/.bashrc
-```
-Go to the end of file and add line:
-```
-. /home/husarion/ros_workspace/devel/setup.sh
-```
 
 To launch rosserial communication and Kalman filter for mbed firmware run:
 
@@ -608,22 +525,7 @@ roslaunch rosbot_ekf all.launch rosbot_pro:=true
 ```
 
 
-#### Launching navigation example on ROS2 Dashing
-
-Enable communication between FastRTPS on IPv4 and CycloneDDS on IPv6:
-
-```
-ros2 run dds_bridge dds_bridge
-```
-
-To find out more regarding the interoperability issue, refer to [`dds_bridge` documentation](https://github.com/husarion/dds_bridge#dds-bridge)
-
-By default CORE is measuring time since reset, thus timestapms are published the same.
-If you want to use system time, use `rosbot_time_publisher` node:
-
-```
-RMW_IMPLEMENTATION=rmw_fastrtps_cpp ros2 run dds_bridge rosbot_time_publisher
-```
+#### Launching example on ROS2 Foxy
 
 The example allows to build a map and navigate to user defined destinations.
 
