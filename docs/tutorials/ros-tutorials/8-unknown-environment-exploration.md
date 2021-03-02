@@ -207,10 +207,16 @@ You can use below `launch` file, save this as `tutorial_8.launch` :
 
 Launch this with commands:
 
-ROSbot:
+ROSbot 2.0:
 
 ```
 roslaunch tutorial_pkg tutorial_8.launch 
+```
+
+ROSbot 2.0 PRO:
+
+```
+roslaunch tutorial_pkg tutorial_8.launch rosbot_pro:=true
 ```
 
 Gazebo:
