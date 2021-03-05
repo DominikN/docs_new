@@ -45,6 +45,13 @@
       },
       {
         "type": "subcategory",
+        "label": "ROS 2 tutorials",
+        "ids": [
+          "tutorials/ros2-tutorials/rosbot-ros2-demo"
+        ]
+      },
+      {
+        "type": "subcategory",
         "label": "ROSbot 2.0 + ROSDS LIVE-Class",
         "ids": [
           "tutorials/rosbot-rosds-tutorials/rosbot-rosds-tutorial-1"
