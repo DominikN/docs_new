@@ -96,7 +96,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 | Chassis material | Powder-coated aluminum plate, 1.5mm thick |
 | Maximum translational velocity | 1.0 m/s |
 | Maximum rotational velocity | 420 deg/s (7.33 rad/s) |
-| Maximum load capacity | 10kg / 352oz |
+| Maximum load capacity | Up to 10kg / 352oz *not in continuous work |
 | Battery life | 1.5h - 5h |
 
 ### Components ###
