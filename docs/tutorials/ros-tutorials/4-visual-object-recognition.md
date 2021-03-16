@@ -54,8 +54,8 @@ You can use below `launch` file:
 ```xml
 <launch>
 
-    <arg name="use_rosbot" default="false"/>
-    <arg name="use_gazebo" default="true"/>
+    <arg name="rosbot_pro" default="false" />
+    <arg name="use_gazebo" default="false" />
 
     <arg name="teach" default="true"/>
     <arg name="recognize" default="false"/>
@@ -63,17 +63,23 @@ You can use below `launch` file:
     <arg if="$(arg teach)" name="chosen_world" value="rosbot_world_teaching"/>
     <arg if="$(arg recognize)" name="chosen_world" value="rosbot_world_recognition"/>
 
-    <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
-         <!-- ROSbot 2.0 -->
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+    <!-- Gazebo -->
+    <group if="$(arg use_gazebo)">
+        <include file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
+        <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+            <param name="use_sim_time" value="true" />
+    </group>
 
-        <!-- ROSbot 2.0 PRO -->
-    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
-      <arg name="rosbot_pro" value="true" />
-    </include> -->
+    <!-- ROSbot 2.0 -->
+    <group unless="$(arg use_gazebo)">
+        <include file="$(find rosbot_ekf)/launch/all.launch">
+            <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+        </include>
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot_gazebo.launch"/>
+        <include unless="$(arg use_gazebo)" file="$(find astra_launch)/launch/astra.launch"/>
+    </group>
+
+    <node unless="$(arg use_gazebo)" pkg="tf" type="static_transform_publisher" name="camera_publisher" args="-0.03 0 0.18 0 0 0 base_link camera_link 100" />
 
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 
@@ -83,19 +89,21 @@ You can use below `launch` file:
         <param if="$(arg recognize)" name="objects_path" value="$(find tutorial_pkg)/image_rec/"/>
     </node>
 
+    <node pkg="tutorial_pkg" type="action_controller_node" name="action_controller" output="screen"/>
+
 </launch>
 ```
 
 To start teaching objects on ROSbot:
 
 ```bash
-roslaunch tutorial_pkg tutorial_4.launch use_rosbot:=true use_gazebo:=false teach:=true recognize:=false
+roslaunch tutorial_pkg tutorial_4.launch use_gazebo:=false teach:=true recognize:=false
 ```
 
 To start teaching objects in Gazebo:
 
 ```bash
-roslaunch tutorial_pkg tutorial_4.launch use_rosbot:=false use_gazebo:=true teach:=true recognize:=false
+roslaunch tutorial_pkg tutorial_4.launch use_gazebo:=true teach:=true recognize:=false
 ```
 
 To place objects in front of camera using Gazebo, you can use buttons **Translation mode** and **Rotation mode** in top left corner and drag objects to desired position. Another option is to drive ROSbot to look at the selected object.
@@ -159,13 +167,13 @@ You can use the same launch file as for teaching, but with different parameter v
 On ROSbot:
 
 ```bash
-roslaunch tutorial_pkg tutorial_4.launch use_rosbot:=true use_gazebo:=false teach:=false recognize:=true
+roslaunch tutorial_pkg tutorial_4.launch use_gazebo:=false teach:=false recognize:=true
 ```
 
 In Gazebo:
 
 ```bash
-roslaunch tutorial_pkg tutorial_4.launch use_rosbot:=false use_gazebo:=true teach:=false recognize:=true
+roslaunch tutorial_pkg tutorial_4.launch use_gazebo:=true teach:=false recognize:=true
 ```
 
 Node is publishing to `/objects` topic with message type
@@ -445,8 +453,8 @@ You can use below `launch` file:
 ```xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
+    <arg name="rosbot_pro" default="false" />
+    <arg name="use_gazebo" default="false" />
 
     <arg name="teach" default="false"/>
     <arg name="recognize" default="true"/>
@@ -454,16 +462,24 @@ You can use below `launch` file:
     <arg if="$(arg teach)" name="chosen_world" value="rosbot_world_teaching"/>
     <arg if="$(arg recognize)" name="chosen_world" value="rosbot_world_recognition"/>
 
-    <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
-             <!-- ROSbot 2.0 -->
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+    <!-- Gazebo -->
+    <group if="$(arg use_gazebo)">
+        <include file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
+        <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+            <param name="use_sim_time" value="true" />
+    </group>
 
-        <!-- ROSbot 2.0 PRO -->
-    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
-      <arg name="rosbot_pro" value="true" />
-    </include> -->
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
-    <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+    <!-- ROSbot 2.0 -->
+    <group unless="$(arg use_gazebo)">
+        <include file="$(find rosbot_ekf)/launch/all.launch">
+            <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+        </include>
+
+        <include unless="$(arg use_gazebo)" file="$(find astra_launch)/launch/astra.launch"/>
+    </group>
+
+    <node unless="$(arg use_gazebo)" pkg="tf" type="static_transform_publisher" name="camera_publisher" args="-0.03 0 0.18 0 0 0 base_link camera_link 100" />
+
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 
     <node pkg="find_object_2d" type="find_object_2d" name="find_object_2d">

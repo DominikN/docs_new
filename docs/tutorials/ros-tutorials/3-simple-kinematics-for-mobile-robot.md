@@ -204,18 +204,21 @@ Inside the `~/ros_workspace/src/tutorial_pkg/launch` create `tutorial_3.launch` 
 ```xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
+    <arg name="rosbot_pro" default="false" />
+    <arg name="use_gazebo" default="false" />
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>    
-        
-        <!-- ROSbot 2.0 -->
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+    <!-- Gazebo -->
+    <group if="$(arg use_gazebo)">
+        <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+            <param name="use_sim_time" value="true" />
+    </group>
 
-        <!-- ROSbot 2.0 PRO -->
-    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
-      <arg name="rosbot_pro" value="true" />
-    </include> -->
+    <!-- ROSbot 2.0 -->
+    <group unless="$(arg use_gazebo)">
+        <include file="$(find rosbot_ekf)/launch/all.launch">
+            <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+        </include>
+    </group>
 
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 
@@ -299,17 +302,21 @@ You can also start all nodes with single `.launch` file:
 ```xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
+    <arg name="rosbot_pro" default="false" />
+    <arg name="use_gazebo" default="false" />
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
-            <!-- ROSbot 2.0 -->
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+    <!-- Gazebo -->
+    <group if="$(arg use_gazebo)">
+        <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+            <param name="use_sim_time" value="true" />
+    </group>
 
-        <!-- ROSbot 2.0 PRO -->
-    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
-      <arg name="rosbot_pro" value="true" />
-    </include> -->
+    <!-- ROSbot 2.0 -->
+    <group unless="$(arg use_gazebo)">
+        <include file="$(find rosbot_ekf)/launch/all.launch">
+            <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+        </include>
+    </group>
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_3.rviz"/>
 

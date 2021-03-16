@@ -330,7 +330,7 @@ will get lots of output that is hard to read. Better method for checking
 the `/scan` topic is to use rviz. Run rviz and click **Add** from object
 manipulation buttons, in new window select **`By topic`** and from the
 list select `/scan`. In visualized items list find position
-`Fixed Frame` and change it to `laser`. To improve visibility of
+`Fixed Frame` and change it to `laser_frame`. To improve visibility of
 scanned shape, you may need to adjust one of visualized object options,
 set value of `Style` to `Points`. You should see many points which
 resemble shape of obstacles surrounding your robot.
@@ -366,31 +366,27 @@ You can use below `launch` file:
 ```xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
-    
+    <arg name="rosbot_pro" default="false" />
+    <arg name="use_gazebo" default="false" />
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
+    <!-- Gazebo -->
+    <group if="$(arg use_gazebo)">
+        <include file="$(find rosbot_gazebo)/launch/maze_world.launch" />
+        <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+            <param name="use_sim_time" value="true" />
+    </group>
 
-    <include file="$(find rplidar_ros)/launch/rplidar.launch"/> <!-- Rosbot 2.0-->
+    <!-- ROSbot 2.0 -->
+    <group unless="$(arg use_gazebo)">
+        <include file="$(find rosbot_ekf)/launch/all.launch">
+            <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+        </include>
 
-    <!-- <include file="$(find rplidar_ros)/launch/rplidar_a3.launch"/> --> <!-- Rosbot PRO-->
+        <include if="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
+        <include unless="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar.launch" />
+    </group>
 
-    <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
-
-    <!--  ROSbot 2.0 -->
-    <include if="$(arg rosbot)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch" /> 
-
-    <!-- ROSbot 2.0 PRO -->
-    <!-- 
-    <include file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
-        <arg name="serial_port" value="/dev/ttyS4"/>
-        <arg name="serial_baudrate" value="460800"/>
-    </include> 
-    -->
-
-    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
+    <node unless="$(arg use_gazebo)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
@@ -432,27 +428,27 @@ You can use below `launch` file:
 ```xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="rosbot_pro" default="false"/>
-    <arg name="use_gazebo" default="false"/>
+    <arg name="rosbot_pro" default="false" />
+    <arg name="use_gazebo" default="false" />
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
+    <!-- Gazebo -->
+    <group if="$(arg use_gazebo)">
+        <include file="$(find rosbot_gazebo)/launch/maze_world.launch" />
+        <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+            <param name="use_sim_time" value="true" />
+    </group>
 
-    <include if="$(arg use_rosbot)" file="$(find rplidar_ros)/launch/rplidar.launch"/> 
+    <!-- ROSbot 2.0 -->
+    <group unless="$(arg use_gazebo)">
+        <include file="$(find rosbot_ekf)/launch/all.launch">
+            <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+        </include>
 
-    <include if="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar_a3.launch"/> 
+        <include if="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
+        <include unless="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar.launch" />
+    </group>
 
-    <node if="$(arg use_rosbot)" pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
-
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch"/>
-    
-    <include if="$(arg rosbot_pro)" file="$(find rosbot_ekf)/launch/rosserial_bridge.launch">
-        <arg name="serial_port" value="/dev/ttyS4"/>
-        <arg name="serial_baudrate" value="460800"/>
-    </include>
-
-    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
+    <node unless="$(arg use_gazebo)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
@@ -465,6 +461,7 @@ You can use below `launch` file:
     </node>
 
 </launch>
+
 ```
 
 In `rviz` add `Tf` and `/scan`, again open object adding window, select

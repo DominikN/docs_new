@@ -180,43 +180,50 @@ Save following file as `tutorial_9.launch` :
 ```xml
 <launch>
 
-    <arg name="use_rosbot" default="true"/>
-    <arg name="use_gazebo" default="false"/>
+  <arg name="rosbot_pro" default="false" />
+  <arg name="use_gazebo" default="false" />
 
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+  <!-- Gazebo -->
+  <group if="$(arg use_gazebo)">
+    <include file="$(find rosbot_gazebo)/launch/maze_world.launch" />
+    <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+    <param name="use_sim_time" value="true" />
+  </group>
 
-    <param if="$(arg use_gazebo)" name="use_sim_time" value="true"/>
+  <!-- ROSbot 2.0 -->
+  <group unless="$(arg use_gazebo)">
+    <include file="$(find rosbot_ekf)/launch/all.launch">
+      <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+    </include>
 
-    <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
-        <param name="angle_compensate" type="bool" value="true"/>
-        <param name="frame_id" type="string" value="laser"/>
-        <param name="serial_baudrate" type="int" value="115200"/><!--model A2 (ROSbot 2.0) -->
-        <!--<param name="serial_baudrate" type="int" value="256000"/>--><!-- model A3 (ROSbot 2.0 PRO) -->
-    </node>
+    <include if="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
+    <include unless="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar.launch" />
+  </group>
 
-    <!-- ROSbot 2.0 -->
-    <include if="$(arg use_rosbot)" file="$(find rosbot_ekf)/launch/all.launch"/>
+  <node unless="$(arg use_gazebo)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
 
-    <!-- ROSbot 2.0 PRO -->
-    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
-      <arg name="rosbot_pro" value="true" />
-    </include> -->
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
-    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
+  <node pkg="move_base" type="move_base" name="move_base" output="screen">
+    <param name="controller_frequency" value="10.0"/>
+    <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
+  </node>
 
-    <node pkg="move_base" type="move_base" name="move_base" output="log">
-		<param name="controller_frequency" value="10.0" />
-		<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-		<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-		<rosparam file="$(find tutorial_pkg)/config/local_costmap_params.yaml" command="load" />
-		<rosparam file="$(find tutorial_pkg)/config/global_costmap_params.yaml" command="load" />
-		<rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
-	</node>
+  <node pkg="explore_lite" type="explore" respawn="true" name="explore" output="screen">
+    <rosparam file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
+  </node>
 
-    <include file="$(find tutorial_pkg)/launch/map_server.launch"/>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_8.rviz"/>
 
-    <include file="$(find tutorial_pkg)/launch/amcl_only.launch"/>
+  <include file="$(find tutorial_pkg)/launch/map_server.launch"/>
+
+  <include file="$(find tutorial_pkg)/launch/amcl_only.launch"/>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_9.rviz"/>
 
 </launch>
 ```
@@ -232,7 +239,7 @@ roslaunch tutorial_pkg tutorial_9.launch
 Gazebo:
 
 ```
-roslaunch tutorial_pkg tutorial_9.launch use_rosbot:=false use_gazebo:=true
+roslaunch tutorial_pkg tutorial_9.launch use_gazebo:=true
 ```
 
 Then open another terminal and check out how it works with `rviz`. You should be able to set target using `2D Nav Goal` and robot should drive there. 

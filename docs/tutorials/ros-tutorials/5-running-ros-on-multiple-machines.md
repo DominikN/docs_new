@@ -106,7 +106,7 @@ As a remember:
 In case of using `gazebo`:
 
 1.  Configure connection the same way as with Husarnet or manually by yourself. Next launch `roscore` on the device named **master**,
-    launch gazebo simulation `roslaunch tutorial_pkg tutorial_4.launch use_rosbot:=false use_gazebo:=true teach:=true recognize:=false` and `image_view` nodes. Examine connection with `rqt_graph`. 
+    launch gazebo simulation `roslaunch tutorial_pkg tutorial_4.launch use_gazebo:=true teach:=true recognize:=false` and `image_view` nodes. Examine connection with `rqt_graph`. 
 
 
 2.  Now let's use second machine. First check if connection works simple with `rostopic list` command on second device - if you are unable to see topics then reconfigure your network communication. Next run `image_view` node on the second machine. You should see
@@ -158,18 +158,17 @@ Create launch file under `tutorial_pkg/launch` and name it as `tutorial_5_rosbot
 ```xml
 <launch>
 
+    <arg name="rosbot_pro" default="false" />
+
     <arg name="teach" default="true"/>
     <arg name="recognize" default="false"/>
 
+    <include file="$(find rosbot_ekf)/launch/all.launch">
+        <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+    </include>
     <include file="$(find astra_launch)/launch/astra.launch"/>
-    
-        <!-- ROSbot 2.0 -->
-    <include file="$(find rosbot_ekf)/launch/all.launch"/>
 
-        <!-- ROSbot 2.0 PRO -->
-    <!-- <include file="$(find rosbot_ekf)/launch/all.launch" >
-      <arg name="rosbot_pro" value="true" />
-    </include> -->
+    <node pkg="tf" type="static_transform_publisher" name="camera_publisher" args="-0.03 0 0.18 0 0 0 base_link camera_link 100" />
 
     <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
 
