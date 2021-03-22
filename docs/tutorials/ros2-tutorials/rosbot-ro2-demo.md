@@ -17,7 +17,7 @@ TODO: add to sidebar.json below "ROS projects section"
 
 ### Get a system image
 
-Working on your laptop, vising https://husarion.com/downloads/, find **Ubuntu 20.04 + ROS2 Foxy + Docker + Husarnet client** and download:
+Working on your laptop, visit https://husarion.com/downloads/, find **Ubuntu 20.04 + ROS2 Foxy + Docker + Husarnet client** and download:
 - **Tinker Board** version for ROSbot 2.0 
 - **UpBoard** version for ROSbot 2.0 PRO
 
@@ -44,25 +44,72 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
     ```bash
     nmcli d wifi connect <WiFi-SSID> password <WiFi-PASSWORD>
     ``` 
-6. type `ifconfig` to find your IP address. Save it for later.
+6. type `ip a` to find your IP address. Save it for later.
 
-### Enabling the Remote Desktop
+### Remote Desktop
 
-In the ROSbot's terminal type:
+By default a VNC server is running on ROSbot (till there is an active connection it's not using much resources). To make use of it you have to ether install [tigervnc](https://tigervnc.org/) or use docker containers [link]](https://github.com/husarion/rosbot-remote) that we have prepared. Clone project to your computer and build. 
 
 ```bash
-TODO: Adam opisz tutaj wszystko co trzeba zrobić aby skonfigurować tigerVNC + noVNC, aby remote desktop działał z poziomu przeglądarki internetowej i po reboocie włączał się automatycznie
+git clone https://github.com/husarion/rosbot-remote.git
+cd rosbot-remote/tiger_vnc
+./build_image.sh
+./run_image.sh <ip-address-of-rosbot>
 ```
+
+For more information please take a look at [readme](https://github.com/husarion/rosbot-remote/blob/main/README.md). 
+
+If you are unfamiliar with docker or don't know how to install please use [nvidia guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) (to run images it is compulsory to have nvidia-docker2 package installed)
 
 ## Launching a demo project
 
-In your web browser type the following URL: `http:/<YOUR_ROSBOT_IP_ADDR>/vnc` to get access to it's remote desktop...
+**NOTE** If this is your first launch of ros2 make sure to upgrade firmware to at least [0.14.3 version](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-fw-v0.14.3.bin) (pay attention that version for Noetic is different). Information about flashing you can find [here](/manuals/rosbot/#low-level-firmware-installation)
 
-TODO: Adam, opisz tutaj jak odpalić launcha, który ma już wszystko skonfigurowane. Launch ma odpalić RViz'a, gdzie autonomicznie mogę sobie pojeździć robotem i podejrzeć odczyty ze wszystkich sensorów
+Once you are connected to ROSbot ether with ssh or remote desktop launch terminal and type following command:
+
+```bash
+ros2 launch rosbot_description navigation_demo.launch.py
+or
+ros2 launch rosbot_description navigation_demo_pro.launch.py #ROSbot pro
+```
 
 ## Using a demo
 
-TODO: Adam, zrób proszę taki mega proste wytłumaczenie jak korzystać z RViz'a
+Once ROSbot launched lidar should begin to rotate and logs starts to pop out on terminal. At this point to make your ROSbot move or see how map is being creating you need to launch rviz2. We also prepared ready to run docker container with rviz2 and configuration. Instruction is very similar to this with tigervnc client and if you already cloned the repository there is no need to do this again. 
 
+```bash
+git clone https://github.com/husarion/rosbot-remote.git
+cd rosbot-remote/rviz
+./build_image.sh
+./run_image.sh
+```
 
+If you have ros2 Foxy installed on your system just type `rviz2` to launch rviz.
 
+Add displays you want but for navigation add at least map and select global frame to map.
+
+![image](/docs/assets/img/ros2-tutorials/rviz2.png)
+
+To add destination use green arrow in top bar. 
+
+![image](/docs/assets/img/ros2-tutorials/rviz2-nav2.png)
+
+**NOTE** Currently dds implementations are heavy on resources so please limit shown displays. 
+
+### Using many ROS2 devices it the same network (Optional)
+
+ROS2 (DDS) provide a concept of multicast for machines discovery. As a result every machine running ROS2 can see every nodes/topics on all running machines in the same network. 
+
+If you want to limit this behavior export `ROS_DOMAIN_ID` this might be number 0-255 (default is 0). If you want to communicate only two machines add to ~/.bashrc following line. 
+
+```bash
+echo "export ROS_DOMAIN_ID=14" >> ~/.bashrc
+```
+
+Other option is to follow our guide for set up [Husarnet with ROS2](https://husarnet.com/docs/tutorial-ros2/). This will enable you to communicate using p2p VPN from any network.  
+
+---
+
+_by Adam Krawczyk, Husarion_
+
+_Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_

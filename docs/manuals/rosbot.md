@@ -202,7 +202,7 @@ If you need more information about charging, please read the [Charging manual fo
 
 **Notes** 
 - You can change charging current to maximum 3A. Please note that a regular charging with the maximum current can shorten the battery life.
-- If you are going to use ROSbot stationary for a long time, you can use ROSbot with charger connected (and charging) all the time. It will increase the batteries lifetime. Align the charging current to keep the voltage at about 11.1V-12V.
+- If you are going to use ROSbot stationary for a long time, you can use ROSbot with charger or power supply connected all the time. Please see the [Charging manual for ROSbot](https://files.husarion.com/docs2/Charging%20manual%20for%20ROSbot.pdf) for details.
 - In case you need to replace batteries, use only 18650 Li-Ion batteries, with the capacity in a range of 1800...3500mAh and with a protection circuit! Using unprotected batteries may result in serious injuries or fire.
 - Unplug charging connectors carefully. You shall not unplug the charger connectors holding the wires. The balancer connection on ROSbot side has a latching tab (see photo below) that must be pressed before unplugging. On the charger side there is no latching tab but you should also unplug this connector holding the white plug.
 
