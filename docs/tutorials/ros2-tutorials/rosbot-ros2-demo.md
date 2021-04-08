@@ -46,9 +46,17 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
     ``` 
 6. type `ip a` to find your IP address. Save it for later.
 
-### Remote Desktop
+### Remote Desktop (optional)
 
-By default a VNC server is running on ROSbot (till there is an active connection it's not using much resources). To make use of it you have to ether install [tigervnc](https://tigervnc.org/) or use docker containers [link]](https://github.com/husarion/rosbot-remote) that we have prepared. Clone project to your computer and build. 
+Remote Desktop is a tool enabling user to connect to a computer in another location and see that computer screen and interact using graphical interface.
+
+By default a VNC server is not running on ROSbot. To start VNC first connect via ssh to robot and then execute following command:
+
+```bash
+sudo systemctl start vncserver.service
+```
+
+To make use of it you have to ether install [tigervnc](https://tigervnc.org/) or use docker containers [link]](https://github.com/husarion/rosbot-remote) that we have prepared. Clone project to your computer and build. 
 
 ```bash
 git clone https://github.com/husarion/rosbot-remote.git
