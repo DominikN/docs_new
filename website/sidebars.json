@@ -62,6 +62,13 @@
       },
       {
         "type": "subcategory",
+        "label": "ROS components",
+        "ids": [
+          "tutorials/ros-components/ricoh-theta-z1"
+        ]
+      },
+      {
+        "type": "subcategory",
         "label": "Other tutorials",
         "ids": [
           "tutorials/other-tutorials/rosbot-rosds-quick-start",

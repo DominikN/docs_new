@@ -30,6 +30,10 @@ Live class created by "The Construct" with ROSbot.
 
 AWS RoboMaker allows you to easily develop a software for robot, test it in the simulation environment and then deploy it to the whole robot fleet at once.
 
+## [ROS components](https://husarion.com/tutorials/ros-components/ricoh-theta-z1/) ##
+
+Instructions on how to install external cameras and sensors.
+
 ## [Other tutorials](https://husarion.com/tutorials/other-tutorials/rosbot-rosds-quick-start/) ##
 
 All other tutorials including instruction of using ROSDS, Cyclon DDS or LEDs signalization.
