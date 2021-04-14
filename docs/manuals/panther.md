@@ -289,9 +289,9 @@ Inside the robot, there is a dedicated volume of approximately 14.5 liters (3.8 
 
 To facilitate the work with the project based on Panther platform, we have prepared CAD models for download in three extension formats:
 
-* [STEP](/docs/assets/models/Panther_v0.2.step.zip "STEP model")
-* [IGES](/docs/assets/models/Panther_v0.2.iges.zip "IGES model")
-* [STL](/docs/assets/models/Panther_v0.2.stl.zip "STL model")
+* [STEP](/docs/assets/models/Panther_v1.0.step.zip "STEP model")
+* [IGES](/docs/assets/models/Panther_v1.0.iges.zip "IGES model")
+* [STL](/docs/assets/models/Panther_v1.0.stl.zip "STL model")
 
 ## Software guide ##
 
