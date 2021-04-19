@@ -74,13 +74,18 @@ Create an account at https://app.husarnet.com/ and click **[Create network]** bu
 
 Open a Linux terminal in your laptop that is connected to the hotspot provided by Panther
 
-```$ ssh husarion@10.15.20.2``` with password `husarion`
+```$ ssh husarion@10.15.20.3``` with password `husarion`
+To to connect to 2.4GHz network edit file ```~/panther_rutx11/config.json```
 
-To connect Panther to Wi-Fi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
+``` nano panther_rutx11/config.json```
 
- `~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 0`
+Edit section section named `wifi_client` filling in your SSID and matching password.
 
-After message `Network added` exit terminal session by command `exit`
+Save BY pressing `Ctrl+O` and exit by `Ctrl+X`. To apply new settings execute python script by command:
+
+``` panther_rutx11/setup.py```
+
+When Panther connect to our network message `Success` will be shown.
 
 > **Note:** Wi-Fi must be in range of Panther. For more information head to [Network Section](#Network)
 
@@ -544,7 +549,7 @@ You should see interface like below:
 
 Panther is equipped with a RUTX11 router running open-source firmware OpenWRT, which provide following interfaces:
 
-**Ehernet**
+**Ethernet**
 
 * 1 x WAN 10/100/1000Mbps (by default configured as a LAN port)
 * 3 x LAN 10/100/1000Mbps 
@@ -575,27 +580,39 @@ More information is available on manufacturer [site](https://wiki.teltonika-netw
 
 Panther can be connected Wi-Fi on 2.4GHz or 5GHz band. It will be used as WAN source and be prioritized over cellular connection. Single radio can act simultaneously as AP (access point) and STA (client).
 
+> **Note:**: We advise to use 2.4GHz radio as a up-link.
+
+By default Panther scan for available networks and connect to first one provided in configuration file. In case of low signal level or lost of signal next one on list will chosen (if available). This behavior can be modified by user.
+
 #### Connecting to 2.4GHz Wi-Fi ####
 
-Open a linux terminal in your laptop that is connected to the hotspot provided by Panther
+Open a Linux terminal in your laptop that is connected to the hotspot provided by Panther
 
-```$ ssh husarion@10.15.20.2``` with password `husarion`
-To connect Panther to Wi-Fi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
+```$ ssh husarion@10.15.20.3``` with password `husarion`
+To edit network configuration edit file ```~/panther_rutx11/config.json```:
 
-`~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 0`
+``` nano panther_rutx11/config.json```
 
-After message `Network added` exit terminal session by command `exit`.
+Edit section section named `wifi_client` filling in your SSID and matching password. If you want to connect to multiple networks duplicate whole block, Panther will try to connect to them in given order:
+
+ ```
+        {
+            "radio":"0",
+            "ssid":"SSID_of_your_network",
+            "password":"password_to_your_network",
+            "encryption":"psk2"
+        }
+```
+
+Save BY pressing `Ctrl+O` and exit by `Ctrl+X`. To apply new settings execute python script by command:
+
+``` panther_rutx11/setup.py```
+
+When Panther connect to our network message `Success` will be shown. For explanation of possible configuration options go to [our GitHub repository](https://github.com/husarion/panther_rutx11)
 
 #### Connecting to 5GHz Wi-Fi ####
 
-Due to limitation of Wi-Fi chipset it is not possible to connect to 5GHz network without its brief shutdown. Its advised to connect to Panther with 2.4GHz Wi-Fi when executing commands below.
-
-```$ ssh husarion@10.15.20.2``` with password `husarion`
-To connect Panther to Wi-Fi on 2.4GHz named `MyNetwork` with password `MyPassword` execute script:
-
- `~/panther_rutx11/setup.sh -s MyNetwork -p MyPassword -r 1`
-
-After message `Network added` exit terminal session by command `exit`.
+Due to limitation of Wi-Fi chipset it is not possible to scan for available networks, while providing AP on 5GHz interface. Its advised to use 2.4GHz for WAN uplink. For more information go to documentation on [our GitHub repository](https://github.com/husarion/panther_rutx11)
 
 ### Access to router WebUI ###
 
