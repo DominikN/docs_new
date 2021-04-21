@@ -453,7 +453,7 @@ In order to use ROSbot you have to flash ROSbot's CORE2 board with low level fir
 
 ### I. Mbed firmware 
 
-This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
+This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-stm32-firmware).
 
 SSH to ROSbot over LAN network or VPN to get access to it's Linux terminal.
 
@@ -476,14 +476,12 @@ We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have 
 - ws2812b driver is enabled by default (check [ROSbot with WS2812B LEDs signalization](https://husarion.com/tutorials/mbed-tutorials/rosbot-and-ws2812b-led-signalization/))
 - rosserial baudrate is set to:
 
-  - `500000` for ROSbot 2.0 with ROS Melodic and Foxy
-  - `460800` for ROSbot 2.0 Pro with ROS Melodic and Foxy
+  - `525000` for ROSbot 2.0 with ROS Melodic and Foxy
   - `525000` for ROSbot 2.0 and 2.0 PRO with ROS Noetic
 
 Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
 
-- [`ROSbot 2.0 for ROS Melodic and Foxy`](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.2.bin)
-- [`ROSbot 2.0 Pro for ROS Melodic and Foxy`](https://files.husarion.com/images/rosbot-2.0-pro-fw-v0.14.2.bin)
+- [`ROSbot 2.0 and 2.0 PRO for ROS Melodic and Foxy`](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.3.bin)
 - [`ROSbot 2.0 and 2.0 PRO for ROS Noetic`](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.3-noetic.bin)
 
 To upload the firmware run:
