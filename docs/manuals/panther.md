@@ -113,7 +113,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 
 |          Name          	|  Value 	|
 |:----------------------:	|:------:	|
-|                 lenght 	| 805 mm 	|
+|                 length 	| 805 mm 	|
 |                  width 	| 840 mm 	|
 |        platform height 	| 290 mm 	|
 |         overall height 	| 365 mm 	|
@@ -135,9 +135,9 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 |          maximum shaft torque 	| 60 Nm   	|
 |  nominal total traction force 	| 365 N   	|
 |  maximum total traction force 	| 630 N   	|
-|               hil climb grade 	| 96%     	|
-| climb grade with 50 kgs cargo 	| 40%     	|
-| climb grade with 80 kgs cargo 	| 30%     	|
+|               hill climb grade 	| 96%     	|
+| climb grade with 50 kg cargo 	    | 40%     	|
+| climb grade with 80 kg cargo 	    | 30%     	|
 |          hill grade traversal 	| 80%     	|
 
 
@@ -152,7 +152,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 | Router | 1 | Teltonika RUTX11 - Dual-band (2.4 GHz/5 GHz), Access Point / Client Mode, 4G LTE CAT 6 dual SIM, Bluetooth 4.0 LE, GNSS (GPS, GLONASS, BeiDou, Galileo and QZSS) - This device ensures reliable communication between internal and external components of the robot system. Fast LTE communication and dual-band WiFi allow you to maintain communication with the robot. [More details](https://teltonika-networks.com/product/rutx11/). |
 | Inertial navigation system | 1 | PhidgetSpatial 3/3/3 Basic (3-axis compass, a 3-axis gyroscope, and a 3-axis accelerometer) [More details](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=1025). |
 | Front and rear lights | 2 | Signal lighting made of 48 pcs. APA102C LED chips build into an aluminum profile on the robot's bumpers. |
-| Brushless Motor with planetary gearbox | 4 | 80PMB800K.80RBL-100 - Drive implemented on 4 durable motors 473 watts of power (900W instantaneous power) each and planetary gears with a maximum torque of 60Nm allows the robot to move at a speed of 2 m/s even uphill with a slope of 40% with a load of 50 kg. |
+| Brushless Motor with planetary gearbox | 4 | 80PMB800K.80RBL-100 - Drive implemented on 4 durable motors 473 watts of power (900 W instantaneous power) each and planetary gears with a maximum torque of 60Nm allows the robot to move at a speed of 2 m/s even uphill with a slope of 40% with a load of 50 kg. |
 
 > **Note:** *By default, there is only one on-board computer in the robot. For detailed information please check System installation
 
@@ -260,7 +260,7 @@ For more useful information in the field of mechanics, please see the document [
 
 ### Bumpers and signal lights ###
 
-The robot's bumbers are made of a profile with the same cross-section as the railings. They are 0.5 meters wide and, in addition to buffer shock and reducing potential damage when the robot collides with an obstacle at high speed, additional sensors can be mounted on them. By default, the signaling lighting is mounted on each bumper in the form of an aluminum profiles with 46 programmable RGB LEDs.
+The robot's bumpers are made of a profile with the same cross-section as the railings. They are 0.5 meters wide and, in addition to buffer shock and reducing potential damage when the robot collides with an obstacle at high speed, additional sensors can be mounted on them. By default, the signaling lighting is mounted on each bumper in the form of an aluminum profiles with 46 programmable RGB LEDs.
 
 These lights may be widely used - to indicate the status of the robot, the direction of movement or the intention to change direction, warn about low battery or other detected errors, signal the status of the charging process or even for illuminate the area in front of the robot. More details regarding lights and their control is available in [ROS API](#ros-api) section.
 
@@ -394,7 +394,7 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
 ## System installation ##
 
  In some cases you will need to restore Panther's system to its default settings:
- - in case of accidential damage of the system,
+ - in case of accidental damage of the system,
  - to update the OS,
  - to clear all user changes and restore factory settings.
 
@@ -551,13 +551,13 @@ Panther is equipped with a RUTX11 router running open-source firmware OpenWRT, w
 
 **Ethernet**
 
-* 1 x WAN 10/100/1000Mbps (by default configured as a LAN port)
-* 3 x LAN 10/100/1000Mbps 
+* 1 x WAN 10/100/1000 Mbps (by default configured as a LAN port)
+* 3 x LAN 10/100/1000 Mbps 
 * 2 ports are available for user equipment
 
 **Wireless**
 
-* Two radios (2.4GHz and 5GHz)
+* Two radios (2.4 GHz and 5 GHz)
 * Support for 802.11ac (Wi-Fi 5) with link rate up to 867Mbps, fast roaming with 802.11r
 * Works as access point (AP) and/or as a client/station (STA)
 * External antennas with 2dBi gain
@@ -575,6 +575,9 @@ Panther is equipped with a RUTX11 router running open-source firmware OpenWRT, w
 
 Each form of connectivity can be part of automatic WAN fail-over in order to provide continuous connection to external services.
 More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual). Some RUTX11 configuration scripts are available on [our GitHub repository](https://github.com/husarion/panther_rutx11).
+### Connecting to Panther's hotspot ###
+
+Panther provides hotspot with default SSID `Panther_XXXX` and `Panther_5G_XXXX` for 2.4 GHz and 5 GHz band respectively with password `husarion`, where `XXXX` is unique S/N of your Panther.
 
 ### Connecting Panther to Wi-Fi ###
 
@@ -584,7 +587,7 @@ Panther can be connected Wi-Fi on 2.4GHz or 5GHz band. It will be used as WAN so
 
 By default Panther scan for available networks and connect to first one provided in configuration file. In case of low signal level or lost of signal next one on list will chosen (if available). This behavior can be modified by user.
 
-#### Connecting to 2.4GHz Wi-Fi ####
+#### Connecting to 2.4 GHz Wi-Fi ####
 
 Open a Linux terminal in your laptop that is connected to the hotspot provided by Panther
 
@@ -610,9 +613,9 @@ Save BY pressing `Ctrl+O` and exit by `Ctrl+X`. To apply new settings execute py
 
 When Panther connect to our network message `Success` will be shown. For explanation of possible configuration options go to [our GitHub repository](https://github.com/husarion/panther_rutx11)
 
-#### Connecting to 5GHz Wi-Fi ####
+#### Connecting to 5 GHz Wi-Fi ####
 
-Due to limitation of Wi-Fi chipset it is not possible to scan for available networks, while providing AP on 5GHz interface. Its advised to use 2.4GHz for WAN uplink. For more information go to documentation on [our GitHub repository](https://github.com/husarion/panther_rutx11)
+Due to limitation of Wi-Fi chipset it is not possible to scan for available networks, while providing AP on 5 GHz interface. Its advised to use 2.4 GHz for WAN uplink. For more information go to documentation on [our GitHub repository](https://github.com/husarion/panther_rutx11)
 
 ### Access to router WebUI ###
 
@@ -621,7 +624,7 @@ Further configuration can be done through WebUI, which is available under `10.15
 
 ### Resetting router to default settings ###
 
-In case of misconfiguration it is possible to reset router to working default settings (as shipped to you). To do it press and hold reset button on powered on RUTX11 for at least six seconds. Signal strength LEDs indicate elapsed time. After all five LEDs are lit up, reset button can be released. After automatic restart router is ready to be used.
+In case of misconfiguration it is possible to reset router to working default settings (as shipped to you). To do it press and hold reset button on powered on RUTX11 for at least six seconds. Signal strength LEDs indicate elapsed time. After all five LEDs are lit up, reset button can be released. After automatic restart router is ready to be used again.
 
 ## Docs and links ##
 All helpful documents and links in one place:
