@@ -23,7 +23,7 @@ Working on your laptop, visit https://husarion.com/downloads/, find **Ubuntu 20.
 
 ### Flash the image
 
-To flash the image on ROSbot 2.0 or ROSbot 2.0 PRO, visit [system reinstallation guide](/docs/manuals/rosbot#system-reinstallation).
+To flash the image on ROSbot 2.0 or ROSbot 2.0 PRO, visit [system reinstallation guide](https://husarion.com/manuals/rosbot/#system-reinstallation).
 
 ## First ROSbot Configuration
 
