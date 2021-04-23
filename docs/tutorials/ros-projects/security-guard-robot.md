@@ -33,7 +33,7 @@ NOTE: You can run the following project in a virtual environment and get all the
 
 ## Preparation
 
-1. It is assumed that you have ros already installed - because rosbot currently works on ros kinetic it's necessary to have this version, in case you don't have that check official docs : [ROS kinetic installation](http://wiki.ros.org/kinetic/Installation) .
+1. It is assumed that you have ros already installed - because rosbot currently works on ros melodic it's necessary to have this version, in case you don't have that check official docs : [ROS melodic installation](http://wiki.ros.org/melodic/Installation) .
 2. It is also assumed that you have your ros workspace configured with tutorial_pkg cloned to your workspace [tutorial_pkg](https://github.com/husarion/tutorial_pkg) because some files from this repository will be used. In case you don't just go to your workspace this should be something like this cd <ros_workspace>/src , next step is to clone whole pkg:
 
 `git clone https://github.com/husarion/tutorial_pkg.git`
@@ -92,7 +92,8 @@ sudo /etc/init.d/postfix reload
 
     [darknet ros github](https://github.com/leggedrobotics/darknet_ros)
 
-
+4. Install this packages on rosbot and on computer (if you are going to use it to this project)  
+`sudo apt install ros-melodic-grid-map*`
 ### Create your packages
 
 Go to your workspace it should be something like:
@@ -789,7 +790,6 @@ add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
   message_generation
-  frontier_exploration
   geometry_msgs
   gmapping
   move_base
@@ -1683,7 +1683,7 @@ touch rosbot_gmapping.launch
 
 To start mapping run following command:
 
-`catkin_make`
+`catkin_make`  
 `roslaunch rosbot_patrol rosbot_gmapping.launch`
 
 Then in different terminal launch:
@@ -1696,7 +1696,7 @@ After that open another terminal and save map:
 ```
 roscd rosbot_patrol
 mkdir maps && cd maps
-rosrun map_server map_saver -f rosbot_map.yaml
+rosrun map_server map_saver -f rosbot_map
 ```
 
 ### Find coordinates for move sensor
@@ -1786,7 +1786,7 @@ Once it is working working we need to setup rosserial to works with husarnet - t
 To make it works it's needed to remove current version of rosserial and install the one made for husarnet
 
 ```
-sudo apt-get remove ros-kinetic-rosserial*
+sudo apt-get remove ros-melodic-rosserial*
 ```
 
 Then go to my github and clone to workspace repository from `ipv6-husarnet branch` [ipv6-husarnet](https://github.com/adamkrawczyk/rosserial/tree/ipv6-husarnet) or use following command:
@@ -1830,7 +1830,6 @@ add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
   message_generation
-  frontier_exploration
   geometry_msgs
   gmapping
   move_base
@@ -2260,7 +2259,7 @@ In rosbot_patrol.launch paste this code:
     <include file="$(find rosbot_patrol)/launch/rosbot_all_hardware.launch"/>
     <include file="$(find rosbot_patrol)/launch/rosbot_all_algorithms.launch"/> 
     
-    <arg name="map_file" default="$(find rosbot_patrol)/maps/testv2.yaml"/>       <!-- map arg -->
+    <arg name="map_file" default="$(find rosbot_patrol)/maps/rosbot_map.yaml"/>       <!-- map arg -->
     <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
 
   <!-- patrol node -->

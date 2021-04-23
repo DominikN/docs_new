@@ -71,7 +71,7 @@ If you are unfamiliar with docker or don't know how to install please use [nvidi
 
 ## Launching a demo project
 
-**NOTE** If this is your first launch of ros2 make sure to upgrade firmware to at least [0.14.3 version](https://husarion-files.s3-eu-west-1.amazonaws.com/rosbot-2.0-fw-v0.14.3.bin) (pay attention that version for Noetic is different). Information about flashing you can find [here](https://husarion.com/manuals/rosbot/#low-level-firmware-installation)
+**NOTE**: If this is your first launch of ros2 make sure to upgrade firmware to at least [0.14.3 version](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.3.bin) (pay attention because version for Noetic is different). Information about flashing you can find [here](/manuals/rosbot/#low-level-firmware-installation)
 
 Once you are connected to ROSbot ether with ssh or remote desktop launch terminal and type following command:
 
