@@ -203,8 +203,6 @@ You can use below `launch` file, save this as `tutorial_8.launch` :
     <rosparam file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
   </node>
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_8.rviz"/>
-
 </launch>
 ```
 

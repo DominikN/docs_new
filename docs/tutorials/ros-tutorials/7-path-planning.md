@@ -128,7 +128,7 @@ observation_sources: laser_scan_sensor
 This parameter defines type of sensor used to provide data.
 
 ```yaml
-laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, min_obstacle_height: 0.0, max_obstacle_height: 5.0, obstacle_range: 6.0, raytrace_range: 8.5}
 ```
 This parameter define properties of used sensor, these are:
 
@@ -141,6 +141,14 @@ This parameter define properties of used sensor, these are:
 - `marking` - true if sensor can be used to mark area as occupied
 
 - `clearing` - true if sensor can be used to mark area as clear
+
+- `min_obstacle_height` - the minimum height in meters of a sensor reading considered valid
+
+- `max_obstacle_height` - the maximum height in meters of a sensor reading considered valid
+
+- `obstacle_range` - the maximum range in meters at which to insert obstacles into the costmap using sensor data
+
+- `raytrace_range` - the maximum range in meters at which to raytrace out obstacles from the map using sensor data
 
 ```yaml
 global_frame: map
@@ -160,6 +168,30 @@ always_send_full_costmap: true
 
 This parameter define if costmap should be always published with complete data.
 
+```yaml
+plugins: 
+```
+This parameter groups following parameters to be considered as plugins.
+
+```yaml
+- {name: inflation_layer,        type: "costmap_2d::InflationLayer"}
+- {name: obstacle_layer,         type: "costmap_2d::ObstacleLayer"}
+```
+Here we specify which spacific layers we want to use.
+
+```yaml
+static_layer:
+    map_topic: /map
+    subscribe_to_updates: true
+obstacle_layer:
+    observation_sources: laser_scan_sensor
+    laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, min_obstacle_height: 0.0, max_obstacle_height: 5.0, obstacle_range: 6.0, raytrace_range: 8.5}
+```
+
+Here we specify how particular layer will look.
+
+This parameter define if costmap should be always published with complete data.
+
 Your final file should look like below:
 
 ```yaml
@@ -168,11 +200,18 @@ raytrace_range: 8.5
 footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
 map_topic: /map
 subscribe_to_updates: true
-observation_sources: laser_scan_sensor
-laser_scan_sensor: {sensor_frame: laser_frame, data_type: LaserScan, topic: scan, marking: true, clearing: true}
 global_frame: map
 robot_base_frame: base_link
 always_send_full_costmap: true
+static_layer:
+    map_topic: /map
+    subscribe_to_updates: true
+plugins:
+    - {name: inflation_layer,        type: "costmap_2d::InflationLayer"}
+    - {name: obstacle_layer,         type: "costmap_2d::ObstacleLayer"}
+obstacle_layer:
+    observation_sources: laser_scan_sensor
+    laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, min_obstacle_height: 0.0, max_obstacle_height: 5.0, obstacle_range: 6.0, raytrace_range: 8.5}
 ```
 
 Save it as `costmap_common_params.yaml` in `tutorial_pkg/config` directory.
@@ -246,6 +285,16 @@ This parameter defines distance to obstacle where cost should be
 considered, any further from obstacle than this value will be treated as
 no cost.
 
+```yaml
+plugins: 
+```
+This parameter groups following parameters to be considered as plugins.
+
+```yaml
+- {name: obstacle_layer,        type: "costmap_2d::VoxelLayer"}
+```
+Here we specify which spacific layer we want to use.
+
 Your final file should look like below:
 
 ```yaml
@@ -261,6 +310,8 @@ local_costmap:
   origin_y: -1.5
   resolution: 0.1
   inflation_radius: 0.6
+  plugins:
+      - {name: obstacle_layer,        type: "costmap_2d::VoxelLayer"}
 ```
 
 Save it as `local_costmap_params.yaml` in `tutorial_pkg/config` directory.
@@ -281,10 +332,11 @@ global_costmap:
   height: 15
   origin_x: -7.5
   origin_y: -7.5
-  static_map: true
   rolling_window: true
   inflation_radius: 2.5
   resolution: 0.1
+  plugins:
+   - {name: static_layer,        type: "costmap_2d::StaticLayer"}
 ```
 
 Save it as `global_costmap_params.yaml` in `tutorial_pkg/config` directory.
