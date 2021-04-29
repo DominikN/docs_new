@@ -163,6 +163,6 @@ export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11
 ```
 and relaunch the simulation in the same terminal.
 
-_by Adam Krawczyk, Husarion_
+_by Adam Krawczyk and Kamil Machoń, Husarion_
 
 _Do you need any support with completing this tutorial or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
