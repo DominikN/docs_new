@@ -20,6 +20,7 @@ TODO: add to sidebar.json below "ROS projects section"
 Working on your laptop, visit https://husarion.com/downloads/, find **Ubuntu 20.04 + ROS2 Foxy + Docker + Husarnet client** and download:
 - **Tinker Board** version for ROSbot 2.0 
 - **UpBoard** version for ROSbot 2.0 PRO
+
 Instructions for system instalation can be found [here](https://husarion.com/manuals/rosbot/#system-reinstallation).
 
 ## First ROSbot Configuration
