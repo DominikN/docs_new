@@ -57,7 +57,7 @@ Then flash the STM32 microcontroller:
 bash /home/husarion/flash_firmware.sh
 ```
 
-More information about flashing the firmware you can find [here](https://husarion.com/manuals/rosbot/#system-reinstallation).
+More information about flashing the firmware you can find [here](https://husarion.com/manuals/rosbot/#low-level-firmware-installation).
 
 ### Remote Desktop (optional)
 
