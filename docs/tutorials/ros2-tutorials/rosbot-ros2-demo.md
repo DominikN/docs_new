@@ -51,7 +51,7 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 ### Flashing STM32 firmware
 If this is your first launch of ROS2 Foxy on ROSbot make sure to upgrade STM32 firmware to at least 0.14.3 version (pay attention because version for ROS Noetic is different).
 
-To upgrade firmware launch terminal in the Rosbot's Linux and download the STM32 firmware:
+To upgrade firmware launch terminal in the ROSbot's Linux and download the STM32 firmware:
 
 ```bash
 wget -O /home/husarion/firmware.bin https://files.husarion.com/images/rosbot-2.0-fw-v0.14.3.bin
@@ -143,7 +143,7 @@ Other option is to follow our guide for set up [Husarnet with ROS2](https://husa
 
 ## Using Gazebo simulation
 
-There is also a possibility to run simulated Rosbot in Gazebo. To launch the simulation you will have to install [ROS2 Foxy](https://hub.docker.com/r/rosplanning/navigation2), [Gazebo](http://gazebosim.org/tutorials?tut=install_ubuntu), and [Navigation2](https://navigation.ros.org/build_instructions/index.html) on your computer. Alternatively use [docker image](https://hub.docker.com/r/rosplanning/navigation2).
+There is also a possibility to run simulated ROSbot in Gazebo. To launch the simulation you will have to install [ROS2 Foxy](https://hub.docker.com/r/rosplanning/navigation2), [Gazebo](http://gazebosim.org/tutorials?tut=install_ubuntu), and [Navigation2](https://navigation.ros.org/build_instructions/index.html) on your computer. Alternatively use [docker image](https://hub.docker.com/r/rosplanning/navigation2).
 
 When all the prerequisites are met you can clone and build rosbot_description package.
 
