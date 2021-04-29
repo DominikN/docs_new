@@ -13,6 +13,10 @@ TODO: add to sidebar.json below "ROS projects section"
         ]
       }, -->
 
+## Intro
+
+The goal of this tutorial is to launch navigation2 demo, which will allow the robot to navigate autonomously and avoid obstacles. The Rosbot will be visualized and controlled through Rviz.
+
 ## Install ROS 2 image on ROSbot
 
 ### Get a system image
