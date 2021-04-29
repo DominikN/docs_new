@@ -93,6 +93,8 @@ If you are unfamiliar with docker or don't know how to install please use [nvidi
 Once you are connected to ROSbot either with ssh or remote desktop launch terminal and type following command:
 
 ```bash
+source ~/husarion_ws/install/setup.bash
+
 ros2 launch rosbot_description navigation_demo.launch.py
 or
 ros2 launch rosbot_description navigation_demo_pro.launch.py #ROSbot pro
