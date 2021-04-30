@@ -217,13 +217,11 @@ Save following file as `tutorial_9.launch` :
     <rosparam file="$(find tutorial_pkg)/config/exploration.yaml" command="load" />
   </node>
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_8.rviz"/>
-
   <include file="$(find tutorial_pkg)/launch/map_server.launch"/>
 
   <include file="$(find tutorial_pkg)/launch/amcl_only.launch"/>
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_9.rviz"/>
+  <node pkg="rviz" type="rviz" name="rviz"/>
 
 </launch>
 ```
