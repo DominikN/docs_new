@@ -402,7 +402,7 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
  The reinstallation procedure for on-board RPI:
 
 1. Extract SD card from Raspberry Pi SBC by pushing card carefully until it is released back by card holder, thel pull it out. In order to find SD card slot, you will need to disassemble part of the top cover.
-2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2020-10-15.img.xz).
+2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2021-03-29.img.xz).
 3. Extract downloaded image (For this process we recommend using [unxz](https://linux.die.net/man/1/unxz) tool).
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
@@ -416,7 +416,7 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
 ### Intel NUC / HP G2 ###
 To install system on *Intel NUC* or *HP G2*, you can download created ready to use Ubuntu20 image. 
 
-1. Download image from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-x64-2020-10-13.iso).
+1. Download image from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-x64-2021-04-01.iso.xz).
 2. Create bootable pendrive with [Etcher](https://www.balena.io/etcher/).
 3. Insert pendrive into one of Panther's USB ports and install by selecting appropriate option during boot.
 
