@@ -100,6 +100,8 @@ or
 ros2 launch rosbot_description navigation_demo_pro.launch.py #ROSbot pro
 ```
 
+You can find source code [here](https://github.com/husarion/rosbot_description/blob/foxy/launch/navigation_demo.launch.py) and version for Rosbot PRO is [here](https://github.com/husarion/rosbot_description/blob/foxy/launch/navigation_demo_pro.launch.py) 
+
 ## Using a demo
 
 Once ROSbot launched lidar should begin to rotate and logs starts to pop out on terminal. At this point to make your ROSbot move or see how map is being created you need to launch rviz2. We also prepared ready to run docker container with configured rviz2. Instruction is very similar to this with tigervnc client and if you already cloned the repository there is no need to do this again. 
