@@ -23,7 +23,7 @@ id: panther
 </div> 
 </div>
 
-Autonomous, mobile robot platform dedicated for outdoor environment. Compliant with IP54 rate of protection. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
+Autonomous, mobile robot platform dedicated for outdoor environment. Compliant with IP54 or IP66 rate of protection. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
 
 
 <div class="clearfix">
@@ -140,6 +140,15 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 | climb grade with 80 kg cargo 	    | 30%     	|
 |          hill grade traversal 	| 80%     	|
 
+**International Protection Rating**
+
+The platform is offered in two variants of the protection class. The basic variant is dedicated for moderate indoor and outdoor conditions with a rating of IP54. The upgraded variant is dedicated for extremely demanding work environment with a rating of IP66. Sales details such as price, lead time and other conditions available in the store.
+
+Specification of given ratings:
+|Class|Solid|Fluid|
+|:---:|:---:|---|
+|**IP54**|against dust|protection against splashes of water from any direction|
+|**IP66**|dustproof|protection against strong water jets (100 l / min) poured on the housing from any side|
 
 ### Components ###
 
