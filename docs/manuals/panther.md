@@ -147,8 +147,8 @@ The platform is offered in two variants of the protection class. The basic varia
 Specification of given ratings:
 |Class|Solid|Fluid|
 |:---:|:---:|---|
-|**IP54**|against dust|protection against splashes of water from any direction|
-|**IP66**|dustproof|protection against strong water jets (100 l / min) poured on the housing from any side|
+|**IP54**|dust protected|protection against splashes of water from any direction|
+|**IP66**|dust-tight|protection against strong water jets (100 l / min) poured on the housing from any side|
 
 ### Components ###
 
