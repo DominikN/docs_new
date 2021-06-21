@@ -1,5 +1,5 @@
 ---
-title: ROS 2 Demo for ROSbot 2.0
+title: ROS2 Demo for ROSbot 2.0
 sidebar_label: 0. ROSbot Demo
 id: rosbot-ros2-demo
 ---
@@ -12,7 +12,7 @@ The goal of this tutorial is to launch navigation2 demo, which will allow the ro
 <iframe width="784" height="441" src="https://www.youtube.com/embed/fY-Z9OqY0eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-## Install ROS 2 image on ROSbot
+## Install ROS2 image on ROSbot
 
 ### Get a system image
 
