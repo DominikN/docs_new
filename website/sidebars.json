@@ -12,9 +12,9 @@
       },
       {
         "type": "subcategory",
-        "label": "Mbed framework",
+        "label": "ROS 2 tutorials",
         "ids": [
-          "tutorials/mbed/1-enviroment-configuration"
+          "tutorials/ros2-tutorials/rosbot-ros2-demo"
         ]
       },
       {
@@ -74,6 +74,13 @@
           "tutorials/other-tutorials/rosbot-rosds-quick-start",
           "tutorials/other-tutorials/husarnet-cyclone-dds",
           "tutorials/other-tutorials/rosbot-and-ws2812b-led-signalization"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Mbed framework",
+        "ids": [
+          "tutorials/mbed/1-enviroment-configuration"
         ]
       },
       {

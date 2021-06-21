@@ -3,19 +3,14 @@ title: ROS 2 Demo for ROSbot 2.0
 sidebar_label: 0. ROSbot Demo
 id: rosbot-ros2-demo
 ---
-<!-- 
-TODO: add to sidebar.json below "ROS projects section"
-      {
-        "type": "subcategory",
-        "label": "ROS 2 tutorials",
-        "ids": [
-          "tutorials/ros2-tutorials/rosbot-ros2-demo"
-        ]
-      }, -->
 
 ## Intro
 
 The goal of this tutorial is to launch navigation2 demo, which will allow the robot to navigate autonomously and avoid obstacles. The ROSbot will be visualized and controlled through Rviz.
+
+<div style="text-align: center">
+<iframe width="784" height="441" src="https://www.youtube.com/embed/fY-Z9OqY0eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## Install ROS 2 image on ROSbot
 
@@ -94,10 +89,14 @@ Once you are connected to ROSbot either with ssh or remote desktop launch termin
 
 ```bash
 source ~/husarion_ws/install/setup.bash
-
+```
+and for ROSbot 2.0:
+```
 ros2 launch rosbot_description navigation_demo.launch.py
-or
-ros2 launch rosbot_description navigation_demo_pro.launch.py #ROSbot pro
+```
+or for ROSbot 2.0 PRO:
+```
+ros2 launch rosbot_description navigation_demo_pro.launch.py
 ```
 
 You can find source code [here](https://github.com/husarion/rosbot_description/blob/foxy/launch/navigation_demo.launch.py) and version for Rosbot PRO is [here](https://github.com/husarion/rosbot_description/blob/foxy/launch/navigation_demo_pro.launch.py) 
