@@ -79,45 +79,81 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 
 6. Type `ifconfig` to find your IP address. Save it for later.
 
-## Access ROSbot terminal using wireless connection
+## Remote access in LAN
 
-### Connecting over LAN network
+While ROSbot is connected to Wi-Fi network you can access it by using it's IPv4 address by:
 
-The most convenient way to work with ROSbot on daily basis is to do that over Wi-Fi. Connect your laptop to the same Wi-Fi network as ROSbot and type in the terminal:
+### SSH
 
-`ssh husarion@<ROSBOT_IP>` where <ROSBOT_IP> is the IP address obtained in the previous steps.
+It's the simplest way to access ROSbot if you don't need to use graphic tools. You just have to type:
 
-**FOR WINDOWS USERS:**
+```
+ssh husarion@<ROSBOT_IP>
+```
 
-If you are Windows user you might like to connect to your ROSbot by using the Remote Desktop Connection:
+### Virtual Desktop (VNC)
 
-Press `WinKey` + `r` then type `mstsc`.
+#### 1. Enable VNC server on the robot
 
-You will see a window appear:
+```bash
+ssh husarion@<ROSBOT_IP>
+...
+vncserver -localhost no -geometry 1280x720
+```
 
-![Windows RDP](/docs/assets/img/aws-tutorials/quick-start/win_rdp.png)
+#### 2. Install VNC client on your laptop to access the remote desktop of the robot:
 
-Type in your device IP address and click connect.
+```bash
+sudo apt-get install tigervnc-viewer 
+xtigervncviewer <ROSBOT_IP>
+```
 
-You will see the ROSbot desktop, from the top menu, choose the `Applications` -> `Terminal`.
+### Remote access over Internet (VPN)
 
-### Connecting over the internet (optional)
+Instead of using local IPv4 address you can access the robot by using it's hostname - both in LAN and over the Internet. You just need to setup a VPN connection (Husarnet VPN client is pre-installed)
 
-Not always your laptop and ROSbot can be in the same LAN network. To overcome that obstacle use VPN. [Husarnet](https://husarnet.com/) is a recommended VPN for ROSbots. It's preinstalled on ROSbot so you need to install that on your laptop.
+#### Get the Join Code from your Husarnet network:
 
-To connect your laptop and ROSbot over VPN:
+You will find your Join Code at **https://app.husarnet.com**  
 
-- **In the Linux terminal on your laptop** (Ubuntu OS is recommended) to install Husarnet type: `curl https://install.husarnet.com/install.sh | sudo bash` to install Husarnet. If the process is done type `sudo systemctl restart husarnet`
-- **In the Linux terminal of your laptop and in the Linux terminal of your ROSbot** to configure network type:
-  `sudo husarnet websetup` and open the link that will appear in a web browser. The link should look like that: `https://app.husarnet.com/husarnet/fc94xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` and add your devices to the same network. You will need to do that step both for ROSbot and for your laptop.
+ **-> Click on the desired network  
+ -> `Add element` button  
+ -> `Join Code` tab**
 
-At this point your laptop and ROSbot should be in the same VPN network. To access your ROSbot from a level of your laptop over the internet just type in the terminal:
+![](/docs/assets/img/howToStart/husarnet.png)
 
-`ssh husarion@<HOSTNAME_OF_YOUR_ROSBOT>`
+- Install Husarnet VPN client on your laptop:
 
-To get more information about using Husarnet visit this [tutorial](https://docs.husarnet.com/getting-started/)
+```bash
+curl https://install.husarnet.com/install.sh | sudo bash
+sudo systemctl restart husarnet
+```
 
-## Low level firmware installation
+- Execute in your laptop's terminal:
+
+```bash
+sudo husarnet join <your_join_code_from_step_1> mylaptop
+```
+
+- Execute in the robot's terminal:
+
+```bash
+sudo husarnet join <your_join_code_from_step_1> myrosbot
+```
+
+- That's all - now you can use your device hostname instead of IPv4 addr, eg.:
+
+```bash
+ssh husarion@myrosbot
+```
+
+or
+
+```bash
+xtigervncviewer myrosbot
+```
+
+## Low level firmware
 
 In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating PID regulator output or talking to distance sensors. High level computation is handled by SBC (single board computer) - ASUS Tinker Board (in ROSbot 2.0) or UP Board (in ROSbot 2.0 PRO).
 
@@ -125,7 +161,7 @@ In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family 
 
 This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
-All needed information about flashing ROSbot firmware and using stm32loader you can find in [ROSbot manual](https://husarion.com/manuals/rosbot/#i-mbed-firmware). 
+All additional information about flashing ROSbot firmware and using stm32loader you can find in [ROSbot manual](https://husarion.com/manuals/rosbot/#i-mbed-firmware). 
 
 #### Required ROS packages - `rosbot_ekf`
 
