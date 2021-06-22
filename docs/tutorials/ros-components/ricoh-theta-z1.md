@@ -153,4 +153,9 @@ python3 detect_face_video.py
 ```
 If this script won't run change line 7 to match `/dev/video` interface number.
 
+---
+
+_by Krzysztof Wojciechowski, Husarion_
+
+_Do you need any support with completing this project or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
 
