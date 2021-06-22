@@ -12,7 +12,7 @@ This tutorial is based on [official tutorial by RICOH](https://codetricity.githu
 First download, build and install v4l2loopback. It will allow you to create virtual loopback camera interfaces.
 ``` bash
 mkdir -p ~/husarion_ws/src/thera_z1
-cd ~/husarion_ws/thera_z1/
+cd ~/husarion_ws/src/thera_z1/
 git clone https://github.com/umlaeute/v4l2loopback.git
 cd v4l2loopback/
 make && sudo make install
