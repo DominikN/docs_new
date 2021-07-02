@@ -152,46 +152,41 @@ Specification of given ratings:
 
 ### Components ###
 
-#### Standard ####
 
 | Component | Quantity | Description |
 | --- | --- | --- |
 | Internal computer | 1 | Raspberry Pi 4B with Broadcom BCM2711 processor, quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz and 4GB LPDDR4 RAM. Used to manage all the basic functions of a mobile platform. |
 | On-board computer * | 1 | **Intel NUC10i7FNK** or **ADLINK Vizi-AI** or **HP Z2 Mini Workstation with Nvidia graphics card** |
 | Router | 1 | Teltonika RUTX11 - Dual-band (2.4 GHz/5 GHz), Access Point / Client Mode, 4G LTE CAT 6 dual SIM, Bluetooth 4.0 LE, GNSS (GPS, GLONASS, BeiDou, Galileo and QZSS) - This device ensures reliable communication between internal and external components of the robot system. Fast LTE communication and dual-band WiFi allow you to maintain communication with the robot. [More details](https://teltonika-networks.com/product/rutx11/). |
+| Antenna | 2 | Dual-band (2.4 GHz/5 GHz) placed on the rear of the robot. See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.|
 | Inertial navigation system | 1 | PhidgetSpatial 3/3/3 Basic (3-axis compass, a 3-axis gyroscope, and a 3-axis accelerometer) [More details](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=1025). |
 | Front and rear lights | 2 | Signal lighting made of 48 pcs. APA102C LED chips build into an aluminum profile on the robot's bumpers. |
 | Brushless Motor with planetary gearbox | 4 | 80PMB800K.80RBL-100 - Drive implemented on 4 durable motors 473 watts of power (900 W instantaneous power) each and planetary gears with a maximum torque of 60Nm allows the robot to move at a speed of 2 m/s even uphill with a slope of 40% with a load of 50 kg. |
+| Additional kits** |  | Together with the robot, you can get an integrated lidar, depth camera, manipulator and more. See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon)|
 
-> **Note:** *By default, there is only one on-board computer in the robot. For detailed information please check System installation
+> **Note:** *By default, there is only up to one on-board computer in the robot. For detailed information please check System installation and read more about [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter User computer.
 
-#### External modules ####
-
-* headlights,
-* RGBD camera,
-* thermal camera,
-* manipulator,
-* ect.
-
-Most of external modules are attached to the profiles on the top of the platform. [More details](https://husarion.com/manuals/panther/#mounting-rails).
+> **Note:** **Most of external modules are attached to the profiles on the top of the platform. [More details](https://husarion.com/manuals/panther/#mounting-rails).
 
 #### Communication ####
 **available as standard**
 
-* Ethernet,
-* USB,
-* Wi-Fi (2.4GHz & 5GHz),
-* LTE,
-* GPS.
+* Ethernet
+* USB
+* Wi-Fi (2.4GHz & 5GHz)
 
 
 **possible to extend**
 
-* CAN,
-* RS232,
-* RS485,
-* I2C,
+* LTE
+* GPS
+* CAN
+* RS232
+* RS485
+* I2C
 * SPI
+
+See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.
 
 ### Block diagram ###
 
@@ -562,25 +557,26 @@ Panther is equipped with a RUTX11 router running open-source firmware OpenWRT, w
 
 * 1 x WAN 10/100/1000 Mbps (by default configured as a LAN port)
 * 3 x LAN 10/100/1000 Mbps 
-* 2 ports are available for user equipment
+* 3 ports are available for user equipment
 
 **Wireless**
 
 * Two radios (2.4 GHz and 5 GHz)
 * Support for 802.11ac (Wi-Fi 5) with link rate up to 867Mbps, fast roaming with 802.11r
 * Works as access point (AP) and/or as a client/station (STA)
-* External antennas with 2dBi gain
+* External antennas with 2dBi gain (standard equipment of 'Pth10')
 
 **Cellular**
 
 * Dual-Sim with fail-over
 * LTE (4G) Cat 6
-* External antenna with 3dBi gain
+* Two external antennas with 3dBi gain (equipped as an option 'Ant01')
 
 **GNSS**
 
 * Support for GPS, GLONASS, Galileo and BeiDou
 * Integrated into ROS
+* External antenna (equipped as an option 'Ant01')
 
 Each form of connectivity can be part of automatic WAN fail-over in order to provide continuous connection to external services.
 More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual). Some RUTX11 configuration scripts are available on [our GitHub repository](https://github.com/husarion/panther_rutx11).
