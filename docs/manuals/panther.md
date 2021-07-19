@@ -122,7 +122,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 |  max. ground clearance 	| 155mm  	|
 |  min. ground clearance 	| 139 mm 	|
 | up-side-down clearance 	| 75 mm  	|
-|                 weight 	| 50 kg  	|
+|                 weight 	| 55 kg  	|
 |       protection index 	| IP54  	|
 
 **Traction**
@@ -131,14 +131,14 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 |:-----------------------------:	|:-------:	|
 |                     max speed 	| 2 m/s   	|
 |     maximum carrying capacity     | 80 kg     |
-|          nominal shaft torque 	| 17.4 Nm 	|
+|          nominal shaft torque 	| 34.5 Nm 	|
 |          maximum shaft torque 	| 60 Nm   	|
-|  nominal total traction force 	| 365 N   	|
-|  maximum total traction force 	| 630 N   	|
-|               hill climb grade 	| 96%     	|
-| climb grade with 50 kg cargo 	    | 40%     	|
-| climb grade with 80 kg cargo 	    | 30%     	|
-|          hill grade traversal 	| 80%     	|
+|  nominal total traction force 	| 725 N   	|
+|  maximum total traction force 	| 1511 N   	|
+|               hill climb grade 	| 96% (44°)	|
+| climb grade with 50 kg cargo 	    | 90% (42°) |
+| climb grade with 80 kg cargo 	    | 60% (31°)	|
+|          hill grade traversal 	| 80% (39°)	|
 
 **International Protection Rating**
 
