@@ -12,7 +12,7 @@ This tutorial is based on [official tutorial by RICOH](https://codetricity.githu
 First download, build and install v4l2loopback. It will allow you to create virtual loopback camera interfaces.
 ``` bash
 mkdir -p ~/husarion_ws/src/thera_z1
-cd ~/husarion_ws/thera_z1/
+cd ~/husarion_ws/src/thera_z1/
 git clone https://github.com/umlaeute/v4l2loopback.git
 cd v4l2loopback/
 make && sudo make install
@@ -153,4 +153,9 @@ python3 detect_face_video.py
 ```
 If this script won't run change line 7 to match `/dev/video` interface number.
 
+---
+
+_by Krzysztof Wojciechowski, Husarion_
+
+_Do you need any support with completing this project or have any difficulties with software or hardware? Feel free to describe your thoughts on our community forum: https://community.husarion.com/ or to contact with our support: support@husarion.com_
 

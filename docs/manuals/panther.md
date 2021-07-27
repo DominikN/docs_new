@@ -3,6 +3,10 @@ title: Panther
 id: panther
 ---
 
+<div align="center">
+<iframe width="784" height="441" src="https://www.youtube.com/embed/72sSM0DN9YY" frameborder="0" gesture="media" allowfullscreen></iframe>
+</div>
+
 ## Overview ##
 
 <div class="clearfix">
@@ -23,7 +27,7 @@ id: panther
 </div> 
 </div>
 
-Autonomous, mobile robot platform dedicated for outdoor environment. Compliant with IP54 rate of protection. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
+Autonomous, mobile robot platform dedicated for outdoor environment. Compliant with IP54 or IP66 rate of protection. Depending on the use-case it can be equipped with a robot arm, LIDAR, RGB-D camera, GPS, UWB and other additional equipment. It can be used in various areas of application such as agriculture, rescue, inspection and many more.
 
 
 <div class="clearfix">
@@ -122,7 +126,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 |  max. ground clearance 	| 155mm  	|
 |  min. ground clearance 	| 139 mm 	|
 | up-side-down clearance 	| 75 mm  	|
-|                 weight 	| 50 kg  	|
+|                 weight 	| 55 kg  	|
 |       protection index 	| IP54  	|
 
 **Traction**
@@ -131,58 +135,62 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 |:-----------------------------:	|:-------:	|
 |                     max speed 	| 2 m/s   	|
 |     maximum carrying capacity     | 80 kg     |
-|          nominal shaft torque 	| 17.4 Nm 	|
+|          nominal shaft torque 	| 34.5 Nm 	|
 |          maximum shaft torque 	| 60 Nm   	|
-|  nominal total traction force 	| 365 N   	|
-|  maximum total traction force 	| 630 N   	|
-|               hill climb grade 	| 96%     	|
-| climb grade with 50 kg cargo 	    | 40%     	|
-| climb grade with 80 kg cargo 	    | 30%     	|
-|          hill grade traversal 	| 80%     	|
+|  nominal total traction force 	| 725 N   	|
+|  maximum total traction force 	| 1511 N   	|
+|               hill climb grade 	| 96% (44°)	|
+| climb grade with 50 kg cargo 	    | 90% (42°) |
+| climb grade with 80 kg cargo 	    | 60% (31°)	|
+|          hill grade traversal 	| 80% (39°)	|
 
+**International Protection Rating**
+
+The platform is offered in two variants of the protection class. The basic variant is dedicated for moderate indoor and outdoor conditions with a rating of IP54. The upgraded variant is dedicated for extremely demanding work environment with a rating of IP66. Sales details such as price, lead time and other conditions available in the store.
+
+Specification of given ratings:
+|Class|Solid|Fluid|
+|:---:|:---:|---|
+|**IP54**|dust protected|protection against splashes of water from any direction|
+|**IP66**|dust-tight|protection against strong water jets (100 l / min) poured on the housing from any side|
 
 ### Components ###
 
-#### Standard ####
 
 | Component | Quantity | Description |
 | --- | --- | --- |
 | Internal computer | 1 | Raspberry Pi 4B with Broadcom BCM2711 processor, quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz and 4GB LPDDR4 RAM. Used to manage all the basic functions of a mobile platform. |
-| On-board computer * | 1 | **Intel NUC10i7FNK** / **ADLINK Vizi-AI** / **HP Z2 Mini Workstation** with **Nvidia graphics card** |
+| On-board computer * | 1 | **Intel NUC10i7FNK** or **ADLINK Vizi-AI** or **HP Z2 Mini Workstation with Nvidia graphics card** |
 | Router | 1 | Teltonika RUTX11 - Dual-band (2.4 GHz/5 GHz), Access Point / Client Mode, 4G LTE CAT 6 dual SIM, Bluetooth 4.0 LE, GNSS (GPS, GLONASS, BeiDou, Galileo and QZSS) - This device ensures reliable communication between internal and external components of the robot system. Fast LTE communication and dual-band WiFi allow you to maintain communication with the robot. [More details](https://teltonika-networks.com/product/rutx11/). |
+| Antenna | 2 | Dual-band (2.4 GHz/5 GHz) placed on the rear of the robot. See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.|
 | Inertial navigation system | 1 | PhidgetSpatial 3/3/3 Basic (3-axis compass, a 3-axis gyroscope, and a 3-axis accelerometer) [More details](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=1025). |
 | Front and rear lights | 2 | Signal lighting made of 48 pcs. APA102C LED chips build into an aluminum profile on the robot's bumpers. |
 | Brushless Motor with planetary gearbox | 4 | 80PMB800K.80RBL-100 - Drive implemented on 4 durable motors 473 watts of power (900 W instantaneous power) each and planetary gears with a maximum torque of 60Nm allows the robot to move at a speed of 2 m/s even uphill with a slope of 40% with a load of 50 kg. |
+| Additional kits** |  | Together with the robot, you can get an integrated lidar, depth camera, manipulator and more. See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon)|
 
-> **Note:** *By default, there is only one on-board computer in the robot. For detailed information please check System installation
+> **Note:** *By default, there is only up to one on-board computer in the robot. For detailed information please check System installation and read more about [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter User computer.
 
-#### External modules ####
-
-* headlights,
-* RGBD camera,
-* thermal camera,
-* manipulator,
-* ect.
-
-Most of external modules are attached to the profiles on the top of the platform. [More details](https://husarion.com/manuals/panther/#mounting-rails).
+> **Note:** **Most of external modules are attached to the profiles on the top of the platform. [More details](https://husarion.com/manuals/panther/#mounting-rails).
 
 #### Communication ####
 **available as standard**
 
-* Ethernet,
-* USB,
-* Wi-Fi (2.4GHz & 5GHz),
-* LTE,
-* GPS.
+* Ethernet
+* USB
+* Wi-Fi (2.4GHz & 5GHz)
 
 
 **possible to extend**
 
-* CAN,
-* RS232,
-* RS485,
-* I2C,
+* LTE
+* GPS
+* CAN
+* RS232
+* RS485
+* I2C
 * SPI
+
+See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.
 
 ### Block diagram ###
 
@@ -402,7 +410,7 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
  The reinstallation procedure for on-board RPI:
 
 1. Extract SD card from Raspberry Pi SBC by pushing card carefully until it is released back by card holder, thel pull it out. In order to find SD card slot, you will need to disassemble part of the top cover.
-2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2020-10-15.img.xz).
+2. Download image for Raspberry Pi from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-rpi-2021-03-29.img.xz).
 3. Extract downloaded image (For this process we recommend using [unxz](https://linux.die.net/man/1/unxz) tool).
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
  - If you want to replace the included card, remember that you need to use at least 16 GB capacity and 10 speed class micro SD card. 
@@ -416,7 +424,7 @@ To use the joystick, open `RASPBERRY_PI_IP_ADDRESS:8000`.
 ### Intel NUC / HP G2 ###
 To install system on *Intel NUC* or *HP G2*, you can download created ready to use Ubuntu20 image. 
 
-1. Download image from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-x64-2020-10-13.iso).
+1. Download image from [here](https://husarion-files.s3-eu-west-1.amazonaws.com/production_images/ros-noetic-x64-2021-04-01.iso.xz).
 2. Create bootable pendrive with [Etcher](https://www.balena.io/etcher/).
 3. Insert pendrive into one of Panther's USB ports and install by selecting appropriate option during boot.
 
@@ -553,25 +561,26 @@ Panther is equipped with a RUTX11 router running open-source firmware OpenWRT, w
 
 * 1 x WAN 10/100/1000 Mbps (by default configured as a LAN port)
 * 3 x LAN 10/100/1000 Mbps 
-* 2 ports are available for user equipment
+* 3 ports are available for user equipment
 
 **Wireless**
 
 * Two radios (2.4 GHz and 5 GHz)
 * Support for 802.11ac (Wi-Fi 5) with link rate up to 867Mbps, fast roaming with 802.11r
 * Works as access point (AP) and/or as a client/station (STA)
-* External antennas with 2dBi gain
+* External antennas with 2dBi gain (standard equipment of 'Pth10')
 
 **Cellular**
 
 * Dual-Sim with fail-over
 * LTE (4G) Cat 6
-* External antenna with 3dBi gain
+* Two external antennas with 3dBi gain (equipped as an option 'Ant01')
 
 **GNSS**
 
 * Support for GPS, GLONASS, Galileo and BeiDou
 * Integrated into ROS
+* External antenna (equipped as an option 'Ant01')
 
 Each form of connectivity can be part of automatic WAN fail-over in order to provide continuous connection to external services.
 More information is available on manufacturer [site](https://wiki.teltonika-networks.com/view/RUTX11_Manual). Some RUTX11 configuration scripts are available on [our GitHub repository](https://github.com/husarion/panther_rutx11).
