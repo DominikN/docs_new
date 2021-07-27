@@ -157,7 +157,7 @@ Graphic representation of ROSbot 2.0 (PRO) components and connections between th
 | Time-of-Flight distance sensor | 2 | VL53L0X Time-of-Flight distance sensor with up to 200 cm range, more details [here](https://www.pololu.com/file/0J1187/VL53L0X.pdf). |
 | hExt | 1 | 12xGPIO, 7x ADC, SPI, I2C, UART, more details [here](https://husarion.com/manuals/core2/#hext). |
 | hSens | 1 | 4 xGPIO, ADC, UART, more details [here](https://husarion.com/manuals/core2/#hsensor). |
-| hCfg | 1 | Button no longer has any functionality. |
+| hCfg | 1 | The button no longer has any functionality. |
 
 ### Power supply ###
 
@@ -355,7 +355,7 @@ This process will differ depending on ROSbot version that you have.
  - Review your selections and click 'Flash!' to begin writing data to the SD card.
 5. Insert SD card back to ROSbot
 6. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
-7. Also it's reccomended to flash firmware before working with rosbot:
+7. Also, it's recommended to flash firmware before working with ROSbot:
 
 ```
 cd ~
@@ -389,7 +389,7 @@ Before you begin, you will need:
 10. After Restart chose option Install Ubuntu (remember to choose option with erasing new Ubuntu and remove all part of the old one).
 11. Connect your ROSbot to internet during the installation. Access to the internet is necessary to finish installation.
 12. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
-13. Also it's reccomended to flash firmware before working with rosbot:
+13. Also, it's recommended to flash firmware before working with ROSbot:
 
 ```
 cd ~
@@ -418,7 +418,7 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 
 1. Turn on the robot and wait until it boots.
 2. Plug in Ethernet adapter (included in set) to USB port in the rear panel.
-3. Plug in one end of the Ethernet cable into your computer and other one to the adapter.
+3. Plug in one end of the Ethernet cable into your computer and the other one to the adapter.
 4. To connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`.
 5. Connect to a Wi-Fi network.
 
