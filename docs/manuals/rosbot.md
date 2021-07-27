@@ -15,7 +15,7 @@ ROSbot is an affordable robot platform for rapid development of autonomous robot
 
 - 4-wheels mobile platform containing DC motors with encoders and an aluminum frame
 - Orbbec Astra RGBD camera
-- MPU 9250 inertial sensor (accelerometer + gyro)
+- MPU 9250 inertial sensor or BNO055 (accelerometer + gyro)
 - rear panel providing interfaces for additional modules
 
 In ROSbot 2.0:
@@ -112,7 +112,7 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 | Infrared distance sensor | 4 | VL53L0X Time-of-Flight distance sensor with up to 200 cm range, [more details](https://www.pololu.com/file/0J1187/VL53L0X.pdf) |
 | CORE2 | 1 | Real-time controller based on STM32F407 microcontroller. |
 | DC motor | 4 | Xinhe Motor XH-25D, Motor used: RF-370, 6VDC nominal, 5000rpm, no load speed at the output shaft: 165 rpm, stall torque: 2.9 kg*cm, stall current: 2.2A, gear ratio: ~34 (exact ratio is 30613/900), encoder: magnetic, 48ppr, 12 poles |
-| IMU sensor | 1 | Powerful 9-Axis Accel/Gyro/Magnetometer sensor with MPU-9250, [more details](https://www.invensense.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf).|
+| IMU sensor | 1 | Powerful 9-Axis Accel/Gyro/Magnetometer sensor with MPU-9250, [more details](https://www.invensense.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf) or Intelligent 9-axis absolute orientation sensor BNO055, [more details](https://dl.btc.pl/kamami_wa/bst_bno055_ds000_12.pdf)|
 | RGBD camera | 1 | Orbbec Astra with RGB image size 640x480 and depth image size 640x480. |
 | Batteries | 3 | Li-Ion 18650 protected, rechargeable batteries, 3500mAh capacity, 3.7V nominal voltage. Note: Device may be shipped interchangeably with similar batteries. |
 | Antenna | 1 | Connected directly to the ASUS Tinker Board Wi-Fi module. Uses an RP-SMA(m) <-> I-PEX MHF4 cable to connect the antenna with SBC. |
@@ -157,6 +157,7 @@ Graphic representation of ROSbot 2.0 (PRO) components and connections between th
 | Time-of-Flight distance sensor | 2 | VL53L0X Time-of-Flight distance sensor with up to 200 cm range, more details [here](https://www.pololu.com/file/0J1187/VL53L0X.pdf). |
 | hExt | 1 | 12xGPIO, 7x ADC, SPI, I2C, UART, more details [here](https://husarion.com/manuals/core2/#hext). |
 | hSens | 1 | 4 xGPIO, ADC, UART, more details [here](https://husarion.com/manuals/core2/#hsensor). |
+| hCfg | 1 | Button no longer has any functionality. |
 
 ### Power supply ###
 
@@ -354,6 +355,15 @@ This process will differ depending on ROSbot version that you have.
  - Review your selections and click 'Flash!' to begin writing data to the SD card.
 5. Insert SD card back to ROSbot
 6. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
+7. Also it's reccomended to flash firmware before working with rosbot:
+
+```
+cd ~
+```
+
+```
+./flash_firmware.sh
+```
 
 #### ROSbot 2.0 PRO ####
 
@@ -379,6 +389,15 @@ Before you begin, you will need:
 10. After Restart chose option Install Ubuntu (remember to choose option with erasing new Ubuntu and remove all part of the old one).
 11. Connect your ROSbot to internet during the installation. Access to the internet is necessary to finish installation.
 12. Proceed to [Connect ROSbot to your Wi-Fi network](#connect-rosbot-to-your-wi-fi-network) section.
+13. Also it's reccomended to flash firmware before working with rosbot:
+
+```
+cd ~
+```
+
+```
+./flash_firmware.sh
+```
 
 ## Connect ROSbot to your Wi-Fi network
 
@@ -398,14 +417,27 @@ ROSbot is basically a computer running Ubuntu, so let's open it like a standard 
 In the ROSbot 2.0 set there is one USB-Ethernet card.
 
 1. Turn on the robot and wait until it boots.
-2. Plug in Ethernet adapter (included in set) to USB port in the rear panel
-3. Plug in one end of the Ethernet cable into your computer and other one to the adapter
-4. To connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`
-5. Connect to a Wi-Fi network
+2. Plug in Ethernet adapter (included in set) to USB port in the rear panel.
+3. Plug in one end of the Ethernet cable into your computer and other one to the adapter.
+4. To connect with ROSbot via ssh, type in your terminal application: `ssh husarion@192.168.0.1` and password `husarion`.
+5. Connect to a Wi-Fi network.
 
-- in the terminal type `nmcli d wifi connect <WiFi-SSID> password <WiFi-PASSWORD>` and press Enter to obtain an IP address and connect to the Wi-Fi network
+- In the terminal, type `nmtui` and press Enter. You should see:
 
-6. type `ifconfig` to find your IP address. Save it for later.
+![](/docs/assets/img/howToStart/nmtui_1.png)
+
+- Go to `Active a connection` and tap `Enter`
+
+![](/docs/assets/img/howToStart/nmtui_2.png)
+
+- Chose you Wi-Fi network and tap `Enter` one more time. Enter your password, confirm it and tap `Esc` to get back to main menu.
+
+
+![](/docs/assets/img/howToStart/nmtui_3.png)
+
+- Use `Quit` to close `nmtui`.
+
+6. Type `ifconfig` to find your IP address. Save it for later.
 
 ## Access ROSbot terminal using wireless connection
 
@@ -443,13 +475,13 @@ At this point your laptop and ROSbot should be in the same VPN network. To acces
 
 `ssh husarion@<HOSTNAME_OF_YOUR_ROSBOT>`
 
-To get more information about using Husarnet visit this [tutorial](https://docs.husarnet.com/getting-started/)
+To get more information about using Husarnet visit this [tutorial](https://husarnet.com/docs/manual-general/)
 
 ## Low level firmware installation
 
 In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating PID regulator output or talking to distance sensors. High level computation is handled by SBC (single board computer) - ASUS Tinker Board (in ROSbot 2.0) or UP Board (in ROSbot 2.0 PRO).
 
-In order to use ROSbot you have to flash ROSbot's CORE2 board with low level firmware. There are two firmware options for you to choose from.
+In order to use ROSbot you have to flash ROSbot's CORE2 board with low level firmware.
 
 ### I. Mbed firmware 
 
@@ -457,54 +489,18 @@ This firmware version is based on ARM's Mbed OS system. If you're interested in 
 
 SSH to ROSbot over LAN network or VPN to get access to it's Linux terminal.
 
-#### stm32loader usage
+Navigate to home folder:
 
-We will use `stm32loader` tool to upload the firmware to ROSbot. All ROSbot images have this tool **already installed**. 
-
-In case you have uninstalled this tool, you can find installation steps below. To verify that you have this tool already installed on your robot, open the terminal and run:
-
-```bash
-sudo stm32loader --help
+```
+cd ~
 ```
 
-If you want to know more about stm32loader check this [tutorial](https://husarion.com/software/stm32loader/).
+And run a specially prepared script:
 
-#### Programming the firmware (using stm32loader)
-
-We prepared for you `.bin` files ready to be uploaded to your ROSbot. They have following settings:
-
-- ws2812b driver is enabled by default (check [ROSbot with WS2812B LEDs signalization](https://husarion.com/tutorials/mbed-tutorials/rosbot-and-ws2812b-led-signalization/))
-- rosserial baudrate is set to:
-
-  - `525000` for ROSbot 2.0 with ROS Melodic and Foxy
-  - `525000` for ROSbot 2.0 and 2.0 PRO with ROS Noetic
-
-Download the appropriate firmware to your ROSbot and save it in `/home/husarion/`:
-
-- [`ROSbot 2.0 and 2.0 PRO for ROS Melodic and Foxy`](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.3.bin)
-- [`ROSbot 2.0 and 2.0 PRO for ROS Noetic`](https://files.husarion.com/images/rosbot-2.0-fw-v0.14.3-noetic.bin)
-
-To upload the firmware run:
-
-```bash
-sudo stm32loader -c tinker -u -W
+```
+./flash_firmware.sh 
 ```
 
-```bash
-sudo stm32loader -c tinker -e -w -v rosbot-2.0-***.bin
-```
-
-PRO:
-
-```bash
-sudo stm32loader -c upboard -u -W
-```
-
-```bash
-sudo stm32loader -c upboard -e -w -v rosbot-2.0-***.bin
-```
-
-Wait until firmware is uploaded.
 
 #### Required ROS packages - `rosbot_ekf`
 
