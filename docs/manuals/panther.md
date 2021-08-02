@@ -113,7 +113,7 @@ Remember to connect also your laptop to the same Husarnet network as Panther (ht
 
 ### Specification ###
 
-**Dimensions and weight**
+**Dimensions and weight (WH01 option)**
 
 |          Name          	|  Value 	|
 |:----------------------:	|:------:	|
@@ -640,7 +640,7 @@ All helpful documents and links in one place:
 
 * [Safety instructions](/docs/assets/pdf/Husarion_Panther_safety_instructions.pdf "Husarion Panther safety instructions") - to avoid malfunction or damage your Panther please read this safety manual before use
 * [Panther schematic block diagram](/docs/assets/pdf/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them
-* [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") - three basic projections of the platform
+* [Panther Overall Dimensions](/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") - three basic projections of the platform in all wheel options
 * [Panther power consumption and run time](/docs/assets/pdf/panther_power_consumption_and_run_time.pdf "Husarion Panther power consumption and run time") - description of Panther power consumption and run time in different working conditions
 * [Teltonika RUTX11 manual](https://wiki.teltonika-networks.com/view/RUTX11_Manual)
 * [Teltonika RUTX11 datasheet](https://teltonika-networks.com/downloads/en/rutx11/RUTX11-Datasheet.pdf)
