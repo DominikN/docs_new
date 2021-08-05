@@ -216,7 +216,7 @@ Pushing the safety switch completely cuts off the power to the device.
 
 ### Power supply ###
 
-The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours). You can check more specyfic information about Panter power consumption [here](/docs/assets/pdf/panther_power_consumption_and_run_time.pdf "Husarion Panther power consumption and run time").
+The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours). You can check more specific information about Panther power consumption [here](/docs/assets/pdf/panther_power_consumption_and_run_time.pdf "Husarion Panther power consumption and run time").
 
 Low battery level will be indicated by a change in the bumper light - both lights will fade in and out orange to indicate that the battery voltage has dropped below 35 volts. Read more in the [Bumpers and signal lights](#bumpers-and-signal-lights) section.
 
@@ -252,17 +252,19 @@ In the set with the robot, we provide a dedicated 42V @ 5A charger, which the ro
 
 Sensors, constructions and payload can be attached to the profiles on top of the robot. 
 
-![Rails on top of the Robot](/docs/assets/img/Panther/top_rail.png "Rails on top of the Robot")
+![Rails on top of the Robot](/docs/assets/img/Panther/top_rails_v1.0.png "Rails on top of the Robot")
 
 The profiles used are aluminum V-slot 2020 profiles. The best way to attach the elements to them is to use mounting elements dedicated to this type of profiles, such as T-nuts, fittings and angles.
 
-![V-slot aluminium extrusion](/docs/assets/img/Panther/v-slot_profile.png "Block diagram")
+![V-slot aluminum extrusion](/docs/assets/img/Panther/v-slot_profile.png "Block diagram")
 
-These profiles are fixed to the robot with four bolts DIN912 M8x40.
+These profiles are fixed to the robot with four 8mmx40mm quick release pins with ball lock. 
 
-![Top rails fixing](/docs/assets/img/Panther/top_rail_M8.png "Top rails fixing")
+![Top rails fixing](/docs/assets/img/Panther/top_rails_mounting_v1.0.png "Top rails fixing")
 
-For more useful information in the field of mechanics, please see the document [Overall dimensions](https://files.husarion.com/panther/external_dimentions.pdf "Overall dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
+To enable access to user space, top rails can be pivoted by pulling out 2x quick release pin in both front and back direction. Maximum opening angle is 160 degrees with built-in stop.
+![Top rails open](/docs/assets/img/Panther/top_rails_open_v1.0.png "Top rails open") 
+For more useful information in the field of mechanics, please see the document [Panther Overall Dimensions](/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
 
 > **Note** The presence of railings has no effect on the water and dust resistance of the robot.
 
@@ -282,13 +284,14 @@ And a panel for communication with the rest of the robot - as standard it is an 
 ![User Panel - Communication Port](/docs/assets/img/Panther/UserPanel_CommunicationPort.png "User Panel - Communication Port")
 The front and rear spaces are occupied by motors and built-in electronics. For these spaces it is usually not needed to access by the user. Opening these spaces is mainly used for service work.
 
-To access the components inside the user space, unscrew the top rails (4x DIN912 M8x40) and then unscrew Cover (18x DIN912 M5x12).
-![Cover fixing](/docs/assets/img/Panther/cover_M5.png "Cover fixing")
+To access the components inside the user space, pivot the top rails by pulling 2x quick release pin and then unscrew Cover (18x DIN912 M5x12).
+![Cover fixing](/docs/assets/img/Panther/access_to_user_space_v1.0.png "Cover fixing")
 
-To access the components in service space, unscrew the top rails and then (19x DIN912 M5x12).
-![Deck fixing](/docs/assets/img/Panther/deck_M5.png "[Deck fixing")
+To access the components in service space, pivot the top rails by pulling 2x quick release pin and then unscrew (19x DIN912 M5x12).
+![Deck fixing](/docs/assets/img/Panther/access_to_service_space_v1.0.png "[Deck fixing")
 
 The bolts must be re-tightened with a torque of 4-5 Nm.
+> **Warning!** A necessary condition to meet the protection rate for external conditions and the faultless operation of the robot is lack of foreign objects on the seal.
 
 > **Warning!** A necessary condition to meet the protection rate for external conditions and the faultless operation of the robot is the correct tightening of all screws fixing the Cover and both Decks!
 
@@ -605,7 +608,7 @@ To edit network configuration edit file ```~/panther_rutx11/config.json```:
 
 ``` nano panther_rutx11/config.json```
 
-Edit section section named `wifi_client` filling in your SSID and matching password. If you want to connect to multiple networks duplicate whole block, Panther will try to connect to them in given order:
+Edit section named `wifi_client` filling in your SSID and matching password. If you want to connect to multiple networks duplicate whole block, Panther will try to connect to them in given order:
 
  ```
         {
