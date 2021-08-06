@@ -9,15 +9,15 @@ id: run-ros-tutorials-using-aws-robomaker
 **AWS RoboMaker** is the newest service by *Amazon* for robot developers community. It’s ROS based and provides web tools for robot development, simulation and deployment - https://aws.amazon.com/robomaker/ .
 
 In this tutorial we will show you how to setup environment at AWS RoboMaker to learn ROS with our ROS tutorials:
-1. [ROS introduction](https://husarion.com/tutorials/ros-tutorials/1-ros-introduction/)
-2. [Creating nodes](https://husarion.com/tutorials/ros-tutorials/2-creating-nodes/)
-3. [Simple kinematics for mobile robot](https://husarion.com/tutorials/ros-tutorials/3-simple-kinematics-for-mobile-robot/)
-4. [Visual object recognition](https://husarion.com/tutorials/ros-tutorials/4-visual-object-recognition/)
-5. [Running ROS on multiple machines](https://husarion.com/tutorials/ros-tutorials/5-running-ros-on-multiple-machines/ )
-6. [SLAM navigation](https://husarion.com/tutorials/ros-tutorials/6-slam-navigation/ )
-7. [Path planning](https://husarion.com/tutorials/ros-tutorials/7-path-planning/)
-8. [Unknown environment exploration](https://husarion.com/tutorials/ros-tutorials/8-unknown-environment-exploration/ )
-9. [Object search](https://husarion.com/tutorials/ros-tutorials/9-object-search/ )
+1. [ROS introduction](/tutorials/ros-tutorials/1-ros-introduction/)
+2. [Creating nodes](/tutorials/ros-tutorials/2-creating-nodes/)
+3. [Simple kinematics for mobile robot](/tutorials/ros-tutorials/3-simple-kinematics-for-mobile-robot/)
+4. [Visual object recognition](/tutorials/ros-tutorials/4-visual-object-recognition/)
+5. [Running ROS on multiple machines](/tutorials/ros-tutorials/5-running-ros-on-multiple-machines/ )
+6. [SLAM navigation](/tutorials/ros-tutorials/6-slam-navigation/ )
+7. [Path planning](/tutorials/ros-tutorials/7-path-planning/)
+8. [Unknown environment exploration](/tutorials/ros-tutorials/8-unknown-environment-exploration/ )
+9. [Object search](/tutorials/ros-tutorials/9-map-navigation/)
 
 *IMPORTANT: AWS RoboMaker is a paid service and you may be charged based on the usage of some of its functionalities. For pricing info visit https://aws.amazon.com/robomaker/pricing/* .
 
@@ -117,7 +117,7 @@ python configure_project.py --bucket $BUCKET_NAME --iam $IAM_ROLE
 
 **Congratulations!**
 
-You’ve just run Gazebo version of [Tutorial 9](https://husarion.com/tutorials/ros-tutorials/9-object-search/) on AWS RoboMaker cloud computing platform. Other tutorials can be launched by selecting appropriate entry in **Run** -> **Launch Simulation** menu.
+You’ve just run Gazebo version of [Tutorial 9](/tutorials/ros-tutorials/9-map-navigation/) on AWS RoboMaker cloud computing platform. Other tutorials can be launched by selecting appropriate entry in **Run** -> **Launch Simulation** menu.
 
 ## Summary
 

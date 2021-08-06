@@ -12,7 +12,7 @@ id: 3-using-frontier-exploration
 
 ## Before start 
 
-This project can be done _`only on ROS Kinetic`_ due to API change since ROS Melodic.`Frontier exploration` Project seems not to be developed anymore so we can't provide well tested instruction how to use this. If you want to explore and have ROS Melodic please refer to [Tutorial 8. Unknown environment exploration](https://husarion.com/tutorials/ros-tutorials/8-unknown-environment-exploration/)
+This project can be done _`only on ROS Kinetic`_ due to API change since ROS Melodic.`Frontier exploration` Project seems not to be developed anymore so we can't provide well tested instruction how to use this. If you want to explore and have ROS Melodic please refer to [Tutorial 8. Unknown environment exploration](/tutorials/ros-tutorials/8-unknown-environment-exploration/)
 
 ## Introduction
 

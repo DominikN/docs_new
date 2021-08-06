@@ -159,9 +159,9 @@ In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family 
 
 ### Mbed firmware
 
-This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
+This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](/tutorials/mbed/1-enviroment-configuration/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
-All additional information about flashing ROSbot firmware and using stm32loader you can find in [ROSbot manual](https://husarion.com/manuals/rosbot/#i-mbed-firmware). 
+All additional information about flashing ROSbot firmware and using stm32loader you can find in [ROSbot manual](/manuals/rosbot/#i-mbed-firmware). 
 
 #### Required ROS packages - `rosbot_ekf`
 
@@ -207,6 +207,6 @@ roslaunch route_admin_panel demo_gazebo.launch
 
 ![panel accessed through husarnet](/img/software/panel_at_husarnet.png)
 
-You can find detailed description of Route Admin Panel in [software section](https://husarion.com/software/route-admin-panel/).
+You can find detailed description of Route Admin Panel in [software section](/software/route-admin-panel/).
 
-> Note: if you experience any issues, make sure batteries are fully charged ([LED L1 is blinking](https://husarion.com/manuals/rosbot-manual/#rear-panel-description) if battery level is low). Charging manual is [here](https://husarion.com/manuals/rosbot-manual/#charging-rosbot).
+> Note: if you experience any issues, make sure batteries are fully charged ([LED L1 is blinking](/manuals/rosbot/#rear-panel-description) if battery level is low). Charging manual is [here](/manuals/rosbot/#charging-rosbot).

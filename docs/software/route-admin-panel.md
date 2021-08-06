@@ -142,13 +142,13 @@ Depending on your ROSbot version, you can start it with:
     roslaunch route_admin_panel demo_gazebo.launch
     ```
 
-- for ROSbot 2.0 with [`hFramework`](https://husarion.com/software/hframework/) (deprecated):
+- for ROSbot 2.0 with [`hFramework`](/software/hframework/) (deprecated):
 
     ```bash
     roslaunch route_admin_panel demo_rosbot.launch
     ```
 
-- for ROSbot 2.0 PRO with [`hFramework`](https://husarion.com/software/hframework/) (deprecated):
+- for ROSbot 2.0 PRO with [`hFramework`](/software/hframework/) (deprecated):
 
     ```bash
     roslaunch route_admin_panel demo_rosbot_pro.launch

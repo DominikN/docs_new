@@ -74,7 +74,7 @@ You can also test the performance of ROSbot using our simulation model in Gazebo
 
 ![ROSbot gazebo](/img/ROSbot_manual/rosbot_gazebo.png "ROSbot gazebo")
 
-You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="https://husarion.com/tutorials/ros-tutorials/1-ros-introduction/">link</a>. They will guide you through different aspects of programming autonomous vehicles in ROS
+You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="/tutorials/ros-tutorials/1-ros-introduction/">link</a>. They will guide you through different aspects of programming autonomous vehicles in ROS
 
 ## Hardware guide ##
 
@@ -147,16 +147,16 @@ Graphic representation of ROSbot 2.0 (PRO) components and connections between th
 | USB | 2 | USB 2.0 host ports from SBC. |
 | HDMI | 1 | HDMI output from SBC. |
 | Power switch | 1 | Turns ROSbot completely ON or OFF. |
-| LEDs | 6 | LR1(yellow), LR2(blue), L1(red), L2(green), L3(green), PWR(red), more details [here](https://husarion.com/manuals/core2/#leds-and-buttons). |
+| LEDs | 6 | LR1(yellow), LR2(blue), L1(red), L2(green), L3(green), PWR(red), more details [here](/manuals/core2/#leds-and-buttons). |
 | Reset button | 1 | Button used for reset CORE2. |
 | hBtn | 2 | hBtn1, hBtn2 - programmable buttons. |
-| Outputs for servo | 6 | Servo output with PWM, more details [here](https://husarion.com/manuals/core2/#hservo). |
+| Outputs for servo | 6 | Servo output with PWM, more details [here](/manuals/core2/#hservo). |
 | USB serial | 1 | USB serial port used for debugging the firmware on CORE2-ROS controller. |
 | Charging connector | 1 | 6-pin connector for charging internal Li-Ion batteries. |
 | DC power input | 1 | DC for working with external 12V power supply. Use the power supply included with charger or any 12V, min. 5A power supply with 5.5/2.5mm plug (center-positive). |
 | Time-of-Flight distance sensor | 2 | VL53L0X Time-of-Flight distance sensor with up to 200 cm range, more details [here](https://www.pololu.com/file/0J1187/VL53L0X.pdf). |
-| hExt | 1 | 12xGPIO, 7x ADC, SPI, I2C, UART, more details [here](https://husarion.com/manuals/core2/#hext). |
-| hSens | 1 | 4 xGPIO, ADC, UART, more details [here](https://husarion.com/manuals/core2/#hsensor). |
+| hExt | 1 | 12xGPIO, 7x ADC, SPI, I2C, UART, more details [here](/manuals/core2/#hext). |
+| hSens | 1 | 4 xGPIO, ADC, UART, more details [here](/manuals/core2/#hsensor). |
 | hCfg | 1 | The button no longer has any functionality. |
 
 ### Power supply ###

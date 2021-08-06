@@ -19,11 +19,11 @@ hFramework API documentation is available [here](https://husarion.com/core2/api_
 
 ## Using hFramework ##
 
-The easiest way to experience hFramework is to use Husarion WebIDE or install Husarion plugin to Visual Studio Code. Each of these methods gives us different options. With WebIDE we can start programing our device right after unpacking and the controller does not have to be even close to us, if you just starting follow this [tutorial](https://github.com/husarion/docs_new/blob/hframework-deprecated/docs/tutorials/howtostart/core2-quick-start.md). Programming via VSC allows us to rebuild the default implemented library but we have to connect board with computer via USB and and depending on the system we use, install several packages. full instruction of using offline development tools you can find [here](https://husarion.com/tutorials/deprecated/offline-development-tools/).
+The easiest way to experience hFramework is to use Husarion WebIDE or install Husarion plugin to Visual Studio Code. Each of these methods gives us different options. With WebIDE we can start programing our device right after unpacking and the controller does not have to be even close to us, if you just starting follow this [tutorial](https://github.com/husarion/docs_new/blob/hframework-deprecated/docs/tutorials/howtostart/core2-quick-start.md). Programming via VSC allows us to rebuild the default implemented library but we have to connect board with computer via USB and and depending on the system we use, install several packages. full instruction of using offline development tools you can find [here](/tutorials/deprecated/offline-development-tools/).
 
 ### Building hFramework ###
 
-If you need to change code of hFramework you have to follow the instructions from [manual](https://husarion.com/tutorials/deprecated/hframework-library-development/)). 
+If you need to change code of hFramework you have to follow the instructions from [manual](/tutorials/deprecated/hframework-library-development/)). 
 
 ## Examples ##
 

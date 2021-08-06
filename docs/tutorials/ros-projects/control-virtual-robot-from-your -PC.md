@@ -17,7 +17,7 @@ In this ROSject we will show you how to control a virtual robot operating in the
 
 ![theme](https://user-images.githubusercontent.com/29305346/64530720-224d3980-d30e-11e9-9901-ee5ecbd58776.png)
 
-To control a robot the [Route Admin Planner](https://husarion.com/software/route-admin-panel/) provided by Husarion is used.
+To control a robot the [Route Admin Planner](/software/route-admin-panel/) provided by Husarion is used.
 The Route Admin Panel is a web user interface for managing routes of ROS based mobile robots.
 
 It allows to:
@@ -105,7 +105,7 @@ NOTE: If you can't see any map add target close to robot to move it a litte.
 
 You can run this to controll real robot, to do, so follow this tutorial:
 
-[Route Admin Planner](https://husarion.com/software/route-admin-panel/)
+[Route Admin Planner](/software/route-admin-panel/)
 
 ---
 _by Adam Krawczyk, Husarion_

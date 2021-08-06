@@ -12,7 +12,7 @@ Have you ever wanted to increase the amount of computing power in your CORE2-ROS
 
 1. Turn on your computer.
 2. Make sure you already have installed ROS. If you haven't, please check [installation manual](http://wiki.ros.org/kinetic/Installation/Ubuntu).
-3. Create new Husarion project in VSC following this [tutorial](https://husarion.com/tutorials/other-tutorials/offline-development-tools/).
+3. Create new Husarion project in VSC following this [tutorial](/tutorials/deprecated/offline-development-tools/).
 4. When you create new Husarion project open `main.cpp` file and take a look on code from next chapter.
 
 ## How to write a code

@@ -16,7 +16,7 @@ id: 1-ros-introduction
 <center><img src="/img/ros/ros_logo.jpeg" width="70%" height="70%" /></center>
 </div>
 
-We prepared a set of tutorials to help you start building advanced robots. They are prepared to work with Husarion [ROSbot 2.0](https://husarion.com/manuals/rosbot-manual/) but they are also a valuable portion of knowledge for anybody interested in ROS.
+We prepared a set of tutorials to help you start building advanced robots. They are prepared to work with Husarion [ROSbot 2.0](/manuals/rosbot/) but they are also a valuable portion of knowledge for anybody interested in ROS.
 
 ## System structure
 
@@ -114,7 +114,7 @@ rqt_graph
 
 ## Robot platform
 
-This tutorial is created for ROSbot, open-source robot platform. You can read more about it here: [ROSbot manual](https://husarion.com/manuals/rosbot-manual/).
+This tutorial is created for ROSbot, open-source robot platform. You can read more about it here: [ROSbot manual](/manuals/rosbot/).
 
 The platform contains:
 
@@ -140,7 +140,7 @@ Another option is to use **virtual machine** or **ROS native installation**, thi
 
 You can also try online simulator at <a href="http://www.theconstructsim.com/">www.theconstructsim.com</a>, it comes with all required packages installed and offer great computing power for a reasonable price.
 
-Another option to run a simulation model is using [AWS Robomaker](https://husarion.com/tutorials/other-tutorials/run-ros-tutorials-using-aws-robomaker/).
+Another option to run a simulation model is using [AWS Robomaker](/tutorials/aws-robomaker/run-ros-tutorials-using-aws-robomaker/).
 
 We also created package with all nodes and launch files from our ROS tutorials. You can download ready to use pkg from <a href="https://github.com/husarion/tutorial_pkg">GitHub page</a>.
 
@@ -154,7 +154,7 @@ According to the method of your choice, proceed to section **Connecting to ROSbo
 
 Before you start working with ROS on ROSbot 2.0 platform, you need to connect to
 your device first. You can establish connection in two ways: using `ssh` or via
-remote desktop. For both methods you need an IP address of your robot. You can check it using one of methods described in [ROSbot - quick start tutorial](https://husarion.com/tutorials/howtostart/rosbot---quick-start/). 
+remote desktop. For both methods you need an IP address of your robot. You can check it using one of methods described in [ROSbot - quick start tutorial](/tutorials/howtostart/rosbot---quick-start/). 
 
 To connect by ssh type in terminal:
 

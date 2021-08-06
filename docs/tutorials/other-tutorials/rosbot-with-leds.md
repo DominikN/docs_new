@@ -50,7 +50,7 @@ Additionally to ROSbot, basic soldering skills and soldering equipment you will 
 
 This tutorial uses the new firmware for ROSbot, based on Mbed OS system. To learn more about the new firmware please get familiar with the firmware's [GitHub page](https://github.com/husarion/rosbot-firmware-new).
 
-We recommend you to check our [Using CORE2 with Mbed OS tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os). It will introduce you to the Mbed OS environment and tools.
+We recommend you to check our [Using CORE2 with Mbed OS tutorial](/tutorials/mbed/1-enviroment-configuration/). It will introduce you to the Mbed OS environment and tools.
 
 #### Building from source
 
@@ -80,7 +80,7 @@ where `x` is the number of leds you want to use.
     <img src="/img/mbed-tutorials/mbed-tutorial2-img4.png" alt="mbed_app.json" width="600" class="hover-shadow" />
 </a>
 
-Build firmware using `BUILD (RELEASE)` task. The `firmware.bin` file should appear in the directory `BUILD/RELEASE`. To upload the firmware using `stm32loader` please follow the guide from [previous tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/#stm32loader-usage).
+Build firmware using `BUILD (RELEASE)` task. The `firmware.bin` file should appear in the directory `BUILD/RELEASE`. To upload the firmware using `stm32loader` please follow the guide from [previous tutorial](/tutorials/mbed/1-enviroment-configuration/#stm32loader-usage).
 
 #### Ready to use firmware packages
 
@@ -91,7 +91,7 @@ If you don't want to go through the procedures above, we prepared for you `.bin`
     * `500000` for ROSbot 2.0
     * `460800` for ROSbot 2.0 Pro
 
-Use `stm32loader` to upload the firmware. Please follow the guide from [previous tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/#stm32loader-usage).
+Use `stm32loader` to upload the firmware. Please follow the guide from [previous tutorial](/tutorials/mbed/1-enviroment-configuration/#stm32loader-usage).
 
 Downloads:
 - [`ROSbot 2.0 fw v0.10.1`](https://files.husarion.com/rosbot-firmware/rosbot-2.0-fw-v0.10.1s.bin)
@@ -364,7 +364,7 @@ Now you can use any ros application that uses `move_base` package like `Route ad
 
 The **Route admin panel** is a web user interface that allows you to navigate ROSbot autonomously between set of destination points. It is excellent application to test our leds.
 
-To install it on you robot please follow this manual :[`Route admin panel installation`](https://husarion.com/software/route-admin-panel/).
+To install it on you robot please follow this manual :[`Route admin panel installation`](/software/route-admin-panel/).
 
 After that you can launch it using:
 

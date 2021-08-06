@@ -62,7 +62,7 @@ Connect to Wi-Fi and open **WEBUI ROS JOYSTICK** [`10.15.20.2:8000`] that allows
 
 When the robot is ready to work you should see it's lights flashing.
 
-[Route Admin Panel](https://husarion.com/software/route-admin-panel/) (RAP) is a preinstalled, open-source web user interface available on the Panther. By using RAP you can test autonomous drive of your robot - you can define navigation points and send orders to Panther to visit them. Before using RAP, at first you need to create a basic map of the environment you are going to test the robot - you can do it manually by a web-joystick available under [`10.15.20.2:8000`].
+[Route Admin Panel](/software/route-admin-panel/) (RAP) is a preinstalled, open-source web user interface available on the Panther. By using RAP you can test autonomous drive of your robot - you can define navigation points and send orders to Panther to visit them. Before using RAP, at first you need to create a basic map of the environment you are going to test the robot - you can do it manually by a web-joystick available under [`10.15.20.2:8000`].
 
 
 > **WARNING:** RAP is not a production-ready software, **that's a basic demo you use on your own risk**. Especially some obstacles in your working environment might be invisible for sensors in your configuration. Feel free to modify this demo code. It is open source and available on Husarion's github https://github.com/husarion/route_admin_panel .
@@ -170,7 +170,7 @@ Specification of given ratings:
 
 > **Note:** *By default, there is only up to one on-board computer in the robot. For detailed information please check System installation and read more about [available options]( https://husarion.com/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter User computer.
 
-> **Note:** **Most of external modules are attached to the profiles on the top of the platform. [More details](https://husarion.com/manuals/panther/#mounting-rails).
+> **Note:** **Most of external modules are attached to the profiles on the top of the platform. [More details](/manuals/panther/#mounting-rails).
 
 #### Communication ####
 **available as standard**
@@ -264,7 +264,7 @@ These profiles are fixed to the robot with four 8mmx40mm quick release pins with
 
 To enable access to user space, top rails can be pivoted by pulling out 2x quick release pin in both front and back direction. Maximum opening angle is 160 degrees with built-in stop.
 ![Top rails open](/img/Panther/top_rails_open_v1.0.png "Top rails open") 
-For more useful information in the field of mechanics, please see the document [Panther Overall Dimensions]( https://husarion.com/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
+For more useful information in the field of mechanics, please see the document [Panther Overall Dimensions]( https://husarion.com/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") and chapter [CAD models](/manuals/panther/#cad-models).
 
 > **Note** The presence of railings has no effect on the water and dust resistance of the robot.
 

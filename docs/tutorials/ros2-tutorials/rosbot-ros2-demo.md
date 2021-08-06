@@ -8,9 +8,7 @@ id: rosbot-ros2-demo
 
 The goal of this tutorial is to launch navigation2 demo, which will allow the robot to navigate autonomously and avoid obstacles. The ROSbot will be visualized and controlled through Rviz.
 
-<div style={{textAlign: 'center'}}>
-<iframe width="784" height="441" src="https://www.youtube.com/embed/fY-Z9OqY0eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fY-Z9OqY0eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Install ROS2 image on ROSbot
 
@@ -20,7 +18,7 @@ Working on your laptop, visit https://husarion.com/downloads/, find **Ubuntu 20.
 - **Tinker Board** version for ROSbot 2.0 
 - **UpBoard** version for ROSbot 2.0 PRO
 
-Instructions for system instalation can be found [here](https://husarion.com/manuals/rosbot/#system-reinstallation).
+Instructions for system instalation can be found [here](/manuals/rosbot/#system-reinstallation).
 
 ## First ROSbot Configuration
 
@@ -58,7 +56,7 @@ Then flash the STM32 microcontroller:
 bash /home/husarion/flash_firmware.sh
 ```
 
-More information about flashing the firmware you can find [here](https://husarion.com/manuals/rosbot/#low-level-firmware-installation).
+More information about flashing the firmware you can find [here](/manuals/rosbot/#low-level-firmware-installation).
 
 ### Remote Desktop (optional)
 

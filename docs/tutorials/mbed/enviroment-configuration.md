@@ -253,7 +253,7 @@ Here we have two option of flashing firmawre to CORE2.
 
 #### Flashing using .hex file and core2_flasher 
 
-This method was explained in tutorial [CORE2 - quick start](https://husarion.com/tutorials/howtostart/core2-quick-start/#the-flashing) so if you don't know it yet please check this tutorial.
+This method was explained in tutorial [CORE2 - quick start](/tutorials/howtostart/core2-quick-start/#the-flashing) so if you don't know it yet please check this tutorial.
 
 ![](/img/howToStart/core2_hSerial.png)
 
@@ -271,7 +271,7 @@ sudo stm32loader -c <your_sbc> -e -w -v firmware.bin
 ```
 You have to replace `<your_sbc>` with `rpi`, `tinker` or `upboard`.
 
-Full documentation of STM32loader you can find in our [Software](https://husarion.com/software/stm32loader/) section.
+Full documentation of STM32loader you can find in our [Software](/software/stm32loader/) section.
 
 #### Results
 

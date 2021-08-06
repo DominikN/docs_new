@@ -170,8 +170,8 @@ Download the appropriate firmware to your ROSbot and save it in `/home/husarion/
 
 ## RoboMaker ROSbot project
 
-We have prepared the repository containing setup files along with ROSbot model and launch files required to use [Husarion ROS tutorials](https://husarion.com/tutorials/) on [AWS RoboMaker](https://aws.amazon.com/robomaker/) and deploy them to ROSbot with use of Greengrass.
-Currently, tutorials [6 - SLAM navigation](https://husarion.com/tutorials/ros-tutorials/6-slam-navigation/), [7 - Path planning](https://husarion.com/tutorials/ros-tutorials/7-path-planning/) and [8 - Unknown environment exploration](https://husarion.com/tutorials/ros-tutorials/8-unknown-environment-exploration/) are tested, other tutorials will be added soon.
+We have prepared the repository containing setup files along with ROSbot model and launch files required to use [Husarion ROS tutorials](/tutorials/) on [AWS RoboMaker](https://aws.amazon.com/robomaker/) and deploy them to ROSbot with use of Greengrass.
+Currently, tutorials [6 - SLAM navigation](/tutorials/ros-tutorials/6-slam-navigation/), [7 - Path planning](/tutorials/ros-tutorials/7-path-planning/) and [8 - Unknown environment exploration](/tutorials/ros-tutorials/8-unknown-environment-exploration/) are tested, other tutorials will be added soon.
 
 ## Configure AWS Environment
 

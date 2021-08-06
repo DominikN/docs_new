@@ -44,8 +44,8 @@ After importing program you click on `target` drop-down list and chose CORE2.
     * Release
 
 * Clicking the **hammer** icon will compile your project and generate `bin`, `elf` and `hex` files.
-* Clicking on the **play** icon will build the example and flash it to the connected board (only with [connected St-link](https://husarion.com/software/mbed-studio/#debugging-code-using-st-link)).
-* Clicking the **bug** icon will start debug session (only with [connected St-link](https://husarion.com/software/mbed-studio/#debugging-code-using-st-link)).
+* Clicking on the **play** icon will build the example and flash it to the connected board (only with [connected St-link](/software/mbed-studio/#debugging-code-using-st-link)).
+* Clicking the **bug** icon will start debug session (only with [connected St-link](/software/mbed-studio/#debugging-code-using-st-link)).
 
 ![](/img/mbed-studio/mbed_studio_instruction5.png)
 
@@ -79,7 +79,7 @@ Everything went OK, if you will see output similar to this:
 
 ### Using stm32loader
 
-Full manual of using this tool, available only for CORE2-ROS you can find [here](https://husarion.com/software/stm32loader/#stm32loader-usage).
+Full manual of using this tool, available only for CORE2-ROS you can find [here](/software/stm32loader/#stm32loader-usage).
 
 ## Application functionality
 
