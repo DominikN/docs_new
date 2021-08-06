@@ -260,7 +260,7 @@ In this example we will use the ws2812b leds to achieve a different ROSbot illum
     <img src="/img/mbed-tutorials/mbed-tutorial2-still-frame2.png" width="480px" class="hover-shadow"/>
 </a>
 
-<video width="640" height="320" controls id="feature-sample_3" style="display:none;">
+<video width="640" height="320" controls id="feature-sample_3" style={{display: 'none'}}>
     <source src="/docs/assets/video/mbed-tutorials/feature_sample_3.webm" type="video/webm" />
     Your browser doesn't support HTML5 video tag.
 </video>
@@ -299,7 +299,7 @@ In this example we will provide a distinct animation for each `move_base/status`
     <img src="/img/mbed-tutorials/mbed-tutorial2-still-frame.png" width="480px" class="hover-shadow"/>
 </a>
 
-<video width="640" height="320" controls id="feature-sample" style="display:none;">
+<video width="640" height="320" controls id="feature-sample" style={{display: 'none'}}>
     <source src="/docs/assets/video/mbed-tutorials/feature_sample.webm" type="video/webm" />
     Your browser doesn't support HTML5 video tag.
 </video>

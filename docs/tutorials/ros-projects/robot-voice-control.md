@@ -46,7 +46,7 @@ Voice recognition server must be running on a PC with x86-64 architechture, whil
 
 #### Connecting devices through Husarnet
 
-- Log in or create your (free) account at [husarnet.com](app.husarnet.com).
+- Log in or create your (free) account at [husarnet.com](https://app.husarnet.com).
 - Create new Husarnet network
 - Click **Add element** button and go to **Join Code** tab.
 - Copy your join code. It should look like this: `fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/XXXXXXXXXXXXXXXXXXXXX`

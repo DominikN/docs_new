@@ -5,7 +5,7 @@ module.exports = {
       "panther",
       "core2",
       "core2mini",
-      "husarion-add-ons",
+      "core2-add-ons",
     ],
   },
 };

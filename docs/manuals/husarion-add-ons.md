@@ -1,6 +1,6 @@
 ---
 title: CORE2 add-ons
-# id: core2-add-ons
+id: core2-add-ons
 ---
 
 ## CORE2brick extension kit ##
@@ -74,7 +74,7 @@ The schematic shows a single sensor interface. Each sensor connector is connecte
 
 ### hBatteryPack ###
 
-The same which is used in Telepresence robot, ROSbot and CORE2block kit. Full description here: [hBatteryPack](husarion-add-ons#hbatterypack-kit)
+The same which is used in Telepresence robot, ROSbot and CORE2block kit. Full description here: [hBatteryPack](#hbatterypack-kit)
 
 ### Acrylic plates and screws ###
 
@@ -245,9 +245,9 @@ In the current firmware, the LED is turned on if both power supplies (+5V and +V
 ## hBatteryPack kit ##
 
 A common part for:
-- [CORE2brick](/manuals/husarion-add-ons#core2brick-extension-kit "CORE2brick")
-- [CORE2block](/manuals/husarion-add-ons#core2block-extension-kit "CORE2block")
-- [ROSbot](/manuals/rosbot-manual#rosbot-manual-overview "ROSbot")
+- [CORE2brick](#core2brick-extension-kit "CORE2brick")
+- [CORE2block](#core2block-extension-kit "CORE2block")
+- [ROSbot](/manuals/rosbot/#overview "ROSbot")
 - [CORE2 Telepresence robot](/manuals/telepresence#telepresence-robot-kit-manual-overview "CORE2 Telepresence robot")
 
 Keeps your 18650 cells together and delivers the sum of their voltage to your CORE2 or other device :)

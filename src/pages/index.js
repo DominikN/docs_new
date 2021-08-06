@@ -80,7 +80,7 @@ function Home() {
                    'button button--primary button--outline button--lg',
                    styles.getStarted,
                  )}
-                  to={useBaseUrl('docs/begin-linux')}>
+                  to={useBaseUrl('manuals/')}>
                   Get Started
                 </Link>
               </div>

@@ -460,7 +460,7 @@ In this section you will find instructions on how to update CORE2 bootloader whe
 
 ### Updating CORE2 bootloader ###
 
-You need to have Visual Studio Code installed with Husarion extension. Please follow this guide if you haven't done this before: [VSCode installation](/tutorials/other-tutorials/offline-development-tools#offline-development-tools-installation-guide) 
+You need to have Visual Studio Code installed with Husarion extension. Please follow this guide if you haven't done this before: [VSCode installation](/tutorials/deprecated/offline-development-tools#offline-development-tools-installation-guide) 
 1. Locate core2-flasher utility (YOUR_HOME_PATH/.vscode/extensions/husarion.husarion-VERSION/sdk/tools/YOUR_ARCH/core2-flasher).
 2. Download the bootloader [HEX file](https://files.husarion.com/bootloader/bootloader_1_0_0_core2.hex) to the folder with core2-flasher
 3. Connect CORE2 to PC via USB.

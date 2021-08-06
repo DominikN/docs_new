@@ -8,7 +8,7 @@ id: rosbot-ros2-demo
 
 The goal of this tutorial is to launch navigation2 demo, which will allow the robot to navigate autonomously and avoid obstacles. The ROSbot will be visualized and controlled through Rviz.
 
-<div style="text-align: center">
+<div style={{textAlign: 'center'}}>
 <iframe width="784" height="441" src="https://www.youtube.com/embed/fY-Z9OqY0eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
