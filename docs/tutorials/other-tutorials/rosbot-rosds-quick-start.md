@@ -52,12 +52,12 @@ ROSbotIP:3000
 
 You will see connection panel:
 
-![ROSds_webUI](/docs/assets/img/rosds-tutorials/rosds_webui.png)
+![ROSds_webUI](/img/rosds-tutorials/rosds_webui.png)
 
 
 In **Device name** field type name of your device `rosbot-rds` then push button **Turn On**, you will see link under **ROSbot URL**:
 
-![ROSds_webUI_active](/docs/assets/img/rosds-tutorials/rosds_webui_active.png)
+![ROSds_webUI_active](/img/rosds-tutorials/rosds_webui_active.png)
 
 ROSbot is ready to connect with RDS.
 
@@ -67,15 +67,15 @@ Open [ROSject](http://www.rosject.io/l/97f593a/) prepared for this turorial.
 
 Open menu **Real Robot** and choose button **Connect to Robot**
 
-![Real Robot 1](/docs/assets/img/rosds-tutorials/rds_connect_to_real_robot.png)
+![Real Robot 1](/img/rosds-tutorials/rds_connect_to_real_robot.png)
 
 In dialog menu provide `rosbot-rds` in **Robot name** field and in **Robot URL* paste link that you have copied earlier.
 
-![Real Robot 2](/docs/assets/img/rosds-tutorials/rds_connect_to_real_robot_2.png)
+![Real Robot 2](/img/rosds-tutorials/rds_connect_to_real_robot_2.png)
 
 When process is finished, you should see menu allowing you to choose master device, select **rosbot**.
 
-![Real Robot 3](/docs/assets/img/rosds-tutorials/rds_connect_to_real_robot_3.png)
+![Real Robot 3](/img/rosds-tutorials/rds_connect_to_real_robot_3.png)
 
 Select **Tools** -> **Shell** to open terminal view, connect to ROSbot through SSH:
 ```
@@ -102,7 +102,7 @@ roslaunch rosbot_description model_preview.launch
 
 Select **Tools** -> **Graphical Tools**
 
-![Rviz](/docs/assets/img/rosds-tutorials/rds_rviz_2.png)
+![Rviz](/img/rosds-tutorials/rds_rviz_2.png)
 
 You will see visualization of ROSbot, laser scans and generated map.
 

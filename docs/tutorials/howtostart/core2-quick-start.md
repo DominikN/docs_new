@@ -12,7 +12,7 @@ Connect your CORE2 to a DC power supply. The power connector is a standard DC 5.
 * Li-poly/Li-ion packages - 2S or 3S (e.g. 18650 batteries)
 * AA alkaline batteries (4-10 pieces)
 
-![](/docs/assets/img/howToStart/core2_power_supply.png)
+![](/img/howToStart/core2_power_supply.png)
 
 Set the power switch to "ON" position and now your device is ready to use!
 
@@ -67,7 +67,7 @@ Before we start extract file `husarion-tools.zip` which contain few versions of 
 
 Now let's plug in micro USB cable to USB hSerial port and to your computer. 
 
-![](/docs/assets/img/howToStart/core2_hSerial.png)
+![](/img/howToStart/core2_hSerial.png)
 
 Open console and run core2-flasher using our `example.hex`:
 
@@ -80,13 +80,13 @@ for example:
 ```
 Everything went OK, if you will see output similar to this:
 
-![](/docs/assets/img/howToStart/output.png)
+![](/img/howToStart/output.png)
 
 #### Checking the results
 
 If LEDs start blinking like on the animation below then congratulations! You've just successfully flashed your first Mbed application for CORE2!
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial-animation.gif)
+![](/img/mbed-tutorials/mbed-tutorial-animation.gif)
 
 ## Summary
 

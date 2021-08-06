@@ -27,7 +27,7 @@ What's in the box:
 
 In the picture below you can see names of the elements from the rear panel of the ROSbot.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/ROSbot2_rear_panel.png)
+![image](/img/aws-tutorials/quick-start/ROSbot2_rear_panel.png)
 
 ## Hardware setup
 
@@ -42,18 +42,18 @@ To mount the batteries turn ROSbot upside down and follow these steps:
 3. Place batteries **accordingly to the polarization symbols (do it carefully!)**, keeping the black strip under the batteries.
 4. Place battery cover and mount it with screws.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_battery.png)
+![image](/img/aws-tutorials/quick-start/rosbot_battery.png)
 
 ### 2. Batteries charging guide
 
 1. Connect the power adapter to the charger and the output cable between charger and ROSbot (2 connectors on charger side, 1 black connector to ROSbot charging port).
 
-![image](/docs/assets/img/aws-tutorials/quick-start/charger_1.png)
-![image](/docs/assets/img/aws-tutorials/quick-start/charger_2.png)
+![image](/img/aws-tutorials/quick-start/charger_1.png)
+![image](/img/aws-tutorials/quick-start/charger_2.png)
 
 After this step is complete your charger should look like this:
 
-![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_charger.jpg)
+![image](/img/aws-tutorials/quick-start/rosbot_charger.jpg)
 
 2. Use the first two buttons to select “LiPo BATT” mode and press [Start] button.
 3. Use arrows to select “LiPo CHARGE” mode.
@@ -64,13 +64,13 @@ After this step is complete your charger should look like this:
 
 The picture below is a visualization of the mentioned steps.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/charging.png)
+![image](/img/aws-tutorials/quick-start/charging.png)
 
 ### 3. Attaching the antenna
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_antenna.png)
+![image](/img/aws-tutorials/quick-start/rosbot_antenna.png)
 
 ## Connecting to Wi-Fi network
 
@@ -200,7 +200,7 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 - Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/).
 - In the left navigation pane, choose **Fleet Management** and then choose **Robots**.
 
-![RoboMaker robots](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_1.png)
+![RoboMaker robots](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_1.png)
 
 - Choose \*_Create robot_.
 - In the **Name** field, type `ROSbot`.
@@ -209,11 +209,11 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 - In the **AWS Greengrass prefix** field type `ROSbot`.
 - In the **IAM role** select **ROSbot-deployment-role**.
 
-![RoboMaker create robot](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_2.png)
+![RoboMaker create robot](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_2.png)
 
 - Proceed with **Create**, you will be redirected to **Download your Core device** page.
 
-![RoboMaker robot created](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_3.png)
+![RoboMaker robot created](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_3.png)
 
 - Choose **Download** button next to **Download and store your Core's security resources**, you will get `ROSbot-setup.zip` file.
 
@@ -242,7 +242,7 @@ You will need an SCP client, download and install [WinSCP](https://winscp.net/en
 
 Start WinSCP, you will see the login dialog:
 
-![WinSCP login](/docs/assets/img/aws-tutorials/quick-start/winscp1.png)
+![WinSCP login](/img/aws-tutorials/quick-start/winscp1.png)
 
 - From `File protocol` dropdown menu choose: `SFTP`.
 - In `Host name` field provide rosbot IP address that you noted earlier, it is the value which we described as `ROSBOT_IP`.
@@ -252,7 +252,7 @@ Start WinSCP, you will see the login dialog:
 
 When all fields are filled up, click `Login` button to connect, you will see file manager view.
 
-![WinSCP file manager](/docs/assets/img/aws-tutorials/quick-start/winscp2.png)
+![WinSCP file manager](/img/aws-tutorials/quick-start/winscp2.png)
 
 In the left tab navigate to directory where you downloaded the ROSbot-setup.zip file. In the right tab navigate to `/home/husarion` directory.
 
@@ -280,7 +280,7 @@ Press `WinKey` + `r` then type `mstsc`.
 
 You will see a window appear:
 
-![Windows RDP](/docs/assets/img/aws-tutorials/quick-start/win_rdp.png)
+![Windows RDP](/img/aws-tutorials/quick-start/win_rdp.png)
 
 Type in your device IP address and click connect.
 
@@ -330,7 +330,7 @@ Application will be built using the RoboMaker environment. To create the IDE:
 
 - Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/home)
 
-![RoboMaker new IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_4.png)
+![RoboMaker new IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_4.png)
 
 - On the left, expand **Development**, choose **Development environments**, and then choose **Create environment**.
 - In the Create AWS RoboMaker development environment page, enter `rosbot_env` as the environment name.
@@ -338,11 +338,11 @@ Application will be built using the RoboMaker environment. To create the IDE:
 - In **VPC** dropdown list choose the default value.
 - In the **Subnets** dropdown list choose the first subnet. You can select different subnet if necessary.
 
-![RoboMaker create IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_5.png)
+![RoboMaker create IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_5.png)
 
 - Choose **Create** to create the AWS Cloud9 development environment.
 
-![RoboMaker IDE ready](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
+![RoboMaker IDE ready](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
 
 ## Deploying the application
 
@@ -354,7 +354,7 @@ To deploy application, you will use RoboMaker environment created in previous st
 
 - Open the development environment with **Open environment** button.
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
+![RoboMaker open IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
 
 - In the IDE, go to bash tab and clone the `rosbot-robomaker` repository in `~/environment/` directory:
 
@@ -363,7 +363,7 @@ cd ~/environment/
 git clone --recurse-submodules https://github.com/husarion/rosbot-robomaker.git RoboMakerROSbotProject
 ```
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_10.png)
+![RoboMaker open IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_10.png)
 
 - Start the configuration script. You need to provide the S3 bucket name and the ARNs of the IAM roles that were created by CloudFormation earlier. The parameters to the script should be set to the corresponding values provided in the output of your CloudFormation stack:
 
@@ -372,7 +372,7 @@ cd ~/environment/RoboMakerROSbotProject/
 ./IDE_setup.bash <S3BucketName> <RoboMakerRole> <ROSbotDeploymentRole>
 ```
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_11.png)
+![RoboMaker open IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_11.png)
 
 The script will install all dependencies, configure project, build and set the deployment job.
 
@@ -383,7 +383,7 @@ When the script is done with its job, you can observe the deployment process:
 - When new deployment will appear, open it by clicking its name.
 - Wait until deployment status changes to **Succeed** - ROSbot will start to explore environment.
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_12.png)
+![RoboMaker open IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_12.png)
 
 ## Viewing the results
 
@@ -401,7 +401,7 @@ You will see the Rviz visualization tool with created map and a planned trajecto
 
 You can see an example map being created on the screenshot below.
 
-![RoboMaker exploration screenshot](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_13.png)
+![RoboMaker exploration screenshot](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_13.png)
 
 Map is considered complete, when there is no traversable gaps within the map boundaries.
 

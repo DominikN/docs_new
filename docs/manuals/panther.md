@@ -11,18 +11,18 @@ id: panther
 
 <div class="clearfix">
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/Panther_basic_right-front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/Panther_basic_right-front_perspective_view.jpg" alt="Panther basic right-front perspective view" class="hover-shadow"/>
+    <a href="/img/Panther/Panther_basic_right-front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/Panther/Panther_basic_right-front_perspective_view.jpg" alt="Panther basic right-front perspective view" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/Panther_basic_front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/Panther_basic_front_perspective_view.jpg" alt="Panther basic front perspective view" class="hover-shadow"/>
+    <a href="/img/Panther/Panther_basic_front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/Panther/Panther_basic_front_perspective_view.jpg" alt="Panther basic front perspective view" class="hover-shadow"/>
     </a>
 </div> 
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/Panther_basic_left-front_perspective_view.jpg" alt="Panther basic left-front perspective view" class="hover-shadow"/>
+    <a href="/img/Panther/Panther_basic_left-front_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/Panther/Panther_basic_left-front_perspective_view.jpg" alt="Panther basic left-front perspective view" class="hover-shadow"/>
     </a>
 </div> 
 </div>
@@ -32,18 +32,18 @@ Autonomous, mobile robot platform dedicated for outdoor environment. Compliant w
 
 <div class="clearfix">
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/Panther_basic_left-front_high_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/Panther_basic_left-front_high_perspective_view.jpg" alt="Panther basic left-front high perspective view" class="hover-shadow"/>
+    <a href="/img/Panther/Panther_basic_left-front_high_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/Panther/Panther_basic_left-front_high_perspective_view.jpg" alt="Panther basic left-front high perspective view" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/Panther_basic_left_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/Panther_basic_left_perspective_view.jpg" alt="Panther basic left perspective view" class="hover-shadow"/>
+    <a href="/img/Panther/Panther_basic_left_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/Panther/Panther_basic_left_perspective_view.jpg" alt="Panther basic left perspective view" class="hover-shadow"/>
     </a>
 </div> 
 <div class="img-container w3">
-    <a href="/docs/assets/img/Panther/Panther_basic_right-front_high_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/Panther/Panther_basic_right-front_high_perspective_view.jpg" alt="Panther basic right-front high perspective view" class="hover-shadow"/>
+    <a href="/img/Panther/Panther_basic_right-front_high_perspective_view.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/Panther/Panther_basic_right-front_high_perspective_view.jpg" alt="Panther basic right-front high perspective view" class="hover-shadow"/>
     </a>
 </div> 
 </div>
@@ -196,7 +196,7 @@ See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husario
 
 Graphic representation of Panther components and connections between them. A full, more detailed version of the block diagram can be downloaded [here](https://files.husarion.com/panther/schematic_block_diagram.pdf).
 
-![Block diagram](/docs/assets/img/Panther/simplified_block_diagram.png "Block diagram")
+![Block diagram](/img/Panther/simplified_block_diagram.png "Block diagram")
 
 ### Power Switch and Emergency button ###
 
@@ -212,7 +212,7 @@ Pushing the safety switch completely cuts off the power to the device.
 
 > **Note:** Cutting off the computer's power may cause data loss.
 
-![Power switch positions](/docs/assets/img/Panther/power_switch.png "Power switch positions")
+![Power switch positions](/img/Panther/power_switch.png "Power switch positions")
 
 ### Power supply ###
 
@@ -223,7 +223,7 @@ Low battery level will be indicated by a change in the bumper light - both light
 To meet the user's needs, the robot is equipped with 9 high-power electrical connectors that are able to provide a total of 505W of power to the user's devices.
 The supply voltages available on the user Power panel are 5V with a total current limitation up to 15A (3x female XT60), 12V limited to 20A (3x female XT60) and 19V limited to 10A (3x female XT60).
 
-![User Panel - Power Supply](/docs/assets/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
+![User Panel - Power Supply](/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
 
 > **Note:** One of 19V output is used by NUC and one of 12V output is used by router.
 
@@ -252,18 +252,18 @@ In the set with the robot, we provide a dedicated 42V @ 5A charger, which the ro
 
 Sensors, constructions and payload can be attached to the profiles on top of the robot. 
 
-![Rails on top of the Robot](/docs/assets/img/Panther/top_rails_v1.0.png "Rails on top of the Robot")
+![Rails on top of the Robot](/img/Panther/top_rails_v1.0.png "Rails on top of the Robot")
 
 The profiles used are aluminum V-slot 2020 profiles. The best way to attach the elements to them is to use mounting elements dedicated to this type of profiles, such as T-nuts, fittings and angles.
 
-![V-slot aluminum extrusion](/docs/assets/img/Panther/v-slot_profile.png "Block diagram")
+![V-slot aluminum extrusion](/img/Panther/v-slot_profile.png "Block diagram")
 
 These profiles are fixed to the robot with four 8mmx40mm quick release pins with ball lock. 
 
-![Top rails fixing](/docs/assets/img/Panther/top_rails_mounting_v1.0.png "Top rails fixing")
+![Top rails fixing](/img/Panther/top_rails_mounting_v1.0.png "Top rails fixing")
 
 To enable access to user space, top rails can be pivoted by pulling out 2x quick release pin in both front and back direction. Maximum opening angle is 160 degrees with built-in stop.
-![Top rails open](/docs/assets/img/Panther/top_rails_open_v1.0.png "Top rails open") 
+![Top rails open](/img/Panther/top_rails_open_v1.0.png "Top rails open") 
 For more useful information in the field of mechanics, please see the document [Panther Overall Dimensions](/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
 
 > **Note** The presence of railings has no effect on the water and dust resistance of the robot.
@@ -279,16 +279,16 @@ These lights may be widely used - to indicate the status of the robot, the direc
 
 The robot's volume has been divided into three parts.
 The central space is dedicated to the user's components and electronics. Here, by default, the Inter NUC computer, RUTX11 router and the robot's battery are located. Two user panels has been led to this space. A panel distributing electric power for the user:
-![User Panel - Power Supply](/docs/assets/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
+![User Panel - Power Supply](/img/Panther/UserPanel_PowerSupply.png "User Panel - Power Supply")
 And a panel for communication with the rest of the robot - as standard it is an Ethernet connector to the internal SBC):
-![User Panel - Communication Port](/docs/assets/img/Panther/UserPanel_CommunicationPort.png "User Panel - Communication Port")
+![User Panel - Communication Port](/img/Panther/UserPanel_CommunicationPort.png "User Panel - Communication Port")
 The front and rear spaces are occupied by motors and built-in electronics. For these spaces it is usually not needed to access by the user. Opening these spaces is mainly used for service work.
 
 To access the components inside the user space, pivot the top rails by pulling 2x quick release pin and then unscrew Cover (18x DIN912 M5x12).
-![Cover fixing](/docs/assets/img/Panther/access_to_user_space_v1.0.png "Cover fixing")
+![Cover fixing](/img/Panther/access_to_user_space_v1.0.png "Cover fixing")
 
 To access the components in service space, pivot the top rails by pulling 2x quick release pin and then unscrew (19x DIN912 M5x12).
-![Deck fixing](/docs/assets/img/Panther/access_to_service_space_v1.0.png "[Deck fixing")
+![Deck fixing](/img/Panther/access_to_service_space_v1.0.png "[Deck fixing")
 
 The bolts must be re-tightened with a torque of 4-5 Nm.
 > **Warning!** A necessary condition to meet the protection rate for external conditions and the faultless operation of the robot is lack of foreign objects on the seal.
@@ -299,15 +299,18 @@ The bolts must be re-tightened with a torque of 4-5 Nm.
 
 Inside the robot, there is a dedicated volume of approximately 14.5 liters (3.8 gallons) for the user's equipment and devices. This part of the robot has the same water and dust tightness class as the robot. By default, there is the Intel NUC on-board computer and the RUTx11 router responsible for both the communication of the robot with the inner world and the connection of computers and sensors within the robot.
 
-![User's space](/docs/assets/img/Panther/UserSpaceDrawning.png "[User's space")
+![User's space](/img/Panther/UserSpaceDrawning.png "[User's space")
 
 ### CAD models ###
 
 To facilitate the work with the project based on Panther platform, we have prepared CAD models for download in three extension formats:
 
-* [STEP](/docs/assets/models/Panther_v1.0.step.zip "STEP model")
-* [IGES](/docs/assets/models/Panther_v1.0.iges.zip "IGES model")
-* [STL](/docs/assets/models/Panther_v1.0.stl.zip "STL model")
+<a href="/docs/assets/models/Panther_v1.0.step.zip" download target="_blank">STEP</a>
+<br />
+<a href="/docs/assets/models/Panther_v1.0.iges.zip" download target="_blank">IGES</a>
+<br />
+<a href="/docs/assets/models/Panther_v1.0.stl.zip" download target="_blank">STL</a>
+
 
 ## Software guide ##
 
@@ -552,7 +555,7 @@ PANTHER_IP_ADDRESS:8000 #default 10.15.20.3:8000
 
 You should see interface like below:
 
-![RouteAdminPanelScreenshot](/docs/assets/img/software/route-admin-panel.png)
+![RouteAdminPanelScreenshot](/img/software/route-admin-panel.png)
 
 ## Network ##
 

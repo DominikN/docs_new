@@ -116,15 +116,15 @@ If you have ros2 Foxy installed on your system just type `rviz2` to launch rviz.
 
 Add displays you want but for navigation add at least map and select global frame to map.
 
-![image](/docs/assets/img/ros2-tutorials/rviz2.png)
+![image](/img/ros2-tutorials/rviz2.png)
 
 To add destination use green "2D Goal Pose" arrow in the top bar. 
 
-![image](/docs/assets/img/ros2-tutorials/rviz2-nav2.png)
+![image](/img/ros2-tutorials/rviz2-nav2.png)
 
 If you want to see rosbot model displayed in rviz2 you will have to select the `rosbot_description/urdf/rosbot.urdf` file in RobotModel section.
 
-![image](/docs/assets/img/ros2-tutorials/rviz2-urdf.png)
+![image](/img/ros2-tutorials/rviz2-urdf.png)
 
 **NOTE** Currently dds implementations are heavy on resources so please limit shown displays. 
 

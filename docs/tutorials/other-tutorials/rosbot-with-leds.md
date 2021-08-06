@@ -6,14 +6,14 @@ title: ROSbot with WS2812B LEDs signalization
 
 ## Introduction
 
-<a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img1.jpg" data-fancybox="images" data-caption="ROSbot status illumination">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img1-small.jpg" alt="ROSbot status illumination" class="hover-shadow"/>
+<a href="/img/mbed-tutorials/mbed-tutorial2-img1.jpg" data-fancybox="images" data-caption="ROSbot status illumination">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img1-small.jpg" alt="ROSbot status illumination" class="hover-shadow"/>
 </a>
 
 By default ROSbot has three LEDs that can be used by user's applications to indicate status and battery condition. However, their location at the rear panel and the fact that they have only single color can limit possible use cases. In more demanding applications where there are many distinct robot's states we need more clear, visible and robust solution.  
 
 <p align="center">
-<img alt="WS2812B chip" src="/docs/assets/img/mbed-tutorials/ws2812b-chip.jpg" title="WS2812B chip" />
+<img alt="WS2812B chip" src="/img/mbed-tutorials/ws2812b-chip.jpg" title="WS2812B chip" />
 </p>
 
 In this tutorial we will present you with elegant and easy approach to this problem. We will use a popular and cheap ws2812b RGB LED strip. Each LED pixel is individually addressed and it is capable of displaying 256 levels of brightness for each color giving overall 16 millions of color depth.
@@ -27,8 +27,8 @@ Additionally to ROSbot, basic soldering skills and soldering equipment you will 
 
 * **WS2812b LED strip 1m 30leds/pixels/m** - we will use only 16 pixels, but you can use more. However, these leds are quite power hungry and they can significantly reduce ROSbot's operation time if used in large quantities (they consume 52.5 mA max per pixel).
 
-<a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img2.jpg" data-fancybox="images" data-caption="WS2812b">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img2-small.jpg" alt="WS2812b" class="hover-shadow"/>
+<a href="/img/mbed-tutorials/mbed-tutorial2-img2.jpg" data-fancybox="images" data-caption="WS2812b">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img2-small.jpg" alt="WS2812b" class="hover-shadow"/>
 </a>
 
 * **scissors**
@@ -38,8 +38,8 @@ Additionally to ROSbot, basic soldering skills and soldering equipment you will 
 * **heat shrink sleeves** to protect connections between cuted led strips
 * **2.54mm (0.1") Pitch Female Connector 3 Position** - to swap with the default connector that comes with the strip
 
-<a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img3.jpg" data-fancybox="images" data-caption="female connector 3 position">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img3-small.jpg" alt="female connector 3 position" class="hover-shadow"/>
+<a href="/img/mbed-tutorials/mbed-tutorial2-img3.jpg" data-fancybox="images" data-caption="female connector 3 position">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img3-small.jpg" alt="female connector 3 position" class="hover-shadow"/>
 </a>
 
 * **crimping pliers or universal pliers** - to attach crimp pins 
@@ -76,8 +76,8 @@ If you intend to use more then 16 led pixels (which is the value hardcoded in th
 
 where `x` is the number of leds you want to use.
 
-<a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img4.png" data-fancybox="images" data-caption="mbed_app.json">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img4.png" alt="mbed_app.json" width="600" class="hover-shadow" />
+<a href="/img/mbed-tutorials/mbed-tutorial2-img4.png" data-fancybox="images" data-caption="mbed_app.json">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img4.png" alt="mbed_app.json" width="600" class="hover-shadow" />
 </a>
 
 Build firmware using `BUILD (RELEASE)` task. The `firmware.bin` file should appear in the directory `BUILD/RELEASE`. To upload the firmware using `stm32loader` please follow the guide from [previous tutorial](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/#stm32loader-usage).
@@ -105,31 +105,31 @@ First thing you have to do is to install pin crimps for the new connector. I use
 
 <div class="clearfix">
 <div class="img-container w3">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img5.jpg" data-fancybox="images" data-caption="old pin crimps">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img5-small.png" alt="old pin crimps" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img5.jpg" data-fancybox="images" data-caption="old pin crimps">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img5-small.png" alt="old pin crimps" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img6.jpg" data-fancybox="images" data-caption="new pin crimps">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img6-small.png" alt="new pin crimps" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img6.jpg" data-fancybox="images" data-caption="new pin crimps">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img6-small.png" alt="new pin crimps" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img7.jpg" data-fancybox="images" data-caption="new connector">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img7-small.jpg" alt="new connector" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img7.jpg" data-fancybox="images" data-caption="new connector">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img7-small.jpg" alt="new connector" class="hover-shadow"/>
     </a>
 </div>
 </div>
 
 <div class="clearfix">
 <div class="img-container w2">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img8.jpg" data-fancybox="images" data-caption="color code">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img8-small.jpg" alt="color code" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img8.jpg" data-fancybox="images" data-caption="color code">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img8-small.jpg" alt="color code" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w2">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img9.jpg" data-fancybox="images" data-caption="new connector in ROSbot">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img9-small.jpg" alt="new connector in ROSbot" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img9.jpg" data-fancybox="images" data-caption="new connector in ROSbot">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img9-small.jpg" alt="new connector in ROSbot" class="hover-shadow"/>
     </a>
 </div>
 </div>
@@ -140,42 +140,42 @@ It is a good practice to color code your connectors, in this case to mark the co
 
 I recommend to place your led installation in "chamfers" under front and rear panel of ROSbot's body. This way illumination will be clearly visible but it won't be irritating for eyes. In each "chamfer" we can fit 2 strips, 4 pixels each. You should prepare 4 pieces:
 
-<a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img10.jpg" data-fancybox="images" data-caption="led strips">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img10-small.jpg" alt="led strips" class="hover-shadow" />
+<a href="/img/mbed-tutorials/mbed-tutorial2-img10.jpg" data-fancybox="images" data-caption="led strips">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img10-small.jpg" alt="led strips" class="hover-shadow" />
 </a>
 
 <strong>3. Install double sided tape.</strong>
 
 It is not necessary since the strips usually come with its own adhesive.
 
-<a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img11.jpg" data-fancybox="images" data-caption="double sided tape installation">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img11-small.jpg" alt="double sided tape installation" class="hover-shadow" />
+<a href="/img/mbed-tutorials/mbed-tutorial2-img11.jpg" data-fancybox="images" data-caption="double sided tape installation">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img11-small.jpg" alt="double sided tape installation" class="hover-shadow" />
 </a>
 
 <strong>4. Solder the strips together.</strong>
 
 Here is the connection diagram:
 
-<a href="/docs/assets/img/mbed-tutorials/ws2812b-connection-diagram.png" data-fancybox="images" data-caption="double sided tape installation">
-    <img src="/docs/assets/img/mbed-tutorials/ws2812b-connection-diagram.png" alt="double sided tape installation" class="hover-shadow" width="640"/>
+<a href="/img/mbed-tutorials/ws2812b-connection-diagram.png" data-fancybox="images" data-caption="double sided tape installation">
+    <img src="/img/mbed-tutorials/ws2812b-connection-diagram.png" alt="double sided tape installation" class="hover-shadow" width="640"/>
 </a>
 
 Measure the distance between each strip to prepare enough cable and install the heat shrinking sleeves before soldering. Remember to connect the DOUT port of one strip with the DIN port of an another strip, otherwise they won't work. After you have the whole installation prepared you can attach it to ROSbot using provided adhesive or the double sided tape.
 
 <div class="clearfix">
 <div class="img-container w3">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img12.jpg" data-fancybox="images" data-caption="old pin crimps">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img12-small.jpg" alt="old pin crimps" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img12.jpg" data-fancybox="images" data-caption="old pin crimps">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img12-small.jpg" alt="old pin crimps" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img14.jpg" data-fancybox="images" data-caption="new pin crimps">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img14-small.jpg" alt="new pin crimps" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img14.jpg" data-fancybox="images" data-caption="new pin crimps">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img14-small.jpg" alt="new pin crimps" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img13.jpg" data-fancybox="images" data-caption="new connector">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-img13-small.jpg" alt="new connector" class="hover-shadow"/>
+    <a href="/img/mbed-tutorials/mbed-tutorial2-img13.jpg" data-fancybox="images" data-caption="new connector">
+    <img src="/img/mbed-tutorials/mbed-tutorial2-img13-small.jpg" alt="new connector" class="hover-shadow"/>
     </a>
 </div>
 </div>
@@ -257,11 +257,11 @@ Available commands:
 In this example we will use the ws2812b leds to achieve a different ROSbot illumination depending on the robot's speed. The result is really cool. Check it out:
 
 <a data-fancybox href="#feature-sample_3">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-still-frame2.png" width="480px" class="hover-shadow"/>
+    <img src="/img/mbed-tutorials/mbed-tutorial2-still-frame2.png" width="480px" class="hover-shadow"/>
 </a>
 
 <video width="640" height="320" controls id="feature-sample_3" style="display:none;">
-    <source src="/docs/assets/video/mbed-tutorials/feature_sample_3.webm" type="video/webm">
+    <source src="/docs/assets/video/mbed-tutorials/feature_sample_3.webm" type="video/webm" />
     Your browser doesn't support HTML5 video tag.
 </video>
 
@@ -296,11 +296,11 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 In this example we will provide a distinct animation for each `move_base/status` ID in autonomous navigation. The visual differentiation between robot's states can be helpful in debugging ros autonomous applications and it also looks awesome. Check it out:
 
 <a data-fancybox href="#feature-sample">
-    <img src="/docs/assets/img/mbed-tutorials/mbed-tutorial2-still-frame.png" width="480px" class="hover-shadow"/>
+    <img src="/img/mbed-tutorials/mbed-tutorial2-still-frame.png" width="480px" class="hover-shadow"/>
 </a>
 
 <video width="640" height="320" controls id="feature-sample" style="display:none;">
-    <source src="/docs/assets/video/mbed-tutorials/feature_sample.webm" type="video/webm">
+    <source src="/docs/assets/video/mbed-tutorials/feature_sample.webm" type="video/webm" />
     Your browser doesn't support HTML5 video tag.
 </video>
 
@@ -318,22 +318,22 @@ Here are the states that will be visualized:
         <td><code>SANI S #000000</code></td>
     </tr>
     <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_blue.gif" width="200" /></td>
+        <td><img src="/img/mbed-tutorials/anim_blue.gif" width="200" /></td>
         <td align="center"><code>ACTIVE</code></td>
         <td><code>SANI F #0038ff</code></td>
     </tr>
     <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_yellow.gif" width="200" /></td>
+        <td><img src="/img/mbed-tutorials/anim_yellow.gif" width="200" /></td>
         <td align="center"><code>PREEMPTED</code></td>
         <td><code>SANI F #fda600</code></td>
     </tr>
     <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_green.gif" width="200" /></td>
+        <td><img src="/img/mbed-tutorials/anim_green.gif" width="200" /></td>
         <td align="center"><code>SUCCEEDED</code></td>
         <td><code>SANI F #32ae00</code></td>
     </tr>
     <tr>
-        <td><img src="/docs/assets/img/mbed-tutorials/anim_red.gif" width="200" /></td>
+        <td><img src="/img/mbed-tutorials/anim_red.gif" width="200" /></td>
         <td align="center"><code>ABORTED</code></td>
         <td><code>SANI B #c90000</code></td>
     </tr>

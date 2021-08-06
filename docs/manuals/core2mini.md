@@ -5,13 +5,13 @@ id: core2mini
 
 <div class="clearfix">
 <div class="img-container">
-    <a href="/docs/assets/img/core2mini/coremini.jpg" data-fancybox="gallery" data-caption="CORE2mini board">
-    <img src="/docs/assets/img/core2mini/coremini.jpg" alt="CORE2mini board" class="hover-shadow"/>
+    <a href="/img/core2mini/coremini.jpg" data-fancybox="gallery" data-caption="CORE2mini board">
+    <img src="/img/core2mini/coremini.jpg" alt="CORE2mini board" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container">
-    <a href="/docs/assets/img/core2mini/scheme.jpg" data-fancybox="gallery" data-caption="CORE2mini pinout">
-    <img src="/docs/assets/img/core2mini/scheme.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
+    <a href="/img/core2mini/scheme.jpg" data-fancybox="gallery" data-caption="CORE2mini pinout">
+    <img src="/img/core2mini/scheme.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
     </a>
 </div> 
 </div>
@@ -27,12 +27,12 @@ id: core2mini
     <tr>
         <td>Power input</td>
         <td>6.8-16V</td>
-        <td>70...2500mA current consumption, depends on external modules<br>standard 5.5/2.1 mm DC plug (centre-positive)</td>
+        <td>70...2500mA current consumption, depends on external modules<br />standard 5.5/2.1 mm DC plug (centre-positive)</td>
     </tr>
     <tr>
         <td>I/O ports</td>
         <td>20</td>
-        <td>3.3V/5V tolerant GPIOs<br>series resistance is 330 ohms</td>
+        <td>3.3V/5V tolerant GPIOs<br />series resistance is 330 ohms</td>
     </tr>
     <tr>
         <td>ADC</td>
@@ -86,7 +86,7 @@ The hSensor is intended to be used with many different sensors, such as spatial 
 
 <div class="image center h300">
 
-![](/docs/assets/img/core2-hardware/hsensor.svg)
+![](/img/core2-hardware/hsensor.svg)
 
 </div>
 
@@ -116,8 +116,8 @@ The hSensor is intended to be used with many different sensors, such as spatial 
         <td align="center">3</td>
         <td>hSensX.pin3</td>
         <td>GPIO</td>
-        <td>I2C_SCL (in hSens 1) <br>
-            UART_TX (in hSens 2) <br>
+        <td>I2C_SCL (in hSens 1) <br />
+            UART_TX (in hSens 2) <br />
 	    no alt. function (in hSens 3)</td>
         <td></td>
     </tr>
@@ -125,8 +125,8 @@ The hSensor is intended to be used with many different sensors, such as spatial 
         <td align="center">4</td>
         <td>hSensX.pin4</td>
         <td>GPIO</td>
-        <td>I2C_SDA (in hSens 1)<br>
-        UART_RX (in hSens 2) <br>
+        <td>I2C_SDA (in hSens 1)<br />
+        UART_RX (in hSens 2) <br />
 	no alt. function (in hSens 3)</td>
         <td></td>
     </tr>
@@ -147,7 +147,9 @@ The hSensor is intended to be used with many different sensors, such as spatial 
 </tbody>
 </table>
 
-[comment]: <> (***Advice: use <mark>ctrl + SPACE</mark> after typing "software_name." to see methods in the web IDE.***)
+:::info
+Advice: use <mark>ctrl + SPACE</mark> after typing "software_name." to see methods in the web IDE.
+:::
 
 Using ADC
 ```
@@ -197,7 +199,7 @@ You can connect up to 4 servo motors directly to CORE2mini. Power supply is onbo
 
 <div class="image center h300">
 
-![](/docs/assets/img/core2-hardware/hservo.svg)
+![](/img/core2-hardware/hservo.svg)
 
 </div>
 
@@ -216,7 +218,7 @@ You can connect up to 4 servo motors directly to CORE2mini. Power supply is onbo
     <tr>
         <td align="center">2</td>
         <td align="left">Servo power supply output</td>
-        <td>selectable voltage level: 5V / 6V / 7.4V / 8.6V (tolerance +/- 0.2V) <br>
+        <td>selectable voltage level: 5V / 6V / 7.4V / 8.6V (tolerance +/- 0.2V) <br />
         Maximum current comsuption for all servos: 2A (continous) , 3.5A (peak)</td>
 	</tr>
     <tr>
@@ -256,7 +258,7 @@ The encoder interface is compatible with the majority of popular optical and mag
 
 <div class="image center h300">
 
-![](/docs/assets/img/core2-hardware/hmot.svg)
+![](/img/core2-hardware/hmot.svg)
 
 </div>
 
@@ -270,13 +272,13 @@ The encoder interface is compatible with the majority of popular optical and mag
     <tr>
         <td align="center">1</td>
         <td>Output A</td>
-        <td>Output voltage: 0 - Vin (6-16V) <br>
+        <td>Output voltage: 0 - Vin (6-16V) <br />
 	        Output current: 1A (continuous), 2A (peak) with built-in overcurrent protection</td>
 	</tr>
     <tr>
         <td align="center">2</td>
         <td>Output B</td>
-        <td>Output voltage: 0 - Vin (6-16V) <br>
+        <td>Output voltage: 0 - Vin (6-16V) <br />
         Output current: 1A (continuous), 2A (peak) with built-in overcurrent protection
         </td>
     </tr>
@@ -309,7 +311,7 @@ The encoder interface is compatible with the majority of popular optical and mag
 
 <div class="thumb w180 right">
 
-![](/docs/assets/img/core2-hardware/motors_encoders.jpg)
+![](/img/core2-hardware/motors_encoders.jpg)
 
 </div>
 
@@ -322,7 +324,7 @@ Remember not to power your motors using higher voltage than recommended in their
 
 <div class="thumb w180 right">
 
-![](/docs/assets/img/core2-hardware/dc_motor.jpg)
+![](/img/core2-hardware/dc_motor.jpg)
 
 </div>
 
@@ -334,7 +336,7 @@ Despite the lack of the encoder, you still can recognize the extreme positions o
 
 <div class="thumb w180 right">
 
-![](/docs/assets/img/core2-hardware/lego_motors.jpg)
+![](/img/core2-hardware/lego_motors.jpg)
 
 </div>
 
@@ -346,7 +348,7 @@ Remember that LEGO® motors have 9V nominal voltage and when you supply CORE2min
 
 <div class="thumb w180 right">
 
-![](/docs/assets/img/core2-hardware/hstep.png)
+![](/img/core2-hardware/hstep.png)
 
 </div>
 
@@ -356,7 +358,7 @@ Connecting a bipolar stepper motor is also possible. In this case, you need two 
 
 <div class="image center h300">
 
-![](/docs/assets/img/core2-hardware/dbg.svg)
+![](/img/core2-hardware/dbg.svg)
 
 </div>
 
@@ -384,7 +386,7 @@ Just a connector for a standard microSD card. It uses one of the SPI interfaces 
 
 <div class="thumb w270 right">
 
-<img src="/docs/assets/img/core2-hardware/leds.svg" width=50% alt="User&apos;s leds" title="User&apos;s leds" />
+<img src="/img/core2-hardware/leds.svg" width="50%" alt="User&apos;s leds" title="User&apos;s leds" />
 
 </div>
 
@@ -417,7 +419,7 @@ The CORE2mini power supply input has overvoltage (>16V), reverse-polarity and ov
 
 <div class="thumb center">
 
-![](/docs/assets/img/core2-hardware/powersupply.svg)
+![](/img/core2-hardware/powersupply.svg)
 
 </div>
 
@@ -425,7 +427,7 @@ The CORE2mini power supply input has overvoltage (>16V), reverse-polarity and ov
 <tbody>
     <tr>
         <th>Voltage line name</th>
-        <th align="center">I max/th>
+        <th align="center">I max</th>
         <th>Available on port:</th>
         <th>Info</th>
     </tr>
@@ -484,7 +486,7 @@ How much current does it need? It strongly depends on the robot configuration. A
 
 CORE2mini has two internal voltage regulators. The input voltage (behind protection circuit) Vin(p) is converted to 5V by a switching regulator, and then to 3.3V by a linear voltage regulator. Be aware of the current limits – the total current must not exceed 1.5A through the 5V line. We will also remind you about power limitations in the description of individual interfaces.
 
-The supply voltage +5V(sw) for hSens connectors can be switched on and off. It is enabled by default but can be switched off in the software.</br>
+The supply voltage +5V(sw) for hSens connectors can be switched on and off. It is enabled by default but can be switched off in the software.<br />
 
 **Power supply alternatives**
 
@@ -531,42 +533,42 @@ There are 2 status LEDs - LR1 and LR2 - controlled directly from the ESP32/RPi d
         <td>Config mode</td>
         <td colspan="2">blinking alternately</td>
 	<td>600 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_config.gif"/></td>
+	<td><img src="/img/core2-hardware/lr12_gif/LR12_config.gif"/></td>
     </tr>
     <tr>
         <td>Connecting</td>
         <td>OFF</td>
         <td>blinking</td>
 	<td>300 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_connecting.gif"/></td>
+	<td><img src="/img/core2-hardware/lr12_gif/LR12_connecting.gif"/></td>
     </tr>
     <tr>
         <td>Connected</td>
         <td>OFF</td>
         <td>ON</td>
 	<td>-</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_connected.gif"/></td>
+	<td><img src="/img/core2-hardware/lr12_gif/LR12_connected.gif"/></td>
     </tr>
     <tr>
         <td>Not configured</td>
         <td>blinking</td>
         <td>OFF</td>
 	<td>100/1000 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_not_conf.gif"/></td>
+	<td><img src="/img/core2-hardware/lr12_gif/LR12_not_conf.gif"/></td>
     </tr>
     <tr>
         <td>Invalid auth.</td>
         <td>blinking</td>
         <td>OFF</td>
 	<td>100 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif"/></td>
+	<td><img src="/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif"/></td>
     </tr>
     <tr>
         <td>No Internet</td>
         <td>blinking</td>
         <td>ON</td>
 	<td>100 ms</td>
-	<td><img src="/docs/assets/img/core2-hardware/lr12_gif/LR12_no_internet.gif"/></td>
+	<td><img src="/img/core2-hardware/lr12_gif/LR12_no_internet.gif"/></td>
     </tr>
 </tbody>
 </table>
@@ -575,7 +577,7 @@ There are 2 status LEDs - LR1 and LR2 - controlled directly from the ESP32/RPi d
 
 <div class="thumb right w180">
 
-![](/docs/assets/img/core2-hardware/rpi_connector.png "hRPI connector")
+![](/img/core2-hardware/rpi_connector.png "hRPI connector")
 
 </div>
 

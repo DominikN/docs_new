@@ -50,7 +50,7 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 - Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/).
 - In the left navigation pane, choose **Fleet Management** and then choose **Robots**.
 
-![RoboMaker robots](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_1.png)
+![RoboMaker robots](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_1.png)
 
 - Choose \*_Create robot_.
 - In the **Name** field, type `ROSbot`.
@@ -59,11 +59,11 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 - In the **AWS Greengrass prefix** field type `ROSbot`.
 - In the **IAM role** select **ROSbot-deployment-role**.
 
-![RoboMaker create robot](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_2.png)
+![RoboMaker create robot](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_2.png)
 
 - Proceed with **Create**, you will be redirected to **Download your Core device** page.
 
-![RoboMaker robot created](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_3.png)
+![RoboMaker robot created](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_3.png)
 
 - Choose **Download** button next to **Download and store your Core's security resources**.
 
@@ -89,7 +89,7 @@ You will need an SCP client, download and install [WinSCP](https://winscp.net/en
 
 Start WinSCP, you will see the login dialog:
 
-![WinSCP login](/docs/assets/img/aws-tutorials/quick-start/winscp1.png)
+![WinSCP login](/img/aws-tutorials/quick-start/winscp1.png)
 
 - From `File protocol` dropdown menu choose: `SFTP`.
 - In `Host name` field provide rosbot IP address that you noted earlier, it is the value which we described as `ROSBOT_IP`.
@@ -99,7 +99,7 @@ Start WinSCP, you will see the login dialog:
 
 When all fields are filled up, click `Login` button to connect, you will see file manager view.
 
-![WinSCP file manager](/docs/assets/img/aws-tutorials/quick-start/winscp2.png)
+![WinSCP file manager](/img/aws-tutorials/quick-start/winscp2.png)
 
 In the left tab navigate to directory where you downloaded the ROSbot-setup.zip file. In the right tab navigate to `/home/husarion` directory.
 
@@ -127,7 +127,7 @@ Press `WinKey` + `r` then type `mstsc`.
 
 You will see a window appear:
 
-![Windows RDP](/docs/assets/img/aws-tutorials/quick-start/win_rdp.png)
+![Windows RDP](/img/aws-tutorials/quick-start/win_rdp.png)
 
 Type in your device IP address and click connect.
 
@@ -189,7 +189,7 @@ Application will be built using the RoboMaker environment. To create the IDE:
 
 - Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/home)
 
-![RoboMaker new IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_4.png)
+![RoboMaker new IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_4.png)
 
 - On the left, expand **Development**, choose **Development environments**, and then choose **Create environment**.
 - In the Create AWS RoboMaker development environment page, enter `rosbot_env` as the environment name.
@@ -197,11 +197,11 @@ Application will be built using the RoboMaker environment. To create the IDE:
 - In **VPC** dropdown list choose the default value.
 - In the **Subnets** dropdown list choose the first subnet. You can select different subnet if necessary.
 
-![RoboMaker create IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_5.png)
+![RoboMaker create IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_5.png)
 
 - Choose **Create** to create the AWS Cloud9 development environment.
 
-![RoboMaker IDE ready](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
+![RoboMaker IDE ready](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_6.png)
 
 ## Deploying the application
 
@@ -213,7 +213,7 @@ To deploy application, you will use RoboMaker environment created in previous st
 
 - Open the development environment with **Open environment** button.
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
+![RoboMaker open IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_8.png)
 
 - In the IDE, go to bash tab and clone the `rosbot-robomaker` repository in `~/environment/` directory:
 
@@ -222,7 +222,7 @@ cd ~/environment/
 git clone --recurse-submodules https://github.com/husarion/rosbot-robomaker.git RoboMakerROSbotProject
 ```
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_10.png)
+![RoboMaker open IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_10.png)
 
 - Start the configuration script. You need to provide the S3 bucket name and the ARNs of the IAM roles that were created by CloudFormation earlier. The parameters to the script should be set to the corresponding values provided in the output of your CloudFormation stack:
 
@@ -235,7 +235,7 @@ During the script execution, you will be prompted to use registration links for 
 
 When both devices are added, go to [Husarnet](https://app.husarnet.com/) dashboard again and make sure that `rosbot` is set to be **ROS master**.
 
-![RoboMaker master](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_11.png)
+![RoboMaker master](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_11.png)
 
 
 The script will install all dependencies, configure project, build and set the deployment job.
@@ -248,7 +248,7 @@ When the script is done with its job, you can observe the deployment process:
 - When new deployment will appear, open it by clicking its name.
 - Deployment job will start tasks both on ROSbot and EC2 instance.
 
-![RoboMaker open IDE](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_12.png)
+![RoboMaker open IDE](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_12.png)
 
 ## Controlling the robot
 
@@ -269,7 +269,7 @@ To set a destination point on a map, use **`2D Nav Goal`** button in **Rviz**.
 
 You can see an example map being created on the screenshot below.
 
-![RoboMaker exploration screenshot](/docs/assets/img/aws-tutorials/quick-start/aws_tutorial_robomaker_13.png)
+![RoboMaker exploration screenshot](/img/aws-tutorials/quick-start/aws_tutorial_robomaker_13.png)
 
 ## Summary
 

@@ -20,7 +20,7 @@ We will use rosbot platform with astra camera, ESP-32 microchips with motion sen
 
 Because project covers many fields it will be shown and explained how to configure everything properly. Project was also devided into simulation part and real robot part, this should give a clear view about whole project.
 
-![rosbot_how_it_works](/docs/assets/img/ros-projects/security-guard-robot/how-it-works.png)
+![rosbot_how_it_works](/img/ros-projects/security-guard-robot/how-it-works.png)
 
 ## Run on virtual environment
 
@@ -28,7 +28,7 @@ NOTE: You can run the following project in a virtual environment and get all the
 
 <div><center>
 <a href="http://www.rosject.io/l/c104eda/">
-<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+<img alt="run-on-ROSDS" src="/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
 </center></div>
 
 ## Preparation
@@ -868,7 +868,7 @@ Next step is to create points to where robot must drive when motion sensor detec
 The construct have very nice method to have these points so follow him with this tuturial.
 
 [how to get goal points](https://www.youtube.com/watch?v=p-ZG6E-PZVA&t=7s) start at 30:00.
-![how_to_get_points](/docs/assets/img/ros-projects/security-guard-robot/how-to-get-points.png)
+![how_to_get_points](/img/ros-projects/security-guard-robot/how-to-get-points.png)
 
 So in this case to get this points it is recomended to start gmapping, drive robot to desired point and get coordinates of this point from Rviz.
 
@@ -962,7 +962,7 @@ rooms:
     y:      -0.42
     angle:  180
 ```
-![rosbot_room_plan](/docs/assets/img/ros-projects/security-guard-robot/rosbot-room-plan.png)
+![rosbot_room_plan](/img/ros-projects/security-guard-robot/rosbot-room-plan.png)
 
 This are points for model.world world remember to set point0 to all zeroes - it's point to where robot will be coming back after patrolling room.
 
@@ -1096,7 +1096,7 @@ move: 1"
 
 with appropriate id number.
 
-![rosbot_patrol_final](/docs/assets/img/ros-projects/security-guard-robot/rosbot-patrol-final.png)
+![rosbot_patrol_final](/img/ros-projects/security-guard-robot/rosbot-patrol-final.png)
 
 ## Real robot part
 
@@ -1705,7 +1705,7 @@ If we already are able to drive on this map we have to find coordinates to where
 
 [how to get goal points](https://www.youtube.com/watch?v=p-ZG6E-PZVA&t=7s) start at 30:00.
 
-![how_to_get_points](/docs/assets/img/ros-projects/security-guard-robot/how-to-get-points.png)
+![how_to_get_points](/img/ros-projects/security-guard-robot/how-to-get-points.png)
 
 Once we have points lets create yaml file with those points.
 In rosbot_patrol pkg create new folder called params
@@ -2105,7 +2105,7 @@ void taskWifi(void *parameter)
 
 At the end connect motion sensor to ESP32:
 
-![motion_sensor_esp](/docs/assets/img/ros-projects/security-guard-robot/motion-sensor-esp.png)
+![motion_sensor_esp](/img/ros-projects/security-guard-robot/motion-sensor-esp.png)
 
 At the end we have to create launch for esp enabling us to read data it sends, to do, so follow this instruction:
 
@@ -2318,7 +2318,7 @@ In case you have no motion sensor just publish to the topic robot is listening f
 
 At the end you should see on your computer something similar to this:
 
-![rosbot_final_result](/docs/assets/img/ros-projects/security-guard-robot/rosbot-final-result.png)
+![rosbot_final_result](/img/ros-projects/security-guard-robot/rosbot-final-result.png)
 ---
 
 _by Adam Krawczyk, Husarion_

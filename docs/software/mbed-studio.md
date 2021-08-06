@@ -3,7 +3,7 @@ title: Mbed studio
 id: mbed-studio
 ---
 
-![](/docs/assets/img/mbed-studio/official_armmbed_example_badge.png)
+![](/img/mbed-studio/official_armmbed_example_badge.png)
 # Blinky Mbed OS example
 > Supports Mbed OS 6.2.1
 
@@ -28,13 +28,13 @@ We recommend you to switch default compiler to **Arm Embedded GCC Compiler 9-201
 * In **Mbed OS Location** select first option if you want to download a new copy of Mbed OS and store it in your program folder. In case you want to share single instance of the Mbed OS library among many programs download it to a known location and proceed with the option number two. 
 * Finalize the import by clicking **Add Program**.
 
-![](/docs/assets/img/mbed-studio/mbed_studio_instruction1.png)
+![](/img/mbed-studio/mbed_studio_instruction1.png)
 
 ## Selecting a custom build target
 
 After importing program you click on `target` drop-down list and chose CORE2. 
 
-![](/docs/assets/img/mbed-studio/mbed_studio_instruction6.png)
+![](/img/mbed-studio/mbed_studio_instruction6.png)
 
 ## Building and running
 
@@ -47,7 +47,7 @@ After importing program you click on `target` drop-down list and chose CORE2.
 * Clicking on the **play** icon will build the example and flash it to the connected board (only with [connected St-link](https://husarion.com/software/mbed-studio/#debugging-code-using-st-link)).
 * Clicking the **bug** icon will start debug session (only with [connected St-link](https://husarion.com/software/mbed-studio/#debugging-code-using-st-link)).
 
-![](/docs/assets/img/mbed-studio/mbed_studio_instruction5.png)
+![](/img/mbed-studio/mbed_studio_instruction5.png)
 
 ## Flashing code to CORE2
 
@@ -57,7 +57,7 @@ To flash your build code to CORE2 you can use different tools depends on what is
 
 Connect your USB cable to CORE2 hSerial port and your computer.
 
-![](/docs/assets/img/howToStart/core2_hSerial.png)
+![](/img/howToStart/core2_hSerial.png)
 
 Download and extract [Husarion tools](https://files.husarion.com/husarion-tools/husarion-tools.zip). Open directory corresponding to your processor architecture. 
 
@@ -75,7 +75,7 @@ For example:
 
 Everything went OK, if you will see output similar to this:
 
-![](/docs/assets/img/howToStart/output.png)
+![](/img/howToStart/output.png)
 
 ### Using stm32loader
 
@@ -93,16 +93,16 @@ The LED on your target turns on and off every 500 milliseconds.
 * Attach your ST-LINK probe to CORE2, power-up the board and connect the programmer to your computer. 
 * Open **Target** drop-down list and click on **Mangage custom targets** button.
 
-![](/docs/assets/img/mbed-studio/mbed_studio_instruction2.png)
+![](/img/mbed-studio/mbed_studio_instruction2.png)
 
 Following dialog box should appear:
 
-![](/docs/assets/img/mbed-studio/mbed_studio_instruction3.png)
+![](/img/mbed-studio/mbed_studio_instruction3.png)
 
 * From the **USB device** drop-down list choose the detected ST-LINK probe. 
 * From the **Build target** drop-down list choose the **CORE2** target. Remaining fields should populate automatically.
 
-![](/docs/assets/img/mbed-studio/mbed_studio_instruction4.png)
+![](/img/mbed-studio/mbed_studio_instruction4.png)
 
 * Save the configuration with **Save all**.
 

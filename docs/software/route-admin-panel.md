@@ -226,7 +226,7 @@ You need to substitute phrase `ROSBOT_IP_ADDRESS` with IP address of your device
 
 You should see interface like below:
 
-![RouteAdminPanelScreenshot](/docs/assets/img/software/route-admin-panel.png)
+![RouteAdminPanelScreenshot](/img/software/route-admin-panel.png)
 
 ## ROS1 API
 
@@ -314,7 +314,7 @@ If you do not have a Husarnet account, create it and log in to [Husarnet dashboa
 
 In Husarnet dashboard, click **Create network** button, you will get a dialog:
 
-![create network](/docs/assets/img/software/husarnet_01_create-network.png)
+![create network](/img/software/husarnet_01_create-network.png)
 
 Type `route_admin_demo` as network name then click **Create** button.
 
@@ -326,7 +326,7 @@ sudo husarnet websetup
 
 You will get a registration link as a response, open it in web browser:
 
-![add device](/docs/assets/img/software/husarnet_02_husarnet.png)
+![add device](/img/software/husarnet_02_husarnet.png)
 
 - In **Name for this device** provide `my-rosbot`
 - In **Add to network** dropdown menu choose `route_admin_demo`
@@ -335,11 +335,11 @@ You will get a registration link as a response, open it in web browser:
 
 You will be redirected to network summary view:
 
-![network summary](/docs/assets/img/software/husarnet_03_network.png)
+![network summary](/img/software/husarnet_03_network.png)
 
 Click device name to open its configuration:
 
-![network member](/docs/assets/img/software/husarnet_04_network_member.png)
+![network member](/img/software/husarnet_04_network_member.png)
 
 Check **ROS master** checkbox.
 
@@ -349,7 +349,7 @@ Go back to your device and start panel with the same launch file as for local ne
 
 Once the panel is running, you will notice new button **WebUI** next to your device address in Husarnet dashboard, use this button to view panel.
 
-![web ui accessible](/docs/assets/img/software/husarnet_05_network.png)
+![web ui accessible](/img/software/husarnet_05_network.png)
 
 ***Wait! But what about real peer-to-peer connection?***
 
@@ -362,4 +362,4 @@ On laptop open browser and in address bar type: `[ROSBOT_HUSARNET_ADDRESS]:8000`
 
 In the end you will be able to access `route_admin_panel` from any network using a secure peer-to-peer connection:
 
-![panel accessed through husarnet](/docs/assets/img/software/panel_at_husarnet.png)
+![panel accessed through husarnet](/img/software/panel_at_husarnet.png)

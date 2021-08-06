@@ -8,7 +8,7 @@ title: ROSDS Virtual robot controlled from your local PC
 
 <div><center>
 <a href="http://www.rosject.io/l/c1db44b/">
-<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+<img alt="run-on-ROSDS" src="/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
 </center></div>
 
 ## About

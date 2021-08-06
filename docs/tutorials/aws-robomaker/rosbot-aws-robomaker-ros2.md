@@ -21,13 +21,13 @@ What's in the box:
 - microSD card with the software for ROSbot
 - USB to Ethernet adapter
 
-![](/docs/assets/img/howToStart/ROSbot_unboxing.jpg)
+![](/img/howToStart/ROSbot_unboxing.jpg)
 
 ## Rear panel description
 
 In the picture below you can see names of the elements from the rear panel of the ROSbot.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/ROSbot2_rear_panel.png)
+![image](/img/aws-tutorials/quick-start/ROSbot2_rear_panel.png)
 
 ## Hardware setup
 
@@ -42,18 +42,18 @@ To mount the batteries turn ROSbot upside down and follow these steps:
 3. Place batteries **accordingly to the polarization symbols (do it carefully!)**, keeping the black strip under the batteries.
 4. Place battery cover and mount it with screws.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_battery.png)
+![image](/img/aws-tutorials/quick-start/rosbot_battery.png)
 
 ### 2. Batteries charging guide
 
 1. Connect the power adapter to the charger and the output cable between charger and ROSbot (2 connectors on charger side, 1 black connector to ROSbot charging port).
 
-![image](/docs/assets/img/aws-tutorials/quick-start/charger_1.png)
-![image](/docs/assets/img/aws-tutorials/quick-start/charger_2.png)
+![image](/img/aws-tutorials/quick-start/charger_1.png)
+![image](/img/aws-tutorials/quick-start/charger_2.png)
 
 After this step is complete your charger should look like this:
 
-![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_charger.jpg)
+![image](/img/aws-tutorials/quick-start/rosbot_charger.jpg)
 
 2. Use the first two buttons to select “LiPo BATT” mode and press [Start] button.
 3. Use arrows to select “LiPo CHARGE” mode.
@@ -64,13 +64,13 @@ After this step is complete your charger should look like this:
 
 The picture below is a visualization of the mentioned steps.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/charging.png)
+![image](/img/aws-tutorials/quick-start/charging.png)
 
 ### 3. Attaching the antenna
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-![image](/docs/assets/img/aws-tutorials/quick-start/rosbot_antenna.png)
+![image](/img/aws-tutorials/quick-start/rosbot_antenna.png)
 
 
 ## Flashing image with ROS2 support
@@ -78,7 +78,7 @@ To attach the antenna, screw it to the antenna connector on the ROSbot rear pane
 ROSbots are shipped with ROS1 support. In order to enable working with ROS2 support, it is necessary to flash image with ROS2.
 
 1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, then pull it out. You can find SD card slot on ROSbot right side.
- ![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
+ ![SD card side view](/img/ROSbot_manual/sd_card_side_view.png) 
 2. Download image for Tinkerboard from [here](https://husarion-robomaker-downloads.s3-eu-west-1.amazonaws.com/ros2-2019-12-03.tar.gz) .
 3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
@@ -119,7 +119,7 @@ You can chose to work with AWS services on servers located in varoius location a
 To choose location, go to [AWS Management console](https://console.aws.amazon.com/console/) and find location dropdown menu next to your username in top right corner.
 From the menu choose **US East (N. Virginia) us-east-1**.
 
-![location](/docs/assets/img/aws-tutorials/ros2/Location.png)
+![location](/img/aws-tutorials/ros2/Location.png)
 
 For more information regarding regions please check the [documentation](https://docs.aws.amazon.com/robomaker/latest/dg/limits-regions.html).
 
@@ -131,22 +131,22 @@ To deploy the template, sign in to the [CloudFormation console](https://console.
 
 1.  Click the **Create Stack** button and select **With new resources** from the drop down.
 
-![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-01.png)
+![CloudFormation](/img/aws-tutorials/ros2/CloudFormation-01.png)
 
 2.  In **Step 1: Specify template** in section **Prerequisite - Prepare template** select **Template is ready**, then in section **Specify template** select **Amazon S3 URL** and type in the following text field: `https://robomaker-rosbot-samples.s3.amazonaws.com/rosbot_tutorial_template.yaml`. Proceed with **Next** button.
 
-![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-02.png)
+![CloudFormation](/img/aws-tutorials/ros2/CloudFormation-02.png)
 
 3. In **Step 2: Specify stack details** in section **Stack name** type `rosbot-stack`, then proceed with **Next** button.
 
-![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-03.png)
+![CloudFormation](/img/aws-tutorials/ros2/CloudFormation-03.png)
 
 4. In **Step 3: Configure stack options** leave all settings default and proceed with **Next** button.
 5. In **Step 4: Review** scroll to last section named **Capabilities** then check **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**. Proceed with **Create stack** button.
-![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-04.png)
+![CloudFormation](/img/aws-tutorials/ros2/CloudFormation-04.png)
 6. You will be redirected to stacks list, wait until your stack is created.
 7. When stack creation is finished, click stack name to open its details, then choose tab **Outputs**, in the table you will see three rows, note the three **Key**/**Value** pairs as you will need them later in this guide.
-![CloudFormation](/docs/assets/img/aws-tutorials/ros2/CloudFormation-05.png)
+![CloudFormation](/img/aws-tutorials/ros2/CloudFormation-05.png)
 
 ## ROSbot setup in RoboMaker
 
@@ -155,21 +155,21 @@ ROSbot need some system modifications before Greengrass will be able to run and 
 1. Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/).
 2. In the left navigation pane, choose **Fleet Management** and then choose **Robots**.
 3. Choose **Create robot**.
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-01.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-01.png)
 4. In section **General**:
 - In the **Name** field, type `ROSbot`.
 - From the **Architecture** dropdown menu choose **ARMHF**.
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-02.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-02.png)
 5. In section **AWS Greengrass group details**:
 - From the **Greengrass setup method** dropdown menu choose **Use manual setup method**.
 - From the **AWS Greengrass group** dropdown menu choose **Create new**.
 - In the **AWS Greengrass prefix** field type `ROSbot`.
 - From the **IAM role** dropdown menu choose **ROSbotDeploymentRole**.
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-03.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-03.png)
 
 6. Proceed with **Create**, you will be redirected to **Download your Core device** page.
 
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-05.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-05.png)
 
 7. Choose **Download** button next to **Download and store your Core's security resources**, you will get `ROSbot-setup.zip` file.
 
@@ -195,7 +195,7 @@ You will need an SCP client, download and install [WinSCP](https://winscp.net/en
 
 Start WinSCP, you will see the login dialog:
 
-![WinSCP login](/docs/assets/img/aws-tutorials/quick-start/winscp1.png)
+![WinSCP login](/img/aws-tutorials/quick-start/winscp1.png)
 
 - From `File protocol` dropdown menu choose: `SFTP`.
 - In `Host name` field provide rosbot IP address that you noted earlier, it is the value which we described as `ROSBOT_IP`.
@@ -205,7 +205,7 @@ Start WinSCP, you will see the login dialog:
 
 When all fields are filled up, click `Login` button to connect, you will see file manager view.
 
-![WinSCP file manager](/docs/assets/img/aws-tutorials/quick-start/winscp2.png)
+![WinSCP file manager](/img/aws-tutorials/quick-start/winscp2.png)
 
 In the left tab navigate to directory where you downloaded the ROSbot-setup.zip file. In the right tab navigate to `/home/husarion` directory.
 
@@ -233,7 +233,7 @@ Press `WinKey` + `r` then type `mstsc`.
 
 You will see a window appear:
 
-![Windows RDP](/docs/assets/img/aws-tutorials/quick-start/win_rdp.png)
+![Windows RDP](/img/aws-tutorials/quick-start/win_rdp.png)
 
 Type in your device IP address and click connect.
 
@@ -280,7 +280,7 @@ Application will be built using the RoboMaker environment. To create the IDE:
 
 1. Sign in to the AWS RoboMaker [console](https://console.aws.amazon.com/robomaker/home)
 
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-06.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-06.png)
 
 2. On the left, expand **Development**, choose **Development environments**, and then choose **Create environment**.
 3. In **General** section:
@@ -290,11 +290,11 @@ Application will be built using the RoboMaker environment. To create the IDE:
 4. In **Networking** section:
 - From the **VPC** dropdown menu choose the default value.
 - In the **Subnets** dropdown list choose the first subnet. You can select different subnet if necessary.
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-07.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-07.png)
 
 5. Choose **Create** to create the AWS Cloud9 development environment, you will be redirected to new browser tab with environment opened.
 
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-09.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-09.png)
 
 
 ## Running RoboMaker sample applications on ROSbot
@@ -313,7 +313,7 @@ To deploy application, you will use RoboMaker environment created in previous st
 
 - Open the development environment with **Open environment** button.
 
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-08.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-08.png)
 
 
 - In the IDE, go to bash tab and clone the "Hello World" sample application repository in `~/environment/` directory:
@@ -348,11 +348,11 @@ Before you start with application deployment, first you need to set access permi
 
 Open [IAM console](https://console.aws.amazon.com/iam/home) and in the left panel choose **Access management** -> **Users**, then choose button **Add user**.
 
-![IAM add user step 1](/docs/assets/img/aws-tutorials/ros2/cloudwatch_1.png)
+![IAM add user step 1](/img/aws-tutorials/ros2/cloudwatch_1.png)
 
 In **User name** field provide 'ROSbotLoggerUser', mark **Programmatic access** checkbox and proceed with button **Next: Premissions**
 
-![IAM add user step 2](/docs/assets/img/aws-tutorials/ros2/cloudwatch_2.png)
+![IAM add user step 2](/img/aws-tutorials/ros2/cloudwatch_2.png)
 
 Choose **Attach existing policies directly** and check policies:
 - `AWSRoboMakerFullAccess`
@@ -361,11 +361,11 @@ Choose **Attach existing policies directly** and check policies:
 
 You may use filter to find required policies, proceed with **Next: Tags** and **Next: Review**. Verify that you have `AWS access type` set to `Programmatic access - with an access key` and in **Permissions summary** table you have three policies.
 
-![IAM add user step 3](/docs/assets/img/aws-tutorials/ros2/cloudwatch_4.png)
+![IAM add user step 3](/img/aws-tutorials/ros2/cloudwatch_4.png)
 
 Proceed with **Create user** button.
 
-![IAM add user step 4](/docs/assets/img/aws-tutorials/ros2/cloudwatch_5.png)
+![IAM add user step 4](/img/aws-tutorials/ros2/cloudwatch_5.png)
 
 In confirmation window, you receive **Access key ID** and hidden **Secret access key**, click `Show` to view it. Note both keys, they will be required in next step. You can close dialog window with **Close** button.
 
@@ -410,7 +410,7 @@ To deploy application, you will use RoboMaker environment created in previous st
 
 - Open the development environment with **Open environment** button.
 
-![RoboMaker](/docs/assets/img/aws-tutorials/ros2/RoboMaker-08.png)
+![RoboMaker](/img/aws-tutorials/ros2/RoboMaker-08.png)
 
 - In the IDE, go to bash tab and clone the Cloud Watch sample application repository in `~/environment/` directory:
 

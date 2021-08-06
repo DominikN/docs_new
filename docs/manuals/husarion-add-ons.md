@@ -1,6 +1,6 @@
 ---
 title: CORE2 add-ons
-id: core2-add-ons
+# id: core2-add-ons
 ---
 
 ## CORE2brick extension kit ##
@@ -8,8 +8,8 @@ id: core2-add-ons
 Adapter which connects CORE2 or CORE2-ROS with LEGO® Mindstorms system. 
 
 <div class="image center h300">
-<a href="/docs/assets/img/husarion-add-ons/core2brick_title.jpg" data-fancybox >
-<img src="/docs/assets/img/husarion-add-ons/core2brick_title.jpg" />
+<a href="/img/husarion-add-ons/core2brick_title.jpg" data-fancybox >
+<img src="/img/husarion-add-ons/core2brick_title.jpg" />
 </a>
 </div>
 
@@ -21,8 +21,8 @@ Set contains:
  * 2 acrylic plates + set of screws, that link CORE2 and hBatteryPack with Mindstorms® mechanical parts
  
 <div class="image center h300">
-<a href="/docs/assets/img/husarion-add-ons/core2brick_shield.jpg" data-fancybox >
-<img src="/docs/assets/img/husarion-add-ons/core2brick_shield.jpg" />
+<a href="/img/husarion-add-ons/core2brick_shield.jpg" data-fancybox >
+<img src="/img/husarion-add-ons/core2brick_shield.jpg" />
 </a>
 </div>
  
@@ -32,11 +32,11 @@ The LEGO® Mindstorms sets use non-standard, modular 6P6C connectors, also known
 
 We decided to provide the shield with typical 6P6C receptacles (the crimping tool for them is widely available) and 10 cables, which are adapters in fact:
 
-![](/docs/assets/img/husarion-add-ons/cableRJ.png)
+![](/img/husarion-add-ons/cableRJ.png)
 
 The pin numbering convention:
 
-![](/docs/assets/img/husarion-add-ons/6p6c.png)
+![](/img/husarion-add-ons/6p6c.png)
 
 ### Motor interface ###
 
@@ -56,7 +56,7 @@ The motor interface is straight - there is 1:1 connection between CORE2 hMotor o
 The sensor interface needs an adaptation to another pinout and signal types. The schematic describes that in the best way:
 
 <div class="thumb center h300">
-<img src="/docs/assets/img/husarion-add-ons/sensor.png" />
+<img src="/img/husarion-add-ons/sensor.png" />
 </div>
 
 The schematic shows a single sensor interface. Each sensor connector is connected with the corresponding hSens number on CORE2, eg. hSens1 is connected with Sensor1 on the CORE2brick shield. The voltage regulators on the shield converts 5V supply from CORE2 to 3.3V and 9V, needed for LEGO® sensors. The switchable current source is necessary for some sensors.
@@ -91,8 +91,8 @@ The smaller board is prepared for assembling with hBatteryPack, using M3x6 stand
 Adapter which connects CORE2 or CORE2-ROS with Makeblock system. 
 
 <div class="image center h300">
-<a href="/docs/assets/img/husarion-add-ons/core2block.png" data-fancybox>
-<img src="/docs/assets/img/husarion-add-ons/core2block.png" />
+<a href="/img/husarion-add-ons/core2block.png" data-fancybox>
+<img src="/img/husarion-add-ons/core2block.png" />
 </a>
 </div>
 
@@ -116,13 +116,13 @@ The connectors used with CORE2 are shrouded box headers: 2×3-Pin, 0.1" (2.54 mm
 
 Adapter PCBs that can be separated by breaking them off, if you like. The connections on each adapter are explained on the circuit diagram below:
 
-![](/docs/assets/img/husarion-add-ons/core2block-schematic.png)
+![](/img/husarion-add-ons/core2block-schematic.png)
 
 Important: the Makeblock documentation shows a different, non-standard pin order for 6P6C (RJ25) connector. We follow the order used by Molex and FCI connector manufacturers, and also by LEGO® in their Mindstorms kits.
 
 On the bottom side of PCB you can find jumpers for configuring the adapter connections. They are needed for interfacing CORE2 with different Makeblock sensors. The photo below shows the jumper position on PCB:
 
-![](/docs/assets/img/husarion-add-ons/jumpers.jpg)
+![](/img/husarion-add-ons/jumpers.jpg)
 
 And this table should be helpful for you:
 
@@ -207,8 +207,8 @@ Servo controller can deliver up to 3A average current to the servos.
 The picture below describes the pinout of the Servo driver.
 
 <div class="thumb center h300">
-<a href="/docs/assets/img/husarion-add-ons/servo_driver.jpg" data-fancybox>
-<img src="/docs/assets/img/husarion-add-ons/servo_driver.jpg" />
+<a href="/img/husarion-add-ons/servo_driver.jpg" data-fancybox>
+<img src="/img/husarion-add-ons/servo_driver.jpg" />
 </a>
 </div>
 
@@ -254,8 +254,8 @@ Keeps your 18650 cells together and delivers the sum of their voltage to your CO
 
 
 <div class="thumb center h300">
-<a href="/docs/assets/img/husarion-add-ons/hBatteryPack-overview.jpg" data-fancybox>
-<img src="/docs/assets/img/husarion-add-ons/hBatteryPack-overview.jpg" />
+<a href="/img/husarion-add-ons/hBatteryPack-overview.jpg" data-fancybox>
+<img src="/img/husarion-add-ons/hBatteryPack-overview.jpg" />
 </a>
 </div>
 
@@ -272,7 +272,7 @@ The image below shows four batteries. Counting from the top, there is:
  * pink - again the cell without a protection circuit.
  
 <div class="image center h300">
-<img src="/docs/assets/img/husarion-add-ons/batteries2_small.jpg" />
+<img src="/img/husarion-add-ons/batteries2_small.jpg" />
 </div>
  
 We strongly recommend using the first type with the protection circuit and the tip on the '+' side.
@@ -287,13 +287,13 @@ The optional perforated, acrylic board can be used to connect the battery pack t
 
 <div class="clearfix">
 <div class="img-container h300">
-    <a href="/docs/assets/img/husarion-add-ons/with_adapter_angle_small.jpg" data-fancybox="gallery" >
-    <img src="/docs/assets/img/husarion-add-ons/with_adapter_angle_small.jpg"  class="hover-shadow"/>
+    <a href="/img/husarion-add-ons/with_adapter_angle_small.jpg" data-fancybox="gallery" >
+    <img src="/img/husarion-add-ons/with_adapter_angle_small.jpg"  class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container h300">
-    <a href="/docs/assets/img/husarion-add-ons/with_adapter_side_small.jpg" data-fancybox="gallery" >
-    <img src="/docs/assets/img/husarion-add-ons/with_adapter_side_small.jpg"  class="hover-shadow"/>
+    <a href="/img/husarion-add-ons/with_adapter_side_small.jpg" data-fancybox="gallery" >
+    <img src="/img/husarion-add-ons/with_adapter_side_small.jpg"  class="hover-shadow"/>
     </a>
 </div> 
 </div>

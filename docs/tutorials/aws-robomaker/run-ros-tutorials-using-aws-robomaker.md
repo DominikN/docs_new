@@ -25,7 +25,7 @@ In this tutorial we will show you how to setup environment at AWS RoboMaker to l
 
 To begin, you need to have an active AWS account. Go to [signup panel](https://portal.aws.amazon.com/billing/signup?registration-confirmation#/start) and follow steps required to create account.
 
-![](/docs/assets/img/aws-tutorials/aws_tutorial_img1.png)
+![](/img/aws-tutorials/aws_tutorial_img1.png)
 
 ## Configure AWS Environment
 
@@ -52,18 +52,18 @@ After a few brief minutes, the stack will be created. When the status has change
 
 2. Open “Development environments” tab.
 
-![Development environments](/docs/assets/img/aws-tutorials/aws_tutorial_img21.png)
+![Development environments](/img/aws-tutorials/aws_tutorial_img21.png)
 
 3. Click “Create environment”
 - In field **Name** type `robomaker_env` and as **instance type** choose `c3.2xlarge`. You can select different instances type to improve bundling performance.
 - In **VPC** dropdown list choose the default value.
 - In the **Subnets** dropdown list choose the first subnet. You can select different subnet if necessary.
 
-![Create environment dialog](/docs/assets/img/aws-tutorials/aws_tutorial_img22.png)
+![Create environment dialog](/img/aws-tutorials/aws_tutorial_img22.png)
 
 4. Click "Create". You will be redirected to IDE.
 
-![RoboMaker IDE](/docs/assets/img/aws-tutorials/aws_tutorial_img23.png)
+![RoboMaker IDE](/img/aws-tutorials/aws_tutorial_img23.png)
 
 - In the IDE, go to bash tab and clone the `rosbot-robomaker` repository in `~/environment/` directory:
 
@@ -87,33 +87,33 @@ python configure_project.py --bucket $BUCKET_NAME --iam $IAM_ROLE
 
 1.  Choose menu **Run** -> **Add or Edit Configurations**.
 
-![RoboMaker configuration dialog](/docs/assets/img/aws-tutorials/aws_tutorial_img24.png)
+![RoboMaker configuration dialog](/img/aws-tutorials/aws_tutorial_img24.png)
 
 2. Click button **Switch config**.
 
 3. Choose `RoboMakerSettings.json` from folder `RoboMakerROSbotProject` and click **OK** button and then **Save** button.
 
-![Switch config dialog](/docs/assets/img/aws-tutorials/aws_tutorial_img25.png)
+![Switch config dialog](/img/aws-tutorials/aws_tutorial_img25.png)
 
 4. Choose menu **Run** -> **Workflow** -> **ROSbotTutorial - Build and Bundle All**.
 
-![Workflow menu](/docs/assets/img/aws-tutorials/aws_tutorial_img26.png)
+![Workflow menu](/img/aws-tutorials/aws_tutorial_img26.png)
 
 5. Package build process will start, when it is done, choose menu **Run** -> **Launch Simulation** -> **ROSbotTutorial9**. Simulation job will be sent to RoboMaker. Wait until **Your simulation job was created.** message appears in console.
 
-![Simulation terminal](/docs/assets/img/aws-tutorials/aws_tutorial_img27.png)
+![Simulation terminal](/img/aws-tutorials/aws_tutorial_img27.png)
 
 6. Go to RoboMaker and open “Simulation jobs” menu.
 
-![Simulation jobs menu](/docs/assets/img/aws-tutorials/aws_tutorial_img28.png)
+![Simulation jobs menu](/img/aws-tutorials/aws_tutorial_img28.png)
 
 7. Open simulation by clicking its name.
 
-![Simulation view](/docs/assets/img/aws-tutorials/aws_tutorial_img29.png)
+![Simulation view](/img/aws-tutorials/aws_tutorial_img29.png)
 
 8. When it starts, you can open Gazebo view to watch as simulation proceeds.
 
-![Gazebo view](/docs/assets/img/aws-tutorials/aws_tutorial_img30.png)
+![Gazebo view](/img/aws-tutorials/aws_tutorial_img30.png)
 
 **Congratulations!**
 

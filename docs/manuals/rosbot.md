@@ -24,20 +24,20 @@ In ROSbot 2.0:
 
 <div class="clearfix">
 <div class="img-container w3">
-    <a href="/docs/assets/img/ROSbot_manual/colour_front.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/ROSbot_manual/colour_front_thumb.jpg" alt="CORE2mini board" class="hover-shadow"/>
+    <a href="/img/ROSbot_manual/colour_front.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/ROSbot_manual/colour_front_thumb.jpg" alt="CORE2mini board" class="hover-shadow"/>
     </a>
     <span>Front</span>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/ROSbot_manual/colour_back.jpg" data-fancybox="gallery" data-caption="Back">
-    <img src="/docs/assets/img/ROSbot_manual/colour_back_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
+    <a href="/img/ROSbot_manual/colour_back.jpg" data-fancybox="gallery" data-caption="Back">
+    <img src="/img/ROSbot_manual/colour_back_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
     </a>
     <span>Back</span>
 </div> 
 <div class="img-container w3">
-    <a href="/docs/assets/img/ROSbot_manual/colour_perspective.jpg" data-fancybox="gallery" data-caption="Perspective">
-    <img src="/docs/assets/img/ROSbot_manual/colour_perspective_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
+    <a href="/img/ROSbot_manual/colour_perspective.jpg" data-fancybox="gallery" data-caption="Perspective">
+    <img src="/img/ROSbot_manual/colour_perspective_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
     </a>
     <span>Perspective</span>
 </div> 
@@ -49,20 +49,20 @@ In ROSbot 2.0 PRO:
 
 <div class="clearfix">
 <div class="img-container w3">
-    <a href="/docs/assets/img/ROSbot_manual/pro_colour_front.jpg" data-fancybox="gallery" data-caption="Front">
-    <img src="/docs/assets/img/ROSbot_manual/pro_colour_front_thumb.jpg" alt="CORE2mini board" class="hover-shadow"/>
+    <a href="/img/ROSbot_manual/pro_colour_front.jpg" data-fancybox="gallery" data-caption="Front">
+    <img src="/img/ROSbot_manual/pro_colour_front_thumb.jpg" alt="CORE2mini board" class="hover-shadow"/>
     </a>
     <span>Front</span>
 </div>
 <div class="img-container w3">
-    <a href="/docs/assets/img/ROSbot_manual/pro_colour_back.jpg" data-fancybox="gallery" data-caption="Back">
-    <img src="/docs/assets/img/ROSbot_manual/pro_colour_back_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
+    <a href="/img/ROSbot_manual/pro_colour_back.jpg" data-fancybox="gallery" data-caption="Back">
+    <img src="/img/ROSbot_manual/pro_colour_back_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
     </a>
     <span>Back</span>
 </div> 
 <div class="img-container w3">
-    <a href="/docs/assets/img/ROSbot_manual/pro_colour_perspective.jpg" data-fancybox="gallery" data-caption="Perspective">
-    <img src="/docs/assets/img/ROSbot_manual/pro_colour_perspective_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
+    <a href="/img/ROSbot_manual/pro_colour_perspective.jpg" data-fancybox="gallery" data-caption="Perspective">
+    <img src="/img/ROSbot_manual/pro_colour_perspective_thumb.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
     </a>
     <span>Perspective</span>
 </div> 
@@ -72,7 +72,7 @@ If you do not own ROSbot yet, you can purchase it <a href="https://store.husario
 
 You can also test the performance of ROSbot using our simulation model in Gazebo environment. It is available here, at our <a href="https://github.com/husarion/rosbot_description">GitHub page</a>.
 
-![ROSbot gazebo](/docs/assets/img/ROSbot_manual/rosbot_gazebo.png "ROSbot gazebo")
+![ROSbot gazebo](/img/ROSbot_manual/rosbot_gazebo.png "ROSbot gazebo")
 
 You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="https://husarion.com/tutorials/ros-tutorials/1-ros-introduction/">link</a>. They will guide you through different aspects of programming autonomous vehicles in ROS
 
@@ -81,8 +81,8 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 ### Specification ###
 
 <div class="img-container.w1">
-    <a href="/docs/assets/img/ROSbot_manual/ROSbot-dim-bold.jpg" data-fancybox="gallery" data-caption="ROSbot dimension">
-    <img src="/docs/assets/img/ROSbot_manual/ROSbot-dim-bold.jpg" alt="ROSbot dimension" class="hover-shadow"/>
+    <a href="/img/ROSbot_manual/ROSbot-dim-bold.jpg" data-fancybox="gallery" data-caption="ROSbot dimension">
+    <img src="/img/ROSbot_manual/ROSbot-dim-bold.jpg" alt="ROSbot dimension" class="hover-shadow"/>
     </a>
 </div>
 
@@ -101,9 +101,9 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 
 ### Components ###
 
-![Side scheme](/docs/assets/img/ROSbot_manual/scheme_side.png "Side scheme")
+![Side scheme](/img/ROSbot_manual/scheme_side.png "Side scheme")
 
-![Back](/docs/assets/img/ROSbot_manual/colour_back.jpg "Scheme back")
+![Back](/img/ROSbot_manual/colour_back.jpg "Scheme back")
 
 #### Components description ####
 
@@ -135,11 +135,11 @@ You can find free <b>ROS tutorials</b> dedicated for ROSbot under this <a href="
 
 Graphic representation of ROSbot 2.0 (PRO) components and connections between them.
 
-![Block diagram](/docs/assets/img/ROSbot_manual/block_diagram.png "Block diagram")
+![Block diagram](/img/ROSbot_manual/block_diagram.png "Block diagram")
 
 ### Rear panel description ###
 
-![Rear panel description](/docs/assets/img/ROSbot_manual/ROSbot2_rear_panel_v1.1.png "Rear panel description")
+![Rear panel description](/img/ROSbot_manual/ROSbot2_rear_panel_v1.1.png "Rear panel description")
 
 | Component | Quantity | Description |
 | --- | --- | --- |
@@ -163,7 +163,7 @@ Graphic representation of ROSbot 2.0 (PRO) components and connections between th
 
 ROSbot is powered from an internal, rechargeable Li-Ion battery pack that contains 3 Li-Ion cells, connected in series. This type of connection is called “3S”. The schematic below explains how the cells are wired together and with the charging connector (on ROSbot side).
 
-<img width=50% src="/docs/assets/img/ROSbot_manual/batt_connection.png" alt="Battery connections" />
+<img width="50%" src="/img/ROSbot_manual/batt_connection.png" alt="Battery connections" />
 
 The BAT+ and BAT- are the power connections and the “bal Bxx” wires are used to monitor the voltage on each cell. It is strongly recommended to keep equal voltages on each cell during the charging process. The charger included with ROSbot can charge batteries in the described way and, thanks to that, the long life of the battery set is possible.
 
@@ -178,8 +178,8 @@ Please make sure that the user firmware always contains the function that monito
 
 ### Charging ROSbot ###
 
-<a href="/docs/assets/img/ROSbot_manual/charger+cables+PSU.jpg" data-fancybox data-caption="Charging kit">
-<img src="/docs/assets/img/ROSbot_manual/charger+cables+PSU.jpg" alt="Charging kit" width="50%" />
+<a href="/img/ROSbot_manual/charger+cables+PSU.jpg" data-fancybox data-caption="Charging kit">
+<img src="/img/ROSbot_manual/charger+cables+PSU.jpg" alt="Charging kit" width="50%" />
 </a>
 The ROSbot kit contains the Redox Beta charger. It is an universal charger, suitable for charging NiCd, NiMH, Li-Po, Li-Fe, Li-Ion and Pb (AGM, VRLA) batteries. ROSbot shall be charged using an included charger and cable.
 
@@ -197,7 +197,7 @@ Charger kit includes:
 6. Press and hold [Start] for 2 seconds. The charger should now ask for confirmation. Press [Start] again. The charging process should begin now.
 7. When the charging will be finished (after about 3 hours), the charger will generate a loud “beep” sound and will finish charging at the same time.
 
-![Charge config](/docs/assets/img/ROSbot_manual/charge-config.png "Charge config")
+![Charge config](/img/ROSbot_manual/charge-config.png "Charge config")
 
 If you need more information about charging, please read the [Charging manual for ROSbot](https://files.husarion.com/docs2/Charging%20manual%20for%20ROSbot.pdf) in PDF format.
 
@@ -207,7 +207,7 @@ If you need more information about charging, please read the [Charging manual fo
 - In case you need to replace batteries, use only 18650 Li-Ion batteries, with the capacity in a range of 1800...3500mAh and with a protection circuit! Using unprotected batteries may result in serious injuries or fire.
 - Unplug charging connectors carefully. You shall not unplug the charger connectors holding the wires. The balancer connection on ROSbot side has a latching tab (see photo below) that must be pressed before unplugging. On the charger side there is no latching tab but you should also unplug this connector holding the white plug.
 
-![Latched connector](/docs/assets/img/ROSbot_manual/charger-connector.jpg "Latched connector")
+![Latched connector](/img/ROSbot_manual/charger-connector.jpg "Latched connector")
 
 ## Software ##
 
@@ -343,7 +343,7 @@ This process will differ depending on ROSbot version that you have.
 #### ROSbot 2.0 ####
 
 1. Extract SD card from ROSbot, by pushing card carefully until it is released back by card holder, thel pull it out. You can find SD card slot on ROSbot right side.
- ![SD card side view](/docs/assets/img/ROSbot_manual/sd_card_side_view.png) 
+ ![SD card side view](/img/ROSbot_manual/sd_card_side_view.png) 
 2. Download image for Raspberry Pi/Tinkerboard from [here](https://husarion.com/downloads), you can choose ROS Melodic, ROS Noetic or ROS2 Foxy.
 3. Extract downloaded image (For this process we recommend using [7zip](https://www.7-zip.org/))
 4. Flash the extracted image onto SD card (For this process we recommend using [Etcher](https://www.balena.io/etcher/) but any image writing tool will be good):
@@ -424,16 +424,16 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 
 - In the terminal, type `nmtui` and press Enter. You should see:
 
-![](/docs/assets/img/howToStart/nmtui_1.png)
+![](/img/howToStart/nmtui_1.png)
 
 - Go to `Active a connection` and tap `Enter`
 
-![](/docs/assets/img/howToStart/nmtui_2.png)
+![](/img/howToStart/nmtui_2.png)
 
 - Chose you Wi-Fi network and tap `Enter` one more time. Enter your password, confirm it and tap `Esc` to get back to main menu.
 
 
-![](/docs/assets/img/howToStart/nmtui_3.png)
+![](/img/howToStart/nmtui_3.png)
 
 - Use `Quit` to close `nmtui`.
 
@@ -455,7 +455,7 @@ Press `WinKey` + `r` then type `mstsc`.
 
 You will see a window appear:
 
-![Windows RDP](/docs/assets/img/aws-tutorials/quick-start/win_rdp.png)
+![Windows RDP](/img/aws-tutorials/quick-start/win_rdp.png)
 
 Type in your device IP address and click connect.
 

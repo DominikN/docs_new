@@ -21,7 +21,7 @@ What's in the box:
 - microSD card with the software for ROSbot
 - USB to Ethernet adapter
 
-![](/docs/assets/img/howToStart/ROSbot_unboxing.jpg)
+![](/img/howToStart/ROSbot_unboxing.jpg)
 
 ## Assembly
 
@@ -64,16 +64,16 @@ In the ROSbot 2.0 set there is one USB-Ethernet card.
 
 - In the terminal, type `nmtui` and press Enter. You should see:
 
-![](/docs/assets/img/howToStart/nmtui_1.png)
+![](/img/howToStart/nmtui_1.png)
 
 - Go to `Active a connection` and tap `Enter`
 
-![](/docs/assets/img/howToStart/nmtui_2.png)
+![](/img/howToStart/nmtui_2.png)
 
 - Chose you Wi-Fi network and tap `Enter` one more time. Enter your password, confirm it and tap `Esc` to get back to main menu.
 
 
-![](/docs/assets/img/howToStart/nmtui_3.png)
+![](/img/howToStart/nmtui_3.png)
 
 - Use `Quit` to close `nmtui`.
 
@@ -120,7 +120,7 @@ You will find your Join Code at **https://app.husarnet.com**
  -> `Add element` button  
  -> `Join Code` tab**
 
-![](/docs/assets/img/howToStart/husarnet.png)
+![](/img/howToStart/husarnet.png)
 
 - Install Husarnet VPN client on your laptop:
 
@@ -205,7 +205,7 @@ Also, you can check how it works in gazebo simulation:
 roslaunch route_admin_panel demo_gazebo.launch
 ```
 
-![panel accessed through husarnet](/docs/assets/img/software/panel_at_husarnet.png)
+![panel accessed through husarnet](/img/software/panel_at_husarnet.png)
 
 You can find detailed description of Route Admin Panel in [software section](https://husarion.com/software/route-admin-panel/).
 

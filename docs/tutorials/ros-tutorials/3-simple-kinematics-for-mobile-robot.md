@@ -17,7 +17,7 @@ id: 3-simple-kinematics-for-mobile-robot
 The purpose of forward kinematics in mobile robotics is to determine robot
 position and orientation based on wheels rotation measurements. To achieve that we'll create robot kinematic model. ROSbot is four wheeled mobile robot with separate drive for each wheel, but in order to simplify kinematic calculation we will treat it as two wheeled. Two virtual wheels (marked as W<sub>L</sub> and W<sub>R</sub> on the scheme) will have axis going through robot geometric center. This way we can use simpler kinematic model of differential wheeled robot. The name "differential" comes from the fact that robot can change its direction by varying the relative rate of rotation of its wheels and does not require additional steering motion. Robot scheme is presented below:
 
-<div><center><img src="/docs/assets/img/ros/robot_scheme.png" width="50%" height="50%"/></center></div>
+<div><center><img src="/img/ros/robot_scheme.png" width="50%" height="50%"/></center></div>
 
 Description:
 * R<sub>c</sub> - robot geometric centre
@@ -46,32 +46,32 @@ after time _δt_ for given control parameters:
 
 In our case the angular speed ω and the angular position Φ of each virtual wheel will be an average of its real counterparts:
 
-![](/docs/assets/img/ros/man_3_formula_1_1.png)
-![](/docs/assets/img/ros/man_3_formula_1_2.png)
-![](/docs/assets/img/ros/man_3_formula_1_3.png)
-![](/docs/assets/img/ros/man_3_formula_1_4.png)
+![](/img/ros/man_3_formula_1_1.png)
+![](/img/ros/man_3_formula_1_2.png)
+![](/img/ros/man_3_formula_1_3.png)
+![](/img/ros/man_3_formula_1_4.png)
 
 Linear speed of each virtual wheel:
 
-![](/docs/assets/img/ros/man_3_formula_2_1.png)
-![](/docs/assets/img/ros/man_3_formula_2_2.png)
+![](/img/ros/man_3_formula_2_1.png)
+![](/img/ros/man_3_formula_2_2.png)
 
 where _r_ - the wheel radius.
 
 We can determine robot angular position and speed with:
 
-![](/docs/assets/img/ros/man_3_formula_3_1.png)
-![](/docs/assets/img/ros/man_3_formula_3_2.png)
+![](/img/ros/man_3_formula_3_1.png)
+![](/img/ros/man_3_formula_3_2.png)
 
 Then robot speed x and y component:
 
-![](/docs/assets/img/ros/man_3_formula_4_1.png)
-![](/docs/assets/img/ros/man_3_formula_4_2.png)
+![](/img/ros/man_3_formula_4_1.png)
+![](/img/ros/man_3_formula_4_2.png)
 
 To get position:
 
-![](/docs/assets/img/ros/man_3_formula_5_1.png)
-![](/docs/assets/img/ros/man_3_formula_5_2.png)
+![](/img/ros/man_3_formula_5_1.png)
+![](/img/ros/man_3_formula_5_2.png)
 
 We assume starting position as (0,0).
 
@@ -193,7 +193,7 @@ for buttons:
 
 You should get similar view in `rqt_graph`:
 
-![image](/docs/assets/img/ros/man_3_1.png)
+![image](/img/ros/man_3_1.png)
 
 ### Running motor controller with `roslaunch`
 
@@ -251,7 +251,7 @@ Remember, that you need to have active window with `teleop_twist_keyboard` to co
 
 You should get something like this on your screen:
 
-![image](/docs/assets/img/ros/man_3_2.png)
+![image](/img/ros/man_3_2.png)
 
 ### Data visualization with PlotJuggler
 
@@ -274,7 +274,7 @@ sudo apt-get install ros-melodic-plotjuggler-ros
 
 From menu bar select **Streaming > Start: ROS_Topic_Streamer**. In pop-up menu that will appear choose **/pose** from available topic names and press ok.
 
-![image](/docs/assets/img/ros/man_3_6.png)
+![image](/img/ros/man_3_6.png)
 
 Pressing **CTRL** and **SHIFT** select positions:
 
@@ -284,7 +284,7 @@ Pressing **CTRL** and **SHIFT** select positions:
 
 and then drag and drop them to the window area. This way you can comfortably observe changes in the odometry data during robot motion:
 
-![image](/docs/assets/img/ros/man_3_7.png)
+![image](/img/ros/man_3_7.png)
 
 ## Robot visualization with Rviz
 
@@ -329,7 +329,7 @@ Rviz can be launched with argument pointing to file `.rviz`,  it will contain wi
 
 New window will appear:
 
-![image](/docs/assets/img/ros/man_3_3.png)
+![image](/img/ros/man_3_3.png)
 
 Application main view consists of:
 
@@ -353,7 +353,7 @@ appear in visualization window.
 Now we will visualize position published by your robot, run `rviz`,
 click **Add** and choose tab **By topic**.
 
-![](/docs/assets/img/ros/man_3_4.png)
+![](/img/ros/man_3_4.png)
 
 If you are working with ROSbot:
 Find topic `/pose` and choose `Pose` and click **OK**.
@@ -368,7 +368,7 @@ Then in visualized items list find position `Fixed Frame` and from dropdown list
 After this is done, you should see an arrow representing position and orientation
 of your robot. You will see also representation of coordinate frames bounded with robot starting position and robot base. Move your robot and observe as arrow changes its position.
 
-![image](/docs/assets/img/ros/man_3_5.png)
+![image](/img/ros/man_3_5.png)
 
 Visualization of any other item is performed in the same way. In further
 lessons, as you will produce more objects to visualize, you will add them

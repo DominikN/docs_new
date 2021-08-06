@@ -1,10 +1,12 @@
-FROM node:8.11.4
+FROM node:lts AS app_builder
 
-WORKDIR /app/website
+WORKDIR /app
+COPY . .
+RUN yarn && yarn build
 
-EXPOSE 3000 35729
-COPY ./docs /app/docs
-COPY ./website /app/website
-RUN yarn install
+FROM nginx
 
-CMD ["yarn", "start"]
+COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=app_builder /app/build /usr/share/nginx/html
+
+EXPOSE 3000

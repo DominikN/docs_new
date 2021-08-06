@@ -5,14 +5,14 @@ id: telepresence
 
 <div class="clearfix">
 <div class="img-container">
-    <a href="/docs/assets/img/telepresence_robot_kit/ralph_alu_izo_hd.jpg" data-fancybox="gallery" data-caption="CORE2mini board">
-    <img src="/docs/assets/img/telepresence_robot_kit/ralph_alu_izo_hd.jpg" alt="CORE2mini board" class="hover-shadow"/>
+    <a href="/img/telepresence_robot_kit/ralph_alu_izo_hd.jpg" data-fancybox="gallery" data-caption="CORE2mini board">
+    <img src="/img/telepresence_robot_kit/ralph_alu_izo_hd.jpg" alt="CORE2mini board" class="hover-shadow"/>
     </a>
     <span>Front</span>
 </div>
 <div class="img-container">
-    <a href="/docs/assets/img/telepresence_robot_kit/ralph_alu_right_hd.jpg" data-fancybox="gallery" data-caption="CORE2mini pinout">
-    <img src="/docs/assets/img/telepresence_robot_kit/ralph_alu_right_hd.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
+    <a href="/img/telepresence_robot_kit/ralph_alu_right_hd.jpg" data-fancybox="gallery" data-caption="CORE2mini pinout">
+    <img src="/img/telepresence_robot_kit/ralph_alu_right_hd.jpg" alt="CORE2mini pinout" class="hover-shadow"/>
     </a>
     <span>Rear</span>
 </div> 
@@ -106,7 +106,7 @@ If you don't have one, you can purchase the complete kit <a href="https://store.
     <tr>
         <td>Batteries</td>
         <td>3</td>
-        <td>Li-Ion 18650 protected, rechargeable batteries, 2600mAh capacity, 3.7V nominal voltage <br>
+        <td>Li-Ion 18650 protected, rechargeable batteries, 2600mAh capacity, 3.7V nominal voltage <br />
 		Note: Device may be shipped interchangeably with similar batteries.</td>
     </tr>
     <tr>
@@ -135,12 +135,12 @@ Connect the peripherals:
 * Plug in DC power cable.
 
 ***<font color="red">very important: DC motors with encoders and servo should be connected to proper ports like this:</font>***
-<a data-fancybox href="/docs/assets/img/howToStart/cables_ralph.png"  data-caption="CORE2mini board">
-    <img src="/docs/assets/img/howToStart/cables_ralph.png" height="50%" width="50%" />
+<a data-fancybox href="/img/howToStart/cables_ralph.png"  data-caption="CORE2mini board">
+    <img src="/img/howToStart/cables_ralph.png" height="50%" width="50%" />
 </a>
 
-<a data-fancybox href="/docs/assets/img/telepresence_robot_kit/ralph_alu_back_hd.jpg"  data-caption="CORE2mini board">
-    <img src="/docs/assets/img/telepresence_robot_kit/ralph_alu_back_hd.jpg">
+<a data-fancybox href="/img/telepresence_robot_kit/ralph_alu_back_hd.jpg"  data-caption="CORE2mini board">
+    <img src="/img/telepresence_robot_kit/ralph_alu_back_hd.jpg" />
 </a>
 <div style="text-align: center"><i>Properly assembled CORE2 telepresence robot</i></div>
 

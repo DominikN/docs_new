@@ -14,7 +14,7 @@ We have prepared ready to go virtual environment with end effect of following th
 
 <div><center>
 <a href="http://www.rosject.io/l/b968f74/">
-<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+<img alt="run-on-ROSDS" src="/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
 </center></div>
 
 ## Introduction
@@ -573,7 +573,7 @@ select
 
 Then for global plan path change its colour to red (values 255; 0; 0):
 
-![image](/docs/assets/img/ros/man_7_1.png)
+![image](/img/ros/man_7_1.png)
 
 Now you can aadd one more element, open object adding window, go to tab
 **`By topic`** and from the list select `/move_base_simple/goal/Pose`,
@@ -588,7 +588,7 @@ select `move_base/global_costmap/costmap` and
 of both costmaps to `costmap`, this will allow to distinguish costmaps
 from occupancy grid map.
 
-![image](/docs/assets/img/ros/man_7_2.png)
+![image](/img/ros/man_7_2.png)
 
 Having all the elements visualized, you can set goal for robot, from
 **`Toolbar`** click button **`2D nav goal`**, then click a place in
@@ -596,7 +596,7 @@ Having all the elements visualized, you can set goal for robot, from
 Observe as path is generated (you should see a line from your robot
 pointing to direction) and robot is moving to its destination.
 
-![image](/docs/assets/img/ros/man_7_3.png)
+![image](/img/ros/man_7_3.png)
 
 ## Summary
 

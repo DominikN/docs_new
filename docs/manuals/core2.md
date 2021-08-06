@@ -5,13 +5,13 @@ id: core2
 
 <div class="clearfix">
 <div class="img-container">
-    <a href="/docs/assets/img/core2-hardware/core2_top_small.jpg" data-fancybox="gallery" data-caption="CORE2 board">
-    <img src="/docs/assets/img/core2-hardware/core2_top_small.jpg" alt="CORE2 board" class="hover-shadow"/>
+    <a href="/img/core2-hardware/core2_top_small.jpg" data-fancybox="gallery" data-caption="CORE2 board">
+    <img src="/img/core2-hardware/core2_top_small.jpg" alt="CORE2 board" class="hover-shadow"/>
     </a>
 </div>
 <div class="img-container">
-    <a href="/docs/assets/img/core2-hardware/cheatsheet_small.jpg" data-fancybox="gallery" data-caption="CORE2 pinout">
-    <img src="/docs/assets/img/core2-hardware/cheatsheet_small.jpg" alt="CORE2 pinout" class="hover-shadow"/>
+    <a href="/img/core2-hardware/cheatsheet_small.jpg" data-fancybox="gallery" data-caption="CORE2 pinout">
+    <img src="/img/core2-hardware/cheatsheet_small.jpg" alt="CORE2 pinout" class="hover-shadow"/>
     </a>
 </div> 
 </div>
@@ -20,8 +20,8 @@ id: core2
 
 | Interface | Description | Parameters |
 | --- | --- | --- | 
-| Power input | 6.8-16V | 70...3000mA current consumption, depends on external modules<br>standard 5.5/2.1 mm DC plug (centre-positive) |
-| I/O ports | 54 | 3.3V/5V tolerant GPIOs<br>series resistance is 330Ω |
+| Power input | 6.8-16V | 70...3000mA current consumption, depends on external modules<br />standard 5.5/2.1 mm DC plug (centre-positive) |
+| I/O ports | 54 | 3.3V/5V tolerant GPIOs<br />series resistance is 330Ω |
 | ADC | up to 13 channels | 12-bit resolution |
 | PWM | up to 10 channels: 6x 3.3V, 4x H-bridge output | Frequency range for H-bridge: 1Hz...21khz (in 16 steps) Period range for 3.3V outputs: 1...65535 us | 
 | UART | up to 4 channels | baudrate: 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000, 1000000, 2000000, 4000000 |
@@ -48,7 +48,7 @@ This port is compatible with LEGO® MINDSTORMS® sets when a special adapter for
 
 3. **4 digital inputs/outputs.** Additionally, some hSensor ports have a hardware UART interface assigned to these IO’s, and some have a hardware I2C interface. If you want UART or I2C, please check the software documentation which physical ports to use.
 
-![](/docs/assets/img/core2-hardware/hsensor.svg)
+![](/img/core2-hardware/hsensor.svg)
 
 | hSensor pin | Software name | Default function | Alternate function |
 | --- | --- | --- | --- |
@@ -59,7 +59,9 @@ This port is compatible with LEGO® MINDSTORMS® sets when a special adapter for
 | 5 | - | +5V power supply output | |
 | 6 | - | GND (0V) | |
 
-[comment]: <> (***Advice: use <mark>ctrl + SPACE</mark> after typing "software_name." to see methods in the web IDE.***)
+:::info
+Advice: use <mark>ctrl + SPACE</mark> after typing "software_name." to see methods in the web IDE.
+:::
 
 Using ADC
 ```
@@ -91,7 +93,7 @@ Each hExt port contains:
 
 All interfaces are compatible with 3.3V CMOS logic. The A/D converter range is 0 - 3.3 V.
 
-![](/docs/assets/img/core2-hardware/hext.svg)
+![](/img/core2-hardware/hext.svg)
 
 ##### Pin functions #####
 
@@ -130,7 +132,7 @@ All interfaces are compatible with 3.3V CMOS logic. The A/D converter range is 0
 
 You can connect up to 6 servo motors directly to CORE2. Power supply is onboard thanks to integrated DC/DC converter with selectable voltage output (remeber that there is one power supply voltage for all servos).
 
-![](/docs/assets/img/core2-hardware/hservo.svg)
+![](/img/core2-hardware/hservo.svg)
 
 | hServo pin | Description | Parameters |
 | --- | --- | --- |
@@ -165,7 +167,7 @@ Wikipedia provides an accessible explanation how encoders work: [incremental rot
 
 The encoder interface is compatible with the majority of popular optical and magnetic encoders integrated with motors or sold separately.
 
-![](/docs/assets/img/core2-hardware/hmot.svg)
+![](/img/core2-hardware/hmot.svg)
 
 | hMot pin | Default function | Description |
 | --- | --- | --- |
@@ -180,7 +182,7 @@ The encoder interface is compatible with the majority of popular optical and mag
 
 **DC motor with encoder**
 
-![](/docs/assets/img/core2-hardware/motors_encoders.jpg)
+![](/img/core2-hardware/motors_encoders.jpg)
 
 This motor type is suitable for more professional applications. It can be identified by 6 wires coming out of the encoder board. DC motor with quadrature encoder interface allows you to create own sophisticated control algorithm optimized for your application in contrast to RC servos that can't give any feedback to your algorithms.
 
@@ -189,7 +191,7 @@ Remember not to power your motors using higher voltage than recommended in their
 
 **DC motor without encoder**
 
-![](/docs/assets/img/core2-hardware/dc_motor.jpg)
+![](/img/core2-hardware/dc_motor.jpg)
 
 Of course, in many cases you don't need the encoder - e.g. if you need to drive wheels without sensing their position. In that case you can use a simple DC motor with gearbox. It can be identified by 2 wires coming out of the motor.
 
@@ -197,7 +199,7 @@ Despite the lack of the encoder, you still can recognize the extreme positions o
 
 **LEGO® motor**
 
-![](/docs/assets/img/core2-hardware/lego_motors.jpg)
+![](/img/core2-hardware/lego_motors.jpg)
 
 CORE2 is fully compatible with servomotors from LEGO® Mindstorms® when used with connector adapter. There are 3 types of LEGO® servomotors: motor from NXT/NXT2.0 kit and two types from EV3 kit. In fact, they are all motors with quadrature encoder. \\
 Remember that LEGO® motors have 9V nominal voltage and when you supply CORE2 with higher voltage, you should limit the PWM duty cycle.
@@ -205,7 +207,7 @@ Remember that LEGO® motors have 9V nominal voltage and when you supply CORE2 wi
 
 **Stepper motor**
 
-![](/docs/assets/img/core2-hardware/hstep.png)
+![](/img/core2-hardware/hstep.png)
 
 Connecting a bipolar stepper motor is also possible. In this case, you need two hMotor ports to drive one stepper motor. If your motor windings have 4 or 6 terminals, it can work in the bipolar configuration (the 6-terminal motors can work in both unipolar and bipolar configuration). In the picture you can see how to connect the bipolar motor with two H-bridge outputs.
 
@@ -227,7 +229,7 @@ Communication via CAN requires terminated transmission line. Thus, CORE2 has the
 
 If you need to connect more than two CORE2s, you can attach jumpers in only one or two CORE2s and remove jumpers from the others to keep the total impedance greater than 45Ω. The special case is the "star" connection, where you can leave the termination only in one CORE2 that is the star common junction node. The recommended termination for this case is 100Ω or 100Ω||220Ω (in parallel) that gives the resistance ~69Ω.
 
-![](/docs/assets/img/core2-hardware/hcan.svg)
+![](/img/core2-hardware/hcan.svg)
 
 | hCan pin | Signal | Description |
 | --- | --- | --- |
@@ -239,7 +241,7 @@ If you need to connect more than two CORE2s, you can attach jumpers in only one 
 
 <div class="image center h300">
 
-![](/docs/assets/img/core2-hardware/dbg.svg)
+![](/img/core2-hardware/dbg.svg)
 
 </div>
 
@@ -269,7 +271,7 @@ The USB host connector has two functions:
 Independently from chosen function, it also works as a port for charging mobile
 devices. Data connection and charging (up to 1A) can be provided simultaneously.
 
-![Jumpers configuration example](/docs/assets/img/core2-hardware/jumper_USB_opis2.jpg "Jumpers configuration example")
+![Jumpers configuration example](/img/core2-hardware/jumper_USB_opis2.jpg "Jumpers configuration example")
 
 The function is chosen by soldering small jumpers on the bottom side of the PCB
 (see the picture).
@@ -305,7 +307,7 @@ Just a connector for a standard microSD card. It uses one of the SPI interfaces 
 
 ### LEDs and buttons ###
 
-<img  width="50%" src="/docs/assets/img/core2-hardware/leds.svg" alt="LEDs" />
+<img  width="50%" src="/img/core2-hardware/leds.svg" alt="LEDs" />
 
 There are 3 green LEDs and 2 buttons to be controlled by user on CORE2. The hLED1, hLED2 and hLED3 are described as **L1**, **L2**, **L3** on the PCB. The buttons hBtn1 and hBtn2 are placed near the LEDs.
 
@@ -325,7 +327,7 @@ while (true) {
 
 In case you observe LEDs blinking in a strange way, it means that the microcontroller fell into hard fault state and needs reset. It can happen if you accidentally execute an inappropriate program code. The picture below shows how it looks like:
 
-![](/docs/assets/img/core2-hardware/L123_hard_fault.gif)
+![](/img/core2-hardware/L123_hard_fault.gif)
 
 The buttons can be used in a very simple way:
 
@@ -354,7 +356,7 @@ The CORE2 power supply input has overvoltage (>16V), reverse-polarity and overcu
 
 ### Block diagram ###
 
-![](/docs/assets/img/core2-hardware/powersupply.svg)
+![](/img/core2-hardware/powersupply.svg)
 
 | Voltage line name | I max | Available on port: | Info |
 | --- | --- | --- | --- |
@@ -387,7 +389,7 @@ How much current does it need? It strongly depends on the robot configuration. A
 
 CORE2 has two internal voltage regulators. The input voltage (behind protection circuit) Vin(p) is converted to 5V by a switching regulator, and then to 3.3V by a linear voltage regulator. Be aware of the current limits – the total current must not exceed 2A through the 5V line. We will also remind you about power limitations in the description of individual interfaces.
 
-The supply voltage +5V(sw) for hExt and hSens connectors can be switched on and off. It is enabled by default but can be switched off in the software.</br>
+The supply voltage +5V(sw) for hExt and hSens connectors can be switched on and off. It is enabled by default but can be switched off in the software.<br />
 
 **Power supply alternatives**
 
@@ -418,16 +420,16 @@ There are 2 status LEDs - LR1 and LR2 - controlled directly from the ESP32/RPi d
 
 | Mode | LR1 (yellow) | LR2 (blue) | Period | Behavior |
 | --- | --- | --- | --- | --- |
-| Config mode | blinking alternately | | 600 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_config.gif) |
-| Connecting | OFF | blinking | 300 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_connecting.gif) |
-| Connected | OFF | ON | - | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_connected.gif) |
-| Not configured | blinking | OFF | 100/1000 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_not_conf.gif) |
-| Invalid auth. | blinking | OFF | 100 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif) |
-| No Internet | blinking | ON | 100 ms | ![](/docs/assets/img/core2-hardware/lr12_gif/LR12_no_internet.gif) |
+| Config mode | blinking alternately | | 600 ms | ![](/img/core2-hardware/lr12_gif/LR12_config.gif) |
+| Connecting | OFF | blinking | 300 ms | ![](/img/core2-hardware/lr12_gif/LR12_connecting.gif) |
+| Connected | OFF | ON | - | ![](/img/core2-hardware/lr12_gif/LR12_connected.gif) |
+| Not configured | blinking | OFF | 100/1000 ms | ![](/img/core2-hardware/lr12_gif/LR12_not_conf.gif) |
+| Invalid auth. | blinking | OFF | 100 ms | ![](/img/core2-hardware/lr12_gif/LR12_invalid_auth.gif) |
+| No Internet | blinking | ON | 100 ms | ![](/img/core2-hardware/lr12_gif/LR12_no_internet.gif) |
 
 ## hRPI connector ##
 
-![](/docs/assets/img/core2-hardware/rpi_connector.png "hRPI connector")
+![](/img/core2-hardware/rpi_connector.png "hRPI connector")
 
 Although the connector's name comes from Raspberry Pi, it is designed to be used with both ESP
 and Raspberry. CORE2 comes without any connector soldered because the connector

@@ -8,7 +8,7 @@ title: 5. Control robot by voice commands
 Nowadays growing popularity of IoT causes increasing demand for creating user-friendly interfaces for complicated devices to allow everyone to use them without the knowlagde of how they work.  
 Provided application was developed with an attempt to follow the mentioned principle and make it easier both for developers (by allowing them to write as little code as possible) and potential users (by creating very friendly interfaces).
 
-![image](/docs/assets/img/ros-projects/robot-voice-control/diagram.png)
+![image](/img/ros-projects/robot-voice-control/diagram.png)
 
 ## Description
 This project is a platform with a web UI running on Robot Operating System allowing users to control their robot by voice commands with [DeepSpeech](https://github.com/mozilla/DeepSpeech) used as speech-to-text engine. We will show you four possible ways of running this project depending on your preferences:

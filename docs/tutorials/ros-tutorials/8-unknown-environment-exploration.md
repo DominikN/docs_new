@@ -233,11 +233,11 @@ If everything was set correctly exploration will start immediately after node in
 
 If you are using gazebo you should see a maze with rosbot:
 
-![image](/docs/assets/img/ros/man-8-gazebo.png)
+![image](/img/ros/man-8-gazebo.png)
 
 Inspect how it works using rviz:
 
-![image](/docs/assets/img/ros/man-8-rviz.png)
+![image](/img/ros/man-8-rviz.png)
 
 
 ## Summary

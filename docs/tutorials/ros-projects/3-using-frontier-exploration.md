@@ -29,7 +29,7 @@ We have prepared ready to go virtual environment with end effect of following pr
 
 <div><center>
 <a href="http://www.rosject.io/l/b97ec47/">
-<img alt="run-on-ROSDS" src="/docs/assets/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
+<img alt="run-on-ROSDS" src="/img/ros/Run-on-ROSDS-button.png" width="250px"/></a>
 </center></div>
 
 ## Environment exploration in ROS
@@ -277,7 +277,7 @@ add some objects to visualize:
 You can also add `Tf` visualization, but it is not necessary for proper
 operation.
 
-![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_1.png)
+![image](/img/ros-projects/3-using-frontier-exploration/project_3_1.png)
 
 From toolbar select `Publish Point` button and click in visualization
 window, this will be first corner of exploration area, select
@@ -285,24 +285,24 @@ window, this will be first corner of exploration area, select
 area, they will be connected by blue line. Continue until desired area
 is surrounded by lines.
 
-![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_2.png)
+![image](/img/ros-projects/3-using-frontier-exploration/project_3_2.png)
 
 To finish defining exploration region set last point at the position of
 first corner, line will become red.
 
-![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_3.png)
+![image](/img/ros-projects/3-using-frontier-exploration/project_3_3.png)
 
 You need to use `Publish Point` button for the last time, click anywhere
 inside region and exploration task will start.
 
-![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_4.png)
+![image](/img/ros-projects/3-using-frontier-exploration/project_3_4.png)
 
 Robot will explore all accessible location within selected area. Observe
 as robot explores area, when there are no more frontiers or frontiers
 are not accessible due to obstacles, robot will stop and exploration
 task is considered as done.
 
-![image](/docs/assets/img/ros-projects/3-using-frontier-exploration/project_3_5.png)
+![image](/img/ros-projects/3-using-frontier-exploration/project_3_5.png)
 
 ## Summary
 

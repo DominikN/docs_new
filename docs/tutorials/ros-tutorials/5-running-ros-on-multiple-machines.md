@@ -262,15 +262,15 @@ Log in to [Husarnet Dashboard](https://app.husarnet.com/) or create an account i
 
 You should see Husarnet Dashboard with no networks nor elements:
 
-![husarnet-dashboard-empty](/docs/assets/img/ros/husarnet_empty_dashboard.png)
+![husarnet-dashboard-empty](/img/ros/husarnet_empty_dashboard.png)
 
 Push button "Create network" and in dialog type desired network name into field `Network name`:
 
-![husarnet-add-network-dialog](/docs/assets/img/ros/husarnet_add_network_dialog.png)
+![husarnet-add-network-dialog](/img/ros/husarnet_add_network_dialog.png)
 
 After pushing button "Create", you will be redirected to network view:
 
-![husarnet-empty-network](/docs/assets/img/ros/husarnet_empty_network.png)
+![husarnet-empty-network](/img/ros/husarnet_empty_network.png)
 
 You can use button "Add element" to add to your network cloud elements or mobile app, but now we will use terminal method.
 
@@ -309,7 +309,7 @@ Go to https://app.husarnet.com/husarnet/fc94cd22622bf708b9bb22d5589275fa8832943f
 
 Open the provide link in web browser, you will see device configuration dialog:
 
-![husarnet-add-device](/docs/assets/img/ros/husarnet_add_device_dialog.png)
+![husarnet-add-device](/img/ros/husarnet_add_device_dialog.png)
 
 Type desired name of the device into field `Name for this device`, you will use this name to distinguish your devices in dashboard.
 From `Add to network` dropdown menu choose name of network that you created in previous step.
@@ -320,11 +320,11 @@ Repeat procedure of adding device with second robot.
 
 After adding both robots, your network should look like below:
 
-![husarnet-two-elements](/docs/assets/img/ros/husarnet_two_elements.png)
+![husarnet-two-elements](/img/ros/husarnet_two_elements.png)
 
 You can set device to be master in its settings. Choose device you want to be master and open configuration dialog by clicking its name, status or address:
 
-![husarnet-set-master](/docs/assets/img/ros/husarnet_set_master.png)
+![husarnet-set-master](/img/ros/husarnet_set_master.png)
 
 Check `ROS master` checkbox and push button "Update".
 
@@ -332,7 +332,7 @@ When you will start `roscore` on master, message `ROS master (roscore) is not ru
 
 Your first Husarnet network is configured and ready:
 
-![husarnet-network-ready](/docs/assets/img/ros/husarnet_network_ready.png)
+![husarnet-network-ready](/img/ros/husarnet_network_ready.png)
 
 ### Running the nodes with Husarnet
 

@@ -1,37 +1,34 @@
 # The official Husarion documentation
 
-### How to use locally
+This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
 
-#### 1. Prerequisites
+### Installation
 
-Ensure you have the latest version of [`Node`](https://nodejs.org/en/) installed. It is also recommended to install [`Yarn`](https://yarnpkg.com/lang/en/) as well.
-* `Node` version >= 8.x
-* `Yarn` version >= 1.5
-
-#### 2. Install node modules
-
-Open `docs_new` dir, switch to `website` subdir and run:
-
-```bash
-$ cd <installation_path>/docs_new/website && npm install # or yarn install
+```
+$ yarn
 ```
 
-#### 3. Local build - images
+### Local Development
 
-In order to see pictures in your local build you have to comment line `37` in `<installation_path>/docs_new/website/siteConfig.js` file:
-
-![image](https://user-images.githubusercontent.com/28567623/54622133-52a3d180-4a69-11e9-9c2e-8d4dc59b3bd7.png)
-
-> **For contributors**
-> 
-> Remember to remove comment before pushing to master branch!
-
-#### 4. Run documentation website locally
-
-In `website` subdir run:
-
-```bash
-$ npm start # or yarn start
+```
+$ yarn start
 ```
 
-Load the example site at `http://localhost:3000` if it did not already open automatically.
+This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+
+### Build
+
+```
+$ yarn build
+```
+
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
+
+### Deployment
+
+```
+$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
+```
+
+If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+

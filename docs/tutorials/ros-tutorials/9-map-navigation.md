@@ -132,7 +132,7 @@ This might be little confusing especially if you are not sure where map was star
 
 When you launch and the pose calculated by AMCL doesn't match real pose use `2D Estimate Pose` from `rviz`. Select point the same way as navigation goal.
 
-![image](/docs/assets/img/ros/man-9-estimate-pose.png)
+![image](/img/ros/man-9-estimate-pose.png)
 
 ## Launch navigation
 
@@ -242,7 +242,7 @@ roslaunch tutorial_pkg tutorial_9.launch use_gazebo:=true
 
 Then open another terminal and check out how it works with `rviz`. You should be able to set target using `2D Nav Goal` and robot should drive there. 
 
-![image](/docs/assets/img/ros/man-9-rviz.png)
+![image](/img/ros/man-9-rviz.png)
 
 When you create new map change map path to proper at `map_server.launch` file. 
 

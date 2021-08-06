@@ -17,7 +17,7 @@ Besides support for variety of boards from different manufacturers the framework
 
 <div>
 <center>
-<img src="/docs/assets/img/mbed-tutorials/mbed_logo.png" width="400px" alt="Mbed OS logo"/>
+<img src="/img/mbed-tutorials/mbed_logo.png" width="400px" alt="Mbed OS logo"/>
 </center></div>
 
 * [Official Webpage](https://www.mbed.com/en/platform/mbed-os/)
@@ -200,13 +200,13 @@ This will enable more accurate IntelliSense and remove some error notifications.
 
 Open the template project's directory and select `src/main.cpp`. You should see:
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img1.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img1.png)
 
 The sample code is very simple. It instantiates a `BusOut` object that controls multiple GPIOs regardless of ports they belong to. On-board LEDs blink in order described by `leds_mask` array at the interval introduced by function `ThisThread::sleep_for(1000)`.    
 
 In directory's root folder find `custom_targets.json` file:
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img2.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img2.png)
 
 Mbed OS Configuration system uses this file to describe user's custom boards. It allows using Mbed OS with boards that aren't officially supported. We use `custom_targets.json` and files from `TARGET_CORE2` to define `CORE2` target. You can learn more about configuration system [here](https://os.mbed.com/docs/v5.13/reference/configuration.html).
 
@@ -214,7 +214,7 @@ In the directory `TARGET_CORE2` you can find files `PinNames.h` and `PeripheralP
 
 Another file that is used by Mbed OS configuration system is `mbed_app.json`. Open it.
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img3.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img3.png)
 
 This file is used to configure your application. It allows to override the default configuration of mbed libraries (or your own) for specific targets (tag `"target_overrides"`). You can also define your own macros that will have global visibility (tag `"macros"`) and create configuration entries (tag `"config"`).
 
@@ -237,7 +237,7 @@ mbed compile --config --source . --source ../mbed-os/ -v
 
 The last file we will check is `task.json` from `.vscode` directory. It defines tasks that are recognized by Visual Studio Code IDE. The tasks can be accessed by pressing `CTRL + SHIFT + P` and typing `Task: Run Task` in Command Pallete.
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img4.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img4.png)
 
 ### Building and flashing firmware
 
@@ -247,7 +247,7 @@ If it's your first time with Mbed OS on CORE2 and you have been using Husarion C
 
 Press `CTRL + SHIFT + B`. It will run `BUILD (RELEASE)` task. Wait until compilation finishes.
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img5.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img5.png)
 
 Here we have two option of flashing firmawre to CORE2.
 
@@ -255,7 +255,7 @@ Here we have two option of flashing firmawre to CORE2.
 
 This method was explained in tutorial [CORE2 - quick start](https://husarion.com/tutorials/howtostart/core2-quick-start/#the-flashing) so if you don't know it yet please check this tutorial.
 
-![](/docs/assets/img/howToStart/core2_hSerial.png)
+![](/img/howToStart/core2_hSerial.png)
 
 > **Note!**
 The hSerial port on rear panel of ROSbot is the same port as hSerial on CORE2 visible in the illustration. 
@@ -277,7 +277,7 @@ Full documentation of STM32loader you can find in our [Software](https://husario
 
 If LEDs start blinking like on the animation below then congratulations! You've just successfully built and flashed your first Mbed application for CORE2!
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial-animation.gif)
+![](/img/mbed-tutorials/mbed-tutorial-animation.gif)
 
 ### Tasks
 - Modify existing application so as the on-board leds blink in Gray code. 
@@ -290,7 +290,7 @@ If LEDs start blinking like on the animation below then congratulations! You've 
 If you made it this far you must be really into this stuff! Let's do something more interesting and learn how to communicate with devices running ROS using mbed. For this purpose we will use [rosserial for mbed platforms](http://wiki.ros.org/rosserial_mbed). 
 
 <div>
-<center><img src="/docs/assets/img/mbed-tutorials/ros_logo.png" width="400px" alt="result"/></center>
+<center><img src="/img/mbed-tutorials/ros_logo.png" width="400px" alt="result"/></center>
 </div> 
 
 ### Example publisher
@@ -326,7 +326,7 @@ This will add `rosserial-mbed` library to your project and download all library'
 * `mbed add <library-url>` - adds library to project,
 * `mbed remove <library-name>` - removes library from project.
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img7.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img7.png)
 
 #### The code
 
@@ -488,7 +488,7 @@ To view communication on "mbed_device" topic open new termina and run:
 rostopic echo mbed_device
 ```
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img8.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img8.png)
 
 ### Example subscriber
 
@@ -632,7 +632,7 @@ To publish new message to "input_raw" topic open a new tab and run:
 rostopic pub input_raw std_msgs/String "Hello World!" --once
 ```
 
-![](/docs/assets/img/mbed-tutorials/mbed-tutorial1-img9.png)
+![](/img/mbed-tutorials/mbed-tutorial1-img9.png)
 
 If you want to learn more - check official [rosserial mbed tutorials](http://wiki.ros.org/rosserial_mbed/Tutorials) from **ros.org**. 
 

@@ -47,7 +47,7 @@ catkin_make
 ```
 After this command you should get output like this:
 
-![image](/docs/assets/img/ros/man_2_1.png)
+![image](/img/ros/man_2_1.png)
 
 And it should end with:
 
@@ -89,12 +89,12 @@ catkin_create_pkg tutorial_pkg roscpp
 
 After typing in this command you should get output like this:
 
-![image](/docs/assets/img/ros/man_2_2.png)
+![image](/img/ros/man_2_2.png)
 
 This will create folder named `tutorial_pkg` and some files in it. Your
 workspace file structure should now look like like below:
 
-![image](/docs/assets/img/ros/man_2_1a.png)
+![image](/img/ros/man_2_1a.png)
 
 Created files are:
 
@@ -261,7 +261,7 @@ catkin_make
 
 You should get output like this:
 
-![image](/docs/assets/img/ros/man_2_3.png)
+![image](/img/ros/man_2_3.png)
 
 ### Running your node ###
 
@@ -990,7 +990,7 @@ rosservice call /tutorial_pkg_node/saved_images
 
 As a response you should get something like this:
 
-![image](/docs/assets/img/ros/man_2_7.png)
+![image](/img/ros/man_2_7.png)
 
 ## Message types ##
 
