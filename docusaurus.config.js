@@ -36,6 +36,16 @@ module.exports = {
           position: "left",
         },
         {
+          href: "https://husarion.com/downloads/",
+          label: "Downloads",
+          position: "left",
+        },
+        {
+          href: "https://community.husarion.com/",
+          label: "Community",
+          position: "left",
+        },
+        {
           href: "https://github.com/husarion/",
           label: "GitHub",
           position: "right",

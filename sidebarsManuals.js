@@ -1,6 +1,7 @@
 module.exports = {
-  docsSidebar: {
+  manualsSidebar: {
     Manuals: [
+      "manuals",
       "rosbot",
       "panther",
       "core2",
