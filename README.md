@@ -24,10 +24,11 @@ $ yarn build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
-### Docker
+### Build static docs with Docker
 
 ```
 docker-compose up -build
 ```
 
+visit http://localhost:3000
 
