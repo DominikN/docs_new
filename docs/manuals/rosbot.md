@@ -212,7 +212,7 @@ If you need more information about charging, please read the [Charging manual fo
 ## Software ##
 
 Software for ROSbot can be divided into 2 parts:
- * A [low-level firmware](https://github.com/husarion/rosbot-stm32-firmware) that works on the real-time controller (CORE2). It can be developed using [Visual Studio Code IDE](/tutorials/mbed/using-core2-with-mbed-os/).
+ * A [low-level firmware](https://github.com/husarion/rosbot-stm32-firmware) that works on the real-time controller (CORE2). It can be developed using [Visual Studio Code IDE](/tutorials/mbed/1-enviroment-configuration).
  * OS based on Ubuntu 18.04 or 20.04, which runs on the SBC (ASUS Tinker Board or UpBoard) and contains all components needed to start working with ROS or ROS2 immediately. The microSD card or MMC memory with OS is included with each ROSbot. The OS has been modified to make the file system insensitive to sudden power cuts.
 
 
@@ -485,7 +485,7 @@ In order to use ROSbot you have to flash ROSbot's CORE2 board with low level fir
 
 ### I. Mbed firmware 
 
-This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](https://husarion.com/tutorials/mbed-tutorials/using-core2-with-mbed-os/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-stm32-firmware).
+This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](/tutorials/mbed/1-enviroment-configuration/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-stm32-firmware).
 
 SSH to ROSbot over LAN network or VPN to get access to it's Linux terminal.
 

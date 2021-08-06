@@ -6,7 +6,7 @@ RUN yarn && yarn build
 
 FROM nginx
 
-COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=app_builder /app/build /usr/share/nginx/html
 
-EXPOSE 3000
+EXPOSE 80

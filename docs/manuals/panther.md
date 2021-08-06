@@ -162,13 +162,13 @@ Specification of given ratings:
 | Internal computer | 1 | Raspberry Pi 4B with Broadcom BCM2711 processor, quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz and 4GB LPDDR4 RAM. Used to manage all the basic functions of a mobile platform. |
 | On-board computer * | 1 | **Intel NUC10i7FNK** or **ADLINK Vizi-AI** or **HP Z2 Mini Workstation with Nvidia graphics card** |
 | Router | 1 | Teltonika RUTX11 - Dual-band (2.4 GHz/5 GHz), Access Point / Client Mode, 4G LTE CAT 6 dual SIM, Bluetooth 4.0 LE, GNSS (GPS, GLONASS, BeiDou, Galileo and QZSS) - This device ensures reliable communication between internal and external components of the robot system. Fast LTE communication and dual-band WiFi allow you to maintain communication with the robot. [More details](https://teltonika-networks.com/product/rutx11/). |
-| Antenna | 2 | Dual-band (2.4 GHz/5 GHz) placed on the rear of the robot. See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.|
+| Antenna | 2 | Dual-band (2.4 GHz/5 GHz) placed on the rear of the robot. See all [available options]( https://husarion.com/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.|
 | Inertial navigation system | 1 | PhidgetSpatial 3/3/3 Basic (3-axis compass, a 3-axis gyroscope, and a 3-axis accelerometer) [More details](https://www.phidgets.com/?tier=3&catid=10&pcid=8&prodid=1025). |
 | Front and rear lights | 2 | Signal lighting made of 48 pcs. APA102C LED chips build into an aluminum profile on the robot's bumpers. |
 | Brushless Motor with planetary gearbox | 4 | 80PMB800K.80RBL-100 - Drive implemented on 4 durable motors 473 watts of power (900 W instantaneous power) each and planetary gears with a maximum torque of 60Nm allows the robot to move at a speed of 2 m/s even uphill with a slope of 40% with a load of 50 kg. |
-| Additional kits** |  | Together with the robot, you can get an integrated lidar, depth camera, manipulator and more. See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon)|
+| Additional kits** |  | Together with the robot, you can get an integrated lidar, depth camera, manipulator and more. See all [available options]( https://husarion.com/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon)|
 
-> **Note:** *By default, there is only up to one on-board computer in the robot. For detailed information please check System installation and read more about [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter User computer.
+> **Note:** *By default, there is only up to one on-board computer in the robot. For detailed information please check System installation and read more about [available options]( https://husarion.com/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter User computer.
 
 > **Note:** **Most of external modules are attached to the profiles on the top of the platform. [More details](https://husarion.com/manuals/panther/#mounting-rails).
 
@@ -190,7 +190,7 @@ Specification of given ratings:
 * I2C
 * SPI
 
-See all [available options](/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.
+See all [available options]( https://husarion.com/docs/assets/pdf/available_options_revA.pdf "Husarion Panther available extension options") (soon), chapter Communication.
 
 ### Block diagram ###
 
@@ -216,7 +216,7 @@ Pushing the safety switch completely cuts off the power to the device.
 
 ### Power supply ###
 
-The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours). You can check more specific information about Panther power consumption [here](/docs/assets/pdf/panther_power_consumption_and_run_time.pdf "Husarion Panther power consumption and run time").
+The Panther is equipped with a set of battery cells in Lithium-Ion technology with a rated voltage of 36V and 20Ah, which gives it 740Wh of energy to use for calculations and move around in demanding terrain for about 3.5 hours. Moving the robot in a friendly terrain allows for a significant extension of the robot's working time up to 8 hours (standby time up to 40 hours). You can check more specific information about Panther power consumption [here]( https://husarion.com/docs/assets/pdf/panther_power_consumption_and_run_time.pdf "Husarion Panther power consumption and run time").
 
 Low battery level will be indicated by a change in the bumper light - both lights will fade in and out orange to indicate that the battery voltage has dropped below 35 volts. Read more in the [Bumpers and signal lights](#bumpers-and-signal-lights) section.
 
@@ -264,7 +264,7 @@ These profiles are fixed to the robot with four 8mmx40mm quick release pins with
 
 To enable access to user space, top rails can be pivoted by pulling out 2x quick release pin in both front and back direction. Maximum opening angle is 160 degrees with built-in stop.
 ![Top rails open](/img/Panther/top_rails_open_v1.0.png "Top rails open") 
-For more useful information in the field of mechanics, please see the document [Panther Overall Dimensions](/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
+For more useful information in the field of mechanics, please see the document [Panther Overall Dimensions]( https://husarion.com/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") and chapter [CAD models](https://husarion.com/manuals/panther/#cad-models).
 
 > **Note** The presence of railings has no effect on the water and dust resistance of the robot.
 
@@ -305,11 +305,11 @@ Inside the robot, there is a dedicated volume of approximately 14.5 liters (3.8 
 
 To facilitate the work with the project based on Panther platform, we have prepared CAD models for download in three extension formats:
 
-<a href="/docs/assets/models/Panther_v1.0.step.zip" download target="_blank">STEP</a>
+<a href="https://husarion.com/docs/assets/models/Panther_v1.0.step.zip" download target="_blank">STEP</a>
 <br />
-<a href="/docs/assets/models/Panther_v1.0.iges.zip" download target="_blank">IGES</a>
+<a href="https://husarion.com/docs/assets/models/Panther_v1.0.iges.zip" download target="_blank">IGES</a>
 <br />
-<a href="/docs/assets/models/Panther_v1.0.stl.zip" download target="_blank">STL</a>
+<a href="https://husarion.com/docs/assets/models/Panther_v1.0.stl.zip" download target="_blank">STL</a>
 
 
 ## Software guide ##
@@ -644,10 +644,10 @@ In case of misconfiguration it is possible to reset router to working default se
 ## Docs and links ##
 All helpful documents and links in one place:
 
-* [Safety instructions](/docs/assets/pdf/Husarion_Panther_safety_instructions.pdf "Husarion Panther safety instructions") - to avoid malfunction or damage your Panther please read this safety manual before use
-* [Panther schematic block diagram](/docs/assets/pdf/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them
-* [Panther Overall Dimensions](/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") - three basic projections of the platform in all wheel options
-* [Panther power consumption and run time](/docs/assets/pdf/panther_power_consumption_and_run_time.pdf "Husarion Panther power consumption and run time") - description of Panther power consumption and run time in different working conditions
+* [Safety instructions]( https://husarion.com/docs/assets/pdf/Husarion_Panther_safety_instructions.pdf "Husarion Panther safety instructions") - to avoid malfunction or damage your Panther please read this safety manual before use
+* [Panther schematic block diagram]( https://husarion.com/docs/assets/pdf/schematic_block_diagram.pdf "Panther schematic block diagram") - basic robot components and connections between them
+* [Panther Overall Dimensions]( https://husarion.com/docs/assets/pdf/Husarion_Panther_overall_dimensions.pdf "Husarion Panther Overall Dimensions") - three basic projections of the platform in all wheel options
+* [Panther power consumption and run time]( https://husarion.com/docs/assets/pdf/panther_power_consumption_and_run_time.pdf "Husarion Panther power consumption and run time") - description of Panther power consumption and run time in different working conditions
 * [Teltonika RUTX11 manual](https://wiki.teltonika-networks.com/view/RUTX11_Manual)
 * [Teltonika RUTX11 datasheet](https://teltonika-networks.com/downloads/en/rutx11/RUTX11-Datasheet.pdf)
 

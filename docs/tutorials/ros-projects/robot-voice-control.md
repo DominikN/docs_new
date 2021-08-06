@@ -360,7 +360,7 @@ You can add as many keys as you need. These would be stored in action message as
 
 **It is worth to mention that splitting orders into cases for user-defined orders is optional** 
 
-**To learn about creating your own orders move to [Examples](link)**
+**To learn about creating your own orders move to [Examples](#Examples)**
 
 
 ### Structure of executors
