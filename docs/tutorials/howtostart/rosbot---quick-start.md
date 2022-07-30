@@ -1,6 +1,6 @@
 ---
-title: ROSbot - quick start
-sidebar_label: 2. ROSbot - quick start
+title: ROSbot 2 / ROSbot 2 PRO- quick start
+sidebar_label: 2. ROSbot 2 / ROSbot 2 PRO - quick start
 id: rosbot---quick-start
 ---
 

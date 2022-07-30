@@ -24,6 +24,7 @@
     "chart.js": "2.7.1",
     "clsx": "^1.1.1",
     "g-sheets-api": "^1.4.1",
+    "mr-pdf": "^1.1.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1"
