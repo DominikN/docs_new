@@ -65,7 +65,7 @@ In the ROSbot 2R set there is one USB-Ethernet card.
 
 4. To connect with ROSbot via ssh, type in your terminal application: 
 
-    ```bash title="husarion@rosbot2r:~$ ... "
+    ```bash title="user@mylaptop:~$ ..."
     ssh husarion@192.168.77.2
     ```
 
