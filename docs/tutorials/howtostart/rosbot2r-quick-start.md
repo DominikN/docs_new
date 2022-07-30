@@ -1,7 +1,7 @@
 ---
 title: ROSbot 2R - quick start
-sidebar_label: 3. ROSbot 2R - quick start
-id: rosbot---quick-start
+sidebar_label: 3. ROSbot 2R
+id: rosbot2r-quick-start
 ---
 
 ROSbot 2R is an autonomous, open source robot platforms for research and quick prototyping use cases. It can be used as learning platforms for Robot Operating System (ROS) as well as a base for a variety of robotic applications like inspection robots, custom service robots etc.
@@ -39,7 +39,7 @@ To charge the batteries, follow this [guide](https://files.husarion.com/docs2/Ch
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
-## Open a Linux terminal
+## Accessing ROSbot's Linux terminal
 
 To perform initial network configuration, you need to access ROSbot's Linux terminal first. There are two options
 
@@ -65,7 +65,7 @@ In the ROSbot 2R set there is one USB-Ethernet card.
 
 4. To connect with ROSbot via ssh, type in your terminal application: 
 
-    ```bash title="execute in ROSbot's terminal"
+    ```bash title="husarion@rosbot2r:~$ ... "
     ssh husarion@192.168.77.2
     ```
 
@@ -75,60 +75,61 @@ In the ROSbot 2R set there is one USB-Ethernet card.
 
 ROSbot 2R is using [netplan](https://netplan.io/) instead of GUI Wi-Fi manager. It allows you to have all physical network interfaces configured from a single file. To connect your ROSbot to a Wi-Fi network edit `/etc/netplan/01-network-manager-all.yaml` file, eg. with `nano`:
 
-    ```bash title="execute in ROSbot's terminal"
-    sudo nano /etc/netplan/01-network-manager-all.yaml
-    ```
+```bash title="husarion@rosbot2r:~$ ... "
+sudo nano /etc/netplan/01-network-manager-all.yaml
+```
 
-    And modify lines 30-31 by replacing `PLACE_YOUR_WIFI_SSID_HERE` with your SSID (Wi-Fi network name) and `PLACE_YOUR_WIFI_PASSWORD_HERE` with your Wi-Fi password:
+And modify lines 31-32 by replacing `PLACE_YOUR_WIFI_SSID_HERE` with your SSID (Wi-Fi network name) and `PLACE_YOUR_WIFI_PASSWORD_HERE` with your Wi-Fi password:
 
-    ```yaml {30-31} showLineNumbers title="/etc/netplan/01-network-manager-all.yaml"
-    network:
-      version: 2
-      renderer: networkd
+```yaml {31-32} showLineNumbers title="/etc/netplan/01-network-manager-all.yaml"
+network:
+  version: 2
+  renderer: networkd
 
-      ethernets:
+  ethernets:
     
-        # built-in Ethernet port
-        eth0:
-          dhcp4: no
-          dhcp6: no
-          addresses:           
-            - 192.168.77.2/24
+    # built-in Ethernet port
+    eth0:
+      dhcp4: no
+      dhcp6: no
+      addresses:           
+       - 192.168.77.2/24
 
-        # USB Ethernet card
-        eth1:
-          dhcp4: no
-          dhcp6: no
-          addresses:           
-            - 192.168.77.2/24
+    # USB Ethernet card
+    eth1:
+      dhcp4: no
+      dhcp6: no
+      addresses:           
+       - 192.168.77.2/24
 
-      wifis:
+  wifis:
 
-        # wlan0:  # internal Raspberry Pi Wi-Fi (do not use it when the top cover is used)
-        #   optional: true
+    # wlan0:  # internal Raspberry Pi Wi-Fi (do not use it when the top cover is used)
+    #   optional: true
 
-        wlan1:  # external USB Wi-Fi card (with antenna)
-          dhcp4: true
-          dhcp6: true
-          optional: true
-          access-points:
-            "PLACE_YOUR_WIFI_SSID_HERE":
-              password: "PLACE_YOUR_WIFI_PASSWORD_HERE"
-    ```
+    wlan1:  # external USB Wi-Fi card (with antenna)
+      dhcp4: true
+      dhcp6: true
+      optional: true
+      access-points:
+        "PLACE_YOUR_WIFI_SSID_HERE":
+          password: "PLACE_YOUR_WIFI_PASSWORD_HERE"
 
-    **save the file** than, apply the new network setup:
+```
 
-    ```bash title="execute in ROSbot's terminal"
-    sudo netplan apply
-    ```
+**save the file** than, apply the new network setup:
 
-    You can check to which Wi-Fi network you are connected by using this command:
+```bash title="husarion@rosbot2r:~$ ... "
+sudo netplan apply
+```
 
-    ```bash title="execute in ROSbot's terminal"
-    iwgetid
-    ```
+You can check to which Wi-Fi network you are connected by using this command:
 
-    If your Wi-Fi setup is more complex (eg. if you want to connect to [Eduroam](https://en.wikipedia.org/wiki/Eduroam) based Wi-Fi that is popular in many Universities), visit [netplan configuration examples](https://netplan.io/examples).
+```bash title="husarion@rosbot2r:~$ ... "
+iwgetid
+```
+
+If your Wi-Fi setup is more complex (eg. if you want to connect to [Eduroam](https://en.wikipedia.org/wiki/Eduroam) based Wi-Fi that is popular in many Universities), visit [netplan configuration examples](https://netplan.io/examples).
 
 4. Open Linux terminal and type `ifconfig` to find your IP address (for `wlan1` network interface). Save it for later.
 
@@ -161,39 +162,37 @@ You will find your Join Code at **https://app.husarnet.com**
 
 Install Husarnet VPN client on your laptop:
 
-```bash title="execute in your computer's terminal"
+```bash title="user@mylaptop:~$ ..."
 curl https://install.husarnet.com/install.sh | sudo bash
 ```
 
-```bash title="execute in your computer's terminal"
+```bash title="user@mylaptop:~$ ... "
 sudo systemctl restart husarnet
 ```
-
-```bash title="execute in your computer's terminal"
+```bash title="user@mylaptop:~$ ... "
 sudo husarnet join <your_join_code_from_step_1> mylaptop
 ```
 
 ##### Connect your ROSbot 2R
 
-```bash title="execute in ROSbot's terminal"
+```bash title="husarion@rosbot2r:~$ ... "
 sudo systemctl enable husarnet
 ```
 
-```bash title="execute in ROSbot's terminal"
+```bash title="husarion@rosbot2r:~$ ... "
 sudo systemctl start husarnet
 ```
 
-```bash title="execute in ROSbot's terminal"
-sudo husarnet join <your_join_code_from_step_1> myrosbot
+```bash title="husarion@rosbot2r:~$ ... "
+sudo husarnet join <your_join_code_from_step_1> rosbot2r
 ```
-
 
 ##### Test the connection
 
 That's all - now you can use your device hostname instead of IPv4 addr, eg.:
 
-```bash
-ssh husarion@myrosbot
+```bash title="user@mylaptop:~$ ... "
+ssh husarion@rosbot2r
 ```
 
 ## Low level firmware

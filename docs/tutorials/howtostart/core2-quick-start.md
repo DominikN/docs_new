@@ -1,6 +1,6 @@
 ---
 title: CORE2 - quick start
-sidebar_label: 1. CORE2 - quick start
+sidebar_label: 1. CORE2
 id: core2-quick-start
 ---
 

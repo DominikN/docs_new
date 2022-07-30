@@ -5,6 +5,7 @@ module.exports = {
       "How To Start": [
         "howtostart/core2-quick-start",
         "howtostart/rosbot---quick-start",
+        "howtostart/rosbot2r-quick-start",
       ],
     },
     {
