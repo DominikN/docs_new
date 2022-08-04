@@ -4,7 +4,7 @@ sidebar_label: 3. ROSbot 2R
 id: rosbot2r-quick-start
 ---
 
-ROSbot 2R is an autonomous, open source robot platforms for research and quick prototyping use cases. It can be used as learning platforms for Robot Operating System (ROS) as well as a base for a variety of robotic applications like inspection robots, custom service robots etc.
+ROSbot 2R is an autonomous, open source robot platform for research and quick prototyping use cases. It can be used as a learning platform for Robot Operating System (ROS) as well as a base for a variety of robotic applications like inspection robots, custom service robots etc.
 
 If you don't have one, you can get it [here](https://store.husarion.com/).
 
@@ -39,9 +39,15 @@ To charge the batteries, follow this [guide](https://files.husarion.com/docs2/Ch
 
 To attach the antenna, screw it to the antenna connector on the ROSbot rear panel.
 
+
+## Installing ROSbot's system image
+
+Download the lates [ROSbot 2R ubuntu 20.04 system image](https://testing-github-action.s3.eu-west-1.amazonaws.com/rosbot-rpi-ubuntu-20.04-2022-07-28.img.xz) and burn it on the SD card with [Etcher](https://www.balena.io/etcher/).
+
+
 ## Accessing ROSbot's Linux terminal
 
-To perform initial network configuration, you need to access ROSbot's Linux terminal first. There are two options
+To perform the initial network configuration, you need to access ROSbot's Linux terminal first. There are two options:
 
 ### Option 1: Using display, mouse and keyboard
 
@@ -49,16 +55,16 @@ ROSbot is basically a computer running Ubuntu, so let's open it like a standard 
 
 1. Plug in a display with HDMI, mouse and keyboard into USB port in the rear panel of ROSbot.
 2. Turn on the robot and wait until it boots.
-3. Open a `terminal` app
+3. Open a `terminal` app.
 
 ### Option 2: Using an Ethernet adapter
 
 In the ROSbot 2R set there is one USB-Ethernet card.
 
 1. Turn on the robot and wait until it boots.
-2. Plug in Ethernet adapter (included in set) to USB port in the rear panel.
+2. Plug in the Ethernet adapter (included in a set) to a USB port in the rear panel.
 3. Plug in one end of the Ethernet cable into your computer and other one to the adapter.
-4. Set a static IP address on your computer for your Ethernet card in a `192.168.77.0/24` subnet, eg:
+4. Set a static IP address **on your computer for its Ethernet card** in a `192.168.77.0/24` subnet, eg:
 
     - IPv4: `192.168.77.27`
     - mask: `255.255.255.0`
@@ -71,9 +77,11 @@ In the ROSbot 2R set there is one USB-Ethernet card.
 
     The default password for user `husarion` is also `husarion`.
 
-## Connect ROSbot to your Wi-Fi network
+## Connecting ROSbot to your Wi-Fi network
 
-ROSbot 2R is using [netplan](https://netplan.io/) instead of GUI Wi-Fi manager. It allows you to have all physical network interfaces configured from a single file. To connect your ROSbot to a Wi-Fi network edit `/etc/netplan/01-network-manager-all.yaml` file, eg. with `nano`:
+ROSbot 2R is using [netplan](https://netplan.io/) instead of GUI Wi-Fi manager. It allows you to have all physical network interfaces configured from a single text file. 
+
+To connect your ROSbot to a Wi-Fi network edit `/etc/netplan/01-network-manager-all.yaml` file, eg. with `nano`:
 
 ```bash title="husarion@rosbot2r:~$ ... "
 sudo nano /etc/netplan/01-network-manager-all.yaml
@@ -114,41 +122,37 @@ network:
       access-points:
         "PLACE_YOUR_WIFI_SSID_HERE":
           password: "PLACE_YOUR_WIFI_PASSWORD_HERE"
-
 ```
 
-**save the file** than, apply the new network setup:
+**save the file** then, apply the new network setup:
 
 ```bash title="husarion@rosbot2r:~$ ... "
 sudo netplan apply
 ```
 
-You can check to which Wi-Fi network you are connected by using this command:
+You can check to which Wi-Fi network your ROSbot us connected by using this command:
 
 ```bash title="husarion@rosbot2r:~$ ... "
 iwgetid
 ```
 
-If your Wi-Fi setup is more complex (eg. if you want to connect to [Eduroam](https://en.wikipedia.org/wiki/Eduroam) based Wi-Fi that is popular in many Universities), visit [netplan configuration examples](https://netplan.io/examples).
+If your Wi-Fi network setup is more complex (eg. if you want to connect to [Eduroam](https://en.wikipedia.org/wiki/Eduroam) based Wi-Fi that is popular in many universities), visit [netplan configuration examples](https://netplan.io/examples).
 
-4. Open Linux terminal and type `ifconfig` to find your IP address (for `wlan1` network interface). Save it for later.
+Open Linux terminal and type `ifconfig` to find your IP address (for `wlan1` network interface). Save it for later.
 
 ## Remote access in LAN
 
-While ROSbot is connected to Wi-Fi network you can access it by using it's IPv4 address by:
+While ROSbot is connected to a Wi-Fi network, you can access it by using its IPv4 address by SSH:
 
-### SSH
-
-It's the simplest way to access ROSbot if you don't need to use graphic tools. You just have to type:
-
+```bash title="user@mylaptop:~$ ..."
+ssh husarion@ROSBOT_IP
 ```
-ssh husarion@<ROSBOT_IP>
-```
-### Remote access over Internet (VPN)
 
-Instead of using local IPv4 address you can access the robot by using it's hostname - both in LAN and over the Internet. You just need to setup a VPN connection (Husarnet VPN client is pre-installed)
+## Remote access over the Internet (VPN)
 
-#### Get the Join Code from your Husarnet network:
+Instead of using a local IPv4 address you can access the robot by using it's hostname - both in LAN and over the Internet. You just need to setup a VPN connection (Husarnet VPN client is pre-installed)
+
+### Get the Join Code for your Husarnet network:
 
 You will find your Join Code at **https://app.husarnet.com**  
 
@@ -158,7 +162,7 @@ You will find your Join Code at **https://app.husarnet.com**
 
 ![](/img/howToStart/husarnet.png)
 
-##### Connect your laptop
+### Connect your laptop
 
 Install Husarnet VPN client on your laptop:
 
@@ -169,11 +173,12 @@ curl https://install.husarnet.com/install.sh | sudo bash
 ```bash title="user@mylaptop:~$ ... "
 sudo systemctl restart husarnet
 ```
+
 ```bash title="user@mylaptop:~$ ... "
 sudo husarnet join <your_join_code_from_step_1> mylaptop
 ```
 
-##### Connect your ROSbot 2R
+### Connect your ROSbot 2R
 
 ```bash title="husarion@rosbot2r:~$ ... "
 sudo systemctl enable husarnet
@@ -187,7 +192,7 @@ sudo systemctl start husarnet
 sudo husarnet join <your_join_code_from_step_1> rosbot2r
 ```
 
-##### Test the connection
+### Test the connection
 
 That's all - now you can use your device hostname instead of IPv4 addr, eg.:
 
@@ -195,19 +200,142 @@ That's all - now you can use your device hostname instead of IPv4 addr, eg.:
 ssh husarion@rosbot2r
 ```
 
-## Low level firmware
+After that you should see:
+```
+///////////////////////////////////////////  ____   ___  ____  _           _   
+///////////////////////o/////////////////// |  _ \ / _ \/ ___|| |__   ___ | |_ 
+//////////////////////yMs////////////////// | |_) | | | \___ \| '_ \ / _ \| __|
+///////////////sNh+///NMm////////////////// |  _ <| |_| |___) | |_) | (_) | |_ 
+////////////////NMNs/oMMM////////////////// |_| \_\\___/|____/|_.__/ \___/ \__|
+//////////++////oNMMy/mNd//////////////////                                    
+//////////omNmdyoodms//+/////////////////// 
+////////////ymMMNh///////////////////////// 
+/////////////+oyho/shh///////////////////// 
+////////ohmmNNmmy//dMM///////////////////// 
+/////////+oyhdmmy//dMM///////////////////// 
+//////////+++ooo///dMM///////////////////// 
+////////ohmNMMMMd//dMM/////ymd/////////////  husarion@rosbot2r
+/////////+oosyys+//dMM/////mMN/////////////  =================
+/////////+syhhhho//dMM+++++mMN/////////////  Website: https://husarion.com/
+////////ohmNNNNNd//dMMNNNNNMMN/////////////  OS: 20.04.4 LTS (Focal Fossa)
+/////////////+++///dMMsssssNMN/////////////  Kernel: 5.4.0-1052-raspi
+///////////////////dMM/////mMN/////////////  Board: None
+///////////////////dMN/////dMN/////////////  Uptime: 3m.
+///////////////////////////////////////////  Memory: 17070MB / 29677MB (58%)
+///////////////////////////////////////////
 
-In the heart of each ROSbot there is a CORE2 board equipped with STM32F4 family microcontroller. The board is responsible for real time tasks like controlling motors, calculating PID regulator output or talking to distance sensors. High level computation is handled by SBC (single board computer) - Raspberry Pi 4
+husarion@rosbot2r:~$ 
+```
 
-### Mbed firmware
+## ROSbot ROS packages
 
-This firmware version is based on ARM's Mbed OS system. If you're interested in learning more about using Mbed OS check our tutorial [Using CORE2 with Mbed OS](/tutorials/mbed/1-enviroment-configuration/). We recommend you also to look at the [ROSbot's Mbed firmware GitHub page](https://github.com/husarion/rosbot-firmware-new).
+At this stage you should have your ROSbot up and running, with remote (in LAN or VPN) connection from your laptop.
 
-All additional information about flashing ROSbot firmware and using stm32loader you can find in [ROSbot manual](/manuals/rosbot/#i-mbed-firmware). 
+You can run ROSbot's ROS packages natively on your ROSbot's host OS, by just clonning and building [rosbot_ros](https://github.com/husarion/rosbot_ros) repo, however the more convenient way is using Docker images for that.
 
-#### Required ROS packages - `rosbot_ekf`
+### Pulling the ROSbot docker image
 
-In order to use Mbed firmware the `rosbot_ekf` package have to be installed on your ROSbot. The package incorporates a ready to use Extended Kalman Filter that combines both the IMU and encoders measurements to better approximate the ROSbot position and orientation. The package also contains custom messages that are required by the new firmware. The package is already installed on your ROSbot.
+Access your ROSbot's terminal and run:
 
+```bash title="husarion@rosbot2r:~$ ... "
+docker pull husarion/rosbot:noetic
+```
 
-> Note: if you experience any issues, make sure batteries are fully charged ([LED L1 is blinking](/manuals/rosbot/#rear-panel-description) if battery level is low). Charging manual is [here](/manuals/rosbot/#charging-rosbot).
+:::note
+
+There is also a version for ROS Melodic: to pull it, just replace `noetic` with `melodic` tag
+
+:::
+
+### Flashing the firmware
+
+Both `husarion/rosbot:noetic` and `husarion/rosbot:melodic` docker images include corresponding firmware for STM32F4 (a low level microcontroller that controlls motors, GPIO ports and TOF distance sensors).
+
+To flash the right firmware, open ROSbot's terminal and execute one of the following command (if you use ROS noetic tag):
+   
+- for differential drive (regular wheels):
+   
+  ```bash title="husarion@rosbot2r:~$ ... "
+  docker run --rm -it --privileged \
+  husarion/rosbot:noetic \
+  /flash-firmware.py /root/firmware_diff.bin
+  ```
+- for omnidirectional wheeled ROSbot (mecanum wheels):
+
+  ```bash title="husarion@rosbot2r:~$ ... "
+  docker run --rm -it --privileged \
+  husarion/rosbot:noetic \
+  /flash-firmware.py /root/firmware_mecanum.bin
+  ```
+
+### Running the ROSbot Docker image
+
+Paste the following command in the ROSbot's terminal:
+
+```bash title="husarion@rosbot2r:~$ ... "
+docker run --rm -it \
+--device /dev/ttyAMA0 \
+--network host \
+-e SERIAL_PORT=/dev/ttyAMA0 \
+-e ROS_IP=127.0.0.1 \
+-e ROS_MASTER_URI=http://127.0.0.1:11311 \
+husarion/rosbot:noetic \
+roslaunch rosbot_bringup rosbot_docker.launch
+````
+
+Now open the second terminal and check avaialable ROS topics:
+
+```bash
+husarion@rosbot2r:~$ rostopic list
+/battery
+/buttons
+/cmd_ser
+/cmd_vel
+/diagnostics
+/imu
+/joint_states
+/odom
+/odom/wheel
+/pose
+/range/fl
+/range/fr
+/range/rl
+/range/rr
+/rosout
+/rosout_agg
+/set_pose
+/tf
+/tf_static
+/velocity
+```
+
+```bash
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+```
+
+```bash
+Reading from the keyboard  and Publishing to Twist!
+---------------------------
+Moving around:
+   u    i    o
+   j    k    l
+   m    ,    .
+
+For Holonomic mode (strafing), hold down the shift key:
+---------------------------
+   U    I    O
+   J    K    L
+   M    <    >
+```
+
+## Next steps
+
+Now you know how to access ROSbot's ROS node from the Linux terminal.
+
+Running ROS natively is fine for a relatively small projects. For more complex ones, the full Dockerized setup is the better approach.
+
+We have created a refference project to show you how to run autonomous mapping and navigation on ROSbot with using Navigation2 and SLAM Toolbox. Everything is Docker based, sor running it is straightforward.
+
+![ROSbot with Navigation2 and Slam Toolbox](/img/howToStart/rviz_mapping.png)
+
+Find the full source code and instructions [here](https://github.com/husarion/rosbot-docker/tree/ros1/demo)
